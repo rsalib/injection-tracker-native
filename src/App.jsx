@@ -877,7 +877,7 @@ export default function App() {
       </ScrollView>
 
       {/* ── Bottom tab navigation ──────────────────────────────────── */}
-      <View style={[styles.tabBarWrap, { paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }]}>
+      <View style={[styles.tabBarWrap, { paddingBottom: 'max(40px, env(safe-area-inset-bottom))' }]}>
         <View style={styles.tabBarCapsule}>
           {NAV_TABS.map(t => {
             const active = activeTab === t.id;
@@ -1169,7 +1169,7 @@ const styles = StyleSheet.create({
   tabBarWrap: {
     backgroundColor: '#111827',
     paddingHorizontal: 16,
-    paddingTop: 8,
+    paddingTop: 12,
     paddingBottom: 24,
     alignItems: 'center',
   },

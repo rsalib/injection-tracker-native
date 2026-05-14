@@ -215,7 +215,7 @@ All three functions are in `functions/index.js`:
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v2`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v3`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -375,6 +375,8 @@ Standing constraints that apply to all current and future work in this project:
 - `App.jsx`: safe area insets applied — `env(safe-area-inset-top)` on screen container, `max(16px, env(safe-area-inset-top))` on header, `max(24px, env(safe-area-inset-bottom))` on tab bar; `viewport-fit=cover` added to `index.html` viewport meta
 - `SiteRotation.jsx`: stub replaced with full implementation — RN primitives, `flexWrap: 'wrap'` site grid, dynamic highlight conditionals inline, all logic identical to v2
 - Pre-cutover gap audit completed: file inventory confirmed full parity; v2 CLAUDE.md compared against native; all gaps resolved
+- `App.jsx`: tab bar safe area padding increased from `max(24px, ...)` to `max(40px, env(safe-area-inset-bottom))` to clear iPhone home indicator
+- `App.jsx`: `tabBarWrap` `paddingTop` bumped from 8 to 12px for icon/label breathing room
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2
