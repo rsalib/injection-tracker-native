@@ -209,6 +209,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
               style={[
                 styles.libraryEntry,
                 !isLast && styles.libraryEntryBorder,
+                { paddingBottom: expanded || isLast ? 16 : 0, marginBottom: expanded && !isLast ? 16 : 0 },
               ]}
             >
               <Pressable

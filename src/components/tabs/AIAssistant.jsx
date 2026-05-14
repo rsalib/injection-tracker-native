@@ -100,20 +100,20 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
               {m.groundingMetadata?.groundingChunks && m.groundingMetadata.groundingChunks.length > 0 && (
                 <View style={styles.sourcesSection}>
                   <Text style={styles.sourcesLabel}>Sources Cited:</Text>
-                  <View style={styles.sourcesList}>
+                  <ul style={{ margin: 0, paddingLeft: 16, display: "flex", flexDirection: "column", gap: 6 }}>
                     {m.groundingMetadata.groundingChunks.map((chunk, cIdx) => {
                       const url = chunk.web?.uri;
                       const title = chunk.web?.title || url;
                       if (!url) return null;
                       return (
-                        <View key={cIdx}>
-                          <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: "#22d3ee", textDecoration: "none", fontWeight: 600, fontSize: 12 }}>
+                        <li key={cIdx} style={{ fontSize: 12 }}>
+                          <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: "#22d3ee", textDecoration: "none", fontWeight: 600 }}>
                             {title}
                           </a>
-                        </View>
+                        </li>
                       );
                     })}
-                  </View>
+                  </ul>
                 </View>
               )}
             </View>
@@ -253,10 +253,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 8,
-  },
-  sourcesList: {
-    flexDirection: 'column',
-    gap: 6,
   },
   loadingBubble: {
     backgroundColor: 'rgba(17, 24, 39, 0.6)',

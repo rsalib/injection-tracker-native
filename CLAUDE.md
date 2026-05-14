@@ -340,6 +340,9 @@ Standing constraints that apply to all current and future work in this project:
 - `LogTab.jsx`: Timeline dot positioning fixed — `dateNodeOuter` moved to direct child of `Pressable` (matching v2 structure where circle is direct child of `<button>`); empty `dateNodeInner` stub removed
 - `App.jsx`: Initial tab changed from `'Calculator'` to `'Dashboard'`
 - `App.jsx`: Layout structure fixed — `height: '100vh'` + `overflow: 'hidden'` on `screen` container; `index.html` updated with `html`/`body`/`#root` height anchors so header and tab bar stay fixed while `ScrollView` scrolls
+- `ResourcesTab.jsx`: `libraryEntry` spacing restored — conditional `paddingBottom`/`marginBottom` applied inline matching v2's `expanded`/`isLast` logic (cannot be static `StyleSheet` values)
+- `AIAssistant.jsx`: Sources list restored to `<ul><li>` raw HTML with `paddingLeft: 16` bullet indentation — matching v2 structure; unused `sourcesList` StyleSheet entry removed
+- `LogTab.jsx`: `logEntryDot` dead `borderColor` audit confirmed clean — property was never present in native StyleSheet, no change needed
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2
