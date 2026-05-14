@@ -215,7 +215,7 @@ All three functions are in `functions/index.js`:
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v3`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v4`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -377,6 +377,7 @@ Standing constraints that apply to all current and future work in this project:
 - Pre-cutover gap audit completed: file inventory confirmed full parity; v2 CLAUDE.md compared against native; all gaps resolved
 - `App.jsx`: tab bar safe area padding increased from `max(24px, ...)` to `max(40px, env(safe-area-inset-bottom))` to clear iPhone home indicator
 - `App.jsx`: `tabBarWrap` `paddingTop` bumped from 8 to 12px for icon/label breathing room
+- `App.jsx` + `index.html`: screen container changed from `100vh` to `100dvh` — fixes tab bar being clipped by mobile browser chrome on iOS Safari/Chrome; `#root` in `index.html` updated to match
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

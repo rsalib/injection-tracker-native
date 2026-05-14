@@ -984,7 +984,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: '#111827',
-    height: '100vh',
+    height: '100dvh',
     overflow: 'hidden',
   },
 
