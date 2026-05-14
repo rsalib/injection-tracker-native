@@ -267,6 +267,7 @@ Standing constraints that apply to all current and future work in this project:
 - Step 4: App shell — header, 6-tab navigation
 - Step 5: All five remaining tab components migrated to RN primitives
 - Step 6: Modals + full business logic wiring
+- Step 7: PWA shell — manifest.json, sw.js, firebase.json, SW registration
 
 ### Completed Steps Detail
 
@@ -318,8 +319,15 @@ Standing constraints that apply to all current and future work in this project:
 - All 6 tabs wired with real props matching v2 prop signatures exactly. All 6 modals wired with open/close state and callbacks.
 - Build: **212 KB gzipped, clean.**
 
+**Step 7 — PWA Shell**
+- `manifest.json` — copied verbatim from v2. Name, short_name, start_url, display, background_color, theme_color, and icon path all correct for native project structure.
+- `sw.js` — copied from v2, `CACHE_VERSION` reset to `v1` (fresh start; no stale v2 cache keys to inherit). Never-intercept list covers Firebase, Gemini, Google Auth, FDA, PubMed, and all `run.app` Cloud Run URLs.
+- `firebase.json` — hosting block only. Functions block omitted — Cloud Functions stay deployed from v2; `firebase deploy --only hosting` will not touch functions.
+- `.firebaserc` — copied verbatim. Same Firebase project `injection-tracker-6341d`.
+- `index.html` updated: added `<meta name="theme-color" content="#111827">`, `<link rel="manifest" href="/manifest.json">`, and SW registration script (`navigator.serviceWorker.register('/sw.js')` on `window load`).
+- Note: `theme-color` in `index.html` is `#111827`; `manifest.json` uses `#121212` — both preserved to match v2 exactly.
+
 ### Remaining
-- **Step 7 (next):** PWA shell — copy/update `manifest.json`, `sw.js`, and add `firebase.json` with Firebase Hosting config targeting this project's `dist/` folder
-- Step 8: Full QA, side-by-side comparison with v2
+- **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2
 - Step 9: Cutover — point injectiontracker.web.app to this project, retire v2
 - Step 10 (future): Add Metro for native iOS/Android build, App Store submission
