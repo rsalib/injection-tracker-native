@@ -43,10 +43,18 @@ src/
       TabIcons.jsx          # 6 SVG tab icons (DashboardIcon … AIIcon)
       SyringeVisualizer.jsx # fully implemented
       SearchDropdown.jsx    # fully implemented
-      ConfirmDialog.jsx     # stub — implement in Step 6
-      PromptDialog.jsx      # stub — implement in Step 6
-      Modal.jsx             # stub — implement in Step 6
-    modals/               # empty — implement in Step 6
+      ConfirmDialog.jsx     # fully implemented
+      PromptDialog.jsx      # fully implemented
+      Modal.jsx             # fully implemented
+      ToastHost.jsx         # fully implemented
+      ErrorBoundary.jsx     # fully implemented
+    modals/
+      AddMedModal.jsx       # fully implemented (exports MedForm)
+      EditMedModal.jsx      # fully implemented (imports MedForm)
+      TitrationModal.jsx    # fully implemented
+      QueueVialModal.jsx    # fully implemented
+      LogFormModal.jsx      # fully implemented
+      AddScheduleModal.jsx  # fully implemented
     tabs/
       Calculator.jsx        # fully implemented
       Dashboard.jsx         # fully implemented
@@ -258,6 +266,7 @@ Standing constraints that apply to all current and future work in this project:
 - Step 3: Auth flow + Calculator tab + core UI components
 - Step 4: App shell — header, 6-tab navigation
 - Step 5: All five remaining tab components migrated to RN primitives
+- Step 6: Modals + full business logic wiring
 
 ### Completed Steps Detail
 
@@ -288,13 +297,29 @@ Standing constraints that apply to all current and future work in this project:
 - Pixel-perfect tuning deferred to Step 9 QA pass.
 - All 5 tabs wired into `App.jsx` with empty-state props; data layer wiring is Step 6.
 
+**Step 6a — UI Primitives**
+- `Modal.jsx` — overlay as raw `<div>` (`position: fixed`) with focus trap, Escape key handler, click-outside-to-close, and `popIn` keyframe animation injected via `<style>` tag. Focus trap uses DOM APIs (`querySelector`, `activeElement`) — will need `react-native-modal` port for native builds.
+- `ConfirmDialog.jsx` — no click-outside-to-close (deliberate, matches v2). Accepts dynamic `confirmBg`/`confirmColor` props for context-sensitive button styling.
+- `PromptDialog.jsx` — `TextInput` with `autoFocus` + `onSubmitEditing`. `keyboardType="numeric"` for number prompts.
+- `ToastHost.jsx` — `position: fixed` raw `<div>`, exposes `window.showToast` global. CSS `animation:` on raw `<div>` elements (exempt from RN StyleSheet rules).
+- `ErrorBoundary.jsx` — class component, pure RN primitives. `handleEmergencyReset` clears `localStorage`/`sessionStorage` and calls `window.location.reload()`.
+- `App.jsx` updated: `ErrorBoundary` wraps root output; `ToastHost` mounted at root level.
+
+**Step 6b — Modals**
+- All 6 modals created: `AddMedModal` (exports reusable `MedForm`), `EditMedModal` (imports `MedForm` from `AddMedModal.jsx`), `TitrationModal`, `QueueVialModal`, `LogFormModal`, `AddScheduleModal`.
+- `<select>`, `<input type="date">`, `<input type="time">` kept as raw HTML. Standalone number inputs use `TextInput keyboardType="numeric"`.
+- Style fixes applied across all files: `animation:` → `animationKeyframes:` in all `StyleSheet` entries; `background:` shorthand → `backgroundColor:` throughout (raw HTML inline styles remain exempt).
+
+**Step 6c — Business Logic**
+- Full `App.jsx` state, refs, handlers, and effects ported from v2.
+- Auto-logger reads from `stateRef.current` inside the 60s interval to avoid stale closure state — **this pattern must be preserved in any future edits to the interval**.
+- `logDose` uses `fbTransaction` for atomic vial deduction (collision-safe across multiple devices).
+- Restore button implemented as raw `<label>` + `<input type="file">` (no RN equivalent exists).
+- All 6 tabs wired with real props matching v2 prop signatures exactly. All 6 modals wired with open/close state and callbacks.
+- Build: **212 KB gzipped, clean.**
+
 ### Remaining
-- **Step 6 (next):** Modals + full business logic wiring
-  - Modals: `AddMedModal`, `EditMedModal`, `TitrationModal`, `QueueVialModal`, `LogFormModal`, `AddScheduleModal`
-  - Implement `ConfirmDialog`, `PromptDialog`, `Modal` (currently stubs)
-  - Add `ToastHost` and `ErrorBoundary`
-  - Port all state, effects, and handlers from v2's `App.jsx` (load/save/sync, logDose, undoDose, updateMed, importBackup, processAutoLogs, minute-check interval, etc.)
-- Step 7: PWA shell (manifest, service worker), Firebase Hosting wiring
+- **Step 7 (next):** PWA shell — copy/update `manifest.json`, `sw.js`, and add `firebase.json` with Firebase Hosting config targeting this project's `dist/` folder
 - Step 8: Full QA, side-by-side comparison with v2
 - Step 9: Cutover — point injectiontracker.web.app to this project, retire v2
 - Step 10 (future): Add Metro for native iOS/Android build, App Store submission

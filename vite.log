@@ -110,3 +110,57 @@ If you intend to use the URL of that asset, use /icon.png?url.
 Assets in public directory cannot be imported from JavaScript.
 If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
 If you intend to use the URL of that asset, use /icon.png?url.
+11:42:24 AM [vite] (client) hmr update /src/components/ui/Modal.jsx
+11:42:34 AM [vite] (client) hmr update /src/components/ui/ConfirmDialog.jsx
+11:42:45 AM [vite] (client) hmr update /src/components/ui/PromptDialog.jsx
+11:43:08 AM [vite] (client) hmr update /src/App.jsx
+11:43:12 AM [vite] (client) hmr update /src/App.jsx
+11:43:12 AM [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.jsx:143:1 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m143 │[0m [38;5;249m}[0m
+ [38;5;240m    │[0m │ 
+ [38;5;240m    │[0m ╰─ 
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/App.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+11:43:17 AM [vite] (client) hmr update /src/App.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+11:57:05 AM [vite] (client) hmr update /src/components/ui/ConfirmDialog.jsx
+11:57:07 AM [vite] (client) hmr update /src/components/ui/PromptDialog.jsx
+11:57:08 AM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+11:57:08 AM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+11:57:08 AM [vite] (client) hmr update /src/App.jsx
+11:57:14 AM [vite] (client) hmr update /src/components/ui/Modal.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:11:27 PM [vite] (client) hmr update /src/App.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.

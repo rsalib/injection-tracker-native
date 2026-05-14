@@ -477,7 +477,7 @@ const styles = StyleSheet.create({
     top: 8,
     bottom: 16,
     width: 2,
-    background: 'linear-gradient(to bottom, #22d3ee, rgba(34,211,238,0.1))',
+    backgroundColor: '#22d3ee', // TODO: expo-linear-gradient(to bottom, #22d3ee, rgba(34,211,238,0.1))
     borderRadius: 2,
   },
   dateBlock: {
