@@ -1037,6 +1037,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingHorizontal: 16,
     paddingBottom: 10,
+    touchAction: 'none',
   },
   headerCard: {
     backgroundColor: 'rgba(31, 41, 55, 0.6)',
@@ -1172,6 +1173,7 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     paddingBottom: 24,
     alignItems: 'center',
+    touchAction: 'none',
   },
   tabBarCapsule: {
     flexDirection: 'row',

@@ -352,3 +352,6 @@ If you intend to import that asset, put the file in the src directory, and use /
 If you intend to use the URL of that asset, use /icon.png?url.
 4:27:52 PM [vite] (client) hmr update /src/index.css
 4:31:54 PM [vite] (client) hmr update /src/App.jsx
+4:36:50 PM [vite] (client) hmr update /src/App.jsx
+4:36:54 PM [vite] (client) hmr update /src/App.jsx
+4:36:56 PM [vite] (client) hmr update /src/index.css
