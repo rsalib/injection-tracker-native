@@ -31,19 +31,35 @@ Migrated from a single-file `index.html` (plain HTML + CDN React + Babel) at `/U
 ```
 src/
   services/
-    firebase.js     # copied from v2
-    gemini.js       # copied from v2
-  mathEngine.js     # copied from v2
-  constants.js      # data only (no JSX, no web CSS)
-  styles.js         # empty — to be populated with StyleSheet objects as components migrate
+    firebase.js         # copied from v2 (modular SDK)
+    gemini.js           # copied from v2
+  mathEngine.js         # copied from v2
+  constants.js          # data + helpers (no JSX, no web CSS)
+  styles.js             # shared StyleSheet constants (populated as needed)
   components/
-    ui/             # to be migrated
-    modals/         # to be migrated
-    tabs/           # to be migrated
-  App.jsx           # placeholder
-  main.jsx          # entry point
+    ui/
+      Badge.jsx             # fully implemented
+      SortBar.jsx           # fully implemented
+      TabIcons.jsx          # 6 SVG tab icons (DashboardIcon … AIIcon)
+      SyringeVisualizer.jsx # fully implemented
+      SearchDropdown.jsx    # fully implemented
+      ConfirmDialog.jsx     # stub — implement in Step 6
+      PromptDialog.jsx      # stub — implement in Step 6
+      Modal.jsx             # stub — implement in Step 6
+    modals/               # empty — implement in Step 6
+    tabs/
+      Calculator.jsx        # fully implemented
+      Dashboard.jsx         # fully implemented
+      MedsTab.jsx           # fully implemented
+      LogTab.jsx            # fully implemented
+      ResourcesTab.jsx      # fully implemented
+      AIAssistant.jsx       # fully implemented
+  SiteRotation.jsx          # stub — implement in Step 6
+  LoginScreen.jsx           # fully implemented
+  App.jsx                   # shell + navigation (data layer wiring in Step 6)
+  main.jsx                  # entry point
 index.html
-vite.config.js      # aliases react-native → react-native-web
+vite.config.js              # aliases react-native → react-native-web
 ```
 
 ---
@@ -220,19 +236,65 @@ Preferred workflow is **GitHub Desktop** (visual, no command line). User does no
 
 ---
 
+## Design Rules
+
+Standing constraints that apply to all current and future work in this project:
+
+- **🤖 banned everywhere** — the robot emoji must never appear anywhere in the codebase, with no exceptions.
+- **All other v2 emojis preserved as-is** — do not add or remove any emoji that v2 uses. This includes status badges, alert headers, button labels, ICS fields, greeting text, etc.
+- **Tab navigation icons are SVG only** — sourced from `src/components/ui/TabIcons.jsx`, never emoji.
+- **All inline styles hoisted to `StyleSheet.create({})`** — inline styles permitted only for truly dynamic values (e.g. `{ width: \`${pct}%\` }`, `{ color: c }`).
+- **Color fidelity** — match v2 exactly: dark bg `#111827`, cyan accent `#22d3ee`, primary button solid fallback `#0e7490` (gradient `linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)` is a TODO until `expo-linear-gradient` is added for native builds).
+- **Content width** — `maxWidth: 672` with `paddingHorizontal: 16` inside the same container. This matches v2's border-box math: `padding: 16 + maxWidth: 672` on the same element = 640px content area.
+- **`<select>`, `<svg>`, `<a>` kept as raw HTML** — these DOM elements work in RN-for-Web and should not be replaced with RN primitives unless a specific native-build requirement demands it.
+
+---
+
 ## Migration Plan
 
 ### Completed
 - Step 1: Project scaffolding (Vite + React 19 + React Native for Web)
 - Step 2: Service layer copied (firebase, gemini, mathEngine, constants)
+- Step 3: Auth flow + Calculator tab + core UI components
+- Step 4: App shell — header, 6-tab navigation
+- Step 5: All five remaining tab components migrated to RN primitives
+
+### Completed Steps Detail
+
+**Step 3 — Auth flow, Calculator, core UI components**
+- `LoginScreen.jsx` migrated to RN primitives; vial `icon.png` (from `/public/`) used as the brand image replacing the emoji placeholder.
+- `Calculator.jsx` migrated — lowest-complexity tab, no Firebase writes, chosen first.
+- `SyringeVisualizer.jsx` and `SearchDropdown.jsx` migrated to RN primitives.
+- Content container established in `App.jsx`: `maxWidth: 672`, `paddingHorizontal: 16` on the same `appContainer` View, matching v2's border-box width exactly (640px content).
+
+**Step 4 — App shell**
+- Full header bar: title (`{firstName} TRACKER`), sync status dot, logout button, and three action buttons (Sync, Backup, Restore) in `App.jsx`.
+- 6-tab bottom navigation capsule with SVG icons.
+- SVG tab icons extracted verbatim from v2's `constants.jsx` into `src/components/ui/TabIcons.jsx` (6 named exports: `DashboardIcon`, `LogIcon`, `MedsIcon`, `CalcIcon`, `ResourcesIcon`, `AIIcon`).
+- Icons referenced via `iconKey` string on each `NAV_TABS` entry in `constants.js`; resolved at render time via a `TAB_ICONS` lookup map in `App.jsx` (defined outside the component, no re-creation per render).
+- `color` style on `Pressable` passes through to the DOM div, enabling SVG `stroke="currentColor"` / `fill="currentColor"` inheritance — active tab cyan `#22d3ee`, inactive `#9ca3af`.
+- Active tab pill: `flex: 1.2`, `backgroundColor: rgba(34,211,238,0.1)`.
+- Shared UI components built: `Badge.jsx`, `SortBar.jsx`; stubs created for `ConfirmDialog.jsx`, `PromptDialog.jsx`, `Modal.jsx`, `SiteRotation.jsx`.
+
+**Step 5 — Five tab components**
+- `Dashboard.jsx`, `MedsTab.jsx`, `LogTab.jsx`, `ResourcesTab.jsx`, `AIAssistant.jsx` all migrated from v2's HTML/CSS to RN primitives.
+- All inline `div`/`button`/`p`/`span` replaced with `View`/`Pressable`/`Text`; all `input[type=text]` replaced with `TextInput`.
+- `<select>`, `<svg>`, and `<a>` kept as raw HTML — they work in RN-for-Web and have no RN-native equivalent yet.
+- All styles moved into `StyleSheet.create({})` at the bottom of each file; inline styles used only for dynamic values.
+- `display: grid; grid-template-columns: repeat(N, 1fr)` layouts replaced with `flexDirection: 'row'` + `flex: 1` children.
+- `borderBottom` conditionals replaced with `[styles.item, !isLast && styles.itemBorder]` array syntax.
+- Gradient buttons use `backgroundColor: '#0e7490'` with a `// TODO: expo-linear-gradient` comment.
+- All emojis from v2 preserved as-is (per Design Rules above); 🤖 was confirmed absent from v2.
+- Pixel-perfect tuning deferred to Step 9 QA pass.
+- All 5 tabs wired into `App.jsx` with empty-state props; data layer wiring is Step 6.
 
 ### Remaining
-- Step 3: Auth flow (LoginScreen) and first tab (Calculator — chosen for low complexity, no Firebase writes)
-- Step 4: App shell — navigation, header, state hooks
-- Step 5: Tab migrations — Dashboard, Log, Meds, Resources, AI Assistant
-- Step 6: Modals — AddMed, EditMed, Titration, QueueVial, LogForm, AddSchedule
-- Step 7: UI components — Badge, SyringeVisualizer, ConfirmDialog, PromptDialog, Modal, SortBar, SearchDropdown, ToastHost, ErrorBoundary
-- Step 8: PWA shell (manifest, service worker), Firebase Hosting wiring
-- Step 9: Full QA, side-by-side comparison with v2
-- Step 10: Cutover — point injectiontracker.web.app to this project, retire v2
-- Step 11 (future): Add Metro for native iOS/Android build, App Store submission
+- **Step 6 (next):** Modals + full business logic wiring
+  - Modals: `AddMedModal`, `EditMedModal`, `TitrationModal`, `QueueVialModal`, `LogFormModal`, `AddScheduleModal`
+  - Implement `ConfirmDialog`, `PromptDialog`, `Modal` (currently stubs)
+  - Add `ToastHost` and `ErrorBoundary`
+  - Port all state, effects, and handlers from v2's `App.jsx` (load/save/sync, logDose, undoDose, updateMed, importBackup, processAutoLogs, minute-check interval, etc.)
+- Step 7: PWA shell (manifest, service worker), Firebase Hosting wiring
+- Step 8: Full QA, side-by-side comparison with v2
+- Step 9: Cutover — point injectiontracker.web.app to this project, retire v2
+- Step 10 (future): Add Metro for native iOS/Android build, App Store submission

@@ -8,14 +8,13 @@ export const CAT_META = {
   Guide: { icon: "📖", color: "green", bg: "#14532d", border: "#166534", text: "#86efac" }
 };
 
-// Icons are stripped here — will be defined as React Native SVG components per tab
 export const NAV_TABS = [
-  { id: "Dashboard", label: "Home" },
-  { id: "Log Injection", label: "Log" },
-  { id: "Medications", label: "Meds" },
-  { id: "Calculator", label: "Calc" },
-  { id: "Resources", label: "Resources" },
-  { id: "AI Assistant", label: "AI" },
+  { id: "Dashboard",    label: "Home",      iconKey: "Dashboard"    },
+  { id: "Log Injection",label: "Log",       iconKey: "LogInjection" },
+  { id: "Medications",  label: "Meds",      iconKey: "Medications"  },
+  { id: "Calculator",   label: "Calc",      iconKey: "Calculator"   },
+  { id: "Resources",    label: "Resources", iconKey: "Resources"    },
+  { id: "AI Assistant", label: "AI",        iconKey: "AIAssistant"  },
 ];
 
 export const EMPTY_MED = {
