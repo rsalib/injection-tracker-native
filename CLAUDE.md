@@ -215,7 +215,7 @@ All three functions are in `functions/index.js`:
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v5`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v6`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -378,7 +378,7 @@ Standing constraints that apply to all current and future work in this project:
 - `App.jsx`: tab bar safe area padding increased from `max(24px, ...)` to `max(40px, env(safe-area-inset-bottom))` to clear iPhone home indicator
 - `App.jsx`: `tabBarWrap` `paddingTop` bumped from 8 to 12px for icon/label breathing room
 - `App.jsx` + `index.html`: screen container changed from `100vh` to `100dvh` — fixes tab bar being clipped by mobile browser chrome on iOS Safari/Chrome; `#root` in `index.html` updated to match
-- `App.jsx`: layout refactored to fixed positioning for header and tab bar (`position: 'fixed'`, `zIndex: 100`) — more reliable than flex siblings on mobile web; ScrollView `contentContainerStyle` uses `paddingTop: 120` / `paddingBottom: 80` to compensate for fixed elements
+- `App.jsx`: shell layout uses correct RN-for-Web pattern — single root View (`height: 100dvh`, `overflow: hidden`) with header View, ScrollView (`flex: 1`, `overflow: hidden`, `bounces={false}`), and tab bar View as flex siblings. `position: fixed` approach was reverted — it caused touch event issues on mobile. Overflow containment on both `screen` and `scrollArea` is what locks the header and tab bar in place.
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

@@ -799,7 +799,7 @@ export default function App() {
       </View>
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
-      <ScrollView style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main">
+      <ScrollView style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" bounces={false} overScrollMode="never">
         <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: '#121212' }} />}>
         <View style={styles.appContainer}>
           {activeTab === 'Dashboard' && (
@@ -983,7 +983,9 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    height: '100dvh',
     backgroundColor: '#111827',
+    overflow: 'hidden',
   },
 
   // ── Circuit breaker screen ─────────────────────────────────────────
@@ -1031,11 +1033,6 @@ const styles = StyleSheet.create({
 
   // ── Header — full-bleed, no maxWidth constraint ─────────────────
   headerWrap: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
     backgroundColor: '#111827',
     paddingTop: 16,
     paddingHorizontal: 16,
@@ -1155,9 +1152,10 @@ const styles = StyleSheet.create({
   // ── Content — constrained to 672px matching v2 ─────────────────
   scrollArea: {
     flex: 1,
+    overflow: 'hidden',
   },
   content: {
-    paddingTop: 120,
+    paddingTop: 16,
     paddingBottom: 80,
   },
   appContainer: {
@@ -1170,11 +1168,6 @@ const styles = StyleSheet.create({
 
   // ── Tab bar — full-bleed outer, capsule maxWidth 500 ───────────
   tabBarWrap: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
     backgroundColor: '#111827',
     paddingHorizontal: 16,
     paddingTop: 6,
