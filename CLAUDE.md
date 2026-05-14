@@ -66,13 +66,25 @@ src/
       LogTab.jsx            # fully implemented
       ResourcesTab.jsx      # fully implemented
       AIAssistant.jsx       # fully implemented
-  SiteRotation.jsx          # stub — implement in Step 6
+  SiteRotation.jsx          # fully implemented
   LoginScreen.jsx           # fully implemented
-  App.jsx                   # shell + navigation (data layer wiring in Step 6)
+  App.jsx                   # shell + navigation + full business logic
   main.jsx                  # entry point
 index.html
 vite.config.js              # aliases react-native → react-native-web
 ```
+
+---
+
+## Bugs Carried Over from Migration
+
+These bugs were discovered and fixed in v2. The fixes are already present in this codebase. They are documented here to prevent accidental regression during future refactors.
+
+1. **Mobile sign-in crash** — Firebase Auth falls back to redirect flow on mobile Chrome even when `signInWithPopup` is called. Fixed with popup-first + redirect-fallback pattern in `LoginScreen.jsx`, and `getRedirectResult()` called on app load in `App.jsx`. **If `LoginScreen.jsx` is ever refactored, this pattern must be preserved.**
+
+2. **Service worker response clone error** — `resp.clone()` must be called before the response body is consumed in `sw.js`. Both the assets handler and the app shell handler already do this. **Never remove the clone calls.**
+
+3. **Wrong API key** — The Firebase project has two API keys in Google Cloud: a Gemini-only key and the Firebase browser key. Auth calls must use the Firebase browser key. If auth ever breaks mysteriously, check Google Cloud Console → APIs & Services → Credentials → OAuth 2.0 Client IDs.
 
 ---
 
@@ -201,13 +213,27 @@ All three functions are in `functions/index.js`:
 
 ---
 
+## Deploy Workflow
+
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v1`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+
+**Deploy sequence:**
+```
+npm run build
+firebase deploy --only hosting
+```
+
+**Critical:** Cloud Functions (`askGemini`, `getCalendarToken`, `getCalendarFeed`) stay deployed from the v2 project. Never run `firebase deploy` without `--only hosting` from this project — doing so would deploy an empty `functions/` directory and break all Gemini and calendar features.
+
+---
+
 ## What We Chose NOT To Do (And Why)
 
 ### Lazy Loading / Code Splitting
 ~~Against `React.lazy` + `Suspense`.~~ **Implemented (2026-05-13).** Tab components (Dashboard, LogTab, MedsTab, Calculator, ResourcesTab, AIAssistant) converted to `React.lazy()` in `App.jsx`, wrapped in `<Suspense>` with a dark `#121212` fallback. A prefetch `useEffect` fires on mount to silently load all chunks in the background, so tabs are ready before the user navigates — no visible spinners in practice. Main bundle reduced; each tab is a separate chunk.
 
 ### Native App (React Native / Expo)
-Considered but deferred. iOS requires $99/year Apple Developer account for any permanent install. The PWA already covers the core use case. The modular codebase is Expo-ready if this decision changes — `mathEngine.js`, `services/gemini.js`, and all business logic would transfer unchanged. Only the UI layer would need rewriting.
+This project IS the React Native for Web migration. The UI layer has been rewritten in RN primitives; business logic and services transferred unchanged. Step 10 covers adding Metro for a native iOS/Android build if pursued — that requires a $99/year Apple Developer account for any permanent iOS install. The PWA on the web covers the core use case in the meantime.
 
 ### Web Push Notifications
 Deferred in favor of the calendar subscription feature. Calendar subscriptions integrate with the native calendar app and provide injection reminders through the system — achieving the same goal without implementing a push notification backend.
@@ -343,6 +369,10 @@ Standing constraints that apply to all current and future work in this project:
 - `ResourcesTab.jsx`: `libraryEntry` spacing restored — conditional `paddingBottom`/`marginBottom` applied inline matching v2's `expanded`/`isLast` logic (cannot be static `StyleSheet` values)
 - `AIAssistant.jsx`: Sources list restored to `<ul><li>` raw HTML with `paddingLeft: 16` bullet indentation — matching v2 structure; unused `sourcesList` StyleSheet entry removed
 - `LogTab.jsx`: `logEntryDot` dead `borderColor` audit confirmed clean — property was never present in native StyleSheet, no change needed
+- `src/index.css` created — `overscroll-behavior: none`, `background: #111827`, `height: 100%` on `html, body`; imported in `main.jsx`
+- `App.jsx`: safe area insets applied — `env(safe-area-inset-top)` on screen container, `max(16px, env(safe-area-inset-top))` on header, `max(24px, env(safe-area-inset-bottom))` on tab bar; `viewport-fit=cover` added to `index.html` viewport meta
+- `SiteRotation.jsx`: stub replaced with full implementation — RN primitives, `flexWrap: 'wrap'` site grid, dynamic highlight conditionals inline, all logic identical to v2
+- Pre-cutover gap audit completed: file inventory confirmed full parity; v2 CLAUDE.md compared against native; all gaps resolved
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

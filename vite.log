@@ -230,3 +230,94 @@ If you intend to use the URL of that asset, use /icon.png?url.
 2:56:54 PM [vite] (client) hmr update /src/components/tabs/ResourcesTab.jsx
 2:57:00 PM [vite] (client) hmr update /src/components/tabs/AIAssistant.jsx
 2:57:03 PM [vite] (client) hmr update /src/components/tabs/AIAssistant.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+3:04:13 PM [vite] (client) page reload index.html
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+3:08:17 PM [vite] (client) hmr update /src/App.jsx
+3:08:24 PM [vite] (client) hmr update /src/App.jsx
+3:08:30 PM [vite] (client) hmr update /src/App.jsx
+3:08:30 PM [vite] Internal server error: Transform failed with 4 errors:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'Suspense'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.jsx:876:9 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m803 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mSuspense[38;5;249m [0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249ml[0m[38;5;249ml[0m[38;5;249mb[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mk[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m<[0m[38;5;249mV[0m[38;5;249mi[0m[38;5;249me[0m[38;5;249mw[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m{[0m[38;5;249m [0m[38;5;249mm[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249mH[0m[38;5;249me[0m[38;5;249mi[0m[38;5;249mg[0m[38;5;249mh[0m[38;5;249mt[0m[38;5;249m:[0m[38;5;249m [0m[38;5;249m'[0m[38;5;249m6[0m[38;5;249m0[0m[38;5;249mv[0m[38;5;249mh[0m[38;5;249m'[0m[38;5;249m,[0m[38;5;249m [0m[38;5;249mb[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mk[0m[38;5;249mg[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249mu[0m[38;5;249mn[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249ml[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249m:[0m[38;5;249m [0m[38;5;249m'[0m[38;5;249m#[0m[38;5;249m1[0m[38;5;249m2[0m[38;5;249m1[0m[38;5;249m2[0m[38;5;249m1[0m[38;5;249m2[0m[38;5;249m'[0m[38;5;249m [0m[38;5;249m}[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249m/[0m[38;5;249m>[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m          ────┬───  
+ [38;5;240m    │[0m              ╰───── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m876 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mScrollView[38;5;249m>[0m
+ [38;5;240m    │[0m         ─────┬────  
+ [38;5;240m    │[0m              ╰────── Expected `</Suspense>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'ScrollView'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.jsx:900:7 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m802 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mScrollView[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249ms[0m[38;5;249mc[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249ml[0m[38;5;249ml[0m[38;5;249mA[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ma[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mc[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mb[0m[38;5;249mi[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249mR[0m[38;5;249mo[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mm[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249m"[0m[38;5;249m>[0m
+ [38;5;240m    │[0m        ─────┬────  
+ [38;5;240m    │[0m             ╰────── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m900 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mView[38;5;249m>[0m
+ [38;5;240m    │[0m       ──┬─  
+ [38;5;240m    │[0m         ╰─── Expected `</ScrollView>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'View'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.jsx:976:7 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m750 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mView[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249ms[0m[38;5;249mc[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m      ──┬─  
+ [38;5;240m    │[0m        ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m976 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mErrorBoundary[38;5;249m>[0m
+ [38;5;240m    │[0m       ──────┬──────  
+ [38;5;240m    │[0m             ╰──────── Expected `</View>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mUnexpected token. Did you mean `{'}'}` or `&rbrace;`?
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/App.jsx:978:1 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m978 │[0m [38;5;249m}[0m
+ [38;5;240m    │[0m │ 
+ [38;5;240m    │[0m ╰─ 
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/App.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+3:08:33 PM [vite] (client) hmr update /src/App.jsx
+3:08:37 PM [vite] (client) hmr update /src/App.jsx
+3:13:46 PM [vite] (client) page reload src/main.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+3:13:53 PM [vite] (client) hmr update /src/App.jsx
+3:13:58 PM [vite] (client) hmr update /src/App.jsx
+3:14:03 PM [vite] (client) page reload index.html
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+3:19:11 PM [vite] (client) hmr update /src/SiteRotation.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.

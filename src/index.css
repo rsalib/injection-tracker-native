@@ -1,0 +1,5 @@
+html, body {
+  background: #111827;
+  overscroll-behavior: none;
+  height: 100%;
+}

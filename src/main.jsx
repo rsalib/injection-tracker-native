@@ -1,3 +1,4 @@
+import './index.css';
 import { AppRegistry } from 'react-native'
 import { createElement } from 'react'
 import { createRoot } from 'react-dom/client'

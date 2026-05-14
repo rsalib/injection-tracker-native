@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { auth, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
@@ -8,12 +8,12 @@ import { toMg, convertToVialUnit } from './mathEngine.js';
 import { LoginScreen } from './LoginScreen.jsx';
 import { ErrorBoundary } from './components/ui/ErrorBoundary.jsx';
 import { ToastHost } from './components/ui/ToastHost.jsx';
-import Calculator from './components/tabs/Calculator.jsx';
-import { Dashboard } from './components/tabs/Dashboard.jsx';
-import { MedsTab } from './components/tabs/MedsTab.jsx';
-import { LogTab } from './components/tabs/LogTab.jsx';
-import { ResourcesTab } from './components/tabs/ResourcesTab.jsx';
-import { AIAssistant } from './components/tabs/AIAssistant.jsx';
+const Calculator = lazy(() => import('./components/tabs/Calculator.jsx'));
+const Dashboard = lazy(() => import('./components/tabs/Dashboard.jsx').then(m => ({ default: m.Dashboard })));
+const MedsTab = lazy(() => import('./components/tabs/MedsTab.jsx').then(m => ({ default: m.MedsTab })));
+const LogTab = lazy(() => import('./components/tabs/LogTab.jsx').then(m => ({ default: m.LogTab })));
+const ResourcesTab = lazy(() => import('./components/tabs/ResourcesTab.jsx').then(m => ({ default: m.ResourcesTab })));
+const AIAssistant = lazy(() => import('./components/tabs/AIAssistant.jsx').then(m => ({ default: m.AIAssistant })));
 import { DashboardIcon, LogIcon, MedsIcon, CalcIcon, ResourcesIcon, AIIcon } from './components/ui/TabIcons.jsx';
 import { AddMedModal } from './components/modals/AddMedModal.jsx';
 import { EditMedModal } from './components/modals/EditMedModal.jsx';
@@ -87,6 +87,16 @@ export default function App() {
   );
   const highInteractions = interactions.filter(i => i.severity === 'high');
   const actionableInteractions = interactions.filter(i => i.severity && i.severity !== 'none');
+
+  // ── Prefetch all tab chunks on mount so navigation is instant ─────────
+  useEffect(() => {
+    import('./components/tabs/Calculator.jsx');
+    import('./components/tabs/Dashboard.jsx');
+    import('./components/tabs/MedsTab.jsx');
+    import('./components/tabs/LogTab.jsx');
+    import('./components/tabs/ResourcesTab.jsx');
+    import('./components/tabs/AIAssistant.jsx');
+  }, []);
 
   // ── Circuit breaker listener ────────────────────────────────────────
   useEffect(() => {
@@ -737,10 +747,10 @@ export default function App() {
   return (
     <ErrorBoundary>
     <ToastHost />
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: 'env(safe-area-inset-top)' }]}>
 
       {/* ── Header ─────────────────────────────────────────────────── */}
-      <View style={styles.headerWrap}>
+      <View style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]}>
         <View style={styles.headerCard}>
 
           {/* Title + sync status / logout */}
@@ -789,7 +799,8 @@ export default function App() {
       </View>
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
-      <ScrollView style={styles.scrollArea} contentContainerStyle={styles.content}>
+      <ScrollView style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main">
+        <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: '#121212' }} />}>
         <View style={styles.appContainer}>
           {activeTab === 'Dashboard' && (
             <Dashboard
@@ -862,10 +873,11 @@ export default function App() {
             />
           )}
         </View>
+        </Suspense>
       </ScrollView>
 
       {/* ── Bottom tab navigation ──────────────────────────────────── */}
-      <View style={styles.tabBarWrap}>
+      <View style={[styles.tabBarWrap, { paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }]}>
         <View style={styles.tabBarCapsule}>
           {NAV_TABS.map(t => {
             const active = activeTab === t.id;
@@ -874,6 +886,8 @@ export default function App() {
               <Pressable
                 key={t.id}
                 onPress={() => setActiveTab(t.id)}
+                accessibilityLabel={t.id}
+                accessibilityRole="button"
                 style={[styles.tabBtn, active && styles.tabBtnActive, { color: active ? '#22d3ee' : '#9ca3af' }]}
               >
                 <Icon active={active} />
