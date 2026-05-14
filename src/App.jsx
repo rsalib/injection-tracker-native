@@ -747,7 +747,7 @@ export default function App() {
   return (
     <ErrorBoundary>
     <ToastHost />
-    <View style={[styles.screen, { paddingTop: 'env(safe-area-inset-top)' }]}>
+    <View style={styles.screen}>
 
       {/* ── Header ─────────────────────────────────────────────────── */}
       <View style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]}>
@@ -1152,7 +1152,6 @@ const styles = StyleSheet.create({
   // ── Content — constrained to 672px matching v2 ─────────────────
   scrollArea: {
     flex: 1,
-    overflow: 'hidden',
   },
   content: {
     paddingTop: 16,
