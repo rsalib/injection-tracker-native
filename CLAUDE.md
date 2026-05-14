@@ -215,15 +215,17 @@ All three functions are in `functions/index.js`:
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v1`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v2`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
-**Deploy sequence:**
+**Deploy command:**
 ```
-npm run build
-firebase deploy --only hosting
+npm run build && firebase deploy
 ```
+Deploys both hosting and functions. Both are now sourced from this project.
 
-**Critical:** Cloud Functions (`askGemini`, `getCalendarToken`, `getCalendarFeed`) stay deployed from the v2 project. Never run `firebase deploy` without `--only hosting` from this project — doing so would deploy an empty `functions/` directory and break all Gemini and calendar features.
+**Functions copied from v2:** `askGemini`, `getCalendarToken`, `getCalendarFeed`. The Gemini API key remains in Firebase Secrets Manager — no changes needed.
+
+**v2 at `/Users/rsalib/Desktop/injection-tracker-v2` is no longer the source of truth and can be deleted after confirming the live site is working.**
 
 ---
 
