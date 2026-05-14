@@ -215,7 +215,7 @@ All three functions are in `functions/index.js`:
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v8`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v9`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -380,6 +380,7 @@ Standing constraints that apply to all current and future work in this project:
 - `App.jsx` + `index.html`: screen container changed from `100vh` to `100dvh` — fixes tab bar being clipped by mobile browser chrome on iOS Safari/Chrome; `#root` in `index.html` updated to match
 - `App.jsx`: shell layout uses correct RN-for-Web pattern — single root View (`height: 100dvh`, `overflow: hidden`) with header View, ScrollView (`flex: 1`, `bounces={false}`), and tab bar View as flex siblings. `position: fixed` approach was reverted — it caused touch event issues on mobile. `overflow: hidden` on `screen` is what locks the header and tab bar in place; `scrollArea` has no overflow override (ScrollView manages its own internally — setting it externally blocks scrolling). Safe area inset top applied on `headerWrap` only — removed from `screen` View where it was doubling up.
 - `index.html` + `index.css`: added `-webkit-fill-available` height fallback for Safari mobile — `100dvh` alone doesn't correctly track Safari's dynamic chrome. Applied to both `#root` in `index.html` and `#root > div` in `index.css` (targets the RN-for-Web root div that `styles.screen` is applied to).
+- `App.jsx`: tab bar bottom padding reduced from `max(40px, ...)` to `max(16px, env(safe-area-inset-bottom))` — closer to actual home indicator height. Added `onStartShouldSetResponder={() => true}` to tab bar View to capture touches and prevent bleed-through to ScrollView.
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2
