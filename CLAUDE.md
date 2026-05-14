@@ -1,5 +1,9 @@
 # Injection Tracker (Native) — React Native for Web Migration
 
+## Session Workflow
+
+**Always update CLAUDE.md before git commits.** When a step or fix is complete, update CLAUDE.md first to document what changed, then the user runs `git add` / `commit` / `push` in Terminal.
+
 ## Migration Context
 This is a fresh project migrating the production app at `/Users/rsalib/Desktop/injection-tracker-v2` from a Vite + React web app to React Native for Web. Same Firebase backend (project `injection-tracker-6341d`), same data, same users. The current v2 app stays live during the migration. This project will eventually replace it on `injectiontracker.web.app` and serve as the foundation for native iOS/Android builds via Metro.
 
@@ -326,6 +330,16 @@ Standing constraints that apply to all current and future work in this project:
 - `.firebaserc` — copied verbatim. Same Firebase project `injection-tracker-6341d`.
 - `index.html` updated: added `<meta name="theme-color" content="#111827">`, `<link rel="manifest" href="/manifest.json">`, and SW registration script (`navigator.serviceWorker.register('/sw.js')` on `window load`).
 - Note: `theme-color` in `index.html` is `#111827`; `manifest.json` uses `#121212` — both preserved to match v2 exactly.
+
+**Step 8 — QA (in progress)**
+- `Dashboard.jsx`: `ConfirmDialog` missing `confirmBg`/`confirmColor` props added (`confirmBg="#0e7490"` / `confirmColor="white"`)
+- `Dashboard.jsx`: Protocol card layout fixed — `futureSub` and `badgeRow` moved inside `protocolLeft` column View so they stack vertically below the med name instead of floating as row siblings next to the pct pill
+- `Dashboard.jsx`: Badge row CLS fix restored — conditional `minHeight: 30` when no badges are visible (matching v2 Lighthouse fix)
+- `Dashboard.jsx`: Separator characters corrected `·` (U+00B7) → `•` (U+2022) in `scheduleSub` and `recentSub`
+- `ResourcesTab.jsx`: `resultItem` border shorthand conflict fixed — `borderWidth: 1` replaced with explicit `borderTopWidth`/`borderRightWidth`/`borderBottomWidth` so `borderLeftWidth: 4` cyan accent is never overridden
+- `LogTab.jsx`: Timeline dot positioning fixed — `dateNodeOuter` moved to direct child of `Pressable` (matching v2 structure where circle is direct child of `<button>`); empty `dateNodeInner` stub removed
+- `App.jsx`: Initial tab changed from `'Calculator'` to `'Dashboard'`
+- `App.jsx`: Layout structure fixed — `height: '100vh'` + `overflow: 'hidden'` on `screen` container; `index.html` updated with `html`/`body`/`#root` height anchors so header and tab bar stay fixed while `ScrollView` scrolls
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

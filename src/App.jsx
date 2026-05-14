@@ -40,7 +40,7 @@ export default function App() {
   const [authReady, setAuthReady] = useState(false);
 
   // ── Navigation ─────────────────────────────────────────────────────
-  const [activeTab, setActiveTab] = useState('Calculator');
+  const [activeTab, setActiveTab] = useState('Dashboard');
 
   // ── Data ───────────────────────────────────────────────────────────
   const [meds, setMeds] = useState([]);
@@ -737,7 +737,7 @@ export default function App() {
   return (
     <ErrorBoundary>
     <ToastHost />
-    <View style={styles.root}>
+    <View style={styles.screen}>
 
       {/* ── Header ─────────────────────────────────────────────────── */}
       <View style={styles.headerWrap}>
@@ -967,10 +967,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  root: {
+  screen: {
     flex: 1,
     backgroundColor: '#111827',
-    minHeight: '100vh',
+    height: '100vh',
+    overflow: 'hidden',
   },
 
   // ── Circuit breaker screen ─────────────────────────────────────────

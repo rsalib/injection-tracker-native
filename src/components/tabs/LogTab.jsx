@@ -223,9 +223,8 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
                               onPress={() => toggleDate(date)}
                               style={styles.dateToggle}
                             >
+                              <View style={styles.dateNodeOuter} />
                               <View style={styles.dateToggleLeft}>
-                                <View style={styles.dateNodeOuter} />
-                                <View style={styles.dateNodeInner} />
                                 <Text style={[styles.dateLabel, isDateExpanded && styles.dateLabelActive]}>
                                   {formatDate(date)}
                                   <Text style={styles.dateCount}> ({dateLogs.length})</Text>
@@ -508,9 +507,6 @@ const styles = StyleSheet.create({
     borderColor: '#22d3ee',
     zIndex: 2,
     transform: [{ translateX: -5 }],
-  },
-  dateNodeInner: {
-    // spacer to align text after the absolute node
   },
   dateLabel: {
     fontWeight: '800',

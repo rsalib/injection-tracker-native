@@ -39,6 +39,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
           titleText="Activate Queued Vial?"
           message={`This will permanently discard the ${parseFloat(confirmStartNow.vialRemaining || 0).toFixed(2)} ${confirmStartNow.vialUnit || confirmStartNow.unit} remaining in your current vial.`}
           confirmText="Activate Now"
+          confirmBg="#0e7490"
+          confirmColor="white"
           onCancel={() => setConfirmStartNow(null)}
           onConfirm={() => {
             const u = meds.map(x => {
@@ -114,7 +116,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
                 <View key={s.id} style={styles.scheduleRow}>
                   <View>
                     <Text style={styles.scheduleItem}>{s.medName}</Text>
-                    <Text style={styles.scheduleSub}>{s.dose}{s.unit} · {s.time}</Text>
+                    <Text style={styles.scheduleSub}>{s.dose}{s.unit} • {s.time}</Text>
                   </View>
                   <Badge label={done ? '✓ Done' : 'Due Today'} color={done ? 'green' : 'blue'} />
                 </View>
@@ -188,24 +190,26 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
             return (
               <View key={m.id} style={[styles.protocolItem, !isLastItem && styles.protocolItemBorder]}>
                 <View style={styles.protocolHeader}>
-                  <View style={styles.protocolNameRow}>
-                    <Text style={styles.protocolName}>{m.name}</Text>
-                    {maxSev === 'high'     && <Text style={styles.sevEmoji}>🔴</Text>}
-                    {maxSev === 'moderate' && <Text style={styles.sevEmoji}>🟠</Text>}
-                    {maxSev === 'mild'     && <Text style={styles.sevEmoji}>🟡</Text>}
-                  </View>
-
-                  {isFuture && <Text style={styles.futureSub}>Starts: {formatDisplayDate(m.startDate)}</Text>}
-
-                  {!isFuture && (
-                    <View style={styles.badgeRow}>
-                      {showDosedToday   && <Badge label="✓ Dosed Today"  color="green"  />}
-                      {showDueToday     && <Badge label="Due Today"        color="blue"   />}
-                      {showDueTomorrow  && <Badge label="Due Tomorrow"     color="blue"   />}
-                      {showEndingCycle  && <Badge label="Ending Cycle"     color="red"    />}
-                      {showQueuePrompt  && <Badge label="Queue New Vial"   color="yellow" />}
+                  <View style={styles.protocolLeft}>
+                    <View style={styles.protocolNameRow}>
+                      <Text style={styles.protocolName}>{m.name}</Text>
+                      {maxSev === 'high'     && <Text style={styles.sevEmoji}>🔴</Text>}
+                      {maxSev === 'moderate' && <Text style={styles.sevEmoji}>🟠</Text>}
+                      {maxSev === 'mild'     && <Text style={styles.sevEmoji}>🟡</Text>}
                     </View>
-                  )}
+
+                    {isFuture && <Text style={styles.futureSub}>Starts: {formatDisplayDate(m.startDate)}</Text>}
+
+                    {!isFuture && (
+                      <View style={[styles.badgeRow, { minHeight: (showDueToday || showDueTomorrow || showDosedToday || showEndingCycle || showQueuePrompt) ? 0 : 30 }]}>
+                        {showDosedToday   && <Badge label="✓ Dosed Today"  color="green"  />}
+                        {showDueToday     && <Badge label="Due Today"        color="blue"   />}
+                        {showDueTomorrow  && <Badge label="Due Tomorrow"     color="blue"   />}
+                        {showEndingCycle  && <Badge label="Ending Cycle"     color="red"    />}
+                        {showQueuePrompt  && <Badge label="Queue New Vial"   color="yellow" />}
+                      </View>
+                    )}
+                  </View>
 
                   <View style={styles.pctPill}>
                     <Text style={[styles.pctText, { color: pct < 15 ? '#f87171' : '#22d3ee' }]}>{pct}%</Text>
@@ -239,7 +243,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
               <View key={l.id} style={styles.recentRow}>
                 <View>
                   <Text style={styles.recentName}>{l.medName}</Text>
-                  <Text style={styles.recentSub}>{l.site} · {l.dose}{l.unit}</Text>
+                  <Text style={styles.recentSub}>{l.site} • {l.dose}{l.unit}</Text>
                 </View>
                 <Text style={styles.recentDate}>{formatDisplayDate(l.date)}</Text>
               </View>
@@ -452,11 +456,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginBottom: 16,
   },
+  protocolLeft: {
+    flex: 1,
+  },
   protocolNameRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    flex: 1,
   },
   protocolName: {
     fontSize: 20,
