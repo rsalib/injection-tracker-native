@@ -984,8 +984,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: '#111827',
-    height: '100dvh',
-    overflow: 'hidden',
   },
 
   // ── Circuit breaker screen ─────────────────────────────────────────
@@ -1033,6 +1031,11 @@ const styles = StyleSheet.create({
 
   // ── Header — full-bleed, no maxWidth constraint ─────────────────
   headerWrap: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
     backgroundColor: '#111827',
     paddingTop: 16,
     paddingHorizontal: 16,
@@ -1154,8 +1157,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingTop: 16,
-    paddingBottom: 40,
+    paddingTop: 120,
+    paddingBottom: 80,
   },
   appContainer: {
     width: '100%',
@@ -1167,9 +1170,14 @@ const styles = StyleSheet.create({
 
   // ── Tab bar — full-bleed outer, capsule maxWidth 500 ───────────
   tabBarWrap: {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
     backgroundColor: '#111827',
     paddingHorizontal: 16,
-    paddingTop: 12,
+    paddingTop: 6,
     paddingBottom: 24,
     alignItems: 'center',
   },
@@ -1194,7 +1202,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 4,
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 4,
     borderRadius: 100,
     transition: 'all 0.3s ease',
