@@ -215,7 +215,7 @@ All three functions are in `functions/index.js`:
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v10`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v11`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -382,6 +382,7 @@ Standing constraints that apply to all current and future work in this project:
 - `index.html` + `index.css`: added `-webkit-fill-available` height fallback for Safari mobile — `100dvh` alone doesn't correctly track Safari's dynamic chrome. Applied to both `#root` in `index.html` and `#root > div` in `index.css` (targets the RN-for-Web root div that `styles.screen` is applied to).
 - `App.jsx`: tab bar bottom padding reduced from `max(40px, ...)` to `max(16px, env(safe-area-inset-bottom))` — closer to actual home indicator height. Added `onStartShouldSetResponder={() => true}` to tab bar View to capture touches and prevent bleed-through to ScrollView.
 - `App.jsx` + `index.css`: added `touchAction: 'none'` to `headerWrap` and `tabBarWrap` StyleSheet entries to block scroll gestures on those elements; added `overscroll-behavior-y: contain` to ScrollView's DOM container via `#root > div > div` CSS selector to prevent scroll chaining when user reaches top or bottom of scroll area.
+- `App.jsx`: tab bar bottom padding adjusted to `max(16px, calc(env(safe-area-inset-bottom) - 20px))` to move capsule 20px closer to home indicator.
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

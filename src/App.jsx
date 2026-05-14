@@ -877,7 +877,7 @@ export default function App() {
       </ScrollView>
 
       {/* ── Bottom tab navigation ──────────────────────────────────── */}
-      <View style={[styles.tabBarWrap, { paddingBottom: 'max(16px, env(safe-area-inset-bottom))' }]} onStartShouldSetResponder={() => true}>
+      <View style={[styles.tabBarWrap, { paddingBottom: 'max(16px, calc(env(safe-area-inset-bottom) - 20px))' }]} onStartShouldSetResponder={() => true}>
         <View style={styles.tabBarCapsule}>
           {NAV_TABS.map(t => {
             const active = activeTab === t.id;
