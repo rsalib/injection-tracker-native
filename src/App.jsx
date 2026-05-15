@@ -753,7 +753,7 @@ export default function App() {
   return (
     <ErrorBoundary>
     <ToastHost />
-    <View style={styles.screen}>
+    <View style={styles.screen} className="screen-wrap">
 
       {/* SVG noise texture overlay */}
       <svg style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', opacity: 0.06 }}>
@@ -1009,7 +1009,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100dvh',
     backgroundColor: '#111827',
-    background: 'linear-gradient(160deg, #0f1923 0%, #111827 40%, #0d1f2d 100%)',
   },
 
   // ── Circuit breaker screen ─────────────────────────────────────────

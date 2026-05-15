@@ -12,6 +12,9 @@ html, body {
   overscroll-behavior-y: contain;
 }
 
+.screen-wrap {
+  background: linear-gradient(160deg, #0f1923 0%, #111827 40%, #0d1f2d 100%) !important;
+}
 .header-wrap {
   background: linear-gradient(to bottom, #111827 80%, rgba(17,24,39,0) 100%) !important;
 }

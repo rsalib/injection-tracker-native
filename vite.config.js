@@ -15,5 +15,6 @@ export default defineConfig({
   define: {
     // react-native-web expects __DEV__ to be defined
     __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
+    global: 'globalThis',
   },
 })
