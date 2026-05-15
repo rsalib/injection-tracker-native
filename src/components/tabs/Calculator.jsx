@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
   resultUnit: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#67e8f9',
+    color: '#9ca3af',
     marginTop: 8,
     textTransform: 'uppercase',
     letterSpacing: 0.6,     // v2: "0.05em" at 12px = 0.6px

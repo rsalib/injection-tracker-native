@@ -356,3 +356,4 @@ If you intend to use the URL of that asset, use /icon.png?url.
 4:36:54 PM [vite] (client) hmr update /src/App.jsx
 4:36:56 PM [vite] (client) hmr update /src/index.css
 4:49:52 PM [vite] (client) hmr update /src/App.jsx
+5:08:21 PM [vite] (client) hmr update /src/components/tabs/Calculator.jsx
