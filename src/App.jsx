@@ -750,7 +750,7 @@ export default function App() {
     <View style={styles.screen}>
 
       {/* ── Header ─────────────────────────────────────────────────── */}
-      <View style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]}>
+      <View style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]} onStartShouldSetResponder={() => true}>
         <View style={styles.headerCard}>
 
           {/* Title + sync status / logout */}
@@ -985,7 +985,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100dvh',
     backgroundColor: '#111827',
-    overflow: 'hidden',
+    background: 'linear-gradient(160deg, #0f1923 0%, #111827 40%, #0d1f2d 100%)',
   },
 
   // ── Circuit breaker screen ─────────────────────────────────────────
@@ -1033,6 +1033,11 @@ const styles = StyleSheet.create({
 
   // ── Header — full-bleed, no maxWidth constraint ─────────────────
   headerWrap: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
     backgroundColor: '#111827',
     paddingTop: 16,
     paddingHorizontal: 16,
@@ -1154,10 +1159,14 @@ const styles = StyleSheet.create({
 
   // ── Content — constrained to 672px matching v2 ─────────────────
   scrollArea: {
-    flex: 1,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   content: {
-    paddingTop: 16,
+    paddingTop: 120,
     paddingBottom: 80,
   },
   appContainer: {
@@ -1170,6 +1179,11 @@ const styles = StyleSheet.create({
 
   // ── Tab bar — full-bleed outer, capsule maxWidth 500 ───────────
   tabBarWrap: {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
     backgroundColor: '#111827',
     paddingHorizontal: 16,
     paddingTop: 6,
