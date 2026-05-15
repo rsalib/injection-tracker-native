@@ -403,9 +403,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.12)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+    borderTopColor: 'rgba(255, 255, 255, 0.25)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   interactionCardError: {
     backgroundColor: 'rgba(69,10,10,0.4)',
@@ -471,9 +471,9 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.12)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+    borderTopColor: 'rgba(255, 255, 255, 0.25)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
     overflow: 'hidden',
   },
   medCardHeader: {
@@ -544,6 +544,7 @@ const styles = StyleSheet.create({
   progressFill: {
     height: 8,
     borderRadius: 9999,
+    boxShadow: '0 0 8px rgba(34, 211, 238, 0.6)',
   },
   progressLabels: {
     flexDirection: 'row',
@@ -775,7 +776,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: '#9ca3af',
     textTransform: 'uppercase',
-    letterSpacing: 1.0,
+    letterSpacing: 0.5,
   },
   chevronGray: {
     color: '#6b7280',

@@ -226,13 +226,13 @@ All three functions are in `functions/index.js`:
 - Never intercepts: Firebase, Gemini, Google Auth, FDA, PubMed, Cloud Run
 - Auth redirect bypass: checks for `/__/auth/`, `apiKey`, `access_token`, `id_token`, `code`, `state` in URL to avoid intercepting Firebase Auth redirects
 - Bump `CACHE_VERSION` in `sw.js` on each deploy to force cache invalidation
-- Current version: `v18`
+- Current version: `v19`
 
 ---
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v18`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v19`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -407,6 +407,7 @@ Standing constraints that apply to all current and future work in this project:
 - `background` shorthand in RN StyleSheet is stripped by Vite production build. Solution: `className='header-wrap'` and `className='tabbar-wrap'` added to wrapper Views; gradients applied via `index.css` CSS classes with `!important` to survive production build.
 - Fixed three PWA scroll issues: content top padding set to 150px to clear fixed header (tuned visually); ScrollView ref added with `scrollTo({y:0})` on tab change to reset scroll position; bottom padding set to 100px to clear fixed tab bar.
 - **Dark Liquid Glass visual enhancement** applied across all 16 files (App.jsx, Dashboard.jsx, MedsTab.jsx, LogTab.jsx, ResourcesTab.jsx, AIAssistant.jsx, Calculator.jsx, Modal.jsx, ConfirmDialog.jsx, PromptDialog.jsx, AddMedModal.jsx, LogFormModal.jsx, TitrationModal.jsx, QueueVialModal.jsx, AddScheduleModal.jsx): glass card surfaces updated to `rgba(255,255,255,0.05)` bg + `blur(40px)` with top/left border highlights (`rgba(255,255,255,0.12)` / `rgba(255,255,255,0.06)`) and inset glow shadow. Modal cards updated to `rgba(17,24,39,0.85)` bg with same blur/highlights. Tab bar capsule updated to `rgba(255,255,255,0.06)` + deeper shadow. Active tab pill increased to `rgba(34,211,238,0.15)`. Active tab label gets `textShadow` cyan glow. Sync dot gets `boxShadow` cyan glow. Primary buttons get sheen: `inset 0 1px 0 rgba(255,255,255,0.15)`. Input fields updated from `rgba(255,255,255,0.03)` to `rgba(255,255,255,0.05)`. Build clean at 197 KB gzipped. CACHE_VERSION bumped to v13.
+- **Phase 2 glass enhancements** applied across App.jsx, Dashboard.jsx, MedsTab.jsx, LogTab.jsx, ResourcesTab.jsx, AIAssistant.jsx, Calculator.jsx, Badge.jsx: card border highlights bumped to `rgba(255,255,255,0.25)`, inner glow inset `0 1px 0 rgba(255,255,255,0.15)`, blur increased to `blur(40px)`, deeper outer shadows `rgba(0,0,0,0.6)`, cyan glow on sync dot/progress bars/badges (tightened to `0 0 4px` spread), brighter primary text, increased label letter spacing. CACHE_VERSION bumped to v19.
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

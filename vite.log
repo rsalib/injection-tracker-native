@@ -509,3 +509,44 @@ If you intend to use the URL of that asset, use /icon.png?url.
 Assets in public directory cannot be imported from JavaScript.
 If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
 If you intend to use the URL of that asset, use /icon.png?url.
+11:56:03 AM [vite] (client) hmr update /src/App.jsx
+11:56:03 AM [vite] (client) hmr update /src/components/tabs/Dashboard.jsx
+11:56:04 AM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+11:56:06 AM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+11:56:06 AM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+11:56:06 AM [vite] (client) hmr update /src/App.jsx
+11:56:08 AM [vite] (client) hmr update /src/components/tabs/ResourcesTab.jsx
+11:56:09 AM [vite] (client) hmr update /src/components/tabs/AIAssistant.jsx
+11:56:11 AM [vite] (client) hmr update /src/components/tabs/Calculator.jsx
+11:56:16 AM [vite] (client) hmr update /src/components/tabs/AIAssistant.jsx
+11:56:17 AM [vite] (client) hmr update /src/App.jsx
+11:56:19 AM [vite] (client) hmr update /src/components/tabs/Dashboard.jsx
+11:56:20 AM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+11:56:23 AM [vite] (client) hmr update /src/components/tabs/AIAssistant.jsx
+11:56:30 AM [vite] (client) hmr update /src/components/ui/Badge.jsx
+11:56:35 AM [vite] (client) hmr update /src/components/ui/Badge.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+11:59:37 AM [vite] (client) hmr update /src/components/ui/Badge.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:05:51 PM [vite] (client) hmr update /src/App.jsx
+12:05:52 PM [vite] (client) hmr update /src/components/tabs/Dashboard.jsx
+12:05:53 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+12:05:54 PM [vite] (client) hmr update /src/components/tabs/ResourcesTab.jsx
+12:05:55 PM [vite] (client) hmr update /src/components/tabs/AIAssistant.jsx
+12:05:55 PM [vite] (client) hmr update /src/components/ui/Badge.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:08:21 PM [vite] (client) hmr update /src/App.jsx
+12:08:22 PM [vite] (client) hmr update /src/components/tabs/Dashboard.jsx
+12:08:23 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+12:08:24 PM [vite] (client) hmr update /src/components/tabs/ResourcesTab.jsx
+12:08:24 PM [vite] (client) hmr update /src/components/tabs/AIAssistant.jsx
+12:08:25 PM [vite] (client) hmr update /src/components/ui/Badge.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
