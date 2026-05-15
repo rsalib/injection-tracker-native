@@ -38,12 +38,15 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
           left: rect.left,
           width: rect.width,
           zIndex: 9999,
-          backgroundColor: '#1f2937',
+          backgroundColor: 'rgba(17,24,39,0.85)',
+          backdropFilter: 'blur(40px)',
+          WebkitBackdropFilter: 'blur(40px)',
           border: '1px solid rgba(255,255,255,0.1)',
+          borderTop: '1px solid rgba(255,255,255,0.15)',
           borderRadius: 24,
           maxHeight: 240,
           overflowY: 'auto',
-          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.7)',
+          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)',
           padding: 8,
         }}>
           {options.map((o, i) => (
@@ -68,6 +71,8 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     backgroundColor: 'rgba(255,255,255,0.05)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.1)',
     borderRadius: 100,

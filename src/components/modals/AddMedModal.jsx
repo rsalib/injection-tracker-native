@@ -7,7 +7,20 @@ import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constant
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
 // Raw CSS objects for HTML elements (select, input[type=date/time], pill input+select combos)
-const rawInp = { width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' };
+const rawInp = {
+  width: '100%',
+  backgroundColor: 'rgba(255,255,255,0.05)',
+  backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
+  border: '1px solid rgba(255,255,255,0.1)',
+  borderTop: '1px solid rgba(255,255,255,0.15)',
+  borderRadius: '100px',
+  padding: '14px 18px',
+  color: 'white',
+  fontSize: 16,
+  boxSizing: 'border-box',
+  outline: 'none',
+};
 
 export function MedForm({ initial, onSave, onClose, title }) {
   const isEdit = !!initial.id;

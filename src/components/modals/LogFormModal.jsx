@@ -54,7 +54,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
           <View style={styles.field}>
             <Text style={styles.lbl}>Quick Select Protocol</Text>
             <select
-              style={{ width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+              style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)', borderTop: '1px solid rgba(255,255,255,0.15)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
               onChange={e => selMed(e.target.value)}
             >
               <option value="">-- Select --</option>
@@ -148,7 +148,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Injection Site</Text>
           <select
-            style={{ width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)', borderTop: '1px solid rgba(255,255,255,0.15)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
             value={form.site}
             onChange={e => set('site', e.target.value)}
           >
