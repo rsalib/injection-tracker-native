@@ -750,6 +750,7 @@ export default function App() {
     <View style={styles.screen}>
 
       {/* ── Header ─────────────────────────────────────────────────── */}
+      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
       <View style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]} onStartShouldSetResponder={() => true}>
         <View style={styles.headerCard}>
 
@@ -797,6 +798,7 @@ export default function App() {
 
         </View>
       </View>
+      </div>
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
       <ScrollView style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" bounces={false} overScrollMode="never">
@@ -877,6 +879,7 @@ export default function App() {
       </ScrollView>
 
       {/* ── Bottom tab navigation ──────────────────────────────────── */}
+      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100 }}>
       <View style={[styles.tabBarWrap, { paddingBottom: 'max(16px, calc(env(safe-area-inset-bottom) - 20px))' }]} onStartShouldSetResponder={() => true}>
         <View style={styles.tabBarCapsule}>
           {NAV_TABS.map(t => {
@@ -899,6 +902,7 @@ export default function App() {
           })}
         </View>
       </View>
+      </div>
 
     </View>
 
@@ -1033,11 +1037,6 @@ const styles = StyleSheet.create({
 
   // ── Header — full-bleed, no maxWidth constraint ─────────────────
   headerWrap: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
     backgroundColor: '#111827',
     paddingTop: 16,
     paddingHorizontal: 16,
@@ -1179,11 +1178,6 @@ const styles = StyleSheet.create({
 
   // ── Tab bar — full-bleed outer, capsule maxWidth 500 ───────────
   tabBarWrap: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
     backgroundColor: '#111827',
     paddingHorizontal: 16,
     paddingTop: 6,
