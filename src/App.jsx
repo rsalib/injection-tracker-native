@@ -1037,16 +1037,16 @@ const styles = StyleSheet.create({
 
   // ── Header — full-bleed, no maxWidth constraint ─────────────────
   headerWrap: {
-    backgroundColor: '#111827',
+    background: 'linear-gradient(to bottom, #111827 80%, rgba(17, 24, 39, 0) 100%)',
     paddingTop: 16,
     paddingHorizontal: 16,
     paddingBottom: 10,
     touchAction: 'none',
   },
   headerCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backgroundColor: 'rgba(31, 41, 55, 0.6)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
     borderRadius: 24,
     padding: 16,
     borderWidth: 1,
@@ -1178,7 +1178,7 @@ const styles = StyleSheet.create({
 
   // ── Tab bar — full-bleed outer, capsule maxWidth 500 ───────────
   tabBarWrap: {
-    backgroundColor: '#111827',
+    background: 'linear-gradient(to top, #111827 80%, rgba(17, 24, 39, 0) 100%)',
     paddingHorizontal: 16,
     paddingTop: 6,
     paddingBottom: 24,
