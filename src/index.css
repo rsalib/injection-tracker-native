@@ -11,3 +11,10 @@ html, body {
 #root > div > div {
   overscroll-behavior-y: contain;
 }
+
+.header-wrap {
+  background: linear-gradient(to bottom, #111827 80%, rgba(17,24,39,0) 100%) !important;
+}
+.tabbar-wrap {
+  background: linear-gradient(to top, #111827 80%, rgba(17,24,39,0) 100%) !important;
+}

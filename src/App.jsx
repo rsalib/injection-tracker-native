@@ -751,7 +751,7 @@ export default function App() {
 
       {/* ── Header ─────────────────────────────────────────────────── */}
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
-      <View style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]} onStartShouldSetResponder={() => true}>
+      <View className="header-wrap" style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]} onStartShouldSetResponder={() => true}>
         <View style={styles.headerCard}>
 
           {/* Title + sync status / logout */}
@@ -880,7 +880,7 @@ export default function App() {
 
       {/* ── Bottom tab navigation ──────────────────────────────────── */}
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100 }}>
-      <View style={[styles.tabBarWrap, { paddingBottom: 'max(16px, calc(env(safe-area-inset-bottom) - 20px))' }]} onStartShouldSetResponder={() => true}>
+      <View className="tabbar-wrap" style={[styles.tabBarWrap, { paddingBottom: 'max(16px, calc(env(safe-area-inset-bottom) - 20px))' }]} onStartShouldSetResponder={() => true}>
         <View style={styles.tabBarCapsule}>
           {NAV_TABS.map(t => {
             const active = activeTab === t.id;
@@ -1037,7 +1037,6 @@ const styles = StyleSheet.create({
 
   // ── Header — full-bleed, no maxWidth constraint ─────────────────
   headerWrap: {
-    background: 'linear-gradient(to bottom, #111827 80%, rgba(17, 24, 39, 0) 100%)',
     paddingTop: 16,
     paddingHorizontal: 16,
     paddingBottom: 10,
@@ -1178,7 +1177,6 @@ const styles = StyleSheet.create({
 
   // ── Tab bar — full-bleed outer, capsule maxWidth 500 ───────────
   tabBarWrap: {
-    background: 'linear-gradient(to top, #111827 80%, rgba(17, 24, 39, 0) 100%)',
     paddingHorizontal: 16,
     paddingTop: 6,
     paddingBottom: 24,
