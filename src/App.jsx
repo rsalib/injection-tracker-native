@@ -73,6 +73,12 @@ export default function App() {
   // ── Refs for interval / processing lock ────────────────────────────
   const isProcessingRef = useRef(false);
   const stateRef = useRef({ meds, logs, schedule, autoLogEnabled });
+  const scrollRef = useRef(null);
+
+  // Scroll to top on tab change
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+  }, [activeTab]);
 
   // Keep stateRef current so the minute-check interval reads fresh state
   useEffect(() => {
@@ -801,7 +807,7 @@ export default function App() {
       </div>
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
-      <ScrollView style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" bounces={false} overScrollMode="never">
+      <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" bounces={false} overScrollMode="never">
         <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: '#121212' }} />}>
         <View style={styles.appContainer}>
           {activeTab === 'Dashboard' && (
@@ -1164,8 +1170,8 @@ const styles = StyleSheet.create({
     right: 0,
   },
   content: {
-    paddingTop: 120,
-    paddingBottom: 80,
+    paddingTop: 150,
+    paddingBottom: 100,
   },
   appContainer: {
     width: '100%',
