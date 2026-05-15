@@ -54,14 +54,18 @@ export default PromptDialog;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(31, 41, 55, 0.98)',
+    backgroundColor: 'rgba(17, 24, 39, 0.85)',
+    backdropFilter: 'blur(40px)',
+    WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 28,
     maxWidth: 360,
     width: '100%',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
-    boxShadow: '0 25px 50px -12px rgba(0,0,0,0.6)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderTopColor: 'rgba(255, 255, 255, 0.12)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
     animationKeyframes: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   },
   title: {

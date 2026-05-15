@@ -212,9 +212,9 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: 'rgba(255,255,255,0.03)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: 100,
     paddingVertical: 14,
     paddingHorizontal: 18,
@@ -231,9 +231,9 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   notesInp: {
-    backgroundColor: 'rgba(255,255,255,0.03)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: 24,
     paddingVertical: 14,
     paddingHorizontal: 18,

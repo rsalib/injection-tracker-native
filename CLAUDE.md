@@ -226,13 +226,13 @@ All three functions are in `functions/index.js`:
 - Never intercepts: Firebase, Gemini, Google Auth, FDA, PubMed, Cloud Run
 - Auth redirect bypass: checks for `/__/auth/`, `apiKey`, `access_token`, `id_token`, `code`, `state` in URL to avoid intercepting Firebase Auth redirects
 - Bump `CACHE_VERSION` in `sw.js` on each deploy to force cache invalidation
-- Current version: `v10`
+- Current version: `v13`
 
 ---
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v12`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v13`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -401,6 +401,7 @@ Standing constraints that apply to all current and future work in this project:
 - `App.jsx`: tab bar bottom padding reduced from `max(40px, ...)` to `max(16px, env(safe-area-inset-bottom))` — closer to actual home indicator height. Added `onStartShouldSetResponder={() => true}` to tab bar View to capture touches and prevent bleed-through to ScrollView.
 - `App.jsx` + `index.css`: added `touchAction: 'none'` to `headerWrap` and `tabBarWrap` StyleSheet entries to block scroll gestures on those elements; added `overscroll-behavior-y: contain` to ScrollView's DOM container via `#root > div > div` CSS selector to prevent scroll chaining when user reaches top or bottom of scroll area.
 - `App.jsx`: tab bar bottom padding adjusted to `max(16px, calc(env(safe-area-inset-bottom) - 20px))` to move capsule 20px closer to home indicator.
+- **Dark Liquid Glass visual enhancement** applied across all 16 files (App.jsx, Dashboard.jsx, MedsTab.jsx, LogTab.jsx, ResourcesTab.jsx, AIAssistant.jsx, Calculator.jsx, Modal.jsx, ConfirmDialog.jsx, PromptDialog.jsx, AddMedModal.jsx, LogFormModal.jsx, TitrationModal.jsx, QueueVialModal.jsx, AddScheduleModal.jsx): glass card surfaces updated to `rgba(255,255,255,0.05)` bg + `blur(40px)` with top/left border highlights (`rgba(255,255,255,0.12)` / `rgba(255,255,255,0.06)`) and inset glow shadow. Modal cards updated to `rgba(17,24,39,0.85)` bg with same blur/highlights. Tab bar capsule updated to `rgba(255,255,255,0.06)` + deeper shadow. Active tab pill increased to `rgba(34,211,238,0.15)`. Active tab label gets `textShadow` cyan glow. Sync dot gets `boxShadow` cyan glow. Primary buttons get sheen: `inset 0 1px 0 rgba(255,255,255,0.15)`. Input fields updated from `rgba(255,255,255,0.03)` to `rgba(255,255,255,0.05)`. Build clean at 197 KB gzipped. CACHE_VERSION bumped to v13.
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2
