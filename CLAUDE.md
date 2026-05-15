@@ -25,6 +25,23 @@ A private clinical companion app for tracking peptide and hormone injection prot
 
 ---
 
+## Lighthouse Scores
+
+**Post-migration baseline (May 2026):**
+
+| Category | Desktop | Mobile |
+|---|---|---|
+| Performance | 82 | 57 |
+| Accessibility | 100 | 100 |
+| Best Practices | 100 | 100 |
+| SEO | 91 | 91 |
+
+- Mobile performance gap is driven by ~210 KB unused JavaScript from the Firebase SDK — same limitation as v2 (which scored 68 mobile). Accepted as known trade-off for a private app with authenticated repeat users who have JS cached after first load.
+- Accessibility and Best Practices are perfect on both platforms.
+- SEO improved from v2's 82 to 91 via meta description and icon tags added during migration.
+
+---
+
 ## Architecture
 
 ### Migration from Legacy
