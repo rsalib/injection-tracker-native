@@ -165,7 +165,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
             placeholder={peptides.length > 1 ? 'e.g. AM Recovery Stack' : 'Search medications...'}
             options={medOpts}
             renderOption={m => (
-              <div style={{ backgroundColor: '#0f172a', padding: '14px 18px', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 15 }}>
+              <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', padding: '14px 18px', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 16 }}>
                 <span style={{ color: 'white', fontWeight: 700 }}>{m.name}</span>
                 {m._isStack
                   ? <span style={{ fontSize: 10, color: '#fde68a', background: 'rgba(113,63,18,0.6)', borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>STACK</span>

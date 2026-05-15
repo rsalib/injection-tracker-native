@@ -23,7 +23,7 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
   return (
     <div ref={wrapperRef} style={{ position: 'relative', width: '100%' }}>
       <TextInput
-        style={styles.input}
+        style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)', borderTop: '1px solid rgba(255,255,255,0.15)', borderRadius: 100, paddingHorizontal: 18, paddingVertical: 14, color: 'white', fontSize: 16, outlineStyle: 'none' }}
         placeholder={placeholder || 'Search...'}
         placeholderTextColor="#6b7280"
         value={value}
@@ -48,7 +48,10 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
           overflowY: 'auto',
           boxShadow: '0 25px 50px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)',
           padding: 8,
+          animation: 'dropdownPopIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          transformOrigin: 'top center',
         }}>
+          <style>{`@keyframes dropdownPopIn { from { opacity: 0; transform: scale(0.95) translateY(-8px); } to { opacity: 1; transform: scale(1) translateY(0); } }`}</style>
           {options.map((o, i) => (
             <div
               key={i}
