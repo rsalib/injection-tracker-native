@@ -12,7 +12,18 @@
 
 ## Session Workflow
 
-**Always update CLAUDE.md before git commits.** When a step or fix is complete, update CLAUDE.md first to document what changed, then the user runs `git add` / `commit` / `push` in Terminal.
+1. Claude CLI updates CLAUDE.md to document what changed
+2. Claude CLI bumps CACHE_VERSION in public/sw.js
+3. Claude CLI reports done
+4. You run:
+
+```
+git add .
+git commit -m "descriptive message; bump CACHE_VERSION to vX"
+git push
+npm run build
+firebase deploy
+```
 
 ## Migration Context
 This is a fresh project migrating the production app at `/Users/rsalib/Desktop/injection-tracker-v2` from a Vite + React web app to React Native for Web. Same Firebase backend (project `injection-tracker-6341d`), same data, same users. The current v2 app stays live during the migration. This project will eventually replace it on `injectiontracker.web.app` and serve as the foundation for native iOS/Android builds via Metro.
@@ -419,7 +430,7 @@ Standing constraints that apply to all current and future work in this project:
 - **Dark Liquid Glass visual enhancement** applied across all 16 files (App.jsx, Dashboard.jsx, MedsTab.jsx, LogTab.jsx, ResourcesTab.jsx, AIAssistant.jsx, Calculator.jsx, Modal.jsx, ConfirmDialog.jsx, PromptDialog.jsx, AddMedModal.jsx, LogFormModal.jsx, TitrationModal.jsx, QueueVialModal.jsx, AddScheduleModal.jsx): glass card surfaces updated to `rgba(255,255,255,0.05)` bg + `blur(40px)` with top/left border highlights (`rgba(255,255,255,0.12)` / `rgba(255,255,255,0.06)`) and inset glow shadow. Modal cards updated to `rgba(17,24,39,0.85)` bg with same blur/highlights. Tab bar capsule updated to `rgba(255,255,255,0.06)` + deeper shadow. Active tab pill increased to `rgba(34,211,238,0.15)`. Active tab label gets `textShadow` cyan glow. Sync dot gets `boxShadow` cyan glow. Primary buttons get sheen: `inset 0 1px 0 rgba(255,255,255,0.15)`. Input fields updated from `rgba(255,255,255,0.03)` to `rgba(255,255,255,0.05)`. Build clean at 197 KB gzipped. CACHE_VERSION bumped to v13.
 - **Phase 2 glass enhancements** applied across App.jsx, Dashboard.jsx, MedsTab.jsx, LogTab.jsx, ResourcesTab.jsx, AIAssistant.jsx, Calculator.jsx, Badge.jsx: card border highlights bumped to `rgba(255,255,255,0.25)`, inner glow inset `0 1px 0 rgba(255,255,255,0.15)`, blur increased to `blur(40px)`, deeper outer shadows `rgba(0,0,0,0.6)`, cyan glow on sync dot/progress bars/badges (tightened to `0 0 4px` spread), brighter primary text, increased label letter spacing. CACHE_VERSION bumped to v19.
 - **PressableCard component** added at `src/components/ui/PressableCard.jsx` — wraps content in `Animated.View` with `Pressable` for scale-on-press effect (0.97 scale, `useNativeDriver: false`, spring physics). Applied to med cards, primary action buttons across LogTab, MedsTab, Calculator, and modal submit buttons. SearchDropdown options got solid `#0f172a` background to fix transparency bleed-through. Modal scroll container got `touchAction: 'manipulation'` for faster touch response. CACHE_VERSION bumped to v20.
-- **`SearchDropdown.jsx`**: dropdown ported to `createPortal(…, document.body)` at `position: fixed` to escape modal `overflowY: auto` clipping. `fontSize` bumped to `16` to prevent iOS auto-zoom. Input `backgroundColor` bumped to `rgba(255,255,255,0.05)`. CACHE_VERSION bumped to v21.
+- **`SearchDropdown.jsx`**: dropdown ported to `createPortal(…, document.body)` at `position: fixed` to escape modal `overflowY: auto` clipping. `fontSize` bumped to `16` to prevent iOS auto-zoom. Input `backgroundColor` bumped to `rgba(255,255,255,0.05)`. Option rows use `onMouseDown` + `e.preventDefault()` instead of `onPress` to prevent blur-before-select race. CACHE_VERSION bumped to v21.
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2
