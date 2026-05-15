@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
+import PressableCard from '../ui/PressableCard.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constants.js';
@@ -151,7 +152,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
             placeholder={peptides.length > 1 ? 'e.g. AM Recovery Stack' : 'Search medications...'}
             options={medOpts}
             renderOption={m => (
-              <div style={{ padding: '14px 18px', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 15 }}>
+              <div style={{ backgroundColor: '#0f172a', padding: '14px 18px', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 15 }}>
                 <span style={{ color: 'white', fontWeight: 700 }}>{m.name}</span>
                 {m._isStack
                   ? <span style={{ fontSize: 10, color: '#fde68a', background: 'rgba(113,63,18,0.6)', borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>STACK</span>
@@ -241,7 +242,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
                   placeholder="e.g. BPC-157"
                   options={POPULAR_MEDS.filter(m => m.name.toLowerCase().includes((p.name || '').toLowerCase())).slice(0, 10)}
                   renderOption={m => (
-                    <div style={{ padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 14 }}>
+                    <div style={{ backgroundColor: '#0f172a', padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 14 }}>
                       <span style={{ color: 'white', fontWeight: 700 }}>{m.name}</span>
                       <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
                     </div>
@@ -284,12 +285,13 @@ export function MedForm({ initial, onSave, onClose, title }) {
         ))}
 
         {/* Add peptide */}
-        <Pressable
+        <PressableCard
           onPress={() => setPeptides([...peptides, { id: `sp_${Date.now()}`, name: '', vialTotal: '', vialUnit: 'mg', dose: '', unit: 'mcg' }])}
           style={styles.addPepBtn}
+          pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}
         >
           <Text style={styles.addPepText}>+ ADD ANOTHER PEPTIDE</Text>
-        </Pressable>
+        </PressableCard>
 
         {/* Schedule + Location */}
         <View style={styles.well}>
@@ -337,9 +339,9 @@ export function MedForm({ initial, onSave, onClose, title }) {
           </View>
         </View>
 
-        <Pressable onPress={submit} style={styles.submitBtn}>
-          <Text style={styles.submitBtnText}>{peptides.length > 1 ? 'SAVE STACK PROTOCOL' : 'SAVE MEDICATION'}</Text>
-        </Pressable>
+        <PressableCard onPress={submit} style={styles.submitBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={[styles.submitBtnText, { textAlign: 'center' }]}>{peptides.length > 1 ? 'SAVE STACK PROTOCOL' : 'SAVE MEDICATION'}</Text>
+        </PressableCard>
       </View>
     </Modal>
   );

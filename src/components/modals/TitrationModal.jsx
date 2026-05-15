@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import PressableCard from '../ui/PressableCard.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { formatDisplayDate } from '../../constants.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
@@ -139,9 +140,9 @@ export function TitrationModal({ med, onClose, onSave, today }) {
               </View>
             )}
 
-            <Pressable onPress={addEntry} style={styles.addStepBtn}>
+            <PressableCard onPress={addEntry} style={styles.addStepBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
               <Text style={styles.addStepText}>+ ADD STEP TO SCHEDULE</Text>
-            </Pressable>
+            </PressableCard>
           </View>
         )}
 
@@ -172,9 +173,9 @@ export function TitrationModal({ med, onClose, onSave, today }) {
           </View>
         )}
 
-        <Pressable onPress={saveTit} style={styles.saveBtn}>
+        <PressableCard onPress={saveTit} style={styles.saveBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
           <Text style={styles.saveBtnText}>SAVE TITRATION SETTINGS</Text>
-        </Pressable>
+        </PressableCard>
       </View>
     </Modal>
   );

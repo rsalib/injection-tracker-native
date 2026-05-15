@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
+import PressableCard from '../ui/PressableCard.jsx';
 import { Badge } from '../ui/Badge.jsx';
 import { CAT_META, POPULAR_MEDS } from '../../constants.js';
 import { fetchAllResources } from '../../services/gemini.js';
@@ -212,7 +213,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                 { paddingBottom: expanded || isLast ? 16 : 0, marginBottom: expanded && !isLast ? 16 : 0 },
               ]}
             >
-              <Pressable
+              <PressableCard
                 onPress={() => toggleExpand(name)}
                 style={styles.libraryEntryToggle}
               >
@@ -226,7 +227,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                   </View>
                   <Text style={styles.chevron}>{expanded ? "▲" : "▼"}</Text>
                 </View>
-              </Pressable>
+              </PressableCard>
 
               {expanded && (
                 <View style={styles.libraryExpanded}>

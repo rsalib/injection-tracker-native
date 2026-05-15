@@ -63,7 +63,7 @@ export function Modal({ title, onClose, children }) {
         aria-modal="true"
         aria-label={title}
         tabIndex="-1"
-        style={{ width: '100%', maxWidth: 480, maxHeight: '90vh', overflowY: 'auto', outline: 'none' }}
+        style={{ width: '100%', maxWidth: 480, maxHeight: '90vh', overflowY: 'auto', outline: 'none', touchAction: 'manipulation' }}
       >
         <View style={styles.card}>
           <View style={styles.header}>
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: 'white',
     letterSpacing: -0.4,
+    textAlign: 'center',
   },
   closeBtn: {
     width: 32,

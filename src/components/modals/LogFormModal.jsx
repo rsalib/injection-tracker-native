@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
+import PressableCard from '../ui/PressableCard.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
 import { SITES, getLocalDate, getLocalTime } from '../../constants.js';
@@ -185,9 +186,9 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
           <SyringeVisualizer units={calcVisuals.units} maxUnits={calcVisuals.maxUnits} ml={calcVisuals.ml} />
         )}
 
-        <Pressable onPress={submit} style={styles.submitBtn}>
+        <PressableCard onPress={submit} style={styles.submitBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
           <Text style={styles.submitBtnText}>{isEdit ? 'SAVE CHANGES' : 'LOG INJECTION'}</Text>
-        </Pressable>
+        </PressableCard>
       </View>
     </Modal>
   );

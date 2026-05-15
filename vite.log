@@ -550,3 +550,435 @@ If you intend to use the URL of that asset, use /icon.png?url.
 Assets in public directory cannot be imported from JavaScript.
 If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
 If you intend to use the URL of that asset, use /icon.png?url.
+12:20:43 PM [vite] (client) hmr update /src/App.jsx
+12:20:46 PM [vite] (client) hmr update /src/App.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:24:56 PM [vite] (client) hmr update /src/App.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:31:29 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+12:31:30 PM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+12:31:30 PM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+12:31:30 PM [vite] (client) hmr update /src/App.jsx
+12:31:31 PM [vite] (client) hmr update /src/components/tabs/ResourcesTab.jsx
+12:31:32 PM [vite] (client) hmr update /src/components/modals/AddMedModal.jsx
+12:31:33 PM [vite] (client) hmr update /src/components/modals/LogFormModal.jsx
+12:31:34 PM [vite] (client) hmr update /src/components/modals/TitrationModal.jsx
+12:31:35 PM [vite] (client) hmr update /src/components/modals/QueueVialModal.jsx
+12:31:36 PM [vite] (client) hmr update /src/components/modals/AddScheduleModal.jsx
+12:31:40 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+12:31:40 PM [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'PressableCard'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:216:19 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m186 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mPressableCard[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mP[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249m [0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mg[0m[38;5;249mg[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mM[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m([0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249mH[0m[38;5;249me[0m[38;5;249ma[0m[38;5;249md[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                  ──────┬──────  
+ [38;5;240m    │[0m                        ╰──────── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m216 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mPressable[38;5;249m>[0m
+ [38;5;240m    │[0m                   ────┬────  
+ [38;5;240m    │[0m                       ╰────── Expected `</PressableCard>`
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/tabs/MedsTab.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+12:31:42 PM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+12:31:42 PM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+12:31:42 PM [vite] (client) hmr update /src/App.jsx
+12:31:43 PM [vite] (client) hmr update /src/components/tabs/ResourcesTab.jsx
+12:31:43 PM [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'PressableCard'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/ResourcesTab.jsx:230:17 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m216 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mPressableCard
+ [38;5;240m    │[0m                ──────┬──────  
+ [38;5;240m    │[0m                      ╰──────── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m230 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mPressable[38;5;249m>[0m
+ [38;5;240m    │[0m                 ────┬────  
+ [38;5;240m    │[0m                     ╰────── Expected `</PressableCard>`
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/tabs/ResourcesTab.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+12:31:46 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+12:31:48 PM [vite] (client) hmr update /src/components/tabs/ResourcesTab.jsx
+12:31:56 PM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+12:31:56 PM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+12:31:56 PM [vite] (client) hmr update /src/App.jsx
+12:31:59 PM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+12:31:59 PM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+12:31:59 PM [vite] (client) hmr update /src/App.jsx
+12:32:04 PM [vite] (client) hmr update /src/components/modals/AddMedModal.jsx
+12:32:06 PM [vite] (client) hmr update /src/components/modals/LogFormModal.jsx
+12:32:08 PM [vite] (client) hmr update /src/components/modals/TitrationModal.jsx
+12:32:10 PM [vite] (client) hmr update /src/components/modals/QueueVialModal.jsx
+12:32:11 PM [vite] (client) hmr update /src/components/modals/AddScheduleModal.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:39:05 PM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+12:39:05 PM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+12:39:05 PM [vite] (client) hmr update /src/App.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:44:07 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:46:25 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:47:47 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:49:27 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+12:49:32 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+12:49:36 PM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+12:49:36 PM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+12:49:36 PM [vite] (client) hmr update /src/App.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+12:53:21 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+1:06:45 PM [vite] (client) hmr update /src/components/ui/Modal.jsx
+1:06:47 PM [vite] (client) hmr update /src/components/modals/LogFormModal.jsx
+1:06:48 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+1:06:50 PM [vite] (client) hmr update /src/components/modals/AddMedModal.jsx
+1:06:52 PM [vite] (client) hmr update /src/components/modals/AddMedModal.jsx
+1:06:58 PM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+1:06:58 PM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+1:06:58 PM [vite] (client) hmr update /src/App.jsx
+1:07:00 PM [vite] (client) hmr update /src/components/tabs/LogTab.jsx
+1:07:00 PM [vite] (client) hmr invalidate /src/components/tabs/LogTab.jsx Could not Fast Refresh ("exportICS" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+1:07:00 PM [vite] (client) hmr update /src/App.jsx
+1:07:02 PM [vite] (client) hmr update /src/components/tabs/Calculator.jsx
+1:07:04 PM [vite] (client) hmr update /src/components/tabs/Calculator.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+1:21:23 PM [vite] (client) hmr update /src/components/modals/TitrationModal.jsx
+1:21:26 PM [vite] (client) hmr update /src/components/modals/TitrationModal.jsx
+1:21:30 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+1:21:30 PM [vite] Internal server error: Transform failed with 2 errors:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'View'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:216:19 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m186 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mView[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249mH[0m[38;5;249me[0m[38;5;249ma[0m[38;5;249md[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                  ──┬─  
+ [38;5;240m    │[0m                    ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m216 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mPressableCard[38;5;249m>[0m
+ [38;5;240m    │[0m                   ──────┬──────  
+ [38;5;240m    │[0m                         ╰──────── Expected `</View>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'PressableCard'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:316:17 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m184 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mPressableCard[38;5;249m [0m[38;5;249mk[0m[38;5;249me[0m[38;5;249my[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mP[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249m [0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mg[0m[38;5;249mg[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mM[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m([0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                ──────┬──────  
+ [38;5;240m    │[0m                      ╰──────── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m316 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mView[38;5;249m>[0m
+ [38;5;240m    │[0m                 ──┬─  
+ [38;5;240m    │[0m                   ╰─── Expected `</PressableCard>`
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/tabs/MedsTab.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+1:21:32 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+1:21:32 PM [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'PressableCard'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:316:17 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m184 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mPressableCard[38;5;249m [0m[38;5;249mk[0m[38;5;249me[0m[38;5;249my[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mP[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249m [0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mg[0m[38;5;249mg[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mM[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m([0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                ──────┬──────  
+ [38;5;240m    │[0m                      ╰──────── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m316 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mView[38;5;249m>[0m
+ [38;5;240m    │[0m                 ──┬─  
+ [38;5;240m    │[0m                   ╰─── Expected `</PressableCard>`
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/tabs/MedsTab.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+1:21:35 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+1:31:15 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+1:31:19 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+1:31:19 PM [vite] Internal server error: Transform failed with 2 errors:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'PressableCard'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:216:19 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m186 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mPressableCard[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mP[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249m [0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mg[0m[38;5;249mg[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mM[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m([0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249mH[0m[38;5;249me[0m[38;5;249ma[0m[38;5;249md[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                  ──────┬──────  
+ [38;5;240m    │[0m                        ╰──────── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m216 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mView[38;5;249m>[0m
+ [38;5;240m    │[0m                   ──┬─  
+ [38;5;240m    │[0m                     ╰─── Expected `</PressableCard>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'View'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:316:17 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m184 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mView[38;5;249m [0m[38;5;249mk[0m[38;5;249me[0m[38;5;249my[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                ──┬─  
+ [38;5;240m    │[0m                  ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m316 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mPressableCard[38;5;249m>[0m
+ [38;5;240m    │[0m                 ──────┬──────  
+ [38;5;240m    │[0m                       ╰──────── Expected `</View>`
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/tabs/MedsTab.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+1:31:22 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+1:31:22 PM [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'View'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:316:17 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m184 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mView[38;5;249m [0m[38;5;249mk[0m[38;5;249me[0m[38;5;249my[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                ──┬─  
+ [38;5;240m    │[0m                  ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m316 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mPressableCard[38;5;249m>[0m
+ [38;5;240m    │[0m                 ──────┬──────  
+ [38;5;240m    │[0m                       ╰──────── Expected `</View>`
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/tabs/MedsTab.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+1:31:25 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+1:31:29 PM [vite] (client) hmr update /src/components/ui/SearchDropdown.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+1:42:13 PM [vite] (client) hmr update /src/components/ui/SearchDropdown.jsx
+1:42:15 PM [vite] (client) hmr update /src/components/ui/SearchDropdown.jsx
+1:42:20 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+1:42:20 PM [vite] Internal server error: Transform failed with 2 errors:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'View'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:216:19 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m186 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mView[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249mH[0m[38;5;249me[0m[38;5;249ma[0m[38;5;249md[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                  ──┬─  
+ [38;5;240m    │[0m                    ╰─── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m216 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mPressableCard[38;5;249m>[0m
+ [38;5;240m    │[0m                   ──────┬──────  
+ [38;5;240m    │[0m                         ╰──────── Expected `</View>`
+[38;5;246m─────╯[0m
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'PressableCard'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:316:17 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m184 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mPressableCard[38;5;249m [0m[38;5;249mk[0m[38;5;249me[0m[38;5;249my[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mP[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249m [0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mg[0m[38;5;249mg[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mM[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m([0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                ──────┬──────  
+ [38;5;240m    │[0m                      ╰──────── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m316 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mView[38;5;249m>[0m
+ [38;5;240m    │[0m                 ──┬─  
+ [38;5;240m    │[0m                   ╰─── Expected `</PressableCard>`
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/tabs/MedsTab.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+1:42:23 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+1:42:23 PM [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'PressableCard'.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/tabs/MedsTab.jsx:316:17 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m184 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0mPressableCard[38;5;249m [0m[38;5;249mk[0m[38;5;249me[0m[38;5;249my[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mP[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249m [0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mg[0m[38;5;249mg[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mM[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m([0m[38;5;249mm[0m[38;5;249m.[0m[38;5;249mi[0m[38;5;249md[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249md[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m}[0m[38;5;249m>[0m
+ [38;5;240m    │[0m                ──────┬──────  
+ [38;5;240m    │[0m                      ╰──────── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m316 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mView[38;5;249m>[0m
+ [38;5;240m    │[0m                 ──┬─  
+ [38;5;240m    │[0m                   ╰─── Expected `</PressableCard>`
+[38;5;246m─────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/tabs/MedsTab.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+1:42:27 PM [vite] (client) hmr update /src/components/tabs/MedsTab.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+1:44:18 PM [vite] (client) hmr update /src/components/ui/Modal.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Files in the public directory are served at the root path.
+Instead of /public/icon.png, use /icon.png.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Files in the public directory are served at the root path.
+Instead of /public/icon.png, use /icon.png.
+1:55:24 PM [vite] (client) hmr update /src/components/modals/AddMedModal.jsx
+1:55:27 PM [vite] (client) hmr update /src/components/modals/AddMedModal.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+2:05:41 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+2:05:41 PM [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected `}` but found `EOF`
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/ui/PressableCard.jsx:28:3 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m 4 │[0m [38;5;249me[0m[38;5;249mx[0m[38;5;249mp[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249md[0m[38;5;249me[0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249mu[0m[38;5;249ml[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249mf[0m[38;5;249mu[0m[38;5;249mn[0m[38;5;249mc[0m[38;5;249mt[0m[38;5;249mi[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249mP[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mC[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m([0m[38;5;249m{[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mP[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249m,[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m,[0m[38;5;249m [0m[38;5;249mp[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249my[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m,[0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249mi[0m[38;5;249ml[0m[38;5;249md[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m,[0m[38;5;249m [0m[38;5;249m.[0m[38;5;249m.[0m[38;5;249m.[0m[38;5;249mp[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249ms[0m[38;5;249m [0m[38;5;249m}[0m[38;5;249m)[0m[38;5;249m [0m{
+ [38;5;240m   │[0m                                                                                               ┬  
+ [38;5;240m   │[0m                                                                                               ╰── Opened here
+ [38;5;240m   │[0m 
+ [38;5;246m28 │[0m [38;5;249m}[0m
+ [38;5;240m   │[0m   │ 
+ [38;5;240m   │[0m   ╰─ `}` expected
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: /Users/rsalib/Desktop/injection-tracker-native/src/components/ui/PressableCard.jsx
+      at transformWithOxc (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3339:19)
+      at TransformPluginContext.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:3410:26)
+      at EnvironmentPluginContainer.transform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:30271:51)
+      at async loadAndTransform (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24532:26)
+      at async viteTransformMiddleware (file:///Users/rsalib/Desktop/injection-tracker-native/node_modules/vite/dist/node/chunks/node.js:24326:20)
+2:05:48 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+2:08:24 PM [vite] (client) hmr update /src/components/ui/PressableCard.jsx
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.
+Assets in public directory cannot be imported from JavaScript.
+If you intend to import that asset, put the file in the src directory, and use /src/icon.png instead of /public/icon.png.
+If you intend to use the URL of that asset, use /icon.png?url.

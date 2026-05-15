@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
+import PressableCard from '../ui/PressableCard.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { getLocalDate } from '../../constants.js';
 
@@ -113,9 +114,9 @@ export function QueueVialModal({ med, onClose, onSave }) {
             </Pressable>
           </View>
         ) : (
-          <Pressable onPress={() => handleSave(true)} style={styles.saveBtn}>
+          <PressableCard onPress={() => handleSave(true)} style={styles.saveBtn}>
             <Text style={styles.saveBtnText}>{med.isArchived ? 'RESTART PROTOCOL' : 'SAVE NEW VIAL'}</Text>
-          </Pressable>
+          </PressableCard>
         )}
       </View>
     </Modal>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
+import PressableCard from '../ui/PressableCard.jsx';
 import { Badge } from '../ui/Badge.jsx';
 import { SortBar } from '../ui/SortBar.jsx';
 import { ConfirmDialog } from '../ui/ConfirmDialog.jsx';
@@ -96,9 +97,9 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
       )}
 
       {/* Primary Action Button */}
-      <Pressable onPress={onAdd} style={styles.createBtn}>
+      <PressableCard onPress={onAdd} style={styles.createBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
         <Text style={styles.createBtnText}>+ CREATE NEW PROTOCOL</Text>
-      </Pressable>
+      </PressableCard>
 
       <SortBar sort={sort} setSort={updateSort} />
 
@@ -180,9 +181,9 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
             });
 
             return (
-              <View key={m.id} style={styles.medCard}>
+              <PressableCard key={m.id} onPress={() => toggleMed(m.id)} style={styles.medCard}>
                 {/* Header */}
-                <Pressable onPress={() => toggleMed(m.id)} style={styles.medCardHeader}>
+                <View style={styles.medCardHeader}>
                   <View style={styles.medCardHeaderTop}>
                     <View style={styles.medCardHeaderLeft}>
                       <View style={styles.medNameRow}>
@@ -212,11 +213,11 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                     <Text style={styles.progressLabelText}>{rem.toFixed(2)} {m.vialUnit || m.unit} Left</Text>
                     <Text style={styles.progressLabelText}>~{usesRem} doses left</Text>
                   </View>
-                </Pressable>
+                </View>
 
                 {/* Expanded Details */}
                 {isExp && (
-                  <View style={styles.expandedSection}>
+                  <View style={styles.expandedSection} pointerEvents="box-none">
                     {/* Metrics Grid */}
                     <View style={styles.metricsCard}>
                       <View style={styles.metricsGrid}>
@@ -312,7 +313,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                     </View>
                   </View>
                 )}
-              </View>
+              </PressableCard>
             );
           })
         )}

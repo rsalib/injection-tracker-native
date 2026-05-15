@@ -755,6 +755,20 @@ export default function App() {
     <ToastHost />
     <View style={styles.screen}>
 
+      {/* SVG noise texture overlay */}
+      <svg style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', opacity: 0.06 }}>
+        <filter id="noise">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.65"
+            numOctaves="3"
+            stitchTiles="stitch"
+          />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noise)" />
+      </svg>
+
       {/* ── Header ─────────────────────────────────────────────────── */}
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
       <View className="header-wrap" style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]} onStartShouldSetResponder={() => true}>
@@ -1168,6 +1182,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    zIndex: 1,
   },
   content: {
     paddingTop: 150,
