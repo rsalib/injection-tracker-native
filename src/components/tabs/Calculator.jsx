@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
-import PressableCard from '../ui/PressableCard.jsx';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { Pressable } from '../ui/Pressable.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { ALL_STACKS } from '../../constants.js';
@@ -320,16 +320,15 @@ export function Calculator() {
             </View>
           ))}
 
-          <PressableCard
+          <Pressable
             onPress={() => setStackData({
               ...stackData,
               peptides: [...stackData.peptides, { id: Date.now().toString(), name: '', vialMg: '', doseAmount: '', doseUnit: 'mcg' }]
             })}
-            style={styles.addPeptideBtn}
-            pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}
+            style={[styles.addPeptideBtn, { justifyContent: 'center' }]}
           >
             <Text style={styles.addPeptideBtnText}>+ ADD ANOTHER PEPTIDE</Text>
-          </PressableCard>
+          </Pressable>
         </View>
       )}
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import PressableCard from '../ui/PressableCard.jsx';
+import { View, Text, StyleSheet } from 'react-native';
+import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { CAT_META, POPULAR_MEDS } from '../../constants.js';
@@ -109,9 +109,9 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
               <Text style={styles.resultsMeta}>{searchedMed} · {liveResults.length} sources found</Text>
             </View>
             {hasResults && (
-              <PressableCard onPress={saveAll} style={styles.saveAllBtn} pressableStyle={{ alignItems: 'center' }}>
+              <Pressable onPress={saveAll} style={[styles.saveAllBtn, { alignItems: 'center' }]}>
                 <Text style={styles.saveAllText}>SAVE ALL</Text>
-              </PressableCard>
+              </Pressable>
             )}
           </View>
 
@@ -150,16 +150,15 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                           </a>
                           <Text style={styles.resultSource}>{r.source}</Text>
                         </View>
-                        <PressableCard
+                        <Pressable
                           onPress={() => saveOne(r)}
                           disabled={saved}
-                          style={[styles.saveBtn, saved && styles.saveBtnSaved]}
-                          pressableStyle={{ alignItems: 'center' }}
+                          style={[styles.saveBtn, saved && styles.saveBtnSaved, { alignItems: 'center' }]}
                         >
                           <Text style={[styles.saveBtnText, saved && styles.saveBtnTextSaved]}>
                             {saved ? "SAVED" : "SAVE"}
                           </Text>
-                        </PressableCard>
+                        </Pressable>
                       </View>
                     );
                   })}
@@ -194,7 +193,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                 { paddingBottom: expanded || isLast ? 16 : 0, marginBottom: expanded && !isLast ? 16 : 0 },
               ]}
             >
-              <PressableCard
+              <Pressable
                 onPress={() => toggleExpand(name)}
                 style={styles.libraryEntryToggle}
               >
@@ -208,7 +207,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                   </View>
                   <Text style={styles.chevron}>{expanded ? "▲" : "▼"}</Text>
                 </View>
-              </PressableCard>
+              </Pressable>
 
               {expanded && (
                 <View style={styles.libraryExpanded}>
@@ -243,9 +242,9 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                               <a href={r.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: "white", textDecoration: "none", fontWeight: 700, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                                 {r.title}
                               </a>
-                              <PressableCard onPress={() => onRemoveFromLibrary(name, r.url)} style={styles.removeBtn} pressableStyle={{ alignItems: 'center' }}>
+                              <Pressable onPress={() => onRemoveFromLibrary(name, r.url)} style={[styles.removeBtn, { alignItems: 'center' }]}>
                                 <Text style={styles.removeBtnText}>REMOVE</Text>
-                              </PressableCard>
+                              </Pressable>
                             </View>
                           ))}
                         </View>

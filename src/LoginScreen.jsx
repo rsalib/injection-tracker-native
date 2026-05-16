@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { Pressable } from './components/ui/Pressable.jsx';
 import iconPng from '../public/icon.png';
 import { auth } from './services/firebase.js';
 import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from 'firebase/auth';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import PressableCard from '../ui/PressableCard.jsx';
+import { View, Text, StyleSheet } from 'react-native';
+import { Pressable } from '../ui/Pressable.jsx';
 import { formatDisplayDate } from '../../constants.js';
 import { auth } from '../../services/firebase.js';
 import { appCheck } from '../../services/firebase.js';
@@ -176,9 +176,9 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
       </View>
 
       {/* Primary Action Button */}
-      <PressableCard onPress={() => setShowAddLog(true)} style={styles.logBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+      <Pressable onPress={() => setShowAddLog(true)} style={[styles.logBtn, { justifyContent: 'center' }]}>
         <Text style={styles.logBtnText}>+ LOG INJECTION</Text>
-      </PressableCard>
+      </Pressable>
 
       {/* History Timeline Bubble */}
       <View style={[styles.historyCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
@@ -198,7 +198,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
 
               return (
                 <View key={month} style={styles.monthBlock}>
-                  <PressableCard
+                  <Pressable
                     onPress={() => toggleMonth(month)}
                     style={[styles.monthToggle, { marginBottom: isMonthExpanded ? 16 : 0 }]}
                   >
@@ -207,7 +207,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
                       <Text style={styles.monthCount}> ({monthLogCount} doses)</Text>
                     </View>
                     <Text style={styles.chevron}>{isMonthExpanded ? "▲" : "▼"}</Text>
-                  </PressableCard>
+                  </Pressable>
 
                   {isMonthExpanded && (
                     <View style={styles.timelineWrap}>
@@ -222,7 +222,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
                           <View key={date} style={styles.dateBlock}>
                             <View style={{ position: 'relative' }}>
                               <View style={styles.dateNodeOuter} />
-                              <PressableCard
+                              <Pressable
                                 onPress={() => toggleDate(date)}
                                 style={styles.dateToggle}
                               >
@@ -233,7 +233,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
                                   </Text>
                                 </View>
                                 <Text style={styles.chevron}>{isDateExpanded ? "▲" : "▼"}</Text>
-                              </PressableCard>
+                              </Pressable>
                             </View>
 
                             {isDateExpanded && dateLogs.map((l) => {
@@ -268,12 +268,12 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
                                       </View>
                                     )}
                                     <View style={styles.logActions}>
-                                      <PressableCard onPress={() => onEditLog(l)} style={styles.logEditBtn} pressableStyle={{ alignItems: 'center' }}>
+                                      <Pressable onPress={() => onEditLog(l)} style={styles.logEditBtn}>
                                         <Text style={styles.logEditText}>EDIT</Text>
-                                      </PressableCard>
-                                      <PressableCard onPress={() => delLog(l.id)} style={styles.logDeleteBtn} pressableStyle={{ alignItems: 'center' }}>
+                                      </Pressable>
+                                      <Pressable onPress={() => delLog(l.id)} style={styles.logDeleteBtn}>
                                         <Text style={styles.logDeleteText}>DELETE</Text>
-                                      </PressableCard>
+                                      </Pressable>
                                     </View>
                                   </View>
                                 </View>
@@ -289,13 +289,12 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
             })}
 
             {hasMoreMonths && (
-              <PressableCard
+              <Pressable
                 onPress={() => setVisibleMonthCount(prev => prev + 3)}
                 style={styles.loadMoreBtn}
-                pressableStyle={{ alignItems: 'center' }}
               >
                 <Text style={styles.loadMoreText}>LOAD OLDER HISTORY</Text>
-              </PressableCard>
+              </Pressable>
             )}
           </View>
         )}
@@ -307,28 +306,26 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
         <Text style={styles.exportSub}>Share your protocols with a provider or archive your log history.</Text>
         <View style={styles.exportActions}>
           <View style={styles.exportRow}>
-            <PressableCard onPress={() => exportICS(meds)} style={styles.exportBtnGray} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Pressable onPress={() => exportICS(meds)} style={[styles.exportBtnGray, { justifyContent: 'center' }]}>
               <Text style={styles.exportBtnGrayText}>📅 Calendar (.ics)</Text>
-            </PressableCard>
-            <PressableCard
+            </Pressable>
+            <Pressable
               onPress={() => exportLogsCSV(logs)}
               disabled={!logs || logs.length === 0}
-              style={[styles.exportBtnCyan, (!logs || logs.length === 0) && styles.exportBtnDisabled]}
-              pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}
+              style={[styles.exportBtnCyan, (!logs || logs.length === 0) && styles.exportBtnDisabled, { justifyContent: 'center' }]}
             >
               <Text style={styles.exportBtnCyanText}>📊 Log History (.csv)</Text>
-            </PressableCard>
+            </Pressable>
           </View>
-          <PressableCard
+          <Pressable
             onPress={handleSubscribe}
             disabled={calendarLoading}
-            style={[styles.subscribeBtn, calendarLoading && styles.subscribeBtnLoading]}
-            pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}
+            style={[styles.subscribeBtn, calendarLoading && styles.subscribeBtnLoading, { justifyContent: 'center' }]}
           >
             <Text style={styles.subscribeBtnText}>
               {calendarLoading ? "⏳ Getting Link..." : calendarCopied ? "✅ Link Copied!" : "🔗 Subscribe to Calendar"}
             </Text>
-          </PressableCard>
+          </Pressable>
         </View>
       </View>
     </View>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
-import PressableCard from '../ui/PressableCard.jsx';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { getLocalDate } from '../../constants.js';
 
@@ -106,17 +106,17 @@ export function QueueVialModal({ med, onClose, onSave }) {
 
         {hasRemaining ? (
           <View style={styles.splitBtns}>
-            <PressableCard onPress={() => handleSave(true)} style={styles.replaceBtn} pressableStyle={{ alignItems: 'center' }}>
+            <Pressable onPress={() => handleSave(true)} style={styles.replaceBtn}>
               <Text style={styles.replaceBtnText}>REPLACE CURRENT</Text>
-            </PressableCard>
-            <PressableCard onPress={() => handleSave(false)} style={styles.queueBtn} pressableStyle={{ alignItems: 'center' }}>
+            </Pressable>
+            <Pressable onPress={() => handleSave(false)} style={styles.queueBtn}>
               <Text style={styles.queueBtnText}>QUEUE FOR LATER</Text>
-            </PressableCard>
+            </Pressable>
           </View>
         ) : (
-          <PressableCard onPress={() => handleSave(true)} style={styles.saveBtn}>
+          <Pressable onPress={() => handleSave(true)} style={styles.saveBtn}>
             <Text style={styles.saveBtnText}>{med.isArchived ? 'RESTART PROTOCOL' : 'SAVE NEW VIAL'}</Text>
-          </PressableCard>
+          </Pressable>
         )}
       </View>
     </Modal>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import PressableCard from '../ui/PressableCard.jsx';
+import { View, Text, StyleSheet } from 'react-native';
+import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { formatDisplayDate } from '../../constants.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
@@ -80,15 +80,14 @@ export function TitrationModal({ med, onClose, onSave, today }) {
             <Text style={styles.toggleTitle}>Titration Mode</Text>
             <Text style={styles.toggleSub}>Auto-adjust dose on set dates</Text>
           </View>
-          <PressableCard
+          <Pressable
             onPress={() => setIsTitrating(t => !t)}
-            style={[styles.toggleBtn, isTitrating && styles.toggleBtnActive]}
-            pressableStyle={{ alignItems: 'center' }}
+            style={[styles.toggleBtn, isTitrating && styles.toggleBtnActive, { alignItems: 'center' }]}
           >
             <Text style={[styles.toggleBtnText, isTitrating && styles.toggleBtnTextActive]}>
               {isTitrating ? 'ENABLED' : 'DISABLED'}
             </Text>
-          </PressableCard>
+          </Pressable>
         </View>
 
         {/* Add dose step */}
@@ -141,9 +140,9 @@ export function TitrationModal({ med, onClose, onSave, today }) {
               </View>
             )}
 
-            <PressableCard onPress={addEntry} style={styles.addStepBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Pressable onPress={addEntry} style={[styles.addStepBtn, { justifyContent: 'center' }]}>
               <Text style={styles.addStepText}>+ ADD STEP TO SCHEDULE</Text>
-            </PressableCard>
+            </Pressable>
           </View>
         )}
 
@@ -162,22 +161,21 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                     </View>
                     <Text style={styles.schedDate}>Starts {formatDisplayDate(s.date)}</Text>
                   </View>
-                  <PressableCard
+                  <Pressable
                     onPress={() => setSched(sc => sc.filter(x => x.id !== s.id))}
-                    style={styles.removeStepBtn}
-                    pressableStyle={{ alignItems: 'center' }}
+                    style={[styles.removeStepBtn, { alignItems: 'center' }]}
                   >
                     <Text style={styles.removeStepText}>REMOVE</Text>
-                  </PressableCard>
+                  </Pressable>
                 </View>
               );
             })}
           </View>
         )}
 
-        <PressableCard onPress={saveTit} style={styles.saveBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Pressable onPress={saveTit} style={[styles.saveBtn, { justifyContent: 'center' }]}>
           <Text style={styles.saveBtnText}>SAVE TITRATION SETTINGS</Text>
-        </PressableCard>
+        </Pressable>
       </View>
     </Modal>
   );

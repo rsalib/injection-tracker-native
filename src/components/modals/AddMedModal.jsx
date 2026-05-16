@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
-import PressableCard from '../ui/PressableCard.jsx';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constants.js';
@@ -298,13 +298,12 @@ export function MedForm({ initial, onSave, onClose, title }) {
         ))}
 
         {/* Add peptide */}
-        <PressableCard
+        <Pressable
           onPress={() => setPeptides([...peptides, { id: `sp_${Date.now()}`, name: '', vialTotal: '', vialUnit: 'mg', dose: '', unit: 'mcg' }])}
-          style={styles.addPepBtn}
-          pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}
+          style={[styles.addPepBtn, { justifyContent: 'center' }]}
         >
           <Text style={styles.addPepText}>+ ADD ANOTHER PEPTIDE</Text>
-        </PressableCard>
+        </Pressable>
 
         {/* Schedule + Location */}
         <View style={styles.well}>
@@ -352,9 +351,9 @@ export function MedForm({ initial, onSave, onClose, title }) {
           </View>
         </View>
 
-        <PressableCard onPress={submit} style={styles.submitBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Pressable onPress={submit} style={[styles.submitBtn, { justifyContent: 'center' }]}>
           <Text style={[styles.submitBtnText, { textAlign: 'center' }]}>{peptides.length > 1 ? 'SAVE STACK PROTOCOL' : 'SAVE MEDICATION'}</Text>
-        </PressableCard>
+        </Pressable>
       </View>
     </Modal>
   );

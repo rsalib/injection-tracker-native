@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import PressableCard from '../ui/PressableCard.jsx';
+import { View, Text, StyleSheet } from 'react-native';
+import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
 import { SortBar } from '../ui/SortBar.jsx';
 import { ConfirmDialog } from '../ui/ConfirmDialog.jsx';
@@ -79,12 +79,12 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
             <Text style={styles.alertTitle}>⚠️ Low Inventory</Text>
             <Text style={styles.alertBody}>You have {currentDoses} doses left of <Text style={styles.bold}>{m.name}</Text>.</Text>
             <View style={styles.alertActions}>
-              <PressableCard onPress={() => onQueueVial(m)} style={styles.alertQueueBtn} pressableStyle={{ alignItems: 'center' }}>
+              <Pressable onPress={() => onQueueVial(m)} style={styles.alertQueueBtn}>
                 <Text style={styles.alertQueueText}>Queue Next Vial</Text>
-              </PressableCard>
-              <PressableCard onPress={() => { const u = meds.map(x => x.id === m.id ? { ...x, snoozedAtDoses: currentDoses } : x); onSaveMeds(u); }} style={styles.alertSnoozeBtn} pressableStyle={{ alignItems: 'center' }}>
+              </Pressable>
+              <Pressable onPress={() => { const u = meds.map(x => x.id === m.id ? { ...x, snoozedAtDoses: currentDoses } : x); onSaveMeds(u); }} style={styles.alertSnoozeBtn}>
                 <Text style={styles.alertSnoozeText}>Snooze</Text>
-              </PressableCard>
+              </Pressable>
             </View>
           </View>
         );

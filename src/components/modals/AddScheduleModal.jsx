@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
-import PressableCard from '../ui/PressableCard.jsx';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SITES, DAYS } from '../../constants.js';
 
@@ -134,9 +134,9 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
           />
         </View>
 
-        <PressableCard onPress={submit} style={styles.submitBtn}>
+        <Pressable onPress={submit} style={styles.submitBtn}>
           <Text style={styles.submitBtnText}>Add to Schedule</Text>
-        </PressableCard>
+        </Pressable>
       </View>
     </Modal>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { auth, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
 import { fetchInteractionsWithCache, fetchAllResources } from './services/gemini.js';
@@ -21,7 +21,7 @@ import { TitrationModal } from './components/modals/TitrationModal.jsx';
 import { QueueVialModal } from './components/modals/QueueVialModal.jsx';
 import { LogFormModal } from './components/modals/LogFormModal.jsx';
 import { AddScheduleModal } from './components/modals/AddScheduleModal.jsx';
-import PressableCard from './components/ui/PressableCard.jsx';
+import { Pressable } from './components/ui/Pressable.jsx';
 
 const TAB_ICONS = {
   Dashboard:    DashboardIcon,
@@ -784,32 +784,31 @@ export default function App() {
                 <Text style={styles.syncLabel}>{scText}</Text>
               </View>
             </View>
-            <PressableCard onPress={() => signOut(auth)} style={styles.logoutBtn} pressableStyle={{ alignItems: 'center' }}>
+            <Pressable onPress={() => signOut(auth)} style={[styles.logoutBtn, { alignItems: 'center' }]}>
               <Text style={styles.logoutText}>LOGOUT</Text>
-            </PressableCard>
+            </Pressable>
           </View>
 
           {/* Action buttons */}
           <View style={styles.actionRow}>
-            <PressableCard
+            <Pressable
               onPress={async () => {
                 setSyncStatus('saving');
                 await syncAllPending();
                 await load();
               }}
               style={styles.syncBtn}
-              pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}
             >
               <View style={styles.syncBtnInner}>
                 <Text>{syncStatus === 'saving' ? '⏳' : '🔄'}</Text>
                 <Text style={styles.syncBtnText}>Sync</Text>
               </View>
               {pendingCount > 0 && <View style={styles.pendingDot} />}
-            </PressableCard>
+            </Pressable>
 
-            <PressableCard onPress={exportBackup} style={styles.actionBtn} pressableStyle={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Pressable onPress={exportBackup} style={styles.actionBtn}>
               <Text style={styles.actionBtnText}>💾 Backup</Text>
-            </PressableCard>
+            </Pressable>
 
             {/* Restore — raw HTML label+file-input (DOM-specific, like <select>/<a>) */}
             <label style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)', borderRadius: 100, padding: 10, alignItems: 'center', justifyContent: 'center', cursor: 'pointer', display: 'flex', boxSizing: 'border-box' }}>
