@@ -165,13 +165,13 @@ export function MedForm({ initial, onSave, onClose, title }) {
             placeholder={peptides.length > 1 ? 'e.g. AM Recovery Stack' : 'Search medications...'}
             options={medOpts}
             renderOption={m => (
-              <div style={{ backgroundColor: '#f3f4f6', padding: '14px 18px', cursor: 'pointer', borderBottom: '1px solid rgba(0,0,0,0.06)', fontSize: 16, fontFamily: 'Arial', fontWeight: '400' }}>
-                <span style={{ color: '#111827' }}>{m.name}</span>
+              <>
+                <span>{m.name}</span>
                 {m._isStack
                   ? <span style={{ fontSize: 10, color: '#fde68a', background: 'rgba(113,63,18,0.6)', borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>STACK</span>
-                  : <span style={{ fontSize: 11, color: '#374151', marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
+                  : <span style={{ fontSize: 11, color: '#9ca3af', marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
                 }
-              </div>
+              </>
             )}
             onSelect={m => {
               if (m._isStack) {
@@ -255,10 +255,10 @@ export function MedForm({ initial, onSave, onClose, title }) {
                   placeholder="e.g. BPC-157"
                   options={POPULAR_MEDS.filter(m => m.name.toLowerCase().includes((p.name || '').toLowerCase())).slice(0, 10)}
                   renderOption={m => (
-                    <div style={{ backgroundColor: '#0f172a', padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: 14 }}>
-                      <span style={{ color: 'white', fontWeight: 700 }}>{m.name}</span>
+                    <>
+                      <span>{m.name}</span>
                       <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
-                    </div>
+                    </>
                   )}
                   onSelect={m => {
                     const n = [...peptides];

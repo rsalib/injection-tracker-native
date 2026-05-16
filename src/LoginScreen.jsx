@@ -31,7 +31,7 @@ export function LoginScreen() {
 
   return (
     <View style={styles.root}>
-      <View style={styles.card}>
+      <View style={[styles.card, { backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }]}>
         <Image
           source={iconPng}
           style={{ width: 72, height: 72, alignSelf: 'center', marginBottom: 12, borderRadius: 16 }}
@@ -86,8 +86,6 @@ const styles = StyleSheet.create({
     maxWidth: 400,
     width: '100%',
     backgroundColor: 'rgba(31, 41, 55, 0.4)',
-    backdropFilter: 'blur(24px)',
-    WebkitBackdropFilter: 'blur(24px)',
     borderRadius: 40,
     paddingVertical: 48,
     paddingHorizontal: 32,

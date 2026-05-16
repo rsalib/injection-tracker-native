@@ -25,6 +25,54 @@ npm run build
 firebase deploy
 ```
 
+## Development Rules
+
+1. Never revert. Fix only the broken property, leave everything else alone.
+2. Never guess at colors. Use devtools to read the exact value.
+3. Never change more than what is broken in a single instruction.
+4. Never put presentational styles in render props or callbacks. Render props are for content only. All styling belongs in the component that owns the layout.
+5. Never say something looks correct without seeing a screenshot or devtools confirmation.
+6. Never read the same file twice in the same session. Record what was read and refer back to it.
+7. Never send a new instruction before confirming the previous one was applied and working.
+8. Never change any color — text or background — without reading both the text color and background color from devtools first.
+9. Never touch a native HTML element style to fix a custom component problem.
+10. Never assume a style property works in RN StyleSheet without confirming it isn't silently stripped.
+11. Never fix a symptom. Find the root cause first.
+12. Always trace a style to its source before changing it.
+13. Always match all properties at once — background, text, font, size, weight — not one at a time.
+14. Always check if a style is being overridden downstream before setting it upstream.
+15. Always write one complete correct instruction, not a series of partial ones.
+16. When something looks wrong, ask the user to describe it before writing any code.
+17. When a fix doesn't work, diagnose why before trying something else.
+18. When the user says "make it match," that means everything — background, text, font, size, weight, animation — in one pass.
+19. Never move a fix from where it belongs architecturally to where it is easiest to apply.
+20. Never assume a fix that works in one modal works in all modals.
+21. Never change animation values without asking the user to describe what they see first.
+22. Never add a bounce or overshoot animation without confirming the native element has one.
+23. Never remove working code to fix broken code. Fix the broken code only.
+24. Never describe what code does based on assumption. Describe what it actually does based on what you can read.
+25. Never say "that's expected" to explain away a problem the user is reporting.
+26. Never explain why something looks different instead of fixing it.
+27. Never make a change on desktop and claim it will look different on mobile without evidence.
+28. Never add a property to fix a problem caused by another property you added. Remove the root cause.
+29. Never send an instruction that changes a value you already changed without stating what was wrong with the previous value.
+30. Never use `!important` without understanding exactly what it is overriding and why.
+31. Never add CSS properties that are silently ignored by RN StyleSheet — use raw HTML inline styles or index.css classes instead.
+32. Never leave dead code — unused imports, unused style blocks, unused variables — in a file after making changes.
+33. Never fix a visual problem by adding more code. Look for what to remove first.
+34. Never send an instruction without stating exactly which line and which property is changing.
+35. Never change a working part of the app to fix an unrelated broken part.
+36. Never write an instruction that touches more files than the minimum needed to fix the problem.
+37. Never describe the intended behavior of a fix as if it is the actual behavior.
+38. When a user says the app looks worse, stop all changes and ask what specifically changed before doing anything.
+39. Before making any change to a shared component, read every file that uses it first.
+40. Before applying any visual treatment — glass, animation, PressableCard — audit every surface in the app where it belongs and apply it in one complete pass.
+41. Never apply a visual treatment to some instances of a component and not others.
+42. Never consider a feature complete until every instance of it in the app is confirmed working and consistent.
+43. Child location styles override parent component styles. Always remove child overrides before setting correct styles in the parent.
+
+---
+
 ## Migration Context
 This is a fresh project migrating the production app at `/Users/rsalib/Desktop/injection-tracker-v2` from a Vite + React web app to React Native for Web. Same Firebase backend (project `injection-tracker-6341d`), same data, same users. The current v2 app stays live during the migration. This project will eventually replace it on `injectiontracker.web.app` and serve as the foundation for native iOS/Android builds via Metro.
 
@@ -247,13 +295,13 @@ All three functions are in `functions/index.js`:
 - Never intercepts: Firebase, Gemini, Google Auth, FDA, PubMed, Cloud Run
 - Auth redirect bypass: checks for `/__/auth/`, `apiKey`, `access_token`, `id_token`, `code`, `state` in URL to avoid intercepting Firebase Auth redirects
 - Bump `CACHE_VERSION` in `sw.js` on each deploy to force cache invalidation
-- Current version: `v19`
+- Current version: `v28`
 
 ---
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v19`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v28`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -436,6 +484,8 @@ Standing constraints that apply to all current and future work in this project:
 - **`SearchDropdown.jsx`**: `TextInput` style moved from RN `StyleSheet` to raw inline object so `backdropFilter: blur(12px)` renders correctly. Portal dropdown div gets `dropdownPopIn` spring animation (`cubic-bezier(0.34, 1.56, 0.64, 1)`) with `transformOrigin: 'top center'`. CACHE_VERSION bumped to v24.
 - **`SearchDropdown.jsx`**: open dropdown list lightened to match native `<select>` feel — portal div `backgroundColor` updated to `rgba(55,65,81,0.95)`, option rows to `rgba(75,85,99,0.8)`. Spring bounce keyframe updated to 3-step overshoot animation. Dead `StyleSheet`/`styles` code removed. CACHE_VERSION bumped to v25.
 - **`SearchDropdown.jsx`**: portal dropdown background updated to `#f3f4f6`, option rows `#f3f4f6`, `color` removed from portal div. `AddMedModal.jsx` `renderOption` div updated to match native `<select>` computed styles: `backgroundColor: '#f3f4f6'`, `fontFamily: 'Arial'`, `fontWeight: '400'`, `fontSize: 16`, `borderBottom: '1px solid rgba(0,0,0,0.06)'`. Name span `fontWeight` removed. Type span `color` updated to `#374151`. CACHE_VERSION bumped to v26.
+- **SearchDropdown renderOption architecture fixed** — all presentational styles (background, padding, border, font, cursor) consolidated into `SearchDropdown.jsx`'s option wrapper div. All three `renderOption` call sites stripped to content-only fragments (`<>…</>`): `AddMedModal.jsx` main search (lines 167–175), `AddMedModal.jsx` stack ingredient search (lines 257–262), `Calculator.jsx` blend search (lines 106–111). Dead `dropdownOption`/`dropdownOptionName`/`dropdownOptionBadge` StyleSheet entries removed from `Calculator.jsx`. CACHE_VERSION bumped to v27.
+- **PressableCard + backdropFilter sweep** — applied across 10 files. (1) `backdropFilter`/`WebkitBackdropFilter` removed from `StyleSheet.create` entries in `MedsTab.jsx` (`interactionCard`, `medCard`), `LogTab.jsx` (`autoLoggerCard`, `historyCard`, `exportCard`) — moved to inline style arrays on their JSX elements. (2) All bare `Pressable` elements converted to `PressableCard` with appropriate `pressableStyle`: `MedsTab.jsx` (recheckBtn, endCycleBtnFinish, endCycleBtnNow, endCycleBtnCancel, useDoseBtn, undoBtn, smBtn, smBtnCyan, xsBtn, xsBtnPurple, xsBtnRed×2, archiveToggle, archiveRestartBtn, archiveDeleteBtn), `LogTab.jsx` (logEditBtn, logDeleteBtn, loadMoreBtn), `TitrationModal.jsx` (toggleBtn, removeStepBtn), `QueueVialModal.jsx` (replaceBtn, queueBtn), `AIAssistant.jsx` (sendBtn + PressableCard import added), `Dashboard.jsx` (alertQueueBtn, alertSnoozeBtn + PressableCard import added), `ResourcesTab.jsx` (saveAllBtn, saveBtn, removeBtn), `App.jsx` (logoutBtn, Sync button, exportBackup + PressableCard import added). `AddMedModal.jsx` removeBtn left as bare Pressable — it uses `position: 'absolute'` which is incompatible with PressableCard's default `width: '100%'` outer Animated.View. CACHE_VERSION bumped to v28.
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

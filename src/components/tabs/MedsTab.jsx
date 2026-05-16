@@ -75,23 +75,23 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
               <Text style={styles.endCycleTitle}>How would you like to end "{confirmEndCycle.name}"?</Text>
               <Text style={styles.endCycleSubtitle}>Finish current vial or archive immediately.</Text>
             </View>
-            <Pressable
+            <PressableCard
               onPress={() => { onSaveMeds(meds.map(x => x.id === confirmEndCycle.id ? { ...x, isEndingCycle: true, nextVial: null } : x)); setConfirmEndCycle(null); }}
               style={styles.endCycleBtnFinish}
             >
               <Text style={styles.endCycleBtnTitleFinish}>📉 Finish Current Vial</Text>
               <Text style={styles.endCycleBtnSub}>Auto-archives when remaining amount reaches zero.</Text>
-            </Pressable>
-            <Pressable
+            </PressableCard>
+            <PressableCard
               onPress={() => { onSaveMeds(meds.map(x => x.id === confirmEndCycle.id ? { ...x, isArchived: true, isEndingCycle: false, nextVial: null } : x)); setConfirmEndCycle(null); }}
               style={styles.endCycleBtnNow}
             >
               <Text style={styles.endCycleBtnTitleNow}>🛑 End Immediately</Text>
               <Text style={styles.endCycleBtnSub}>Moves to archive and stops logging now.</Text>
-            </Pressable>
-            <Pressable onPress={() => setConfirmEndCycle(null)} style={styles.endCycleBtnCancel}>
+            </PressableCard>
+            <PressableCard onPress={() => setConfirmEndCycle(null)} style={styles.endCycleBtnCancel} pressableStyle={{ alignItems: 'center' }}>
               <Text style={styles.endCycleBtnCancelText}>CANCEL</Text>
-            </Pressable>
+            </PressableCard>
           </View>
         </Modal>
       )}
@@ -105,7 +105,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
 
       {/* Interaction Monitor */}
       {activeMeds.length >= 2 && (
-        <View style={[styles.interactionCard, interactionError && styles.interactionCardError]}>
+        <View style={[styles.interactionCard, interactionError && styles.interactionCardError, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
           <View style={styles.interactionCardLeft}>
             <Text style={styles.interactionCardTitle}>AI Interaction Monitor</Text>
             <Text style={[
@@ -123,15 +123,16 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                       : "✅ No interactions detected."}
             </Text>
           </View>
-          <Pressable
+          <PressableCard
             onPress={runCheck}
             disabled={checking}
             style={[styles.recheckBtn, interactionError && styles.recheckBtnError]}
+            pressableStyle={{ alignItems: 'center' }}
           >
             <Text style={[styles.recheckBtnText, interactionError && styles.recheckBtnTextError]}>
               {checking ? "WAITING..." : "RE-CHECK"}
             </Text>
-          </Pressable>
+          </PressableCard>
         </View>
       )}
 
@@ -181,7 +182,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
             });
 
             return (
-              <PressableCard key={m.id} onPress={() => toggleMed(m.id)} style={styles.medCard}>
+              <PressableCard key={m.id} onPress={() => toggleMed(m.id)} style={[styles.medCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
                 {/* Header */}
                 <View style={styles.medCardHeader}>
                   <View style={styles.medCardHeaderTop}>
@@ -273,42 +274,44 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                     {/* Action Hub */}
                     <View style={styles.actionHub}>
                       <View style={styles.actionRow2}>
-                        <Pressable
+                        <PressableCard
                           onPress={() => logDose(m, today, getLocalTime(), displayDose, displayUnit, m.site, "Manual dose")}
                           style={styles.useDoseBtn}
+                          pressableStyle={{ alignItems: 'center' }}
                         >
                           <Text style={styles.useDoseBtnText}>USE DOSE</Text>
-                        </Pressable>
-                        <Pressable onPress={() => undoDose(m.id)} style={styles.undoBtn}>
+                        </PressableCard>
+                        <PressableCard onPress={() => undoDose(m.id)} style={styles.undoBtn} pressableStyle={{ alignItems: 'center' }}>
                           <Text style={styles.undoBtnText}>UNDO LAST</Text>
-                        </Pressable>
+                        </PressableCard>
                       </View>
                       <View style={styles.actionRow2}>
-                        <Pressable
+                        <PressableCard
                           onPress={() => setSetVialPrompt({ id: m.id, name: m.name, unit: m.vialUnit || m.unit, current: rem })}
                           style={styles.smBtn}
+                          pressableStyle={{ alignItems: 'center' }}
                         >
                           <Text style={styles.smBtnText}>SET VIAL</Text>
-                        </Pressable>
+                        </PressableCard>
                         {!m.isEndingCycle && (
-                          <Pressable onPress={() => onQueueVial(m)} style={styles.smBtnCyan}>
+                          <PressableCard onPress={() => onQueueVial(m)} style={styles.smBtnCyan} pressableStyle={{ alignItems: 'center' }}>
                             <Text style={styles.smBtnCyanText}>NEW VIAL</Text>
-                          </Pressable>
+                          </PressableCard>
                         )}
                       </View>
                       <View style={styles.actionRow4}>
-                        <Pressable onPress={() => onEdit(m)} style={styles.xsBtn}>
+                        <PressableCard onPress={() => onEdit(m)} style={styles.xsBtn} pressableStyle={{ alignItems: 'center' }}>
                           <Text style={styles.xsBtnText}>EDIT</Text>
-                        </Pressable>
-                        <Pressable onPress={() => onTitrate(m)} style={styles.xsBtnPurple}>
+                        </PressableCard>
+                        <PressableCard onPress={() => onTitrate(m)} style={styles.xsBtnPurple} pressableStyle={{ alignItems: 'center' }}>
                           <Text style={styles.xsBtnPurpleText}>TITRATE</Text>
-                        </Pressable>
-                        <Pressable onPress={() => setConfirmEndCycle(m)} style={styles.xsBtnRed}>
+                        </PressableCard>
+                        <PressableCard onPress={() => setConfirmEndCycle(m)} style={styles.xsBtnRed} pressableStyle={{ alignItems: 'center' }}>
                           <Text style={styles.xsBtnRedText}>{m.isEndingCycle ? "RESUME" : "END"}</Text>
-                        </Pressable>
-                        <Pressable onPress={() => setConfirmRemove(m)} style={styles.xsBtnRed}>
+                        </PressableCard>
+                        <PressableCard onPress={() => setConfirmRemove(m)} style={styles.xsBtnRed} pressableStyle={{ alignItems: 'center' }}>
                           <Text style={styles.xsBtnRedText}>REMOVE</Text>
-                        </Pressable>
+                        </PressableCard>
                       </View>
                     </View>
                   </View>
@@ -327,10 +330,10 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
           : archivedMeds;
         return (
           <View style={styles.archiveSection}>
-            <Pressable onPress={() => setArchiveExpanded(!archiveExpanded)} style={styles.archiveToggle}>
+            <PressableCard onPress={() => setArchiveExpanded(!archiveExpanded)} style={styles.archiveToggle} pressableStyle={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text style={styles.archiveToggleText}>Archived Cycles ({archivedMeds.length})</Text>
               <Text style={styles.chevronGray}>{archiveExpanded ? "▲" : "▼"}</Text>
-            </Pressable>
+            </PressableCard>
 
             {archiveExpanded && (
               <View style={styles.archiveList}>
@@ -353,12 +356,12 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                         <Text style={styles.archiveItemSub}>Ended Cycle · {formatDisplayDate(m.startDate)}</Text>
                       </View>
                       <View style={styles.archiveItemActions}>
-                        <Pressable onPress={() => onQueueVial(m)} style={styles.archiveRestartBtn}>
+                        <PressableCard onPress={() => onQueueVial(m)} style={styles.archiveRestartBtn} pressableStyle={{ alignItems: 'center' }}>
                           <Text style={styles.archiveRestartText}>RESTART</Text>
-                        </Pressable>
-                        <Pressable onPress={() => setConfirmRemove(m)} style={styles.archiveDeleteBtn}>
+                        </PressableCard>
+                        <PressableCard onPress={() => setConfirmRemove(m)} style={styles.archiveDeleteBtn} pressableStyle={{ alignItems: 'center' }}>
                           <Text style={styles.archiveDeleteText}>DELETE</Text>
-                        </Pressable>
+                        </PressableCard>
                       </View>
                     </View>
                   ))}
@@ -395,8 +398,6 @@ const styles = StyleSheet.create({
   },
   interactionCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
     flexDirection: 'row',
@@ -467,8 +468,6 @@ const styles = StyleSheet.create({
   },
   medCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',

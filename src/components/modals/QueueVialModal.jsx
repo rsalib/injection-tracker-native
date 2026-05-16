@@ -106,12 +106,12 @@ export function QueueVialModal({ med, onClose, onSave }) {
 
         {hasRemaining ? (
           <View style={styles.splitBtns}>
-            <Pressable onPress={() => handleSave(true)} style={styles.replaceBtn}>
+            <PressableCard onPress={() => handleSave(true)} style={styles.replaceBtn} pressableStyle={{ alignItems: 'center' }}>
               <Text style={styles.replaceBtnText}>REPLACE CURRENT</Text>
-            </Pressable>
-            <Pressable onPress={() => handleSave(false)} style={styles.queueBtn}>
+            </PressableCard>
+            <PressableCard onPress={() => handleSave(false)} style={styles.queueBtn} pressableStyle={{ alignItems: 'center' }}>
               <Text style={styles.queueBtnText}>QUEUE FOR LATER</Text>
-            </Pressable>
+            </PressableCard>
           </View>
         ) : (
           <PressableCard onPress={() => handleSave(true)} style={styles.saveBtn}>

@@ -12,7 +12,7 @@ export function SiteRotation({ logs }) {
   const suggested = SITES.filter(s => s !== lastSite).sort((a, b) => counts[a] - counts[b])[0];
 
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, { backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }]}>
       <Text style={styles.heading}>💉 Site Rotation</Text>
       {lastSite ? (
         <View style={styles.body}>
@@ -60,13 +60,13 @@ export default SiteRotation;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'rgba(31, 41, 55, 0.4)',
-    backdropFilter: 'blur(16px)',
-    WebkitBackdropFilter: 'blur(16px)',
     borderRadius: 32,
     padding: 24,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
-    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.4)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderTopColor: 'rgba(255, 255, 255, 0.25)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
+    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   heading: {
     fontWeight: '800',

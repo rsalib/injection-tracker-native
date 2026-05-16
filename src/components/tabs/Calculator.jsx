@@ -104,10 +104,10 @@ export function Calculator() {
             placeholder="Search blended vials..."
             options={ALL_STACKS.filter(s => !stackSearch || s.name.toLowerCase().includes(stackSearch.toLowerCase()))}
             renderOption={m => (
-              <View style={styles.dropdownOption}>
-                <Text style={styles.dropdownOptionName}>{m.name}</Text>
-                <Text style={styles.dropdownOptionBadge}>BLEND</Text>
-              </View>
+              <>
+                <span>{m.name}</span>
+                <span style={{ fontSize: 10, color: '#fde68a', background: 'rgba(113,63,18,0.6)', borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>BLEND</span>
+              </>
             )}
             onSelect={m => {
               setStackSearch('');
@@ -258,7 +258,7 @@ export function Calculator() {
           </View>
 
           {stackData.peptides.map((p, idx) => (
-            <View key={p.id} style={styles.peptideCard}>
+            <View key={p.id} style={[styles.peptideCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
               {stackData.peptides.length > 1 && (
                 <Pressable
                   onPress={() => {
@@ -508,8 +508,6 @@ const styles = StyleSheet.create({
   // ── Stack peptide card ────────────────────────────────────────────
   peptideCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
     borderWidth: 1,
@@ -619,30 +617,4 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
 
-  // ── Dropdown option row (inside SearchDropdown renderOption) ──────
-  dropdownOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 18,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.05)',
-    cursor: 'pointer',
-  },
-  dropdownOptionName: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 15,
-  },
-  dropdownOptionBadge: {
-    fontSize: 10,
-    color: '#fde68a',
-    backgroundColor: 'rgba(113, 63, 18, 0.6)',
-    borderRadius: 6,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    marginLeft: 8,
-    fontWeight: '900',
-    overflow: 'hidden',
-  },
 });

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { TextInput } from 'react-native';
 
-export function SearchDropdown({ value, onChange, onSelect, options, renderOption, placeholder }) {
+export function SearchDropdown({ value, onChange, onSelect, options, renderOption, placeholder, onSubmit }) {
   const [open, setOpen] = useState(false);
   const [rect, setRect] = useState(null);
   const wrapperRef = useRef(null);
@@ -30,6 +30,7 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
         onChangeText={text => { onChange(text); handleOpen(); }}
         onFocus={handleOpen}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
+        onSubmitEditing={() => onSubmit && onSubmit(value)}
       />
       {open && options.length > 0 && rect && createPortal(
         <div style={{
@@ -53,7 +54,7 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
             <div
               key={i}
               onMouseDown={e => { e.preventDefault(); onSelect(o); setOpen(false); }}
-              style={{ borderRadius: 16, overflow: 'hidden', marginBottom: 2, backgroundColor: '#f3f4f6', cursor: 'pointer' }}
+              style={{ backgroundColor: '#f3f4f6', padding: '14px 18px', borderBottom: '1px solid rgba(0,0,0,0.06)', fontFamily: 'Arial', fontSize: 16, fontWeight: '400', color: '#111827', cursor: 'pointer' }}
             >
               {renderOption(o)}
             </div>

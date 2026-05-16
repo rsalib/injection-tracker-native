@@ -19,7 +19,7 @@ export default function PressableCard({ onPress, style, pressableStyle, children
   }).start();
 
   return (
-    <Animated.View style={[{ width: '100%', alignSelf: 'stretch' }, style, { transform: [{ scale }] }]}>
+    <Animated.View style={[style, { transform: [{ scale }] }]}>
       <Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut} style={[{ width: '100%', flex: 1 }, pressableStyle]} {...props}>
         {children}
       </Pressable>

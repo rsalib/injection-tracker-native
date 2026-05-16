@@ -1,26 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Pressable, TextInput, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import PressableCard from '../ui/PressableCard.jsx';
 import { Badge } from '../ui/Badge.jsx';
+import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { CAT_META, POPULAR_MEDS } from '../../constants.js';
 import { fetchAllResources } from '../../services/gemini.js';
 
 export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibrary, onRefreshMed }) {
   const [query, setQuery] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searching, setSearching] = useState(false);
   const [liveResults, setLiveResults] = useState(null);
   const [liveSummary, setLiveSummary] = useState("");
   const [searchedMed, setSearchedMed] = useState("");
   const [expandedMeds, setExpandedMeds] = useState({});
   const [refreshing, setRefreshing] = useState({});
-  const searchRef = useRef(null);
-
-  useEffect(() => {
-    const h = e => { if (searchRef.current && !searchRef.current.contains(e.target)) setDropdownOpen(false); };
-    document.addEventListener("mousedown", h);
-    return () => document.removeEventListener("mousedown", h);
-  }, []);
 
   const medOptions = query
     ? POPULAR_MEDS.filter(m => m.name.toLowerCase().includes(query.toLowerCase())).slice(0, 10)
@@ -32,7 +25,6 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
     setLiveResults(null);
     setLiveSummary("");
     setSearching(true);
-    setDropdownOpen(false);
     try {
       const result = await fetchAllResources(name);
       setLiveResults(result.items || []);
@@ -44,7 +36,6 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
     setSearching(false);
   };
 
-  const handleSelect = m => { setQuery(m.name); doSearch(m.name); };
   const handleSearchSubmit = () => doSearch(query);
   const saveOne = async (item) => onSaveToLibrary(searchedMed, item);
   const saveAll = async () => { if (liveResults?.length) await onSaveToLibrary(searchedMed, liveResults); };
@@ -70,42 +61,31 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
       {/* Search Area */}
       <View style={styles.searchCard}>
         <Text style={styles.searchTitle}>🔍 Search Resources</Text>
-        {/* Keep search input + dropdown as DOM for mousedown event handling */}
-        <div ref={searchRef} style={{ position: "relative" }}>
-          <div style={{ display: "flex", backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "100px", padding: 6, gap: 8 }}>
-            <div style={{ flex: 1, position: "relative" }}>
-              <input
-                style={{ width: "100%", background: "transparent", border: "none", color: "white", padding: "12px 16px", fontSize: 15, outline: "none", boxSizing: "border-box" }}
-                placeholder="Peptide or medication..."
-                value={query}
-                onChange={e => { setQuery(e.target.value); setDropdownOpen(true); }}
-                onFocus={() => setDropdownOpen(true)}
-                onKeyDown={e => e.key === "Enter" && handleSearchSubmit()}
-              />
-              {dropdownOpen && query && (
-                <div style={{ position: "absolute", zIndex: 50, width: "100%", background: "rgba(31,41,55,0.98)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "24px", marginTop: 12, padding: 8, maxHeight: 240, overflowY: "auto", boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)" }}>
-                  {medOptions.length > 0 ? medOptions.map((m, i) => (
-                    <div
-                      key={i}
-                      onMouseDown={() => handleSelect(m)}
-                      style={{ padding: "14px 16px", cursor: "pointer", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", justifyContent: "space-between", alignItems: "center", borderRadius: "16px" }}
-                    >
-                      <span style={{ color: "white", fontSize: 15, fontWeight: 700 }}>{m.name}</span>
-                      <span style={{ fontSize: 11, color: "#22d3ee", fontWeight: 800, textTransform: "uppercase" }}>{m.type}</span>
-                    </div>
-                  )) : null}
-                </div>
+        <View style={styles.searchRow}>
+          <View style={{ flex: 1 }}>
+            <SearchDropdown
+              value={query}
+              onChange={setQuery}
+              placeholder="Search medication..."
+              options={medOptions}
+              renderOption={m => (
+                <>
+                  <span>{m.name}</span>
+                  <span style={{ fontSize: 11, color: '#374151', marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
+                </>
               )}
-            </div>
-            <button
-              onClick={handleSearchSubmit}
-              disabled={searching || !query.trim()}
-              style={{ background: "linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)", border: "none", borderRadius: "100px", padding: "0 24px", color: "white", fontSize: 14, fontWeight: 900, cursor: "pointer", opacity: searching || !query.trim() ? 0.5 : 1, whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(34,211,238,0.2)" }}
-            >
-              {searching ? "..." : "SEARCH"}
-            </button>
-          </div>
-        </div>
+              onSelect={m => { setQuery(m.name); doSearch(m.name); }}
+              onSubmit={handleSearchSubmit}
+            />
+          </View>
+          <Pressable
+            onPress={handleSearchSubmit}
+            disabled={searching || !query.trim()}
+            style={[styles.searchBtn, (searching || !query.trim()) && styles.searchBtnDisabled]}
+          >
+            <Text style={styles.searchBtnText}>{searching ? "..." : "SEARCH"}</Text>
+          </Pressable>
+        </View>
       </View>
 
       {/* Searching indicator */}
@@ -129,9 +109,9 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
               <Text style={styles.resultsMeta}>{searchedMed} · {liveResults.length} sources found</Text>
             </View>
             {hasResults && (
-              <Pressable onPress={saveAll} style={styles.saveAllBtn}>
+              <PressableCard onPress={saveAll} style={styles.saveAllBtn} pressableStyle={{ alignItems: 'center' }}>
                 <Text style={styles.saveAllText}>SAVE ALL</Text>
-              </Pressable>
+              </PressableCard>
             )}
           </View>
 
@@ -170,15 +150,16 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                           </a>
                           <Text style={styles.resultSource}>{r.source}</Text>
                         </View>
-                        <Pressable
+                        <PressableCard
                           onPress={() => saveOne(r)}
                           disabled={saved}
                           style={[styles.saveBtn, saved && styles.saveBtnSaved]}
+                          pressableStyle={{ alignItems: 'center' }}
                         >
                           <Text style={[styles.saveBtnText, saved && styles.saveBtnTextSaved]}>
                             {saved ? "SAVED" : "SAVE"}
                           </Text>
-                        </Pressable>
+                        </PressableCard>
                       </View>
                     );
                   })}
@@ -262,9 +243,9 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                               <a href={r.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: "white", textDecoration: "none", fontWeight: 700, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                                 {r.title}
                               </a>
-                              <Pressable onPress={() => onRemoveFromLibrary(name, r.url)} style={styles.removeBtn}>
+                              <PressableCard onPress={() => onRemoveFromLibrary(name, r.url)} style={styles.removeBtn} pressableStyle={{ alignItems: 'center' }}>
                                 <Text style={styles.removeBtnText}>REMOVE</Text>
-                              </Pressable>
+                              </PressableCard>
                             </View>
                           ))}
                         </View>
@@ -306,6 +287,28 @@ const styles = StyleSheet.create({
     color: 'white',
     letterSpacing: -0.36,
     marginBottom: 16,
+  },
+  searchRow: {
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  searchBtn: {
+    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
+    borderRadius: 100,
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    cursor: 'pointer',
+    boxShadow: '0 4px 12px rgba(34,211,238,0.2)',
+  },
+  searchBtnDisabled: {
+    opacity: 0.5,
+  },
+  searchBtnText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '900',
   },
   searchingCard: {
     backgroundColor: 'rgba(31, 41, 55, 0.4)',

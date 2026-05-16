@@ -163,7 +163,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
     <View style={styles.container}>
 
       {/* Auto-Logger Status Bubble */}
-      <View style={styles.autoLoggerCard}>
+      <View style={[styles.autoLoggerCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
         <View style={styles.autoLoggerLeft}>
           <Text style={styles.autoLoggerTitle}>Auto-Logger</Text>
           <Text style={styles.autoLoggerStatus}>
@@ -181,7 +181,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
       </PressableCard>
 
       {/* History Timeline Bubble */}
-      <View style={styles.historyCard}>
+      <View style={[styles.historyCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
         <Text style={styles.historyTitle}>Injection History</Text>
 
         {logs.length === 0 ? (
@@ -268,12 +268,12 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
                                       </View>
                                     )}
                                     <View style={styles.logActions}>
-                                      <Pressable onPress={() => onEditLog(l)} style={styles.logEditBtn}>
+                                      <PressableCard onPress={() => onEditLog(l)} style={styles.logEditBtn} pressableStyle={{ alignItems: 'center' }}>
                                         <Text style={styles.logEditText}>EDIT</Text>
-                                      </Pressable>
-                                      <Pressable onPress={() => delLog(l.id)} style={styles.logDeleteBtn}>
+                                      </PressableCard>
+                                      <PressableCard onPress={() => delLog(l.id)} style={styles.logDeleteBtn} pressableStyle={{ alignItems: 'center' }}>
                                         <Text style={styles.logDeleteText}>DELETE</Text>
-                                      </Pressable>
+                                      </PressableCard>
                                     </View>
                                   </View>
                                 </View>
@@ -289,19 +289,20 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
             })}
 
             {hasMoreMonths && (
-              <Pressable
+              <PressableCard
                 onPress={() => setVisibleMonthCount(prev => prev + 3)}
                 style={styles.loadMoreBtn}
+                pressableStyle={{ alignItems: 'center' }}
               >
                 <Text style={styles.loadMoreText}>LOAD OLDER HISTORY</Text>
-              </Pressable>
+              </PressableCard>
             )}
           </View>
         )}
       </View>
 
       {/* Calendar & CSV Export */}
-      <View style={styles.exportCard}>
+      <View style={[styles.exportCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
         <Text style={styles.exportTitle}>Export</Text>
         <Text style={styles.exportSub}>Share your protocols with a provider or archive your log history.</Text>
         <View style={styles.exportActions}>
@@ -343,8 +344,6 @@ const styles = StyleSheet.create({
   },
   autoLoggerCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
     flexDirection: 'row',
@@ -414,8 +413,6 @@ const styles = StyleSheet.create({
   },
   historyCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
     borderWidth: 1,
@@ -671,8 +668,6 @@ const styles = StyleSheet.create({
   },
   exportCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
     borderWidth: 1,

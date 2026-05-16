@@ -80,14 +80,15 @@ export function TitrationModal({ med, onClose, onSave, today }) {
             <Text style={styles.toggleTitle}>Titration Mode</Text>
             <Text style={styles.toggleSub}>Auto-adjust dose on set dates</Text>
           </View>
-          <Pressable
+          <PressableCard
             onPress={() => setIsTitrating(t => !t)}
             style={[styles.toggleBtn, isTitrating && styles.toggleBtnActive]}
+            pressableStyle={{ alignItems: 'center' }}
           >
             <Text style={[styles.toggleBtnText, isTitrating && styles.toggleBtnTextActive]}>
               {isTitrating ? 'ENABLED' : 'DISABLED'}
             </Text>
-          </Pressable>
+          </PressableCard>
         </View>
 
         {/* Add dose step */}
@@ -161,12 +162,13 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                     </View>
                     <Text style={styles.schedDate}>Starts {formatDisplayDate(s.date)}</Text>
                   </View>
-                  <Pressable
+                  <PressableCard
                     onPress={() => setSched(sc => sc.filter(x => x.id !== s.id))}
                     style={styles.removeStepBtn}
+                    pressableStyle={{ alignItems: 'center' }}
                   >
                     <Text style={styles.removeStepText}>REMOVE</Text>
-                  </Pressable>
+                  </PressableCard>
                 </View>
               );
             })}
