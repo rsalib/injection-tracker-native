@@ -8,6 +8,7 @@ import { SiteRotation } from '../../SiteRotation.jsx';
 import { sortMeds, parseLocalDate, formatDisplayDate, getLocalDate } from '../../constants.js';
 import { toMg } from '../../mathEngine.js';
 import { InteractionEngine } from '../../services/gemini.js';
+import { colors, glass } from '../../theme.js';
 
 export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, actionableInteractions, onAlertClick, onSaveMeds, logDose, undoDose, today, onQueueVial, settings, updateSetting }) {
   const sort = settings?.dashSort || 'newest';
@@ -40,8 +41,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
           titleText="Activate Queued Vial?"
           message={`This will permanently discard the ${parseFloat(confirmStartNow.vialRemaining || 0).toFixed(2)} ${confirmStartNow.vialUnit || confirmStartNow.unit} remaining in your current vial.`}
           confirmText="Activate Now"
-          confirmBg="#0e7490"
-          confirmColor="white"
+          confirmBg={colors.primary}
+          confirmColor={colors.white}
           onCancel={() => setConfirmStartNow(null)}
           onConfirm={() => {
             const u = meds.map(x => {
@@ -93,8 +94,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
       {/* Quick Stats */}
       <View style={styles.statsRow}>
         {[
-          { v: activeMeds.length, l: 'Protocols', c: '#22d3ee' },
-          { v: todayLogs.length,  l: 'Dosed',     c: '#4ade80' },
+          { v: activeMeds.length, l: 'Protocols', c: colors.cyan },
+          { v: todayLogs.length,  l: 'Dosed',     c: colors.success },
           { v: logs.length,       l: 'Total',      c: '#c084fc' },
         ].map(({ v, l, c }) => (
           <View key={l} style={styles.statCard}>
@@ -213,12 +214,12 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
                   </View>
 
                   <View style={styles.pctPill}>
-                    <Text style={[styles.pctText, { color: pct < 15 ? '#f87171' : '#22d3ee' }]}>{pct}%</Text>
+                    <Text style={[styles.pctText, { color: pct < 15 ? colors.error : colors.cyan }]}>{pct}%</Text>
                   </View>
                 </View>
 
                 <View style={styles.progressTrack}>
-                  <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? '#22d3ee' : '#ef4444' }]} />
+                  <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.cyan : '#ef4444' }]} />
                 </View>
 
                 <View style={styles.progressLabels}>
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   alertTitle: {
-    color: '#fde68a',
+    color: colors.textAmber,
     fontWeight: '600',
     marginBottom: 8,
   },
@@ -311,7 +312,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   alertQueueText: {
-    color: '#fde68a',
+    color: colors.textAmber,
     fontWeight: '600',
     fontSize: 14,
   },
@@ -338,19 +339,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   statCard: {
-    flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
+    flex: 1,
     borderRadius: 24,
     paddingVertical: 16,
     paddingHorizontal: 12,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   statValue: {
     fontSize: 24,
@@ -359,7 +355,7 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: 10,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
@@ -368,21 +364,16 @@ const styles = StyleSheet.create({
 
   // ── Shared bubble ──────────────────────────────────────────────────
   bubble: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   bubbleTitle: {
     fontWeight: '800',
     fontSize: 18,
-    color: 'white',
+    color: colors.white,
     marginBottom: 16,
     letterSpacing: -0.36,
   },
@@ -393,7 +384,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   empty: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 14,
   },
 
@@ -411,11 +402,11 @@ const styles = StyleSheet.create({
   scheduleItem: {
     fontSize: 14,
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
   },
   scheduleSub: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
 
   // ── Section header ─────────────────────────────────────────────────
@@ -428,7 +419,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontWeight: '800',
     fontSize: 18,
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.36,
   },
 
@@ -443,15 +434,10 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.1)',
   },
   protocolList: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
     overflow: 'hidden',
   },
   protocolItem: {
@@ -478,7 +464,7 @@ const styles = StyleSheet.create({
   protocolName: {
     fontSize: 20,
     fontWeight: '800',
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.4,
     flexShrink: 1,
   },
@@ -487,7 +473,7 @@ const styles = StyleSheet.create({
   },
   futureSub: {
     fontSize: 13,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     marginTop: 4,
     fontWeight: '600',
   },
@@ -530,14 +516,14 @@ const styles = StyleSheet.create({
   progressLabel: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
 
   // ── Recent injections ──────────────────────────────────────────────
   recentTitle: {
     fontWeight: '800',
     fontSize: 16,
-    color: 'white',
+    color: colors.white,
     textTransform: 'uppercase',
     letterSpacing: 1.6,
     marginBottom: 16,
@@ -556,17 +542,17 @@ const styles = StyleSheet.create({
   recentName: {
     fontSize: 14,
     fontWeight: '800',
-    color: 'white',
+    color: colors.white,
   },
   recentSub: {
     fontSize: 11,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     marginTop: 2,
     fontWeight: '600',
   },
   recentDate: {
     fontSize: 11,
-    color: '#6b7280',
+    color: colors.textMuted,
     fontWeight: '700',
   },
 });

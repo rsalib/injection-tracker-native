@@ -5,6 +5,7 @@ import { Badge } from '../ui/Badge.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { CAT_META, POPULAR_MEDS } from '../../constants.js';
 import { fetchAllResources } from '../../services/gemini.js';
+import { colors, glass } from '../../theme.js';
 
 export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibrary, onRefreshMed }) {
   const [query, setQuery] = useState("");
@@ -145,7 +146,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                     return (
                       <View key={i} style={styles.resultItem}>
                         <View style={styles.resultItemLeft}>
-                          <a href={r.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 15, color: "white", textDecoration: "none", fontWeight: 800, display: "block", marginBottom: 6, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          <a href={r.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 15, color: colors.white, textDecoration: "none", fontWeight: 800, display: "block", marginBottom: 6, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                             {r.title}
                           </a>
                           <Text style={styles.resultSource}>{r.source}</Text>
@@ -239,7 +240,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                         <View style={styles.catItems}>
                           {catItems.map((r, i) => (
                             <View key={i} style={styles.libResultItem}>
-                              <a href={r.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: "white", textDecoration: "none", fontWeight: 700, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                              <a href={r.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: colors.white, textDecoration: "none", fontWeight: 700, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                                 {r.title}
                               </a>
                               <Pressable onPress={() => onRemoveFromLibrary(name, r.url)} style={[styles.removeBtn, { alignItems: 'center' }]}>
@@ -269,21 +270,16 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   searchCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   searchTitle: {
     fontWeight: '800',
     fontSize: 18,
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.36,
     marginBottom: 16,
   },
@@ -294,7 +290,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   searchBtn: {
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
+    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
     borderRadius: 100,
     paddingVertical: 14,
     paddingHorizontal: 24,
@@ -305,7 +301,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   searchBtnText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 14,
     fontWeight: '900',
   },
@@ -318,29 +314,24 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.05)',
   },
   searchingText: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '600',
   },
   searchingMedName: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '700',
   },
   searchingSubtext: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 12,
     marginTop: 8,
   },
   resultsCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   resultsHeader: {
     flexDirection: 'row',
@@ -351,11 +342,11 @@ const styles = StyleSheet.create({
   resultsTitle: {
     fontWeight: '800',
     fontSize: 18,
-    color: 'white',
+    color: colors.white,
   },
   resultsMeta: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     marginTop: 4,
     fontWeight: '600',
   },
@@ -369,7 +360,7 @@ const styles = StyleSheet.create({
   saveAllText: {
     fontSize: 12,
     fontWeight: '900',
-    color: '#22d3ee',
+    color: colors.cyan,
   },
   summaryCard: {
     backgroundColor: 'rgba(17, 24, 39, 0.6)',
@@ -382,14 +373,14 @@ const styles = StyleSheet.create({
   summaryLabel: {
     fontSize: 11,
     fontWeight: '900',
-    color: '#22d3ee',
+    color: colors.cyan,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 12,
   },
   summaryText: {
     fontSize: 14,
-    color: 'white',
+    color: colors.white,
     lineHeight: 22,
     fontWeight: '500',
     whiteSpace: 'pre-wrap',
@@ -399,7 +390,7 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
   },
   noResultsText: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 14,
     fontWeight: '600',
   },
@@ -428,7 +419,7 @@ const styles = StyleSheet.create({
     borderRightColor: 'rgba(34, 211, 238, 0.15)',
     borderBottomColor: 'rgba(34, 211, 238, 0.15)',
     borderLeftWidth: 4,
-    borderLeftColor: '#22d3ee',
+    borderLeftColor: colors.cyan,
     boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
   },
   resultItemLeft: {
@@ -437,7 +428,7 @@ const styles = StyleSheet.create({
   },
   resultSource: {
     fontSize: 11,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '800',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
@@ -456,27 +447,22 @@ const styles = StyleSheet.create({
   saveBtnText: {
     fontSize: 12,
     fontWeight: '900',
-    color: '#22d3ee',
+    color: colors.cyan,
   },
   saveBtnTextSaved: {
-    color: '#86efac',
+    color: colors.textGreen,
   },
   libraryCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   libraryTitle: {
     fontWeight: '800',
     fontSize: 18,
-    color: 'white',
+    color: colors.white,
     marginBottom: 20,
   },
   libraryEmpty: {
@@ -484,7 +470,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   libraryEmptyText: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 14,
     fontWeight: '600',
   },
@@ -509,7 +495,7 @@ const styles = StyleSheet.create({
   libraryEntryName: {
     fontSize: 16,
     fontWeight: '800',
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.32,
   },
   libraryEntryRight: {
@@ -525,11 +511,11 @@ const styles = StyleSheet.create({
   },
   libraryItemCountText: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '800',
   },
   chevron: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 12,
   },
   libraryExpanded: {
@@ -550,10 +536,10 @@ const styles = StyleSheet.create({
   refreshBtnText: {
     fontSize: 11,
     fontWeight: '900',
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   libraryNoItems: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 13,
     textAlign: 'center',
     paddingVertical: 12,
@@ -583,6 +569,6 @@ const styles = StyleSheet.create({
   removeBtnText: {
     fontSize: 11,
     fontWeight: '900',
-    color: '#f87171',
+    color: colors.error,
   },
 });

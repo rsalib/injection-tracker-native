@@ -295,13 +295,13 @@ All three functions are in `functions/index.js`:
 - Never intercepts: Firebase, Gemini, Google Auth, FDA, PubMed, Cloud Run
 - Auth redirect bypass: checks for `/__/auth/`, `apiKey`, `access_token`, `id_token`, `code`, `state` in URL to avoid intercepting Firebase Auth redirects
 - Bump `CACHE_VERSION` in `sw.js` on each deploy to force cache invalidation
-- Current version: `v30`
+- Current version: `v31`
 
 ---
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v30`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v31`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -496,6 +496,9 @@ Standing constraints that apply to all current and future work in this project:
 - **Secondary button token tightening** — `button.secondary` rewritten: `padding: 16`, `borderRadius: 100`, no border (dropped `borderWidth`/`borderColor` from token); `button.secondaryText` corrected to `color: white, fontWeight: '800', fontSize: 13` (was `textSecondary` / `'600'`). `button.danger` token added with red border. Spread `...button.secondary` on: `MedsTab.undoBtn` (dropped stray border), `MedsTab.endCycleBtnCancel` (padding 12→16), `ConfirmDialog.cancelBtn` + `confirmBtn` (padding 14→16; `{ backgroundColor: confirmBg }` inline prop still overrides), `PromptDialog.cancelBtn` (padding 14→16), `QueueVialModal.queueBtn` (dropped stray border). `PromptDialog.confirmBtn` spread `...button.primary` (padding 14→16). `ConfirmDialog` + `QueueVialModal` gained `button` theme import. Build clean at 227 KB gzipped.
 - **Pressable.jsx fix** — inner `RNPressable` now gets `height: '100%'` alongside `width: '100%'`. When a caller passes a fixed `height` (routed to outer `Animated.View` by `splitStyle`), the inner `RNPressable` fills it completely. Auto-height callers unaffected — outer `Animated.View` has no height so `height: '100%'` resolves to content height. Corrects `sendBtn` in `AIAssistant.jsx` (48×48 circle) rendering with a gap between the `Animated.View` shell and the pressable surface.
 - **CACHE_VERSION bumped to v30** (`public/sw.js`).
+- **Theme migration batch 4** — `ConfirmDialog.jsx` and `ResourcesTab.jsx` migrated to import from `theme.js`. Build clean at 227 KB gzipped.
+- **Theme migration batch 5** — `LogTab.jsx` and `Dashboard.jsx` migrated to import from `theme.js`. Build clean at 227 KB gzipped.
+- **CACHE_VERSION bumped to v31** (`public/sw.js`).
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

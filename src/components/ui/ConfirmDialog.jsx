@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
-import { button } from '../../theme.js';
+import { colors, glass, button } from '../../theme.js';
 
 export function ConfirmDialog({
   titleIcon = '⚠️',
@@ -11,7 +11,7 @@ export function ConfirmDialog({
   onCancel,
   confirmText = 'Confirm',
   confirmBg = 'rgba(239, 68, 68, 0.15)',
-  confirmColor = '#f87171',
+  confirmColor = colors.error,
 }) {
   return (
     // Overlay: raw div for position:fixed (DOM-specific, like <select>/<svg>/<a>)
@@ -38,19 +38,13 @@ export default ConfirmDialog;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(17, 24, 39, 0.85)',
+    ...glass.modal,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
-    borderRadius: 32,
     padding: 32,
     maxWidth: 340,
     width: '100%',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderTopColor: 'rgba(255, 255, 255, 0.12)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
     animationKeyframes: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   },
   icon: {
@@ -58,7 +52,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   title: {
-    color: 'white',
+    color: colors.white,
     fontSize: 18,
     fontWeight: '900',
     marginBottom: 8,
@@ -66,7 +60,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   message: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 14,
     marginBottom: 24,
     lineHeight: 21,

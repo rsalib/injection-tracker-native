@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { formatDisplayDate } from '../../constants.js';
-import { button } from '../../theme.js';
+import { colors, glass, button } from '../../theme.js';
 import { auth } from '../../services/firebase.js';
 import { appCheck } from '../../services/firebase.js';
 import { getToken as getAppCheckToken } from 'firebase/app-check';
@@ -239,9 +239,9 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
 
                             {isDateExpanded && dateLogs.map((l) => {
                               const isAuto = l.isAuto || l.type === 'auto';
-                              const circleColor = "#86efac";
+                              const circleColor = colors.textGreen;
                               const circleShadow = isAuto ? "rgba(168, 85, 247, 0.6)" : "rgba(134, 239, 172, 0.4)";
-                              const badgeColor = isAuto ? "#a855f7" : "#86efac";
+                              const badgeColor = isAuto ? "#a855f7" : colors.textGreen;
                               const badgeBg = isAuto ? "rgba(168, 85, 247, 0.1)" : "rgba(134, 239, 172, 0.1)";
 
                               return (
@@ -341,17 +341,12 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   autoLoggerCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     borderRadius: 32,
     padding: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   autoLoggerLeft: {
     flexDirection: 'column',
@@ -360,12 +355,12 @@ const styles = StyleSheet.create({
   autoLoggerTitle: {
     fontWeight: '800',
     fontSize: 16,
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.32,
   },
   autoLoggerStatus: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '600',
   },
   toggleTrack: {
@@ -384,7 +379,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: '#9ca3af',
+    backgroundColor: colors.textSecondary,
     position: 'absolute',
     top: 4,
     left: 4,
@@ -392,7 +387,7 @@ const styles = StyleSheet.create({
     boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
   },
   toggleDotActive: {
-    backgroundColor: '#22d3ee',
+    backgroundColor: colors.cyan,
     left: 28,
   },
   logBtn: {
@@ -401,24 +396,19 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   logBtnText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '900',
   },
   historyCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   historyTitle: {
     fontWeight: '900',
     fontSize: 18,
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.36,
     marginBottom: 24,
   },
@@ -432,7 +422,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.1)',
   },
   emptyStateText: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 14,
   },
   monthBlock: {
@@ -456,16 +446,16 @@ const styles = StyleSheet.create({
   monthLabel: {
     fontSize: 13,
     fontWeight: '900',
-    color: 'white',
+    color: colors.white,
   },
   monthCount: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '600',
     fontSize: 12,
     marginLeft: 6,
   },
   chevron: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 12,
   },
   timelineWrap: {
@@ -478,7 +468,7 @@ const styles = StyleSheet.create({
     top: 8,
     bottom: 16,
     width: 2,
-    backgroundColor: '#22d3ee', // TODO: expo-linear-gradient(to bottom, #22d3ee, rgba(34,211,238,0.1))
+    backgroundColor: colors.cyan, // TODO: expo-linear-gradient(to bottom, #22d3ee, rgba(34,211,238,0.1))
     borderRadius: 2,
   },
   dateBlock: {
@@ -506,18 +496,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#0f172a',
     borderWidth: 2,
-    borderColor: '#22d3ee',
+    borderColor: colors.cyan,
     zIndex: 2,
     transform: [{ translateX: -5 }],
   },
   dateLabel: {
     fontWeight: '800',
     fontSize: 13,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     transition: '0.2s',
   },
   dateLabelActive: {
-    color: 'white',
+    color: colors.white,
   },
   dateCount: {
     opacity: 0.6,
@@ -565,7 +555,7 @@ const styles = StyleSheet.create({
   logMedName: {
     fontSize: 16,
     fontWeight: '900',
-    color: 'white',
+    color: colors.white,
     marginBottom: 6,
   },
   logMeta: {
@@ -583,17 +573,17 @@ const styles = StyleSheet.create({
   },
   logDoseText: {
     fontSize: 12,
-    color: 'white',
+    color: colors.white,
     fontWeight: '700',
   },
   logSite: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '700',
   },
   logTime: {
     fontSize: 12,
-    color: '#6b7280',
+    color: colors.textMuted,
     fontWeight: '700',
   },
   logNotes: {
@@ -603,11 +593,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.2)',
     borderRadius: 12,
     borderLeftWidth: 2,
-    borderLeftColor: '#6b7280',
+    borderLeftColor: colors.textMuted,
   },
   logNotesText: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontStyle: 'italic',
   },
   logActions: {
@@ -626,7 +616,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   logEditText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -639,7 +629,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   logDeleteText: {
-    color: '#f87171',
+    color: colors.error,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -656,30 +646,25 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   loadMoreText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 14,
     fontWeight: '800',
   },
   exportCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
     marginTop: 8,
   },
   exportTitle: {
     fontWeight: '800',
     fontSize: 16,
-    color: 'white',
+    color: colors.white,
     marginBottom: 8,
   },
   exportSub: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     marginBottom: 16,
     lineHeight: 17,
   },
@@ -702,7 +687,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   exportBtnGrayText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 13,
     fontWeight: '800',
   },
@@ -717,7 +702,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   exportBtnCyanText: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontSize: 13,
     fontWeight: '800',
   },
@@ -735,7 +720,7 @@ const styles = StyleSheet.create({
     cursor: 'not-allowed',
   },
   subscribeBtnText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '900',
   },
