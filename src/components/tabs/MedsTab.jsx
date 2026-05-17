@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
-import { button } from '../../theme.js';
+import { colors, glass, button } from '../../theme.js';
 import { SortBar } from '../ui/SortBar.jsx';
 import { ConfirmDialog } from '../ui/ConfirmDialog.jsx';
 import { PromptDialog } from '../ui/PromptDialog.jsx';
@@ -208,7 +208,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                     </View>
                   </View>
                   <View style={styles.progressTrack}>
-                    <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? '#22d3ee' : '#ef4444' }]} />
+                    <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.cyan : '#ef4444' }]} />
                   </View>
                   <View style={styles.progressLabels}>
                     <Text style={styles.progressLabelText}>{rem.toFixed(2)} {m.vialUnit || m.unit} Left</Text>
@@ -338,7 +338,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                 {archivedMeds.length > 3 && (
                   <TextInput
                     placeholder="Filter archive by name..."
-                    placeholderTextColor="#6b7280"
+                    placeholderTextColor={colors.textMuted}
                     value={archiveSearch}
                     onChangeText={setArchiveSearch}
                     style={styles.archiveSearch}
@@ -386,22 +386,17 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   createBtnText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '900',
   },
   interactionCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     borderRadius: 32,
     padding: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   interactionCardError: {
     backgroundColor: 'rgba(69,10,10,0.4)',
@@ -414,7 +409,7 @@ const styles = StyleSheet.create({
   interactionCardTitle: {
     fontWeight: '800',
     fontSize: 16,
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.32,
   },
   interactionCardStatus: {
@@ -423,8 +418,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   statusError: { color: '#fca5a5' },
-  statusWarn: { color: '#9ca3af' },
-  statusOk: { color: '#86efac' },
+  statusWarn: { color: colors.textSecondary },
+  statusOk: { color: colors.textGreen },
   recheckBtn: {
     backgroundColor: 'rgba(34, 211, 238, 0.1)',
     borderRadius: 100,
@@ -438,10 +433,10 @@ const styles = StyleSheet.create({
   recheckBtnText: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#22d3ee',
+    color: colors.cyan,
   },
   recheckBtnTextError: {
-    color: '#f87171',
+    color: colors.error,
   },
   listContainer: {
     flexDirection: 'column',
@@ -457,17 +452,12 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.1)',
   },
   emptyStateText: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 14,
   },
   medCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     borderRadius: 32,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
     overflow: 'hidden',
   },
   medCardHeader: {
@@ -491,7 +481,7 @@ const styles = StyleSheet.create({
   medName: {
     fontSize: 20,
     fontWeight: '800',
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.4,
   },
   sevEmoji: {
@@ -519,13 +509,13 @@ const styles = StyleSheet.create({
   pctText: {
     fontSize: 14,
     fontWeight: '800',
-    color: '#22d3ee',
+    color: colors.cyan,
   },
   pctTextLow: {
-    color: '#f87171',
+    color: colors.error,
   },
   chevron: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 14,
   },
   progressTrack: {
@@ -547,7 +537,7 @@ const styles = StyleSheet.create({
   progressLabelText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   expandedSection: {
     paddingHorizontal: 24,
@@ -570,7 +560,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   metricLabel: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 10,
     fontWeight: '800',
     textTransform: 'uppercase',
@@ -579,7 +569,7 @@ const styles = StyleSheet.create({
   metricValue: {
     fontSize: 16,
     fontWeight: '800',
-    color: 'white',
+    color: colors.white,
   },
   syringeCard: {
     backgroundColor: 'rgba(8, 51, 68, 0.4)',
@@ -589,14 +579,14 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   syringeMetricLabel: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontSize: 10,
     fontWeight: '800',
     textTransform: 'uppercase',
   },
   syringeMetricValue: {
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
     fontSize: 14,
   },
   safetyCard: {
@@ -609,7 +599,7 @@ const styles = StyleSheet.create({
   safetyLabel: {
     fontSize: 10,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 10,
@@ -634,11 +624,11 @@ const styles = StyleSheet.create({
   safetyItemName: {
     fontSize: 13,
     fontWeight: '800',
-    color: 'white',
+    color: colors.white,
   },
   safetyItemDesc: {
     fontSize: 11,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     lineHeight: 15,
   },
   actionHub: {
@@ -663,7 +653,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   useDoseBtnText: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '900',
     fontSize: 13,
   },
@@ -684,7 +674,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   smBtnText: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '800',
     fontSize: 11,
   },
@@ -697,7 +687,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   smBtnCyanText: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontWeight: '800',
     fontSize: 11,
   },
@@ -710,7 +700,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   xsBtnText: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '800',
     fontSize: 10,
   },
@@ -736,7 +726,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   xsBtnRedText: {
-    color: '#f87171',
+    color: colors.error,
     fontWeight: '800',
     fontSize: 10,
   },
@@ -758,12 +748,12 @@ const styles = StyleSheet.create({
   archiveToggleText: {
     fontSize: 13,
     fontWeight: '900',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   chevronGray: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 12,
   },
   archiveList: {
@@ -776,7 +766,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     paddingVertical: 10,
     paddingHorizontal: 16,
-    color: 'white',
+    color: colors.white,
     fontSize: 14,
     marginBottom: 12,
   },
@@ -785,7 +775,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   archiveEmpty: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 13,
     textAlign: 'center',
     paddingVertical: 16,
@@ -802,13 +792,13 @@ const styles = StyleSheet.create({
   },
   archiveItemName: {
     fontWeight: '800',
-    color: 'white',
+    color: colors.white,
     fontSize: 15,
   },
   archiveItemSub: {
     marginTop: 2,
     fontSize: 11,
-    color: '#6b7280',
+    color: colors.textMuted,
     fontWeight: '600',
   },
   archiveItemActions: {
@@ -823,7 +813,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   archiveRestartText: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -835,7 +825,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   archiveDeleteText: {
-    color: '#f87171',
+    color: colors.error,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -852,14 +842,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   endCycleTitle: {
-    color: 'white',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '800',
     marginBottom: 8,
     textAlign: 'center',
   },
   endCycleSubtitle: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 14,
     marginBottom: 16,
     textAlign: 'center',
@@ -875,7 +865,7 @@ const styles = StyleSheet.create({
   endCycleBtnTitleFinish: {
     fontSize: 15,
     fontWeight: '800',
-    color: '#fde68a',
+    color: colors.textAmber,
   },
   endCycleBtnNow: {
     backgroundColor: 'rgba(127, 29, 29, 0.4)',
@@ -893,7 +883,7 @@ const styles = StyleSheet.create({
   endCycleBtnSub: {
     fontSize: 12,
     opacity: 0.8,
-    color: 'white',
+    color: colors.white,
     marginTop: 4,
   },
   endCycleBtnCancel: {

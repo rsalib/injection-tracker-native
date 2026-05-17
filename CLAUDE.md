@@ -295,13 +295,13 @@ All three functions are in `functions/index.js`:
 - Never intercepts: Firebase, Gemini, Google Auth, FDA, PubMed, Cloud Run
 - Auth redirect bypass: checks for `/__/auth/`, `apiKey`, `access_token`, `id_token`, `code`, `state` in URL to avoid intercepting Firebase Auth redirects
 - Bump `CACHE_VERSION` in `sw.js` on each deploy to force cache invalidation
-- Current version: `v31`
+- Current version: `v32`
 
 ---
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v31`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v32`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -499,6 +499,8 @@ Standing constraints that apply to all current and future work in this project:
 - **Theme migration batch 4** — `ConfirmDialog.jsx` and `ResourcesTab.jsx` migrated to import from `theme.js`. Build clean at 227 KB gzipped.
 - **Theme migration batch 5** — `LogTab.jsx` and `Dashboard.jsx` migrated to import from `theme.js`. Build clean at 227 KB gzipped.
 - **CACHE_VERSION bumped to v31** (`public/sw.js`).
+- **Theme migration batch 6** — `MedsTab.jsx` and `AddScheduleModal.jsx` migrated to import from `theme.js`. Build clean at 227 KB gzipped.
+- **CACHE_VERSION bumped to v32** (`public/sw.js`).
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

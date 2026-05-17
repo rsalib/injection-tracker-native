@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SITES, DAYS } from '../../constants.js';
-import { button } from '../../theme.js';
+import { colors, button } from '../../theme.js';
 
 export function AddScheduleModal({ meds, onClose, onSave }) {
   const [medId, setMedId] = useState('');
@@ -95,7 +95,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
               value={dose}
               onChangeText={setDose}
               placeholder="0"
-              placeholderTextColor="#6b7280"
+              placeholderTextColor={colors.textMuted}
               keyboardType="numeric"
             />
           </View>
@@ -131,7 +131,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
             value={notes}
             onChangeText={setNotes}
             placeholder="Protocol notes…"
-            placeholderTextColor="#6b7280"
+            placeholderTextColor={colors.textMuted}
           />
         </View>
 
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   lbl: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 8,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     paddingVertical: 14,
     paddingHorizontal: 18,
-    color: 'white',
+    color: colors.white,
     fontSize: 15,
   },
   row2: {
@@ -201,10 +201,10 @@ const styles = StyleSheet.create({
   dayBtnText: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   dayBtnTextActive: {
-    color: '#22d3ee',
+    color: colors.cyan,
   },
   submitBtn: {
     ...button.primary,
