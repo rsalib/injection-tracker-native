@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Animated, Pressable as RNPressable, StyleSheet } from 'react-native';
 
 const LAYOUT_PROPS = new Set([
@@ -22,18 +22,22 @@ function splitStyle(style) {
 
 export function Pressable({ onPress, onPressIn, onPressOut, style, disabled, children, ...props }) {
   const scale = useRef(new Animated.Value(1)).current;
+  const [pressed, setPressed] = useState(false);
 
   const handlePressIn = (e) => {
+    setPressed(true);
     Animated.spring(scale, { toValue: 0.97, useNativeDriver: false, speed: 50, bounciness: 4 }).start();
     onPressIn?.(e);
   };
 
   const handlePressOut = (e) => {
+    setPressed(false);
     Animated.spring(scale, { toValue: 1, useNativeDriver: false, speed: 50, bounciness: 4 }).start();
     onPressOut?.(e);
   };
 
-  const { layout, visual } = splitStyle(style);
+  const resolvedStyle = typeof style === 'function' ? style({ pressed }) : style;
+  const { layout, visual } = splitStyle(resolvedStyle);
 
   return (
     <Animated.View style={[layout, { transform: [{ scale }] }]}>
@@ -42,7 +46,7 @@ export function Pressable({ onPress, onPressIn, onPressOut, style, disabled, chi
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         disabled={disabled}
-        style={[visual, { width: '100%' }]}
+        style={[visual, { width: '100%', height: '100%' }]}
         {...props}
       >
         {children}

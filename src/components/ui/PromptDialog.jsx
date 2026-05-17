@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
+import { colors, glass, button, input } from '../../theme.js';
 
 export function PromptDialog({
   title,
@@ -30,7 +31,7 @@ export function PromptDialog({
           value={value}
           onChangeText={setValue}
           placeholder={placeholder}
-          placeholderTextColor="#6b7280"
+          placeholderTextColor={colors.textMuted}
           keyboardType={inputType === 'number' ? 'numeric' : 'default'}
           autoFocus
           onSubmitEditing={handleSubmit}
@@ -55,29 +56,21 @@ export default PromptDialog;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(17, 24, 39, 0.85)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
-    borderRadius: 32,
+    ...glass.modal,
     padding: 28,
     maxWidth: 360,
     width: '100%',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderTopColor: 'rgba(255, 255, 255, 0.12)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
     animationKeyframes: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   },
   title: {
-    color: 'white',
+    color: colors.white,
     fontSize: 17,
     fontWeight: '900',
     marginBottom: 8,
     letterSpacing: -0.34,
   },
   message: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 13,
     marginBottom: 16,
     lineHeight: 20,
@@ -89,7 +82,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingVertical: 14,
     paddingHorizontal: 16,
-    color: 'white',
+    color: colors.white,
     fontSize: 16,
     marginBottom: 16,
   },
@@ -98,29 +91,19 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   cancelBtn: {
+    ...button.secondary,
     flex: 1,
-    padding: 14,
-    borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    alignItems: 'center',
     cursor: 'pointer',
   },
   cancelText: {
-    color: 'white',
-    fontSize: 13,
-    fontWeight: '800',
+    ...button.secondaryText,
   },
   confirmBtn: {
+    ...button.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
     flex: 1,
-    padding: 14,
-    borderRadius: 100,
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
-    alignItems: 'center',
     cursor: 'pointer',
   },
   confirmText: {
-    color: 'white',
-    fontSize: 13,
-    fontWeight: '800',
+    ...button.secondaryText,
   },
 });

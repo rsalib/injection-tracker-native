@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SITES } from './constants.js';
+import { colors, glass } from './theme.js';
 
 export function SiteRotation({ logs }) {
   const recent = [...logs].reverse().slice(0, 20);
@@ -59,19 +60,14 @@ export default SiteRotation;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(31, 41, 55, 0.4)',
+    ...glass.card,
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   heading: {
     fontWeight: '800',
     fontSize: 16,
-    color: 'white',
+    color: colors.white,
     textTransform: 'uppercase',
     letterSpacing: 1.6,
     marginBottom: 16,
@@ -104,26 +100,26 @@ const styles = StyleSheet.create({
   },
   tileLabel: {
     fontSize: 10,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '800',
     textTransform: 'uppercase',
     marginBottom: 4,
   },
   tileLabelCyan: {
     fontSize: 10,
-    color: '#22d3ee',
+    color: colors.cyan,
     fontWeight: '800',
     textTransform: 'uppercase',
     marginBottom: 4,
   },
   tileValueAmber: {
     fontWeight: '800',
-    color: '#fde68a',
+    color: colors.textAmber,
     fontSize: 14,
   },
   tileValueGreen: {
     fontWeight: '800',
-    color: '#86efac',
+    color: colors.textGreen,
     fontSize: 14,
   },
   siteGrid: {
@@ -154,17 +150,17 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   siteNameActive: {
-    color: '#fde68a',
+    color: colors.textAmber,
   },
   siteNameInactive: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   siteCount: {
     fontSize: 10,
     opacity: 0.6,
   },
   emptyText: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 14,
     textAlign: 'center',
     paddingVertical: 20,

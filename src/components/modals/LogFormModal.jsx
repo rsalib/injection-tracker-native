@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
+import { button } from '../../theme.js';
 import { SITES, getLocalDate, getLocalTime } from '../../constants.js';
 import { toMg } from '../../mathEngine.js';
 
@@ -298,17 +299,11 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   submitBtn: {
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
-    borderRadius: 100,
-    padding: 16,
-    alignItems: 'center',
+    ...button.primary,
     cursor: 'pointer',
-    boxShadow: '0 10px 20px -5px rgba(34,211,238,0.3)',
     marginTop: 8,
   },
   submitBtnText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: '900',
+    ...button.primaryText,
   },
 });

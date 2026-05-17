@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Pressable } from './components/ui/Pressable.jsx';
 import iconPng from '../public/icon.png';
+import { colors, glass } from './theme.js';
 import { auth } from './services/firebase.js';
 import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from 'firebase/auth';
 
@@ -45,7 +46,7 @@ export function LoginScreen() {
         <Pressable
           onPress={signIn}
           disabled={loading}
-          style={({ pressed }) => [styles.signInBtn, loading && styles.signInBtnDisabled, pressed && styles.signInBtnPressed]}
+          style={[styles.signInBtn, loading && styles.signInBtnDisabled]}
         >
           <View style={styles.signInRow}>
             <Image
@@ -83,27 +84,24 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   card: {
+    ...glass.card,
     alignItems: 'center',
     maxWidth: 400,
     width: '100%',
-    backgroundColor: 'rgba(31, 41, 55, 0.4)',
     borderRadius: 40,
     paddingVertical: 48,
     paddingHorizontal: 32,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
   },
   title: {
     fontSize: 32,
     fontWeight: '900',
-    color: 'white',
+    color: colors.white,
     marginBottom: 12,
     letterSpacing: -1.28,
     textAlign: 'center',
   },
   subtitle: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 15,
     marginBottom: 40,
     fontWeight: '500',
@@ -114,15 +112,13 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: 16,
     borderRadius: 100,
+    // White Google-brand button — signInText uses colors.bg (#111827) to read against this
     backgroundColor: 'white',
     boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.2)',
     alignItems: 'center',
   },
   signInBtnDisabled: {
     opacity: 0.7,
-  },
-  signInBtnPressed: {
-    opacity: 0.85,
   },
   signInRow: {
     flexDirection: 'row',
@@ -134,7 +130,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   signInText: {
-    color: '#111827',
+    color: colors.bg,
     fontSize: 16,
     fontWeight: '800',
   },
@@ -154,7 +150,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   footer: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 12,
     marginTop: 32,
     fontWeight: '600',

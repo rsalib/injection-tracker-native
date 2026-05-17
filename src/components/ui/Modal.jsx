@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { colors, glass } from '../../theme.js';
 
 export function Modal({ title, onClose, children }) {
   const dialogRef = React.useRef(null);
@@ -84,16 +85,10 @@ export default Modal;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(17, 24, 39, 0.85)',
+    ...glass.modal,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
-    borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderTopColor: 'rgba(255, 255, 255, 0.12)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
     animationKeyframes: 'modalPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   },
   header: {
@@ -105,7 +100,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: '900',
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.4,
     textAlign: 'center',
   },
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   closeText: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 16,
   },
 });

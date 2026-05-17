@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { callGeminiChat } from '../../services/gemini.js';
+import { colors, glass } from '../../theme.js';
 
 export function AIAssistant({ meds, interactions, onRecheck }) {
   const actionableInteractions = (Array.isArray(interactions) ? interactions : []).filter(i => i.severity && !["none", "safe"].includes(i.severity.toLowerCase()));
@@ -108,7 +109,7 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
                       if (!url) return null;
                       return (
                         <li key={cIdx} style={{ fontSize: 12 }}>
-                          <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: "#22d3ee", textDecoration: "none", fontWeight: 600 }}>
+                          <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: colors.cyan, textDecoration: "none", fontWeight: 600 }}>
                             {title}
                           </a>
                         </li>
@@ -150,13 +151,13 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
           blurOnSubmit={false}
           style={styles.inputField}
           placeholder="Ask about your protocol..."
-          placeholderTextColor="#6b7280"
+          placeholderTextColor={colors.textMuted}
         />
         <Pressable
           onPress={send}
           style={[styles.sendBtn, (loading || !input.trim()) && styles.sendBtnDisabled]}
         >
-          <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 22, height: 22, color: 'white' }}>
+          <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 22, height: 22, color: colors.white }}>
             <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
           </svg>
         </Pressable>
@@ -189,24 +190,19 @@ const styles = StyleSheet.create({
   clearBtnText: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   chatWindow: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
     minHeight: 460,
     maxHeight: 500,
     overflowY: 'auto',
     flexDirection: 'column',
     gap: 16,
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   msgRow: {
     flexDirection: 'row',
@@ -222,7 +218,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   msgBubbleUser: {
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
+    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
     borderRadius: 24,
     borderBottomRightRadius: 4,
     boxShadow: '0 4px 12px rgba(34, 211, 238, 0.2)',
@@ -236,7 +232,7 @@ const styles = StyleSheet.create({
     boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
   },
   msgText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 15,
     lineHeight: 24,
     fontWeight: '500',
@@ -251,7 +247,7 @@ const styles = StyleSheet.create({
   sourcesLabel: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 8,
@@ -267,7 +263,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 15,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '700',
   },
   suggestions: {
@@ -291,18 +287,15 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   inputBar: {
-    flexDirection: 'row',
-    gap: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    padding: 8,
-    borderRadius: 100,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
+    ...glass.card,
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
+    borderRadius: 100,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
     boxShadow: '0 4px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+    flexDirection: 'row',
+    gap: 12,
+    padding: 8,
     alignItems: 'center',
   },
   inputField: {
@@ -311,13 +304,13 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 20,
     fontSize: 16,
-    color: 'white',
+    color: colors.white,
     fontWeight: '500',
   },
   sendBtn: {
     width: 48,
     height: 48,
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
+    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',

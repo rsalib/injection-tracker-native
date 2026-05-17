@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { getLocalDate } from '../../constants.js';
+import { button } from '../../theme.js';
 
 export function QueueVialModal({ med, onClose, onSave }) {
   const [vialTotal, setVialTotal] = useState(med.vialTotal || '');
@@ -206,13 +207,8 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   queueBtn: {
+    ...button.secondary,
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
-    borderRadius: 100,
-    padding: 16,
-    alignItems: 'center',
     cursor: 'pointer',
   },
   queueBtnText: {
@@ -221,17 +217,11 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   saveBtn: {
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
-    borderRadius: 100,
-    padding: 16,
-    alignItems: 'center',
+    ...button.primary,
     cursor: 'pointer',
-    boxShadow: '0 10px 20px -5px rgba(34,211,238,0.3)',
     marginTop: 8,
   },
   saveBtnText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: '900',
+    ...button.primaryText,
   },
 });

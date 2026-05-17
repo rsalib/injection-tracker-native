@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
+import { button } from '../../theme.js';
 
 export function ConfirmDialog({
   titleIcon = '⚠️',
@@ -77,27 +78,19 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   cancelBtn: {
+    ...button.secondary,
     flex: 1,
-    padding: 14,
-    borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    alignItems: 'center',
     cursor: 'pointer',
   },
   cancelText: {
-    color: 'white',
-    fontSize: 13,
-    fontWeight: '800',
+    ...button.secondaryText,
   },
   confirmBtn: {
+    ...button.secondary,
     flex: 1,
-    padding: 14,
-    borderRadius: 100,
-    alignItems: 'center',
     cursor: 'pointer',
   },
   confirmText: {
-    fontSize: 13,
-    fontWeight: '800',
+    ...button.secondaryText,
   },
 });

@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SITES, DAYS } from '../../constants.js';
+import { button } from '../../theme.js';
 
 export function AddScheduleModal({ meds, onClose, onSave }) {
   const [medId, setMedId] = useState('');
@@ -206,16 +207,11 @@ const styles = StyleSheet.create({
     color: '#22d3ee',
   },
   submitBtn: {
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%)
-    borderRadius: 100,
-    padding: 16,
-    alignItems: 'center',
+    ...button.primary,
     cursor: 'pointer',
   },
   submitBtnText: {
-    color: 'white',
-    fontWeight: '900',
-    fontSize: 15,
+    ...button.primaryText,
     letterSpacing: -0.15,
   },
 });

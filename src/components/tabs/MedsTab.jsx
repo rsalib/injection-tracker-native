@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
+import { button } from '../../theme.js';
 import { SortBar } from '../ui/SortBar.jsx';
 import { ConfirmDialog } from '../ui/ConfirmDialog.jsx';
 import { PromptDialog } from '../ui/PromptDialog.jsx';
@@ -380,12 +381,8 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   createBtn: {
+    ...button.primary,
     width: '100%',
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
-    borderRadius: 28,
-    padding: 18,
-    alignItems: 'center',
-    boxShadow: '0 10px 20px -5px rgba(34,211,238,0.3)',
     cursor: 'pointer',
   },
   createBtnText: {
@@ -660,12 +657,9 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   useDoseBtn: {
+    ...button.primary,
     flex: 1,
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient for native
-    borderRadius: 100,
-    padding: 12,
-    alignItems: 'center',
-    boxShadow: '0 4px 16px rgba(14, 116, 144, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+    boxShadow: '0 4px 12px rgba(34,211,238,0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
     cursor: 'pointer',
   },
   useDoseBtnText: {
@@ -674,19 +668,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   undoBtn: {
+    ...button.secondary,
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
-    borderRadius: 100,
-    padding: 12,
-    alignItems: 'center',
     cursor: 'pointer',
   },
   undoBtnText: {
-    color: 'white',
-    fontWeight: '800',
-    fontSize: 13,
+    ...button.secondaryText,
   },
   smBtn: {
     flex: 1,
@@ -910,14 +897,10 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   endCycleBtnCancel: {
-    padding: 12,
-    borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    alignItems: 'center',
+    ...button.secondary,
     cursor: 'pointer',
   },
   endCycleBtnCancelText: {
-    color: 'white',
-    fontWeight: '800',
+    ...button.secondaryText,
   },
 });

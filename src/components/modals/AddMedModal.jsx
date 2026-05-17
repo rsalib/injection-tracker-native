@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
+import { button } from '../../theme.js';
 import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constants.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
@@ -517,17 +518,11 @@ const styles = StyleSheet.create({
     color: '#111827',
   },
   submitBtn: {
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
-    borderRadius: 100,
-    padding: 16,
-    alignItems: 'center',
+    ...button.primary,
     cursor: 'pointer',
-    boxShadow: '0 10px 20px -5px rgba(34,211,238,0.3)',
     marginTop: 12,
   },
   submitBtnText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: '900',
+    ...button.primaryText,
   },
 });

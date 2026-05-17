@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { formatDisplayDate } from '../../constants.js';
+import { button } from '../../theme.js';
 import { auth } from '../../services/firebase.js';
 import { appCheck } from '../../services/firebase.js';
 import { getToken as getAppCheckToken } from 'firebase/app-check';
@@ -395,12 +396,8 @@ const styles = StyleSheet.create({
     left: 28,
   },
   logBtn: {
+    ...button.primary,
     width: '100%',
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
-    borderRadius: 28,
-    padding: 18,
-    alignItems: 'center',
-    boxShadow: '0 4px 16px rgba(14, 116, 144, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
     cursor: 'pointer',
   },
   logBtnText: {
@@ -729,12 +726,8 @@ const styles = StyleSheet.create({
     cursor: 'not-allowed',
   },
   subscribeBtn: {
+    ...button.primary,
     width: '100%',
-    backgroundColor: '#0e7490', // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
-    borderRadius: 28,
-    padding: 18,
-    alignItems: 'center',
-    boxShadow: '0 10px 20px -5px rgba(34,211,238,0.3)',
     cursor: 'pointer',
   },
   subscribeBtnLoading: {

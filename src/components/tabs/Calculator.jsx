@@ -4,6 +4,7 @@ import { Pressable } from '../ui/Pressable.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { ALL_STACKS } from '../../constants.js';
+import { colors, glass, button } from '../../theme.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
 export function Calculator() {
@@ -106,7 +107,7 @@ export function Calculator() {
             renderOption={m => (
               <>
                 <span>{m.name}</span>
-                <span style={{ fontSize: 10, color: '#fde68a', background: 'rgba(113,63,18,0.6)', borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>BLEND</span>
+                <span style={{ fontSize: 10, color: colors.textAmber, background: 'rgba(113,63,18,0.6)', borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>BLEND</span>
               </>
             )}
             onSelect={m => {
@@ -371,7 +372,7 @@ const selectStyle = {
   flex: '0 0 85px',
   background: 'transparent',
   border: 'none',
-  color: 'white',
+  color: colors.white,
   padding: '14px 10px',
   fontSize: 16,
   outline: 'none',
@@ -405,15 +406,15 @@ const styles = StyleSheet.create({
   modeBtnActive: {
     // TODO: replace with expo-linear-gradient / react-native-linear-gradient
     // when adding native builds. v2 used: linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
-    backgroundColor: '#0e7490',
+    backgroundColor: colors.primary,
   },
   modeBtnText: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '900',
     fontSize: 13,
   },
   modeBtnTextActive: {
-    color: 'white',
+    color: colors.white,
   },
 
   // ── Search dropdown wrapper ────────────────────────────────────────
@@ -435,7 +436,7 @@ const styles = StyleSheet.create({
   lbl: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.55,   // v2: "0.05em" at 11px = 0.55px
     marginBottom: 8,
@@ -443,7 +444,7 @@ const styles = StyleSheet.create({
   },
   fieldLabel: {
     fontSize: 10,
-    color: '#6b7280',
+    color: colors.textMuted,
     marginBottom: 6,
     marginLeft: 4,
     fontWeight: '800',
@@ -481,7 +482,7 @@ const styles = StyleSheet.create({
   pillInput: {
     flex: 1,
     backgroundColor: 'transparent',
-    color: 'white',
+    color: colors.white,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
@@ -499,21 +500,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.2)',
   },
   pillUnitText: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 14,
     fontWeight: '800',
   },
 
   // ── Stack peptide card ────────────────────────────────────────────
   peptideCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    ...glass.card,
     borderRadius: 32,
     padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
     position: 'relative',
     zIndex: 10,
   },
@@ -528,7 +524,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   removeBtnText: {
-    color: '#f87171',
+    color: colors.error,
     fontSize: 10,
     fontWeight: '900',
   },
@@ -545,7 +541,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   addPeptideBtnText: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontWeight: '900',
     fontSize: 14,
   },
@@ -564,7 +560,7 @@ const styles = StyleSheet.create({
   resultsTitle: {
     fontSize: 18,
     fontWeight: '900',
-    color: 'white',
+    color: colors.white,
     marginBottom: 24,
     textAlign: 'center',
     letterSpacing: -0.36,   // v2: "-0.02em" at 18px = -0.36px
@@ -581,13 +577,13 @@ const styles = StyleSheet.create({
   resultValue: {
     fontSize: 40,
     fontWeight: '900',
-    color: '#22d3ee',
+    color: colors.cyan,
     lineHeight: 40,         // v2: lineHeight: 1 (= 1× fontSize = 40)
   },
   resultUnit: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     marginTop: 8,
     textTransform: 'uppercase',
     letterSpacing: 0.6,     // v2: "0.05em" at 12px = 0.6px
@@ -608,11 +604,11 @@ const styles = StyleSheet.create({
   },
   dosesLeftText: {
     fontSize: 13,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '700',
   },
   dosesLeftNum: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '900',
   },
 
