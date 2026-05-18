@@ -8,7 +8,8 @@ admin.initializeApp();
 exports.askGemini = onRequest({
     secrets: ["GEMINI_API_KEY"],
     cors: true,
-    invoker: "public" // URL is public, but we enforce auth inside the function
+    enforceAppCheck: true,
+    invoker: "public" // URL is public, but we enforce auth (Firebase Auth + App Check) inside the function
 }, async (req, res) => {
     try {
         // 1. THE BOUNCER: Check for the Authorization header
@@ -29,12 +30,7 @@ exports.askGemini = onRequest({
             return res.status(403).json({ error: "Forbidden: Invalid or expired token." });
         }
 
-        const appCheckToken = req.headers['x-firebase-appcheck'];
-        if (appCheckToken) {
-            try { await admin.appCheck().verifyToken(appCheckToken); }
-            catch (e) { return res.status(401).json({ error: 'Invalid App Check token' }); }
-        }
-
+        // App Check verification is handled by the framework (enforceAppCheck: true).
         // At this point, we know the request is from a legitimate, logged-in user.
         // You could even log decodedToken.uid if you wanted to track usage per user.
 
@@ -139,6 +135,7 @@ exports.getCalendarFeed = onRequest({
 
 exports.getCalendarToken = onRequest({
     cors: true,
+    enforceAppCheck: true,
     invoker: "public"
 }, async (req, res) => {
     try {
@@ -153,12 +150,7 @@ exports.getCalendarToken = onRequest({
             return res.status(403).json({ error: "Invalid token" });
         }
 
-        const appCheckToken = req.headers['x-firebase-appcheck'];
-        if (appCheckToken) {
-            try { await admin.appCheck().verifyToken(appCheckToken); }
-            catch (e) { return res.status(401).json({ error: 'Invalid App Check token' }); }
-        }
-
+        // App Check verification is handled by the framework (enforceAppCheck: true).
         const uid = decodedToken.uid;
         const db = admin.database();
         const snap = await db.ref(`users/${uid}/calendarToken`).get();
