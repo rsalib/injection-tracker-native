@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { Pressable } from './Pressable.jsx';
 import { colors, shadow } from '../../theme.js';
 
 export class ErrorBoundary extends React.Component {

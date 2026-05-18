@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { Pressable } from './Pressable.jsx';
 import { colors, glass, blur } from '../../theme.js';
 
 export function Modal({ title, onClose, children }) {
