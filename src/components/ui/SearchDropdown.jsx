@@ -47,12 +47,12 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
           overflowY: 'auto',
           boxShadow: shadow.dropdownPanel,
           padding: 8,
-          animation: 'dropdownUnfold 0.45s cubic-bezier(0.32, 0.72, 0, 1) forwards',
+          animation: 'dropdownUnfold 0.3s cubic-bezier(0.32, 0.72, 0, 1) forwards',
           transformOrigin: 'top center',
-          transform: 'perspective(900px) rotateX(-90deg)',
+          transform: 'scale(0.85)',
           opacity: 0,
         }}>
-          <style>{`@keyframes dropdownUnfold { 0% { opacity: 0; transform: perspective(900px) rotateX(-90deg); } 60% { opacity: 1; } 100% { opacity: 1; transform: perspective(900px) rotateX(0deg); } }`}</style>
+          <style>{`@keyframes dropdownUnfold { 0% { opacity: 0; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }`}</style>
           {options.map((o, i) => (
             <div
               key={i}
