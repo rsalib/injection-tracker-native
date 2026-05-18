@@ -192,8 +192,8 @@ export const glass = {
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
   cardBlur: {
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: 'blur(40px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
   },
 
   // Modal glass — overlay dialogs
@@ -207,8 +207,8 @@ export const glass = {
     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
   },
   modalBlur: {
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: 'blur(40px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
   },
 
   // Inset sub-surface — inner wells, input backgrounds
@@ -473,12 +473,14 @@ export const shadow = {
 // BLUR — backdropFilter values
 // =============================================================================
 
+// Apple vibrancy recipe: blur + saturate(180%) — saturate boost makes colors
+// punch through translucent surfaces instead of washing out to gray.
 export const blur = {
-  card: 'blur(40px)',
-  header: 'blur(20px)',
-  dialog: 'blur(16px)',
-  input: 'blur(12px)',
-  login: 'blur(24px)',
+  card: 'blur(40px) saturate(180%)',
+  header: 'blur(20px) saturate(180%)',
+  dialog: 'blur(16px) saturate(180%)',
+  input: 'blur(12px) saturate(180%)',
+  login: 'blur(24px) saturate(180%)',
 };
 
 // =============================================================================
