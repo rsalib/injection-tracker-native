@@ -956,7 +956,6 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    height: '100dvh',
     backgroundColor: colors.bg,
   },
 
@@ -970,7 +969,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   content: {
-    paddingTop: layout.headerClearance,
+    paddingTop: layout.headerClearanceSafe,
     paddingBottom: layout.tabBarClearance,
   },
   appContainer: {

@@ -570,7 +570,8 @@ export const radius = {
 export const layout = {
   contentMaxWidth: 672,       // v2 border-box content width (matches paddingHorizontal: 16 → 640px content)
   tabBarMaxWidth: 500,        // tab capsule cap
-  headerClearance: 150,       // ScrollView paddingTop to clear fixed header
+  headerClearance: 150,       // ScrollView paddingTop to clear fixed header (legacy static — prefer headerClearanceSafe)
+  headerClearanceSafe: 'calc(150px + env(safe-area-inset-top))',
   tabBarClearance: 100,       // ScrollView paddingBottom to clear fixed tab bar
   tabBarSafeBottom: 'max(16px, calc(env(safe-area-inset-bottom) - 20px))',
   noiseOpacity: 0.06,
