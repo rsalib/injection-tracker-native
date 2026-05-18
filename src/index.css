@@ -5,18 +5,12 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", system-ui, sans-serif;
 }
 
-#root > div {
-  height: -webkit-fill-available;
-}
-
 #root > div > div {
   overscroll-behavior-y: contain;
 }
 
 .screen-wrap {
   background: var(--gradient-screen) !important;
-  height: 100dvh;
-  height: -webkit-fill-available;
 }
 .header-wrap {
   background: var(--gradient-headerFade) !important;
