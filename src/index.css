@@ -2,6 +2,7 @@ html, body {
   background: var(--bg);
   overscroll-behavior: none;
   height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", system-ui, sans-serif;
 }
 
 #root > div {
