@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { colors, shadow, syringe } from '../../theme.js';
 
 export function SyringeVisualizer({ units, maxUnits, ml }) {
   const safeUnits = Number(units) || 0;
@@ -26,11 +27,11 @@ export function SyringeVisualizer({ units, maxUnits, ml }) {
   }
 
   const fluidGradient = isOverdrawn
-    ? 'linear-gradient(90deg, #7f1d1d 0%, #ef4444 100%)'
-    : 'linear-gradient(90deg, #083344 0%, #22d3ee 100%)';
-  const textColor = isOverdrawn ? '#ef4444' : '#22d3ee';
-  const glowColor = isOverdrawn ? 'rgba(239, 68, 68, 0.8)' : 'rgba(34, 211, 238, 0.8)';
-  const borderColor = isOverdrawn ? '#991b1b' : '#374151';
+    ? `linear-gradient(90deg, ${syringe.overdrawnFillFrom} 0%, ${syringe.overdrawnFillTo} 100%)`
+    : `linear-gradient(90deg, ${syringe.normalFillFrom} 0%, ${syringe.normalFillTo} 100%)`;
+  const textColor = isOverdrawn ? syringe.overdrawnText : syringe.normalText;
+  const glowColor = isOverdrawn ? syringe.overdrawnGlow : syringe.normalGlow;
+  const borderColor = isOverdrawn ? syringe.overdrawnBorder : syringe.normalBorder;
 
   return (
     <View style={[styles.container, { borderColor }]}>
@@ -76,7 +77,7 @@ export default SyringeVisualizer;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1f2937',
+    backgroundColor: syringe.barrelBg,
     borderWidth: 1,
     borderRadius: 12,
     padding: 16,
@@ -96,20 +97,20 @@ const styles = StyleSheet.create({
   unitsUnit: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   mlText: {
-    color: '#6b7280',
+    color: colors.textMuted,
     fontSize: 14,
     marginTop: 4,
     fontWeight: '500',
   },
   overdrawWarn: {
-    color: '#fca5a5',
+    color: syringe.overdrawnBannerText,
     fontSize: 12,
     fontWeight: '600',
     marginTop: 8,
-    backgroundColor: '#450a0a',
+    backgroundColor: syringe.overdrawnBannerBg,
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 6,
@@ -119,12 +120,12 @@ const styles = StyleSheet.create({
   },
   barTrack: {
     position: 'relative',
-    backgroundColor: '#111827',
+    backgroundColor: syringe.trackBg,
     borderWidth: 1,
-    borderColor: '#4b5563',
+    borderColor: syringe.trackBorder,
     height: 32,
     borderRadius: 6,
-    boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.5)',
+    boxShadow: shadow.syringeInset,
   },
   fluidFill: {
     height: '100%',
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     top: -2,
     bottom: -2,
     width: 4,
-    backgroundColor: '#e5e7eb',
+    backgroundColor: colors.textLight,
     transform: [{ translateX: -2 }],
     borderRadius: 2,
     transition: 'left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -155,16 +156,16 @@ const styles = StyleSheet.create({
   tickMajor: {
     width: 1,
     height: 12,
-    backgroundColor: '#9ca3af',
+    backgroundColor: colors.textSecondary,
   },
   tickMinor: {
     width: 1,
     height: 6,
-    backgroundColor: '#4b5563',
+    backgroundColor: syringe.trackBorder,
   },
   tickLabel: {
     fontSize: 10,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     marginTop: 4,
     fontWeight: '500',
     textAlign: 'center',

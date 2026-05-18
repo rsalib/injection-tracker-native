@@ -3,21 +3,21 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
-import { button } from '../../theme.js';
+import { colors, button } from '../../theme.js';
 import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constants.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
 // Raw CSS objects for HTML elements (select, input[type=date/time], pill input+select combos)
 const rawInp = {
   width: '100%',
-  backgroundColor: 'rgba(255,255,255,0.05)',
-  backdropFilter: 'blur(12px)',
-  WebkitBackdropFilter: 'blur(12px)',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderTop: '1px solid rgba(255,255,255,0.15)',
+  backgroundColor: colors.surface,
+  backdropFilter: blur.input,
+  WebkitBackdropFilter: blur.input,
+  border: `1px solid ${colors.borderSubtle}`,
+  borderTop: `1px solid ${colors.borderHighlight}`,
   borderRadius: '100px',
   padding: '14px 18px',
-  color: 'white',
+  color: colors.white,
   fontSize: 16,
   boxSizing: 'border-box',
   outline: 'none',
@@ -169,8 +169,8 @@ export function MedForm({ initial, onSave, onClose, title }) {
               <>
                 <span>{m.name}</span>
                 {m._isStack
-                  ? <span style={{ fontSize: 10, color: '#fde68a', background: 'rgba(113,63,18,0.6)', borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>STACK</span>
-                  : <span style={{ fontSize: 11, color: '#9ca3af', marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
+                  ? <span style={{ fontSize: 10, color: colors.textAmber, background: colors.stackBadgeBg, borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>STACK</span>
+                  : <span style={{ fontSize: 11, color: colors.textSecondary, marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
                 }
               </>
             )}
@@ -230,7 +230,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
             value={form.bwAdded}
             onChangeText={v => set('bwAdded', v)}
             placeholder="e.g. 2"
-            placeholderTextColor="#6b7280"
+            placeholderTextColor={colors.textMuted}
             keyboardType="numeric"
           />
         </View>
@@ -258,7 +258,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
                   renderOption={m => (
                     <>
                       <span>{m.name}</span>
-                      <span style={{ fontSize: 10, color: '#9ca3af', marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
+                      <span style={{ fontSize: 10, color: colors.textSecondary, marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
                     </>
                   )}
                   onSelect={m => {
@@ -276,20 +276,20 @@ export function MedForm({ initial, onSave, onClose, title }) {
             <View style={styles.row2}>
               <View style={styles.flex1}>
                 <Text style={styles.hint}>VIAL TOTAL</Text>
-                <div style={{ display: 'flex', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', overflow: 'hidden' }}>
-                  <input type="number" value={p.vialTotal} placeholder="e.g. 5" onChange={e => { const n = [...peptides]; n[idx].vialTotal = e.target.value; setPeptides(n); }} style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-                  <div style={{ width: 1, background: 'rgba(255,255,255,0.1)', margin: '8px 0' }} />
-                  <select value={p.vialUnit} onChange={e => { const n = [...peptides]; n[idx].vialUnit = e.target.value; setPeptides(n); }} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: 'white', padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
+                <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
+                  <input type="number" value={p.vialTotal} placeholder="e.g. 5" onChange={e => { const n = [...peptides]; n[idx].vialTotal = e.target.value; setPeptides(n); }} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+                  <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
+                  <select value={p.vialUnit} onChange={e => { const n = [...peptides]; n[idx].vialUnit = e.target.value; setPeptides(n); }} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: colors.white, padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                     <option style={{color:'black'}}>mg</option><option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>IU</option>
                   </select>
                 </div>
               </View>
               <View style={styles.flex1}>
                 <Text style={styles.hintCyan}>TARGET DOSE</Text>
-                <div style={{ display: 'flex', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(34,211,238,0.3)', borderRadius: '100px', overflow: 'hidden' }}>
-                  <input type="number" value={p.dose} placeholder="e.g. 250" onChange={e => handleStackDoseChange(idx, e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-                  <div style={{ width: 1, background: 'rgba(34,211,238,0.3)', margin: '8px 0' }} />
-                  <select value={p.unit} onChange={e => handleStackUnitChange(idx, e.target.value)} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: 'white', padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
+                <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.cyanBorder}`, borderRadius: '100px', overflow: 'hidden' }}>
+                  <input type="number" value={p.dose} placeholder="e.g. 250" onChange={e => handleStackDoseChange(idx, e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+                  <div style={{ width: 1, background: colors.cyanBorder, margin: '8px 0' }} />
+                  <select value={p.unit} onChange={e => handleStackUnitChange(idx, e.target.value)} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: colors.white, padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                     <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option>
                   </select>
                 </div>
@@ -311,10 +311,10 @@ export function MedForm({ initial, onSave, onClose, title }) {
           <View style={styles.wellSection}>
             <Text style={styles.lbl}>Start Date & Time</Text>
             {/* date + time inputs — raw HTML */}
-            <div style={{ display: 'flex', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', overflow: 'hidden' }}>
-              <input type="date" value={form.startDate || ''} onChange={e => set('startDate', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-              <div style={{ width: 1, background: 'rgba(255,255,255,0.1)', margin: '8px 0' }} />
-              <input type="time" value={form.injectionTime || ''} onChange={e => set('injectionTime', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+            <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
+              <input type="date" value={form.startDate || ''} onChange={e => set('startDate', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+              <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
+              <input type="time" value={form.injectionTime || ''} onChange={e => set('injectionTime', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
             </div>
           </View>
           <View>
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
   lbl: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 8,
@@ -384,34 +384,34 @@ const styles = StyleSheet.create({
   },
   hint: {
     fontSize: 10,
-    color: '#6b7280',
+    color: colors.textMuted,
     fontWeight: '800',
     marginBottom: 6,
     paddingLeft: 4,
   },
   hintCyan: {
     fontSize: 10,
-    color: '#22d3ee',
+    color: colors.cyan,
     fontWeight: '800',
     marginBottom: 6,
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 100,
     paddingVertical: 14,
     paddingHorizontal: 18,
-    color: 'white',
+    color: colors.white,
     fontSize: 15,
   },
   well: {
-    backgroundColor: 'rgba(17,24,39,0.3)',
+    backgroundColor: colors.surfaceDeep,
     borderRadius: 24,
     padding: 24,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
     gap: 16,
   },
   wellSection: {
@@ -426,11 +426,11 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   pepCard: {
-    backgroundColor: 'rgba(31,41,55,0.4)',
+    backgroundColor: colors.surfaceCard,
     borderRadius: 24,
     padding: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
     position: 'relative',
     gap: 12,
   },
@@ -441,21 +441,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 16,
     right: 16,
-    backgroundColor: 'rgba(248,113,113,0.1)',
+    backgroundColor: colors.errorSoft,
     borderRadius: 100,
     paddingVertical: 6,
     paddingHorizontal: 12,
     cursor: 'pointer',
   },
   removeBtnText: {
-    color: '#f87171',
+    color: colors.error,
     fontSize: 10,
     fontWeight: '900',
   },
   addPepBtn: {
-    backgroundColor: 'rgba(34,211,238,0.1)',
+    backgroundColor: colors.cyanDim,
     borderWidth: 1,
-    borderColor: 'rgba(34,211,238,0.3)',
+    borderColor: colors.cyanBorder,
     borderStyle: 'dashed',
     borderRadius: 100,
     padding: 18,
@@ -463,7 +463,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   addPepText: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontWeight: '900',
     fontSize: 14,
   },
@@ -477,45 +477,45 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 18,
     borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     cursor: 'pointer',
   },
   presetBtnActive: {
-    backgroundColor: 'rgba(34,211,238,0.1)',
+    backgroundColor: colors.cyanDim,
   },
   presetBtnText: {
     fontSize: 12,
     fontWeight: '900',
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   presetBtnTextActive: {
-    color: '#22d3ee',
+    color: colors.cyan,
   },
   daysGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
     padding: 12,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
     borderRadius: 24,
   },
   dayBtn: {
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     cursor: 'pointer',
   },
   dayBtnActive: {
-    backgroundColor: '#22d3ee',
+    backgroundColor: colors.cyan,
   },
   dayBtnText: {
     fontSize: 12,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   dayBtnTextActive: {
-    color: '#111827',
+    color: colors.bg,
   },
   submitBtn: {
     ...button.primary,

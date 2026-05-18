@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { colors } from '../../theme.js';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
@@ -54,16 +55,16 @@ export function QueueVialModal({ med, onClose, onSave }) {
                 <View key={p.id} style={styles.blendRow}>
                   <Text style={styles.blendPepName}>{p.name.split('(')[0].trim()}</Text>
                   {/* pill input — raw HTML */}
-                  <div style={{ display: 'flex', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', overflow: 'hidden', width: 120 }}>
+                  <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 120 }}>
                     <input
                       type="number"
                       value={p.vialTotal}
                       onChange={e => { const n = [...peptides]; n[idx].vialTotal = e.target.value; setPeptides(n); }}
                       placeholder="0"
-                      style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: '#22d3ee', fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }}
+                      style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.cyan, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }}
                     />
-                    <div style={{ width: 1, background: 'rgba(255,255,255,0.1)', margin: '6px 0' }} />
-                    <div style={{ padding: '8px', fontSize: 11, color: '#9ca3af', fontWeight: 800 }}>{p.vialUnit}</div>
+                    <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
+                    <div style={{ padding: '8px', fontSize: 11, color: colors.textSecondary, fontWeight: 800 }}>{p.vialUnit}</div>
                   </div>
                 </View>
               ))}
@@ -77,7 +78,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
               value={String(vialTotal)}
               onChangeText={setVialTotal}
               placeholder="e.g. 5"
-              placeholderTextColor="#6b7280"
+              placeholderTextColor={colors.textMuted}
               keyboardType="numeric"
             />
           </View>
@@ -90,7 +91,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
             value={String(bwAdded)}
             onChangeText={setBwAdded}
             keyboardType="numeric"
-            placeholderTextColor="#6b7280"
+            placeholderTextColor={colors.textMuted}
           />
         </View>
 
@@ -101,7 +102,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
             type="date"
             value={startDate}
             onChange={e => setStartDate(e.target.value)}
-            style={{ width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
           />
         </View>
 
@@ -136,32 +137,32 @@ const styles = StyleSheet.create({
   lbl: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 8,
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 100,
     paddingVertical: 14,
     paddingHorizontal: 18,
-    color: 'white',
+    color: colors.white,
     fontSize: 15,
   },
   blendBox: {
-    backgroundColor: 'rgba(8,51,68,0.4)',
+    backgroundColor: colors.tealDeep,
     borderWidth: 1,
-    borderColor: 'rgba(21,94,117,0.3)',
+    borderColor: colors.tealBorder,
     borderRadius: 24,
     padding: 16,
     gap: 12,
   },
   blendTitle: {
-    color: '#67e8f9',
+    color: colors.cyanLight,
     fontSize: 11,
     fontWeight: '900',
     textTransform: 'uppercase',
@@ -174,15 +175,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.03)',
+    borderColor: colors.borderFaint,
   },
   blendPepName: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '700',
     fontSize: 14,
   },
@@ -193,16 +194,16 @@ const styles = StyleSheet.create({
   },
   replaceBtn: {
     flex: 1,
-    backgroundColor: 'rgba(69,10,10,0.4)',
+    backgroundColor: colors.errorDeepBg,
     borderWidth: 1,
-    borderColor: 'rgba(153,27,27,0.5)',
+    borderColor: colors.errorDeepBorder,
     borderRadius: 100,
     padding: 16,
     alignItems: 'center',
     cursor: 'pointer',
   },
   replaceBtnText: {
-    color: '#fca5a5',
+    color: colors.errorLight,
     fontSize: 14,
     fontWeight: '800',
   },
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   queueBtnText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 14,
     fontWeight: '800',
   },

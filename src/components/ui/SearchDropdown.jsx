@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { TextInput } from 'react-native';
+import { colors, shadow, blur } from '../../theme.js';
 
 export function SearchDropdown({ value, onChange, onSelect, options, renderOption, placeholder, onSubmit }) {
   const [open, setOpen] = useState(false);
@@ -23,9 +24,9 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
   return (
     <div ref={wrapperRef} style={{ position: 'relative', width: '100%' }}>
       <TextInput
-        style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)', borderTop: '1px solid rgba(255,255,255,0.15)', borderRadius: 100, paddingHorizontal: 18, paddingVertical: 14, color: 'white', fontSize: 16, outlineStyle: 'none' }}
+        style={{ width: '100%', backgroundColor: colors.surface, backdropFilter: blur.input, WebkitBackdropFilter: blur.input, border: `1px solid ${colors.borderSubtle}`, borderTop: `1px solid ${colors.borderHighlight}`, borderRadius: 100, paddingHorizontal: 18, paddingVertical: 14, color: colors.white, fontSize: 16, outlineStyle: 'none' }}
         placeholder={placeholder || 'Search...'}
-        placeholderTextColor="#6b7280"
+        placeholderTextColor={colors.textMuted}
         value={value}
         onChangeText={text => { onChange(text); handleOpen(); }}
         onFocus={handleOpen}
@@ -39,12 +40,12 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
           left: rect.left,
           width: rect.width,
           zIndex: 9999,
-          backgroundColor: '#f3f4f6',
-          color: '#111827',
+          backgroundColor: colors.dropdownBg,
+          color: colors.bg,
           borderRadius: 24,
           maxHeight: 240,
           overflowY: 'auto',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
+          boxShadow: shadow.dropdownPanel,
           padding: 8,
           animation: 'dropdownPopIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
           transformOrigin: 'top center',
@@ -54,7 +55,7 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
             <div
               key={i}
               onMouseDown={e => { e.preventDefault(); onSelect(o); setOpen(false); }}
-              style={{ backgroundColor: '#f3f4f6', padding: '14px 18px', borderBottom: '1px solid rgba(0,0,0,0.06)', fontFamily: 'Arial', fontSize: 16, fontWeight: '400', color: '#111827', cursor: 'pointer' }}
+              style={{ backgroundColor: colors.dropdownBg, padding: '14px 18px', borderBottom: `1px solid ${colors.dropdownDivider}`, fontFamily: 'Arial', fontSize: 16, fontWeight: '400', color: colors.bg, cursor: 'pointer' }}
             >
               {renderOption(o)}
             </div>

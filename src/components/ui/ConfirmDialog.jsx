@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
-import { colors, glass, button } from '../../theme.js';
+import { colors, glass, button, blur } from '../../theme.js';
 
 export function ConfirmDialog({
   titleIcon = '⚠️',
@@ -10,12 +10,12 @@ export function ConfirmDialog({
   onConfirm,
   onCancel,
   confirmText = 'Confirm',
-  confirmBg = 'rgba(239, 68, 68, 0.15)',
+  confirmBg = colors.errorStrongBg,
   confirmColor = colors.error,
 }) {
   return (
     // Overlay: raw div for position:fixed (DOM-specific, like <select>/<svg>/<a>)
-    <div style={{ position: 'fixed', inset: 0, zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', background: 'rgba(0,0,0,0.75)' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog, background: colors.overlayDark }}>
       <View style={styles.card}>
         <Text style={styles.icon}>{titleIcon}</Text>
         <Text style={styles.title}>{titleText}</Text>
@@ -39,8 +39,8 @@ export default ConfirmDialog;
 const styles = StyleSheet.create({
   card: {
     ...glass.modal,
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     padding: 32,
     maxWidth: 340,
     width: '100%',

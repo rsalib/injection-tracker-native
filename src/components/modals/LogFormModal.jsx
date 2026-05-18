@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { colors } from '../../theme.js';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
@@ -55,7 +56,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
           <View style={styles.field}>
             <Text style={styles.lbl}>Quick Select Protocol</Text>
             <select
-              style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)', borderTop: '1px solid rgba(255,255,255,0.15)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
+              style={{ width: '100%', backgroundColor: colors.surface, backdropFilter: blur.input, WebkitBackdropFilter: blur.input, border: `1px solid ${colors.borderSubtle}`, borderTop: `1px solid ${colors.borderHighlight}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
               onChange={e => selMed(e.target.value)}
             >
               <option value="">-- Select --</option>
@@ -103,19 +104,19 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
                   <View key={p.id} style={styles.stackRow}>
                     <Text style={styles.stackPepName}>{p.name.split('(')[0].trim()}</Text>
                     {/* pill input+select — raw HTML */}
-                    <div style={{ display: 'flex', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', overflow: 'hidden', width: 140 }}>
+                    <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 140 }}>
                       <input
                         type="number"
                         value={form.dose ? parseFloat(displayNum.toFixed(3)) : ''}
                         onChange={e => handleDoseEdit(e.target.value)}
                         placeholder="0"
-                        style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px 12px', color: '#22d3ee', fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none', minWidth: 0 }}
+                        style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px 12px', color: colors.cyan, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none', minWidth: 0 }}
                       />
-                      <div style={{ width: 1, background: 'rgba(255,255,255,0.1)', margin: '6px 0' }} />
+                      <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
                       <select
                         value={p.unit || 'mcg'}
                         disabled
-                        style={{ flex: '0 0 65px', background: 'rgba(0,0,0,0.2)', border: 'none', color: '#9ca3af', padding: '0 8px', fontSize: 12, fontWeight: 700, outline: 'none', appearance: 'none', textAlign: 'center', opacity: 0.8 }}
+                        style={{ flex: '0 0 65px', background: colors.shadowSoft, border: 'none', color: colors.textSecondary, padding: '0 8px', fontSize: 12, fontWeight: 700, outline: 'none', appearance: 'none', textAlign: 'center', opacity: 0.8 }}
                       >
                         <option style={{color:'black'}}>mcg</option>
                         <option style={{color:'black'}}>mg</option>
@@ -135,10 +136,10 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
           <View style={styles.field}>
             <Text style={styles.lbl}>Dose & Unit</Text>
             {/* dose + unit pill — raw HTML */}
-            <div style={{ display: 'flex', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', overflow: 'hidden' }}>
-              <input type="number" value={form.dose} onChange={e => set('dose', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-              <div style={{ width: 1, background: 'rgba(255,255,255,0.1)', margin: '8px 0' }} />
-              <select value={form.unit} onChange={e => set('unit', e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: 'white', padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
+            <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
+              <input type="number" value={form.dose} onChange={e => set('dose', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+              <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
+              <select value={form.unit} onChange={e => set('unit', e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                 <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option><option style={{color:'black'}}>mL</option>
               </select>
             </div>
@@ -149,7 +150,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Injection Site</Text>
           <select
-            style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)', borderTop: '1px solid rgba(255,255,255,0.15)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
+            style={{ width: '100%', backgroundColor: colors.surface, backdropFilter: blur.input, WebkitBackdropFilter: blur.input, border: `1px solid ${colors.borderSubtle}`, borderTop: `1px solid ${colors.borderHighlight}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
             value={form.site}
             onChange={e => set('site', e.target.value)}
           >
@@ -161,10 +162,10 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Date & Time</Text>
           {/* date + time pill — raw HTML */}
-          <div style={{ display: 'flex', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', overflow: 'hidden' }}>
-            <input type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-            <div style={{ width: 1, background: 'rgba(255,255,255,0.1)', margin: '8px 0' }} />
-            <input type="time" value={form.time} onChange={e => set('time', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+          <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
+            <input type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+            <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
+            <input type="time" value={form.time} onChange={e => set('time', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
           </div>
         </View>
 
@@ -178,7 +179,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
             value={form.notes}
             onChangeText={v => set('notes', v)}
             placeholder="Add any details here..."
-            placeholderTextColor="#6b7280"
+            placeholderTextColor={colors.textMuted}
           />
         </View>
 
@@ -207,20 +208,20 @@ const styles = StyleSheet.create({
   lbl: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 8,
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 100,
     paddingVertical: 14,
     paddingHorizontal: 18,
-    color: 'white',
+    color: colors.white,
     fontSize: 15,
   },
   inpDisabled: {
@@ -228,32 +229,32 @@ const styles = StyleSheet.create({
   },
   editHint: {
     fontSize: 10,
-    color: '#6b7280',
+    color: colors.textMuted,
     marginTop: 6,
     marginLeft: 4,
   },
   notesInp: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 24,
     paddingVertical: 14,
     paddingHorizontal: 18,
-    color: 'white',
+    color: colors.white,
     fontSize: 15,
     minHeight: 80,
     textAlignVertical: 'top',
   },
   stackBox: {
-    backgroundColor: 'rgba(17,24,39,0.3)',
+    backgroundColor: colors.surfaceDeep,
     borderRadius: 24,
     padding: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
     gap: 12,
   },
   stackBoxTitle: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontSize: 11,
     fontWeight: '900',
     textTransform: 'uppercase',
@@ -266,15 +267,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.03)',
+    borderColor: colors.borderFaint,
   },
   stackPepName: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '700',
     fontSize: 14,
   },
@@ -285,16 +286,16 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.05)',
+    borderTopColor: colors.border,
   },
   stackTotalLabel: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 11,
     fontWeight: '800',
     textTransform: 'uppercase',
   },
   stackTotalValue: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontSize: 15,
     fontWeight: '900',
   },

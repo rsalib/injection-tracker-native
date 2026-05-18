@@ -501,6 +501,9 @@ Standing constraints that apply to all current and future work in this project:
 - **CACHE_VERSION bumped to v31** (`public/sw.js`).
 - **Theme migration batch 6** — `MedsTab.jsx` and `AddScheduleModal.jsx` migrated to import from `theme.js`. Build clean at 227 KB gzipped.
 - **CACHE_VERSION bumped to v32** (`public/sw.js`).
+- **Theme migration batch 7** — `AddMedModal.jsx` (and shared `MedForm`) migrated to import from `theme.js`. `EditMedModal.jsx` has no own styles — fully delegates to `<MedForm>` and `<Modal>`, no edits needed. Build clean at 227.63 KB gzipped.
+- **Theme migration batch 8** — Swept `AddMedModal`, `LogFormModal`, `QueueVialModal`, `TitrationModal`, and `Calculator` to remove hardcoded visual values (`rgba`, hex, `blur()`, etc.) and replaced them with standard tokens from `theme.js`. Added missing `stackBadgeBg`, `tealDeep`, `cyanBorder`, etc. to `theme.js`. Build clean at 228 KB gzipped.
+- **CACHE_VERSION bumped to v33** (`public/sw.js`).
 
 ### Remaining
 - **Step 8 (next):** Full QA pass — run `npm run build && firebase deploy --only hosting` to a Firebase Hosting preview channel, then do a side-by-side visual and functional comparison against v2

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { toast, shadow, blur } from '../../theme.js';
 
-const bgColor = (t) => t === 'error' ? 'rgba(69,10,10,0.95)' : t === 'success' ? 'rgba(20,83,45,0.95)' : 'rgba(31,41,55,0.95)';
-const borderColor = (t) => t === 'error' ? 'rgba(127,29,29,0.6)' : t === 'success' ? 'rgba(22,101,52,0.6)' : 'rgba(255,255,255,0.1)';
-const textColor = (t) => t === 'error' ? '#fca5a5' : t === 'success' ? '#86efac' : 'white';
+const bgColor = (t) => t === 'error' ? toast.error.bg : t === 'success' ? toast.success.bg : toast.info.bg;
+const borderColor = (t) => t === 'error' ? toast.error.border : t === 'success' ? toast.success.border : toast.info.border;
+const textColor = (t) => t === 'error' ? toast.error.text : t === 'success' ? toast.success.text : toast.info.text;
 const icon = (t) => t === 'error' ? '⚠️' : t === 'success' ? '✅' : 'ℹ️';
 
 export function ToastHost() {
@@ -27,14 +28,14 @@ export function ToastHost() {
           key={t.id}
           style={{
             background: bgColor(t.type),
-            backdropFilter: 'blur(20px)',
+            backdropFilter: blur.header,
             color: textColor(t.type),
             padding: '12px 20px',
             borderRadius: '100px',
             fontSize: 14,
             fontWeight: 700,
             border: `1px solid ${borderColor(t.type)}`,
-            boxShadow: '0 10px 25px rgba(0,0,0,0.4)',
+            boxShadow: shadow.toast,
             maxWidth: 420,
             pointerEvents: 'auto',
             animation: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',

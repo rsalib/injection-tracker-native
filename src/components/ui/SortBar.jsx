@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { colors } from '../../theme.js';
 
 const OPTIONS = [
   { v: 'newest', l: 'Newest' },
@@ -36,17 +37,17 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 8,
-    backgroundColor: '#374151',
+    backgroundColor: colors.bgMid2,
   },
   btnActive: {
-    backgroundColor: '#0e7490',
+    backgroundColor: colors.primary,
   },
   label: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#b0b8c4',
+    color: colors.textSortLabel,
   },
   labelActive: {
-    color: 'white',
+    color: colors.white,
   },
 });

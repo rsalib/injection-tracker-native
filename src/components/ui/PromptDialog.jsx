@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
-import { colors, glass, button, input } from '../../theme.js';
+import { colors, glass, button, input, blur } from '../../theme.js';
 
 export function PromptDialog({
   title,
@@ -22,7 +22,7 @@ export function PromptDialog({
 
   return (
     // Overlay: raw div for position:fixed (DOM-specific, like <select>/<svg>/<a>)
-    <div style={{ position: 'fixed', inset: 0, zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', background: 'rgba(0,0,0,0.75)' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog, background: colors.overlayDark }}>
       <View style={styles.card}>
         <Text style={styles.title}>{title}</Text>
         {message ? <Text style={styles.message}>{message}</Text> : null}
@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   input: {
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.15)',
+    borderColor: colors.borderHighlight,
     borderRadius: 16,
     paddingVertical: 14,
     paddingHorizontal: 16,

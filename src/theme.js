@@ -1,30 +1,100 @@
 // Global design tokens — edit here to change the entire app's appearance.
+// Every component imports from this file. No styling value should be hardcoded in any component.
+
+// =============================================================================
+// COLORS
+// =============================================================================
 
 export const colors = {
+  // Base backgrounds
   bg: '#111827',
   bgDeep: '#0f1923',
   bgMid: '#1f2937',
+  bgMid2: '#374151',
+  bgMid3: '#4b5563',
+  bgFallback: '#121212',
+  navy: '#0f172a',
+  loginGradientStop: '#164e63',
+
+  // Translucent surfaces (most common card/well bgs)
+  surface: 'rgba(255, 255, 255, 0.05)',
+  surfaceDark: 'rgba(17, 24, 39, 0.85)',
+  surfaceMid: 'rgba(17, 24, 39, 0.6)',
+  surfaceRow: 'rgba(17, 24, 39, 0.4)',
+  surfaceDeep: 'rgba(17, 24, 39, 0.3)',
+  surfaceEmpty: 'rgba(31, 41, 55, 0.2)',
+  surfaceCard: 'rgba(31,41,55,0.4)',
+
+  // Overlays / shadows
+  overlay: 'rgba(0, 0, 0, 0.7)',
+  overlayDark: 'rgba(0, 0, 0, 0.75)',
+  shadowSoft: 'rgba(0, 0, 0, 0.2)',
+
+  // Borders
+  border: 'rgba(255,255,255,0.05)',
+  borderSubtle: 'rgba(255, 255, 255, 0.1)',
+  borderFaint: 'rgba(255, 255, 255, 0.03)',
+  borderFaint2: 'rgba(255,255,255,0.06)',
+  borderMid: 'rgba(255,255,255,0.08)',
+  borderHighTop: 'rgba(255, 255, 255, 0.25)',
+  borderHighLeft: 'rgba(255, 255, 255, 0.12)',
+  borderHighlight: 'rgba(255, 255, 255, 0.15)',
+
+  // Primary brand — cyan family
   cyan: '#22d3ee',
+  cyanLight: '#67e8f9',
+  cyanFaint: 'rgba(34, 211, 238, 0.05)',
   cyanDim: 'rgba(34, 211, 238, 0.1)',
+  cyanMid: 'rgba(34, 211, 238, 0.2)',
   primary: '#0e7490',
+
+  // Text
   white: '#ffffff',
   textPrimary: '#f9fafb',
   textSecondary: '#9ca3af',
   textMuted: '#6b7280',
+  textTertiary: '#d1d5db',
+  textLight: '#e5e7eb',
+  textSortLabel: '#b0b8c4',
   textAmber: '#fde68a',
   textGreen: '#86efac',
   textCyan: '#22d3ee',
+
+  // Semantic
   error: '#f87171',
+  errorStrong: '#ef4444',
+  errorStrongBg: 'rgba(239, 68, 68, 0.15)',
+  errorLight: '#fca5a5',
+  errorSoft: 'rgba(248, 113, 113, 0.1)',
   success: '#4ade80',
   amber: '#fbbf24',
-  border: 'rgba(255, 255, 255, 0.08)',
-  borderHighTop: 'rgba(255, 255, 255, 0.25)',
-  borderHighLeft: 'rgba(255, 255, 255, 0.12)',
-  surface: 'rgba(255, 255, 255, 0.05)',
-  surfaceDark: 'rgba(17, 24, 39, 0.85)',
-  surfaceDeep: 'rgba(17, 24, 39, 0.3)',
-  overlay: 'rgba(0, 0, 0, 0.7)',
+  amberWarm: '#fbbf24',
+
+  // Accents
+  purple: '#c084fc',
+  purpleLight: '#d8b4fe',
+
+  // Dropdown (light-on-dark portal overlay)
+  dropdownBg: '#f3f4f6',
+  dropdownDivider: 'rgba(0, 0, 0, 0.06)',
+
+  // Sync indicators
+  syncPending: '#f97316',
+  syncSaving: '#facc15',
+
+  cyanBorder: 'rgba(34,211,238,0.3)',
+  cyanGlowSoft: 'rgba(34,211,238,0.25)',
+  errorDeepBg: 'rgba(69,10,10,0.4)',
+  errorDeepBorder: 'rgba(153,27,27,0.5)',
+  stackBadgeBg: 'rgba(113,63,18,0.6)',
+  tealDeep: 'rgba(8,51,68,0.4)',
+  tealBorder: 'rgba(21,94,117,0.3)',
+  tealBorderFaint: 'rgba(21,94,117,0.2)',
 };
+
+// =============================================================================
+// GLASS — composite card/well surfaces
+// =============================================================================
 
 export const glass = {
   // Standard glass card — tabs, dashboard cards, section cards
@@ -37,11 +107,11 @@ export const glass = {
     borderLeftColor: colors.borderHighLeft,
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   },
-  // Inline style — must be spread alongside glass.card on the same View
   cardBlur: {
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
   },
+
   // Modal glass — overlay dialogs
   modal: {
     backgroundColor: colors.surfaceDark,
@@ -56,40 +126,287 @@ export const glass = {
     backdropFilter: 'blur(40px)',
     WebkitBackdropFilter: 'blur(40px)',
   },
+
   // Inset sub-surface — inner wells, input backgrounds
   well: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: colors.borderFaint,
     borderRadius: 16,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.06)',
   },
   wellDark: {
-    backgroundColor: 'rgba(17, 24, 39, 0.3)',
+    backgroundColor: colors.surfaceDeep,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.03)',
+    borderColor: colors.borderFaint,
+  },
+
+  // Teal well — syringe/blend math boxes
+  tealWell: {
+    backgroundColor: 'rgba(8, 51, 68, 0.4)',
+    borderColor: 'rgba(21, 94, 117, 0.3)',
+    borderWidth: 1,
+    borderRadius: 16,
+  },
+
+  // Dark row — log entries, schedule rows
+  darkRow: {
+    backgroundColor: colors.surfaceRow,
+    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderWidth: 1,
+  },
+
+  // Medium dark — result items, chat bubbles
+  mediumDark: {
+    backgroundColor: colors.surfaceMid,
+  },
+
+  // Empty state placeholder
+  emptyState: {
+    backgroundColor: colors.surfaceEmpty,
+    borderRadius: 24,
+  },
+
+  // TitrationModal stepBox — variant of card with lighter shadow
+  stepBox: {
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderTopColor: 'rgba(255, 255, 255, 0.12)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
   },
 };
 
-const pillShape = { borderRadius: 100, padding: 16, alignItems: 'center' };
-export const button = {
-  // Primary CTA — full cyan gradient equivalent (solid fallback until expo-linear-gradient)
-  primary: { ...pillShape, backgroundColor: colors.primary, boxShadow: '0 4px 12px rgba(34, 211, 238, 0.3)' },
-  primaryText: { color: colors.white, fontWeight: '900', fontSize: 15 },
-  // Secondary — ghost pill, no border
-  secondary: { ...pillShape, backgroundColor: 'rgba(255, 255, 255, 0.05)' },
-  secondaryText: { color: colors.white, fontWeight: '800', fontSize: 13 },
-  // Destructive — red tint with border
-  danger: { ...pillShape, backgroundColor: 'rgba(248, 113, 113, 0.15)', borderWidth: 1, borderColor: 'rgba(248, 113, 113, 0.3)' },
-  dangerText: { color: colors.error, fontWeight: '800', fontSize: 13 },
+// =============================================================================
+// BUTTON — shared pill geometry, color variants
+// =============================================================================
+
+const pillShape = {
+  borderRadius: 100,
+  padding: 16,
+  alignItems: 'center',
 };
+
+export const button = {
+  primary: {
+    ...pillShape,
+    backgroundColor: colors.primary,
+    boxShadow: '0 4px 12px rgba(34, 211, 238, 0.3)',
+  },
+  primaryText: {
+    color: colors.white,
+    fontWeight: '900',
+    fontSize: 15,
+  },
+  secondary: {
+    ...pillShape,
+    backgroundColor: colors.surface,
+  },
+  secondaryText: {
+    color: colors.white,
+    fontWeight: '800',
+    fontSize: 13,
+  },
+  danger: {
+    ...pillShape,
+    backgroundColor: 'rgba(248, 113, 113, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(248, 113, 113, 0.3)',
+  },
+  dangerText: {
+    color: colors.error,
+    fontWeight: '800',
+    fontSize: 13,
+  },
+};
+
+// =============================================================================
+// ALERT — coordinated amber palette (Dashboard low-stock / expiry warning)
+// =============================================================================
+
+export const alert = {
+  amberBg: '#422006',
+  amberBorder: '#92400e',
+  amberText: '#fcd34d',
+  amberAccent: '#713f12',
+};
+
+// =============================================================================
+// ERROR BOX — coordinated bg + border pair for inline error states
+// =============================================================================
+
+export const errorBox = {
+  bg: 'rgba(239, 68, 68, 0.1)',
+  border: 'rgba(239, 68, 68, 0.2)',
+};
+
+// =============================================================================
+// SITE ACTIVE — amber-warm pair for the active site cell in SiteRotation
+// =============================================================================
+
+export const siteActive = {
+  bg: 'rgba(113, 63, 18, 0.3)',
+  border: 'rgba(146, 64, 14, 0.4)',
+};
+
+// =============================================================================
+// CYCLE END — Finish (amber) + Stop Now (red) coordinated pair
+// =============================================================================
+
+export const cycleEnd = {
+  finishBg: 'rgba(113, 63, 18, 0.4)',
+  finishBorder: '#92400e',
+  finishText: colors.textAmber,
+  nowBg: 'rgba(127, 29, 29, 0.4)',
+  nowBorder: '#7f1d1d',
+  nowText: colors.errorLight,
+};
+
+// =============================================================================
+// SYRINGE — fill visualizer dynamic states + static chrome
+// =============================================================================
+
+export const syringe = {
+  // Normal state — cyan fill
+  normalFillFrom: '#083344',
+  normalFillTo: colors.cyan,
+  normalText: colors.cyan,
+  normalGlow: 'rgba(34, 211, 238, 0.8)',
+  normalBorder: colors.bgMid2,
+
+  // Overdrawn state — red fill
+  overdrawnFillFrom: '#7f1d1d',
+  overdrawnFillTo: colors.errorStrong,
+  overdrawnText: colors.errorStrong,
+  overdrawnGlow: 'rgba(239, 68, 68, 0.8)',
+  overdrawnBorder: '#991b1b',
+
+  // Static visualizer chrome
+  barrelBg: colors.bgMid,
+  trackBg: colors.bg,
+  trackBorder: colors.bgMid3,
+  overdrawnBannerBg: '#450a0a',
+  overdrawnBannerText: colors.errorLight,
+};
+
+// =============================================================================
+// TOAST — error / success / info variants
+// =============================================================================
+
+export const toast = {
+  error: {
+    bg: 'rgba(69, 10, 10, 0.95)',
+    border: 'rgba(127, 29, 29, 0.6)',
+    text: colors.errorLight,
+  },
+  success: {
+    bg: 'rgba(20, 83, 45, 0.95)',
+    border: 'rgba(22, 101, 52, 0.6)',
+    text: colors.textGreen,
+  },
+  info: {
+    bg: 'rgba(31, 41, 55, 0.95)',
+    border: colors.borderSubtle,
+    text: colors.white,
+  },
+};
+
+// =============================================================================
+// BADGE — 7 color variants (from Badge.jsx COLOR_MAP)
+// =============================================================================
+
+export const badge = {
+  blue: {
+    bg: 'rgba(59, 130, 246, 0.15)',
+    text: '#93c5fd',
+    border: 'rgba(59, 130, 246, 0.3)',
+    glow: '0 0 4px rgba(34, 211, 238, 0.4)',
+  },
+  green: {
+    bg: 'rgba(34, 197, 94, 0.15)',
+    text: '#86efac',
+    border: 'rgba(34, 197, 94, 0.3)',
+    glow: '0 0 4px rgba(16, 185, 129, 0.4)',
+  },
+  red: {
+    bg: 'rgba(239, 68, 68, 0.15)',
+    text: '#fca5a5',
+    border: 'rgba(239, 68, 68, 0.3)',
+  },
+  yellow: {
+    bg: 'rgba(234, 179, 8, 0.15)',
+    text: '#fde68a',
+    border: 'rgba(234, 179, 8, 0.3)',
+  },
+  orange: {
+    bg: 'rgba(249, 115, 22, 0.15)',
+    text: '#fdba74',
+    border: 'rgba(249, 115, 22, 0.3)',
+  },
+  purple: {
+    bg: 'rgba(168, 85, 247, 0.15)',
+    text: '#d8b4fe',
+    border: 'rgba(168, 85, 247, 0.3)',
+  },
+  gray: {
+    bg: 'rgba(107, 114, 128, 0.15)',
+    text: '#9ca3af',
+    border: 'rgba(107, 114, 128, 0.3)',
+  },
+};
+
+// =============================================================================
+// SHADOW — every distinct boxShadow / textShadow value in the codebase
+// =============================================================================
+
+export const shadow = {
+  glassCard: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+  glassModal: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+  btnPrimary: '0 4px 12px rgba(34, 211, 238, 0.3)',
+  btnPrimaryInset: '0 4px 12px rgba(34, 211, 238, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+  cyanGlowSmall: '0 0 8px rgba(34, 211, 238, 0.6)',
+  cyanGlowLarge: '0 0 8px rgba(34, 211, 238, 0.8), 0 0 16px rgba(34, 211, 238, 0.4)',
+  dropdownPanel: '0 4px 16px rgba(0, 0, 0, 0.18)',
+  errorBtn: '0 4px 12px rgba(239, 68, 68, 0.3)',
+  errorCircuit: '0 10px 25px -5px rgba(239, 68, 68, 0.4)',
+  loginCard: '0 10px 15px -3px rgba(0, 0, 0, 0.2)',
+  toast: '0 10px 25px rgba(0, 0, 0, 0.4)',
+  aiInputBar: '0 4px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+  aiSendBtn: '0 4px 16px rgba(14, 116, 144, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+  tabBarCapsule: '0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+  calcResult: '0 10px 40px -10px rgba(34, 211, 238, 0.25)',
+  syringeInset: 'inset 0 2px 6px rgba(0, 0, 0, 0.5)',
+  resultItem: '0 4px 12px rgba(0, 0, 0, 0.2)',
+  msgBubbleUser: '0 4px 12px rgba(34, 211, 238, 0.2)',
+  pendingDot: '0 0 8px #f97316',
+  // textShadow
+  tabActiveGlow: '0 0 12px rgba(34, 211, 238, 0.6)',
+};
+
+// =============================================================================
+// BLUR — backdropFilter values
+// =============================================================================
+
+export const blur = {
+  card: 'blur(40px)',
+  header: 'blur(20px)',
+  dialog: 'blur(16px)',
+  input: 'blur(12px)',
+  login: 'blur(24px)',
+};
+
+// =============================================================================
+// INPUT — text input field + label
+// =============================================================================
 
 export const input = {
   field: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     paddingVertical: 10,
     paddingHorizontal: 14,
     color: colors.textPrimary,
@@ -104,6 +421,10 @@ export const input = {
     marginBottom: 6,
   },
 };
+
+// =============================================================================
+// TYPE — typography scale
+// =============================================================================
 
 export const type = {
   sectionHeading: {
@@ -127,6 +448,10 @@ export const type = {
     color: colors.textMuted,
   },
 };
+
+// =============================================================================
+// SPACING + RADIUS
+// =============================================================================
 
 export const spacing = {
   xs: 4,

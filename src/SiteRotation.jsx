@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SITES } from './constants.js';
-import { colors, glass } from './theme.js';
+import { colors, glass, blur, siteActive } from './theme.js';
 
 export function SiteRotation({ logs }) {
   const recent = [...logs].reverse().slice(0, 20);
@@ -13,7 +13,7 @@ export function SiteRotation({ logs }) {
   const suggested = SITES.filter(s => s !== lastSite).sort((a, b) => counts[a] - counts[b])[0];
 
   return (
-    <View style={[styles.card, { backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }]}>
+    <View style={[styles.card, { backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog }]}>
       <Text style={styles.heading}>💉 Site Rotation</Text>
       {lastSite ? (
         <View style={styles.body}>
@@ -82,21 +82,21 @@ const styles = StyleSheet.create({
   },
   tileLeft: {
     flex: 1,
-    backgroundColor: 'rgba(17, 24, 39, 0.3)',
+    backgroundColor: colors.surfaceDeep,
     borderRadius: 20,
     padding: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.03)',
+    borderColor: colors.borderFaint,
   },
   tileRight: {
     flex: 1,
-    backgroundColor: 'rgba(34, 211, 238, 0.05)',
+    backgroundColor: colors.cyanFaint,
     borderRadius: 20,
     padding: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(34, 211, 238, 0.1)',
+    borderColor: colors.cyanDim,
   },
   tileLabel: {
     fontSize: 10,
@@ -136,12 +136,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   siteCellActive: {
-    backgroundColor: 'rgba(113, 63, 18, 0.3)',
+    backgroundColor: siteActive.bg,
     borderWidth: 1,
-    borderColor: 'rgba(146, 64, 14, 0.4)',
+    borderColor: siteActive.border,
   },
   siteCellInactive: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: colors.borderFaint,
     borderWidth: 1,
     borderColor: 'transparent',
   },

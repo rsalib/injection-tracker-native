@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { colors, blur, shadow } from '../../theme.js';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
@@ -102,7 +103,7 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                 type="date"
                 value={newDate}
                 onChange={e => setNewDate(e.target.value)}
-                style={{ width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+                style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
               />
             </View>
 
@@ -114,10 +115,10 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                     <View key={p.id} style={styles.stackRow}>
                       <Text style={styles.stackPepName}>{p.name.split('(')[0].trim()}</Text>
                       {/* pill input — raw HTML */}
-                      <div style={{ display: 'flex', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', overflow: 'hidden', width: 100 }}>
-                        <input type="number" value={p.dose} onChange={e => handleStepDoseChange(idx, e.target.value)} placeholder="0" style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: '#22d3ee', fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }} />
-                        <div style={{ width: 1, background: 'rgba(255,255,255,0.1)', margin: '6px 0' }} />
-                        <div style={{ padding: '8px', fontSize: 11, color: '#9ca3af', fontWeight: 800 }}>{p.unit}</div>
+                      <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 100 }}>
+                        <input type="number" value={p.dose} onChange={e => handleStepDoseChange(idx, e.target.value)} placeholder="0" style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.cyan, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }} />
+                        <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
+                        <div style={{ padding: '8px', fontSize: 11, color: colors.textSecondary, fontWeight: 800 }}>{p.unit}</div>
                       </div>
                     </View>
                   ))}
@@ -131,10 +132,10 @@ export function TitrationModal({ med, onClose, onSave, today }) {
               <View style={styles.field}>
                 <Text style={styles.lbl}>New Dose & Unit</Text>
                 {/* dose + unit pill — raw HTML */}
-                <div style={{ display: 'flex', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', overflow: 'hidden' }}>
-                  <input type="number" value={newDose} onChange={e => setNewDose(e.target.value)} placeholder={med.dose} style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-                  <div style={{ width: 1, background: 'rgba(255,255,255,0.1)', margin: '8px 0' }} />
-                  <select value={newUnit} onChange={e => setNewUnit(e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: 'white', padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
+                <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
+                  <input type="number" value={newDose} onChange={e => setNewDose(e.target.value)} placeholder={med.dose} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+                  <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
+                  <select value={newUnit} onChange={e => setNewUnit(e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                     <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option>
                   </select>
                 </div>
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
   lbl: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 8,
@@ -204,70 +205,70 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'rgba(17,24,39,0.3)',
+    backgroundColor: colors.surfaceDeep,
     borderRadius: 24,
     padding: 24,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
   },
   toggleTitle: {
     fontSize: 14,
     fontWeight: '800',
-    color: 'white',
+    color: colors.white,
   },
   toggleSub: {
     fontSize: 11,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     marginTop: 4,
   },
   toggleBtn: {
     paddingVertical: 10,
     paddingHorizontal: 18,
     borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     cursor: 'pointer',
   },
   toggleBtnActive: {
-    backgroundColor: 'rgba(34,211,238,0.1)',
+    backgroundColor: colors.cyanDim,
   },
   toggleBtnText: {
     fontWeight: '800',
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
   },
   toggleBtnTextActive: {
-    color: '#22d3ee',
+    color: colors.cyan,
   },
   stepBox: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backgroundColor: colors.surface,
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderTopColor: 'rgba(255, 255, 255, 0.12)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+    borderColor: colors.borderMid,
+    borderTopColor: colors.borderHighLeft,
+    borderLeftColor: colors.borderFaint2,
+    boxShadow: shadow.stepBox,
     gap: 16,
   },
   stepBoxTitle: {
     fontSize: 11,
     fontWeight: '900',
-    color: '#22d3ee',
+    color: colors.cyan,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   stackBox: {
-    backgroundColor: 'rgba(8,51,68,0.4)',
+    backgroundColor: colors.tealDeep,
     borderWidth: 1,
-    borderColor: 'rgba(21,94,117,0.3)',
+    borderColor: colors.tealBorder,
     borderRadius: 24,
     padding: 16,
     gap: 8,
   },
   stackBoxTitle: {
-    color: '#67e8f9',
+    color: colors.cyanLight,
     fontSize: 11,
     fontWeight: '900',
     textTransform: 'uppercase',
@@ -281,15 +282,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.03)',
+    borderColor: colors.borderFaint,
   },
   stackPepName: {
-    color: 'white',
+    color: colors.white,
     fontWeight: '700',
     fontSize: 14,
   },
@@ -300,28 +301,28 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(21,94,117,0.2)',
+    borderTopColor: colors.tealBorderFaint,
   },
   stackTotalLabel: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 11,
     fontWeight: '800',
     textTransform: 'uppercase',
   },
   stackTotalValue: {
-    color: '#67e8f9',
+    color: colors.cyanLight,
     fontSize: 14,
     fontWeight: '900',
   },
   addStepBtn: {
-    backgroundColor: 'rgba(34,211,238,0.1)',
+    backgroundColor: colors.cyanDim,
     borderRadius: 100,
     padding: 16,
     alignItems: 'center',
     cursor: 'pointer',
   },
   addStepText: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontSize: 14,
     fontWeight: '900',
   },
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
   schedListTitle: {
     fontSize: 11,
     fontWeight: '800',
-    color: '#9ca3af',
+    color: colors.textSecondary,
     textTransform: 'uppercase',
     paddingLeft: 8,
     letterSpacing: 0.5,
@@ -342,14 +343,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     paddingHorizontal: 20,
-    backgroundColor: 'rgba(17,24,39,0.4)',
+    backgroundColor: colors.surfaceRow,
     borderRadius: 24,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
   },
   schedItemActive: {
-    backgroundColor: 'rgba(34,211,238,0.05)',
-    borderColor: 'rgba(34,211,238,0.2)',
+    backgroundColor: colors.cyanFaint,
+    borderColor: colors.cyanMid,
   },
   schedDoseRow: {
     flexDirection: 'row',
@@ -360,23 +361,23 @@ const styles = StyleSheet.create({
   schedDose: {
     fontSize: 16,
     fontWeight: '900',
-    color: 'white',
+    color: colors.white,
   },
   activeBadge: {
     fontSize: 10,
-    color: '#22d3ee',
-    backgroundColor: 'rgba(34,211,238,0.1)',
+    color: colors.cyan,
+    backgroundColor: colors.cyanDim,
     paddingVertical: 2,
     paddingHorizontal: 6,
     borderRadius: 4,
   },
   schedDate: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '600',
   },
   removeStepBtn: {
-    backgroundColor: 'rgba(248,113,113,0.1)',
+    backgroundColor: colors.errorSoft,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 100,
@@ -384,7 +385,7 @@ const styles = StyleSheet.create({
   },
   removeStepText: {
     fontSize: 11,
-    color: '#f87171',
+    color: colors.error,
     fontWeight: '900',
   },
   saveBtn: {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Pressable } from './components/ui/Pressable.jsx';
 import iconPng from '../public/icon.png';
-import { colors, glass } from './theme.js';
+import { colors, glass, blur, shadow, errorBox } from './theme.js';
 import { auth } from './services/firebase.js';
 import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from 'firebase/auth';
 
@@ -33,7 +33,7 @@ export function LoginScreen() {
 
   return (
     <View style={styles.root}>
-      <View style={[styles.card, { backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }]}>
+      <View style={[styles.card, { backdropFilter: blur.login, WebkitBackdropFilter: blur.login }]}>
         <Image
           source={iconPng}
           style={{ width: 72, height: 72, alignSelf: 'center', marginBottom: 12, borderRadius: 16 }}
@@ -76,7 +76,7 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   root: {
     minHeight: '100vh',
-    backgroundImage: 'radial-gradient(circle at top left, #164e63 0%, #111827 100%)',
+    backgroundImage: `radial-gradient(circle at top left, ${colors.loginGradientStop} 0%, ${colors.bg} 100%)`,
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderRadius: 100,
     // White Google-brand button — signInText uses colors.bg (#111827) to read against this
-    backgroundColor: 'white',
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.2)',
+    backgroundColor: colors.white,
+    boxShadow: shadow.loginCard,
     alignItems: 'center',
   },
   signInBtnDisabled: {
@@ -137,14 +137,14 @@ const styles = StyleSheet.create({
   errorBox: {
     marginTop: 24,
     padding: 12,
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    backgroundColor: errorBox.bg,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(239, 68, 68, 0.2)',
+    borderColor: errorBox.border,
     width: '100%',
   },
   errorText: {
-    color: '#fca5a5',
+    color: colors.errorLight,
     fontSize: 13,
     fontWeight: '600',
     textAlign: 'center',

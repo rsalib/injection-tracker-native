@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { colors, glass } from '../../theme.js';
+import { colors, glass, blur } from '../../theme.js';
 
 export function Modal({ title, onClose, children }) {
   const dialogRef = React.useRef(null);
@@ -53,8 +53,8 @@ export function Modal({ title, onClose, children }) {
         position: 'fixed', inset: 0, zIndex: 200,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: 20,
-        backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-        background: 'rgba(0,0,0,0.7)',
+        backdropFilter: blur.input, WebkitBackdropFilter: blur.input,
+        background: colors.overlay,
       }}
     >
       {/* Raw div retains ref for querySelectorAll focus trap; card itself is RN View */}
@@ -86,8 +86,8 @@ export default Modal;
 const styles = StyleSheet.create({
   card: {
     ...glass.modal,
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     padding: 24,
     animationKeyframes: 'modalPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',

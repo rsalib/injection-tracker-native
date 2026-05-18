@@ -107,7 +107,7 @@ export function Calculator() {
             renderOption={m => (
               <>
                 <span>{m.name}</span>
-                <span style={{ fontSize: 10, color: colors.textAmber, background: 'rgba(113,63,18,0.6)', borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>BLEND</span>
+                <span style={{ fontSize: 10, color: colors.textAmber, background: colors.stackBadgeBg, borderRadius: '6px', padding: '4px 8px', marginLeft: 8, fontWeight: 900 }}>BLEND</span>
               </>
             )}
             onSelect={m => {
@@ -175,7 +175,7 @@ export function Calculator() {
                     value={singleData.vialMg}
                     onChangeText={v => setSingleData({ ...singleData, vialMg: v })}
                     placeholder="e.g. 5"
-                    placeholderTextColor="#4b5563"
+                    placeholderTextColor={colors.bgMid3}
                   />
                   <View style={styles.pillDivider} />
                   <View style={styles.pillUnit}><Text style={styles.pillUnitText}>mg</Text></View>
@@ -190,7 +190,7 @@ export function Calculator() {
                     value={singleData.bwMl}
                     onChangeText={v => setSingleData({ ...singleData, bwMl: v })}
                     placeholder="e.g. 2"
-                    placeholderTextColor="#4b5563"
+                    placeholderTextColor={colors.bgMid3}
                   />
                   <View style={styles.pillDivider} />
                   <View style={styles.pillUnit}><Text style={styles.pillUnitText}>mL</Text></View>
@@ -208,7 +208,7 @@ export function Calculator() {
                 value={singleData.doseAmount}
                 onChangeText={v => setSingleData({ ...singleData, doseAmount: v })}
                 placeholder="e.g. 250"
-                placeholderTextColor="#4b5563"
+                placeholderTextColor={colors.bgMid3}
               />
               <View style={styles.pillDivider} />
               {/* <select> kept as native HTML per migration rules */}
@@ -251,7 +251,7 @@ export function Calculator() {
                 value={stackData.bwMl}
                 onChangeText={v => setStackData({ ...stackData, bwMl: v })}
                 placeholder="e.g. 2"
-                placeholderTextColor="#4b5563"
+                placeholderTextColor={colors.bgMid3}
               />
               <View style={styles.pillDivider} />
               <View style={styles.pillUnit}><Text style={styles.pillUnitText}>mL</Text></View>
@@ -259,7 +259,7 @@ export function Calculator() {
           </View>
 
           {stackData.peptides.map((p, idx) => (
-            <View key={p.id} style={[styles.peptideCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
+            <View key={p.id} style={[styles.peptideCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
               {stackData.peptides.length > 1 && (
                 <Pressable
                   onPress={() => {
@@ -284,7 +284,7 @@ export function Calculator() {
                       keyboardType="decimal-pad"
                       value={p.vialMg}
                       placeholder="e.g. 5"
-                      placeholderTextColor="#4b5563"
+                      placeholderTextColor={colors.bgMid3}
                       onChangeText={v => {
                         const n = [...stackData.peptides];
                         n[idx].vialMg = v;
@@ -303,7 +303,7 @@ export function Calculator() {
                       keyboardType="decimal-pad"
                       value={p.doseAmount}
                       placeholder="e.g. 250"
-                      placeholderTextColor="#4b5563"
+                      placeholderTextColor={colors.bgMid3}
                       onChangeText={v => handleStackDoseChange(idx, v)}
                     />
                     <View style={styles.pillDivider} />
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
   // ── Mode toggle ────────────────────────────────────────────────────
   modeToggle: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     borderRadius: 100,
     padding: 6,
   },
@@ -425,11 +425,11 @@ const styles = StyleSheet.create({
 
   // ── Well card (matches v2 wellStyle) ──────────────────────────────
   well: {
-    backgroundColor: 'rgba(17, 24, 39, 0.3)',
+    backgroundColor: colors.surfaceDeep,
     borderRadius: 24,
     padding: 24,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: colors.border,
   },
 
   // ── Labels (match v2 lbl / labelStyle) ────────────────────────────
@@ -473,9 +473,9 @@ const styles = StyleSheet.create({
   pillWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: colors.borderFaint,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 100,
     overflow: 'hidden',
   },
@@ -491,13 +491,13 @@ const styles = StyleSheet.create({
   },
   pillDivider: {
     width: 1,
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: colors.borderSubtle,
     marginVertical: 10,
   },
   pillUnit: {
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
   },
   pillUnitText: {
     color: colors.textSecondary,
@@ -517,7 +517,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 16,
     right: 20,
-    backgroundColor: 'rgba(248, 113, 113, 0.1)',
+    backgroundColor: colors.errorSoft,
     borderRadius: 100,
     paddingVertical: 6,
     paddingHorizontal: 12,
@@ -529,9 +529,9 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   addPeptideBtn: {
-    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+    backgroundColor: colors.cyanDim,
     borderWidth: 1,
-    borderColor: 'rgba(34, 211, 238, 0.3)',
+    borderColor: colors.cyanBorder,
     borderStyle: 'dashed',
     borderRadius: 100,
     paddingVertical: 18,
@@ -552,10 +552,10 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
     paddingHorizontal: 24,
     borderRadius: 32,
-    backgroundColor: 'rgba(8, 51, 68, 0.4)',
+    backgroundColor: colors.tealDeep,
     borderWidth: 1,
-    borderColor: 'rgba(34, 211, 238, 0.3)',
-    boxShadow: '0 10px 40px -10px rgba(34,211,238,0.25)',
+    borderColor: colors.cyanBorder,
+    boxShadow: `0 10px 40px -10px ${colors.cyanGlowSoft}`,
   },
   resultsTitle: {
     fontSize: 18,
@@ -591,16 +591,16 @@ const styles = StyleSheet.create({
   resultsDivider: {
     width: 1,
     height: 48,
-    backgroundColor: 'rgba(34, 211, 238, 0.2)',
+    backgroundColor: colors.cyanMid,
   },
   dosesLeftBadge: {
     alignItems: 'center',
     padding: 14,            // v2: padding: "14px" (all sides)
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
     borderRadius: 100,
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
   },
   dosesLeftText: {
     fontSize: 13,
