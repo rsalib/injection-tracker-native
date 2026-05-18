@@ -96,7 +96,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
         {[
           { v: activeMeds.length, l: 'Protocols', c: colors.cyan },
           { v: todayLogs.length,  l: 'Dosed',     c: colors.success },
-          { v: logs.length,       l: 'Total',      c: '#c084fc' },
+          { v: logs.length,       l: 'Total',      c: colors.purple },
         ].map(({ v, l, c }) => (
           <View key={l} style={styles.statCard}>
             <Text style={[styles.statValue, { color: c }]}>{v}</Text>
@@ -219,7 +219,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
                 </View>
 
                 <View style={styles.progressTrack}>
-                  <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.cyan : '#ef4444' }]} />
+                  <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.cyan : colors.errorStrong }]} />
                 </View>
 
                 <View style={styles.progressLabels}>
@@ -267,9 +267,9 @@ const styles = StyleSheet.create({
 
   // ── Alerts ─────────────────────────────────────────────────────────
   alertCard: {
-    backgroundColor: '#422006',
+    backgroundColor: colors.orangeDarkBg,
     borderWidth: 1,
-    borderColor: '#92400e',
+    borderColor: colors.orangeDarkBorder,
     borderRadius: 12,
     padding: 16,
   },
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   alertDismissText: {
-    color: '#fcd34d',
+    color: colors.textYellow,
     fontSize: 16,
     fontWeight: '800',
   },
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   alertBody: {
-    color: '#fcd34d',
+    color: colors.textYellow,
     fontSize: 14,
     marginBottom: 12,
     paddingRight: 24,
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   },
   alertQueueBtn: {
     flex: 1,
-    backgroundColor: '#713f12',
+    backgroundColor: colors.yellowDarkBorder,
     borderRadius: 8,
     padding: 10,
     alignItems: 'center',
@@ -317,9 +317,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   alertSnoozeBtn: {
-    backgroundColor: '#422006',
+    backgroundColor: colors.orangeDarkBg,
     borderWidth: 1,
-    borderColor: '#92400e',
+    borderColor: colors.orangeDarkBorder,
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 16,
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   alertSnoozeText: {
-    color: '#fcd34d',
+    color: colors.textYellow,
     fontWeight: '600',
     fontSize: 14,
   },
@@ -340,8 +340,8 @@ const styles = StyleSheet.create({
   },
   statCard: {
     ...glass.card,
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     flex: 1,
     borderRadius: 24,
     paddingVertical: 16,
@@ -365,8 +365,8 @@ const styles = StyleSheet.create({
   // ── Shared bubble ──────────────────────────────────────────────────
   bubble: {
     ...glass.card,
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
   },
@@ -394,10 +394,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 12,
-    backgroundColor: 'rgba(17, 24, 39, 0.4)',
+    backgroundColor: colors.surfaceRow,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.03)',
+    borderColor: colors.borderFaint,
   },
   scheduleItem: {
     fontSize: 14,
@@ -427,16 +427,16 @@ const styles = StyleSheet.create({
   emptyCard: {
     padding: 40,
     alignItems: 'center',
-    backgroundColor: 'rgba(31, 41, 55, 0.2)',
+    backgroundColor: colors.surfaceEmpty,
     borderRadius: 32,
     borderWidth: 1,
     borderStyle: 'dashed',
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
   },
   protocolList: {
     ...glass.card,
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     overflow: 'hidden',
   },
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
   },
   protocolItemBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.05)',
+    borderBottomColor: colors.border,
   },
   protocolHeader: {
     flexDirection: 'row',
@@ -484,12 +484,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   pctPill: {
-    backgroundColor: 'rgba(17, 24, 39, 0.6)',
+    backgroundColor: colors.surfaceMid,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -499,7 +499,7 @@ const styles = StyleSheet.create({
   },
   progressTrack: {
     width: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderRadius: 9999,
     height: 8,
     marginBottom: 8,
@@ -507,7 +507,7 @@ const styles = StyleSheet.create({
   progressFill: {
     height: 8,
     borderRadius: 9999,
-    boxShadow: '0 0 8px rgba(34, 211, 238, 0.6)',
+    boxShadow: `0 0 8px ${colors.cyanGlass}`,
   },
   progressLabels: {
     flexDirection: 'row',
@@ -534,10 +534,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     paddingHorizontal: 16,
-    backgroundColor: 'rgba(17, 24, 39, 0.4)',
+    backgroundColor: colors.surfaceRow,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.03)',
+    borderColor: colors.borderFaint,
   },
   recentName: {
     fontSize: 14,

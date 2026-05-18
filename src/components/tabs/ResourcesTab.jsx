@@ -72,7 +72,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
               renderOption={m => (
                 <>
                   <span>{m.name}</span>
-                  <span style={{ fontSize: 11, color: '#374151', marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
+                  <span style={{ fontSize: 11, color: colors.bgMid2, marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
                 </>
               )}
               onSelect={m => { setQuery(m.name); doSearch(m.name); }}
@@ -271,8 +271,8 @@ const styles = StyleSheet.create({
   },
   searchCard: {
     ...glass.card,
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
   },
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 24,
     cursor: 'pointer',
-    boxShadow: '0 4px 12px rgba(34,211,238,0.2)',
+    boxShadow: `0 4px 12px ${colors.cyanMid}`,
   },
   searchBtnDisabled: {
     opacity: 0.5,
@@ -306,12 +306,12 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   searchingCard: {
-    backgroundColor: 'rgba(31, 41, 55, 0.4)',
+    backgroundColor: colors.surfaceCard,
     borderRadius: 32,
     padding: 32,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
   },
   searchingText: {
     color: colors.textSecondary,
@@ -328,8 +328,8 @@ const styles = StyleSheet.create({
   },
   resultsCard: {
     ...glass.card,
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
   },
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   saveAllBtn: {
-    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+    backgroundColor: colors.cyanDim,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 100,
@@ -363,12 +363,12 @@ const styles = StyleSheet.create({
     color: colors.cyan,
   },
   summaryCard: {
-    backgroundColor: 'rgba(17, 24, 39, 0.6)',
+    backgroundColor: colors.surfaceMid,
     padding: 20,
     borderRadius: 24,
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: 'rgba(34, 211, 238, 0.2)',
+    borderColor: colors.cyanMid,
   },
   summaryLabel: {
     fontSize: 11,
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   resultItem: {
-    backgroundColor: 'rgba(17, 24, 39, 0.6)',
+    backgroundColor: colors.surfaceMid,
     borderRadius: 20,
     padding: 20,
     flexDirection: 'row',
@@ -415,12 +415,12 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
-    borderTopColor: 'rgba(34, 211, 238, 0.15)',
-    borderRightColor: 'rgba(34, 211, 238, 0.15)',
-    borderBottomColor: 'rgba(34, 211, 238, 0.15)',
+    borderTopColor: colors.cyanSoftBorder,
+    borderRightColor: colors.cyanSoftBorder,
+    borderBottomColor: colors.cyanSoftBorder,
     borderLeftWidth: 4,
     borderLeftColor: colors.cyan,
-    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+    boxShadow: `0 4px 12px ${colors.shadowSoft}`,
   },
   resultItemLeft: {
     flex: 1,
@@ -434,14 +434,14 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   saveBtn: {
-    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+    backgroundColor: colors.cyanDim,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 100,
     cursor: 'pointer',
   },
   saveBtnSaved: {
-    backgroundColor: 'rgba(20, 83, 45, 0.3)',
+    backgroundColor: colors.successDarkSoft,
     cursor: 'default',
   },
   saveBtnText: {
@@ -454,8 +454,8 @@ const styles = StyleSheet.create({
   },
   libraryCard: {
     ...glass.card,
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
   },
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
   },
   libraryEntryBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.05)',
+    borderBottomColor: colors.border,
   },
   libraryEntryToggle: {
     cursor: 'pointer',
@@ -504,7 +504,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   libraryItemCount: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 100,
@@ -527,7 +527,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   refreshBtn: {
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 100,
@@ -554,13 +554,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 12,
     padding: 16,
-    backgroundColor: 'rgba(17, 24, 39, 0.6)',
+    backgroundColor: colors.surfaceMid,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
   },
   removeBtn: {
-    backgroundColor: 'rgba(248, 113, 113, 0.1)',
+    backgroundColor: colors.errorSoft,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 100,

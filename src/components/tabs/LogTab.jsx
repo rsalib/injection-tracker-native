@@ -164,7 +164,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
     <View style={styles.container}>
 
       {/* Auto-Logger Status Bubble */}
-      <View style={[styles.autoLoggerCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
+      <View style={[styles.autoLoggerCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
         <View style={styles.autoLoggerLeft}>
           <Text style={styles.autoLoggerTitle}>Auto-Logger</Text>
           <Text style={styles.autoLoggerStatus}>
@@ -182,7 +182,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
       </Pressable>
 
       {/* History Timeline Bubble */}
-      <View style={[styles.historyCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
+      <View style={[styles.historyCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
         <Text style={styles.historyTitle}>Injection History</Text>
 
         {logs.length === 0 ? (
@@ -240,9 +240,9 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
                             {isDateExpanded && dateLogs.map((l) => {
                               const isAuto = l.isAuto || l.type === 'auto';
                               const circleColor = colors.textGreen;
-                              const circleShadow = isAuto ? "rgba(168, 85, 247, 0.6)" : "rgba(134, 239, 172, 0.4)";
-                              const badgeColor = isAuto ? "#a855f7" : colors.textGreen;
-                              const badgeBg = isAuto ? "rgba(168, 85, 247, 0.1)" : "rgba(134, 239, 172, 0.1)";
+                              const circleShadow = isAuto ? colors.purpleMid : colors.successLightSoft;
+                              const badgeColor = isAuto ? colors.purpleBorderBright : colors.textGreen;
+                              const badgeBg = isAuto ? colors.purpleFaint : colors.successLightFaint;
 
                               return (
                                 <View key={l.id} style={styles.logEntry}>
@@ -263,7 +263,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
                                         <Text style={styles.logTime}>• {formatTime(l.time)}</Text>
                                       </View>
                                     </View>
-                                    {l.notes && (
+                                    {!!l.notes && (
                                       <View style={styles.logNotes}>
                                         <Text style={styles.logNotesText}>"{l.notes}"</Text>
                                       </View>
@@ -302,7 +302,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
       </View>
 
       {/* Calendar & CSV Export */}
-      <View style={[styles.exportCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
+      <View style={[styles.exportCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
         <Text style={styles.exportTitle}>Export</Text>
         <Text style={styles.exportSub}>Share your protocols with a provider or archive your log history.</Text>
         <View style={styles.exportActions}>
@@ -367,13 +367,13 @@ const styles = StyleSheet.create({
     width: 56,
     height: 32,
     borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: colors.borderSubtle,
     position: 'relative',
     cursor: 'pointer',
     transition: '0.3s',
   },
   toggleTrackActive: {
-    backgroundColor: 'rgba(34, 211, 238, 0.2)',
+    backgroundColor: colors.cyanMid,
   },
   toggleDot: {
     width: 24,
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
     top: 4,
     left: 4,
     transition: '0.3s',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+    boxShadow: `0 2px 4px ${colors.shadowMid}`,
   },
   toggleDotActive: {
     backgroundColor: colors.cyan,
@@ -415,11 +415,11 @@ const styles = StyleSheet.create({
   emptyState: {
     padding: 40,
     alignItems: 'center',
-    backgroundColor: 'rgba(31,41,55,0.2)',
+    backgroundColor: colors.surfaceEmpty,
     borderRadius: 24,
     borderWidth: 1,
     borderStyle: 'dashed',
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: colors.borderSubtle,
   },
   emptyStateText: {
     color: colors.textMuted,
@@ -429,9 +429,9 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   monthToggle: {
-    backgroundColor: 'rgba(17, 24, 39, 0.4)',
+    backgroundColor: colors.surfaceRow,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
     borderRadius: 16,
     padding: 16,
     cursor: 'pointer',
@@ -494,7 +494,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#0f172a',
+    backgroundColor: colors.navy,
     borderWidth: 2,
     borderColor: colors.cyan,
     zIndex: 2,
@@ -526,17 +526,17 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#0f172a',
+    backgroundColor: colors.navy,
     borderWidth: 2,
     zIndex: 5,
     transform: [{ translateX: -5 }],
   },
   logEntryCard: {
-    backgroundColor: 'rgba(17, 24, 39, 0.4)',
+    backgroundColor: colors.surfaceRow,
     borderRadius: 24,
     padding: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: colors.border,
     position: 'relative',
   },
   autoTag: {
@@ -566,7 +566,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   logDoseBadge: {
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 100,
@@ -590,7 +590,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     paddingVertical: 8,
     paddingHorizontal: 12,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
     borderRadius: 12,
     borderLeftWidth: 2,
     borderLeftColor: colors.textMuted,
@@ -605,11 +605,11 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.05)',
+    borderTopColor: colors.border,
   },
   logEditBtn: {
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 8,
     alignItems: 'center',
@@ -622,7 +622,7 @@ const styles = StyleSheet.create({
   },
   logDeleteBtn: {
     flex: 1,
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    backgroundColor: colors.errorFaintBg,
     borderRadius: 12,
     padding: 8,
     alignItems: 'center',
@@ -637,11 +637,11 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 16,
     borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     alignItems: 'center',
     borderWidth: 1,
     borderStyle: 'dashed',
-    borderColor: 'rgba(255,255,255,0.2)',
+    borderColor: colors.borderHigh,
     cursor: 'pointer',
     marginTop: 16,
   },
@@ -678,9 +678,9 @@ const styles = StyleSheet.create({
   },
   exportBtnGray: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 16,
     padding: 12,
     alignItems: 'center',
@@ -693,9 +693,9 @@ const styles = StyleSheet.create({
   },
   exportBtnCyan: {
     flex: 1,
-    backgroundColor: 'rgba(34, 211, 238, 0.08)',
+    backgroundColor: colors.cyanDeepBorder,
     borderWidth: 1,
-    borderColor: 'rgba(34, 211, 238, 0.2)',
+    borderColor: colors.cyanMid,
     borderRadius: 16,
     padding: 12,
     alignItems: 'center',

@@ -50,7 +50,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Medication</Text>
           <select
-            style={{ width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
             value={medId}
             onChange={e => handleMedSelect(e.target.value)}
           >
@@ -82,7 +82,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
             type="time"
             value={time}
             onChange={e => setTime(e.target.value)}
-            style={{ width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
           />
         </View>
 
@@ -102,7 +102,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
           <View style={styles.unitField}>
             <Text style={styles.lbl}>Unit</Text>
             <select
-              style={{ width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+              style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
               value={unit}
               onChange={e => setUnit(e.target.value)}
             >
@@ -115,7 +115,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Injection Site</Text>
           <select
-            style={{ width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', padding: '14px 18px', color: 'white', fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
             value={site}
             onChange={e => setSite(e.target.value)}
           >
@@ -162,9 +162,9 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 100,
     paddingVertical: 14,
     paddingHorizontal: 18,
@@ -192,11 +192,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     cursor: 'pointer',
   },
   dayBtnActive: {
-    backgroundColor: 'rgba(34,211,238,0.2)',
+    backgroundColor: colors.cyanMid,
   },
   dayBtnText: {
     fontSize: 13,

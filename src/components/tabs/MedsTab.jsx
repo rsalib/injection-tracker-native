@@ -106,7 +106,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
 
       {/* Interaction Monitor */}
       {activeMeds.length >= 2 && (
-        <View style={[styles.interactionCard, interactionError && styles.interactionCardError, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
+        <View style={[styles.interactionCard, interactionError && styles.interactionCardError, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
           <View style={styles.interactionCardLeft}>
             <Text style={styles.interactionCardTitle}>AI Interaction Monitor</Text>
             <Text style={[
@@ -182,7 +182,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
             });
 
             return (
-              <Pressable key={m.id} onPress={() => toggleMed(m.id)} style={[styles.medCard, { backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)' }]}>
+              <Pressable key={m.id} onPress={() => toggleMed(m.id)} style={[styles.medCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
                 {/* Header */}
                 <View style={styles.medCardHeader}>
                   <View style={styles.medCardHeaderTop}>
@@ -208,7 +208,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                     </View>
                   </View>
                   <View style={styles.progressTrack}>
-                    <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.cyan : '#ef4444' }]} />
+                    <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.cyan : colors.errorStrong }]} />
                   </View>
                   <View style={styles.progressLabels}>
                     <Text style={styles.progressLabelText}>{rem.toFixed(2)} {m.vialUnit || m.unit} Left</Text>
@@ -399,8 +399,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   interactionCardError: {
-    backgroundColor: 'rgba(69,10,10,0.4)',
-    borderColor: 'rgba(127,29,29,0.6)',
+    backgroundColor: colors.errorDeepBg,
+    borderColor: colors.errorDark,
   },
   interactionCardLeft: {
     flex: 1,
@@ -417,18 +417,18 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontWeight: '600',
   },
-  statusError: { color: '#fca5a5' },
+  statusError: { color: colors.errorLight },
   statusWarn: { color: colors.textSecondary },
   statusOk: { color: colors.textGreen },
   recheckBtn: {
-    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+    backgroundColor: colors.cyanDim,
     borderRadius: 100,
     paddingVertical: 8,
     paddingHorizontal: 16,
     cursor: 'pointer',
   },
   recheckBtnError: {
-    backgroundColor: 'rgba(239,68,68,0.15)',
+    backgroundColor: colors.errorStrongBg,
   },
   recheckBtnText: {
     fontSize: 11,
@@ -445,11 +445,11 @@ const styles = StyleSheet.create({
   emptyState: {
     padding: 40,
     alignItems: 'center',
-    backgroundColor: 'rgba(31,41,55,0.2)',
+    backgroundColor: colors.surfaceEmpty,
     borderRadius: 32,
     borderWidth: 1,
     borderStyle: 'dashed',
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: colors.borderSubtle,
   },
   emptyStateText: {
     color: colors.textMuted,
@@ -499,12 +499,12 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   pctBadge: {
-    backgroundColor: 'rgba(17, 24, 39, 0.6)',
+    backgroundColor: colors.surfaceMid,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
   },
   pctText: {
     fontSize: 14,
@@ -520,7 +520,7 @@ const styles = StyleSheet.create({
   },
   progressTrack: {
     width: '100%',
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     borderRadius: 9999,
     height: 8,
     marginBottom: 8,
@@ -528,7 +528,7 @@ const styles = StyleSheet.create({
   progressFill: {
     height: 8,
     borderRadius: 9999,
-    boxShadow: '0 0 8px rgba(34, 211, 238, 0.6)',
+    boxShadow: `0 0 8px ${colors.cyanGlass}`,
   },
   progressLabels: {
     flexDirection: 'row',
@@ -546,11 +546,11 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   metricsCard: {
-    backgroundColor: 'rgba(17, 24, 39, 0.3)',
+    backgroundColor: colors.surfaceDeep,
     borderRadius: 24,
     padding: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.03)',
+    borderColor: colors.borderFaint,
   },
   metricsGrid: {
     flexDirection: 'row',
@@ -572,9 +572,9 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   syringeCard: {
-    backgroundColor: 'rgba(8, 51, 68, 0.4)',
+    backgroundColor: colors.tealDeep,
     borderWidth: 1,
-    borderColor: 'rgba(21, 94, 117, 0.3)',
+    borderColor: colors.tealBorder,
     borderRadius: 24,
     padding: 16,
   },
@@ -590,11 +590,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   safetyCard: {
-    backgroundColor: 'rgba(17, 24, 39, 0.3)',
+    backgroundColor: colors.surfaceDeep,
     borderRadius: 24,
     padding: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.03)',
+    borderColor: colors.borderFaint,
   },
   safetyLabel: {
     fontSize: 10,
@@ -611,9 +611,9 @@ const styles = StyleSheet.create({
   safetyItem: {
     padding: 12,
     borderRadius: 16,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: colors.shadowSoft,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
   },
   safetyItemHeader: {
     flexDirection: 'row',
@@ -636,7 +636,7 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.05)',
+    borderTopColor: colors.border,
   },
   actionRow2: {
     flexDirection: 'row',
@@ -649,7 +649,7 @@ const styles = StyleSheet.create({
   useDoseBtn: {
     ...button.primary,
     flex: 1,
-    boxShadow: '0 4px 12px rgba(34,211,238,0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
+    boxShadow: `0 4px 12px ${colors.cyanBorder}, inset 0 1px 0 ${colors.borderHighlight}`,
     cursor: 'pointer',
   },
   useDoseBtnText: {
@@ -667,7 +667,7 @@ const styles = StyleSheet.create({
   },
   smBtn: {
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 10,
     alignItems: 'center',
@@ -680,7 +680,7 @@ const styles = StyleSheet.create({
   },
   smBtnCyan: {
     flex: 1,
-    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+    backgroundColor: colors.cyanDim,
     borderRadius: 12,
     padding: 10,
     alignItems: 'center',
@@ -693,7 +693,7 @@ const styles = StyleSheet.create({
   },
   xsBtn: {
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.05)',
+    backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 10,
     alignItems: 'center',
@@ -706,20 +706,20 @@ const styles = StyleSheet.create({
   },
   xsBtnPurple: {
     flex: 1,
-    backgroundColor: 'rgba(126, 34, 206, 0.1)',
+    backgroundColor: colors.purpleDeepSoft,
     borderRadius: 12,
     padding: 10,
     alignItems: 'center',
     cursor: 'pointer',
   },
   xsBtnPurpleText: {
-    color: '#d8b4fe',
+    color: colors.purpleLight,
     fontWeight: '800',
     fontSize: 10,
   },
   xsBtnRed: {
     flex: 1,
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    backgroundColor: colors.errorFaintBg,
     borderRadius: 12,
     padding: 10,
     alignItems: 'center',
@@ -735,9 +735,9 @@ const styles = StyleSheet.create({
   },
   archiveToggle: {
     width: '100%',
-    backgroundColor: 'rgba(17, 24, 39, 0.4)',
+    backgroundColor: colors.surfaceRow,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.05)',
+    borderColor: colors.border,
     borderRadius: 16,
     padding: 16,
     cursor: 'pointer',
@@ -760,9 +760,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   archiveSearch: {
-    backgroundColor: 'rgba(255,255,255,0.03)',
+    backgroundColor: colors.borderFaint,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 100,
     paddingVertical: 10,
     paddingHorizontal: 16,
@@ -781,14 +781,14 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   archiveItem: {
-    backgroundColor: 'rgba(31, 41, 55, 0.2)',
+    backgroundColor: colors.surfaceEmpty,
     borderRadius: 24,
     padding: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.03)',
+    borderColor: colors.borderFaint,
   },
   archiveItemName: {
     fontWeight: '800',
@@ -806,7 +806,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   archiveRestartBtn: {
-    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+    backgroundColor: colors.cyanDim,
     paddingVertical: 10,
     paddingHorizontal: 18,
     borderRadius: 100,
@@ -818,7 +818,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   archiveDeleteBtn: {
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    backgroundColor: colors.errorFaintBg,
     paddingVertical: 10,
     paddingHorizontal: 18,
     borderRadius: 100,
@@ -855,9 +855,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   endCycleBtnFinish: {
-    backgroundColor: 'rgba(113, 63, 18, 0.4)',
+    backgroundColor: colors.yellowDeep,
     borderWidth: 1,
-    borderColor: '#92400e',
+    borderColor: colors.orangeDarkBorder,
     borderRadius: 16,
     padding: 16,
     cursor: 'pointer',
@@ -868,9 +868,9 @@ const styles = StyleSheet.create({
     color: colors.textAmber,
   },
   endCycleBtnNow: {
-    backgroundColor: 'rgba(127, 29, 29, 0.4)',
+    backgroundColor: colors.errorDarkMid,
     borderWidth: 1,
-    borderColor: '#7f1d1d',
+    borderColor: colors.errorDarkBorder,
     borderRadius: 16,
     padding: 16,
     cursor: 'pointer',
@@ -878,7 +878,7 @@ const styles = StyleSheet.create({
   endCycleBtnTitleNow: {
     fontSize: 15,
     fontWeight: '800',
-    color: '#fca5a5',
+    color: colors.errorLight,
   },
   endCycleBtnSub: {
     fontSize: 12,

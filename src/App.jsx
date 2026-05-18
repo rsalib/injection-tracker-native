@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { colors, blur, shadow } from './theme.js';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { auth, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
@@ -811,8 +812,8 @@ export default function App() {
             </Pressable>
 
             {/* Restore — raw HTML label+file-input (DOM-specific, like <select>/<a>) */}
-            <label style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)', borderRadius: 100, padding: 10, alignItems: 'center', justifyContent: 'center', cursor: 'pointer', display: 'flex', boxSizing: 'border-box' }}>
-              <span style={{ color: 'white', fontSize: 12, fontWeight: 800 }}>📂 Restore</span>
+            <label style={{ flex: 1, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderSubtle, borderRadius: 100, padding: 10, alignItems: 'center', justifyContent: 'center', cursor: 'pointer', display: 'flex', boxSizing: 'border-box' }}>
+              <span style={{ color: colors.white, fontSize: 12, fontWeight: 800 }}>📂 Restore</span>
               <input type="file" accept=".json" style={{ display: 'none' }} onChange={importBackup} />
             </label>
           </View>
@@ -823,7 +824,7 @@ export default function App() {
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
       <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" bounces={false} overScrollMode="never">
-        <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: '#121212' }} />}>
+        <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: colors.bgFallback }} />}>
         <View style={styles.appContainer}>
           {activeTab === 'Dashboard' && (
             <Dashboard
@@ -912,7 +913,7 @@ export default function App() {
                 onPress={() => setActiveTab(t.id)}
                 accessibilityLabel={t.id}
                 accessibilityRole="button"
-                style={[styles.tabBtn, active && styles.tabBtnActive, { color: active ? '#22d3ee' : '#9ca3af' }]}
+                style={[styles.tabBtn, active && styles.tabBtnActive, { color: active ? colors.cyan : colors.textSecondary }]}
               >
                 <Icon active={active} />
                 {active && (
@@ -1009,13 +1010,13 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     height: '100dvh',
-    backgroundColor: '#111827',
+    backgroundColor: colors.bg,
   },
 
   // ── Circuit breaker screen ─────────────────────────────────────────
   circuitScreen: {
     flex: 1,
-    backgroundColor: '#111827',
+    backgroundColor: colors.bg,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 32,
@@ -1026,7 +1027,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   circuitTitle: {
-    color: '#ef4444',
+    color: colors.errorStrong,
     fontSize: 28,
     fontWeight: '900',
     marginBottom: 16,
@@ -1034,7 +1035,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   circuitBody: {
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontSize: 16,
     marginBottom: 32,
     lineHeight: 26,
@@ -1042,15 +1043,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   circuitBtn: {
-    backgroundColor: '#ef4444', // TODO: expo-linear-gradient(135deg, #7f1d1d 0%, #ef4444 100%)
+    backgroundColor: colors.errorStrong, // TODO: expo-linear-gradient(135deg, #7f1d1d 0%, #ef4444 100%)
     borderRadius: 100,
     paddingVertical: 18,
     paddingHorizontal: 32,
     cursor: 'pointer',
-    boxShadow: '0 10px 25px -5px rgba(239,68,68,0.4)',
+    boxShadow: `0 10px 25px -5px ${colors.errorDeepMid}`,
   },
   circuitBtnText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '900',
   },
@@ -1063,16 +1064,16 @@ const styles = StyleSheet.create({
     touchAction: 'none',
   },
   headerCard: {
-    backgroundColor: 'rgba(31, 41, 55, 0.6)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
+    backgroundColor: colors.surfaceCardMid,
+    backdropFilter: blur.header,
+    WebkitBackdropFilter: blur.header,
     borderRadius: 24,
     padding: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
-    borderTopColor: 'rgba(255, 255, 255, 0.25)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+    borderColor: colors.borderSubtle,
+    borderTopColor: colors.borderHighTop,
+    borderLeftColor: colors.borderHighLeft,
+    boxShadow: `0 8px 32px ${colors.shadowHeavy}, inset 0 1px 0 ${colors.borderHighlight}`,
   },
   headerTop: {
     flexDirection: 'row',
@@ -1082,7 +1083,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '900',
-    color: 'white',
+    color: colors.white,
     letterSpacing: -0.54,
   },
   syncRow: {
@@ -1096,26 +1097,26 @@ const styles = StyleSheet.create({
     height: 6,
     borderRadius: 3,
   },
-  dotSynced: { backgroundColor: '#4ade80', boxShadow: '0 0 8px rgba(34, 211, 238, 0.8), 0 0 16px rgba(34, 211, 238, 0.4)' },
-  dotSaving: { backgroundColor: '#facc15' },
-  dotError:  { backgroundColor: '#f87171' },
-  dotIdle:   { backgroundColor: '#9ca3af' },
+  dotSynced: { backgroundColor: colors.success, boxShadow: `0 0 8px ${colors.cyanHeavy}, 0 0 16px ${colors.cyanDeep}` },
+  dotSaving: { backgroundColor: colors.syncSaving },
+  dotError:  { backgroundColor: colors.error },
+  dotIdle:   { backgroundColor: colors.textSecondary },
   syncLabel: {
     fontSize: 10,
-    color: '#9ca3af',
+    color: colors.textSecondary,
     fontWeight: '800',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   logoutBtn: {
-    backgroundColor: 'rgba(248, 113, 113, 0.1)',
+    backgroundColor: colors.errorSoft,
     borderRadius: 12,
     paddingVertical: 8,
     paddingHorizontal: 12,
     cursor: 'pointer',
   },
   logoutText: {
-    color: '#f87171',
+    color: colors.error,
     fontSize: 11,
     fontWeight: '800',
   },
@@ -1127,9 +1128,9 @@ const styles = StyleSheet.create({
   syncBtn: {
     flex: 1,
     position: 'relative',
-    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+    backgroundColor: colors.cyanDim,
     borderWidth: 1,
-    borderColor: 'rgba(34, 211, 238, 0.2)',
+    borderColor: colors.cyanMid,
     borderRadius: 100,
     padding: 10,
     alignItems: 'center',
@@ -1142,7 +1143,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   syncBtnText: {
-    color: '#22d3ee',
+    color: colors.cyan,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -1152,17 +1153,17 @@ const styles = StyleSheet.create({
     right: 10,
     width: 10,
     height: 10,
-    backgroundColor: '#f97316',
+    backgroundColor: colors.syncPending,
     borderRadius: 5,
     borderWidth: 2,
-    borderColor: '#1f2937',
-    boxShadow: '0 0 8px #f97316',
+    borderColor: colors.bgMid,
+    boxShadow: `0 0 8px ${colors.syncPending}`,
   },
   actionBtn: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderSubtle,
     borderRadius: 100,
     padding: 10,
     alignItems: 'center',
@@ -1170,7 +1171,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   actionBtnText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -1210,13 +1211,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     paddingHorizontal: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-    backdropFilter: 'blur(40px)',
-    WebkitBackdropFilter: 'blur(40px)',
+    backgroundColor: colors.borderFaint2,
+    backdropFilter: blur.card,
+    WebkitBackdropFilter: blur.card,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
-    boxShadow: '0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+    borderColor: colors.borderHighLeft,
+    boxShadow: `0 4px 24px ${colors.shadowDeep}, inset 0 1px 0 ${colors.borderSubtle}`,
     width: '100%',
     maxWidth: 500,
   },
@@ -1233,14 +1234,14 @@ const styles = StyleSheet.create({
   },
   tabBtnActive: {
     flex: 1.2,
-    backgroundColor: 'rgba(34, 211, 238, 0.15)',
+    backgroundColor: colors.cyanSoftBorder,
   },
   tabLabel: {
     fontSize: 9,
     fontWeight: '800',
     textTransform: 'uppercase',
-    color: '#22d3ee',
+    color: colors.cyan,
     letterSpacing: 0.45,
-    textShadow: '0 0 12px rgba(34, 211, 238, 0.6)',
+    textShadow: `0 0 12px ${colors.cyanGlass}`,
   },
 });

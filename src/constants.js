@@ -1,11 +1,13 @@
+import { colors } from './theme.js';
+
 export const SITES = ["Abdomen", "Thigh (Left)", "Thigh (Right)", "Glute (Left)", "Glute (Right)", "Deltoid (Left)", "Deltoid (Right)", "Ventroglute (Left)", "Ventroglute (Right)"];
 export const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 export const CAT_META = {
-  Research: { icon: "🔬", color: "blue", bg: "#1e3a5f", border: "#1d4ed8", text: "#93c5fd" },
-  Safety: { icon: "🛡️", color: "red", bg: "#3b0a0a", border: "#991b1b", text: "#fca5a5" },
-  Guidelines: { icon: "📋", color: "purple", bg: "#3b0764", border: "#7e22ce", text: "#d8b4fe" },
-  Guide: { icon: "📖", color: "green", bg: "#14532d", border: "#166534", text: "#86efac" }
+  Research: { icon: "🔬", color: "blue", bg: colors.blueDarkBg, border: colors.blueDarkBorder, text: colors.blueLight },
+  Safety: { icon: "🛡️", color: "red", bg: colors.errorDarkBg, border: colors.errorDarkBorderAlt, text: colors.errorLight },
+  Guidelines: { icon: "📋", color: "purple", bg: colors.purpleDarkBg, border: colors.purpleDarkBorder, text: colors.purpleLight },
+  Guide: { icon: "📖", color: "green", bg: colors.successDarkest, border: colors.successDarkBg, text: colors.textGreen }
 };
 
 export const NAV_TABS = [

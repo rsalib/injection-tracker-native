@@ -90,6 +90,91 @@ export const colors = {
   tealDeep: 'rgba(8,51,68,0.4)',
   tealBorder: 'rgba(21,94,117,0.3)',
   tealBorderFaint: 'rgba(21,94,117,0.2)',
+
+  // Missing error colors
+  errorSoftBg: 'rgba(248, 113, 113, 0.3)',
+  errorSoftFaint: 'rgba(248, 113, 113, 0.15)',
+  errorDeepMid: 'rgba(239, 68, 68, 0.4)',
+  errorBright: 'rgba(239, 68, 68, 0.8)',
+  errorFaint: 'rgba(239, 68, 68, 0.2)',
+  errorDark: 'rgba(127, 29, 29, 0.6)',
+  errorDarkMid: 'rgba(127, 29, 29, 0.4)',
+  errorDarkestSolid: 'rgba(69, 10, 10, 0.95)',
+  errorDarkest: '#450a0a',
+  errorDarkBg: '#3b0a0a',
+  errorDarkBorder: '#7f1d1d',
+  errorDarkBorderAlt: '#991b1b',
+
+  // Missing success colors
+  successBorder: 'rgba(34, 197, 94, 0.3)',
+  successSoft: 'rgba(34, 197, 94, 0.15)',
+  successDeep: 'rgba(16, 185, 129, 0.4)',
+  successDark: 'rgba(22, 101, 52, 0.6)',
+  successDarkestSolid: 'rgba(20, 83, 45, 0.95)',
+  successDarkSoft: 'rgba(20, 83, 45, 0.3)',
+  successLightSoft: 'rgba(134, 239, 172, 0.4)',
+  successLightFaint: 'rgba(134, 239, 172, 0.1)',
+  successDarkBg: '#166534',
+  successDarkest: '#14532d',
+
+  // Missing orange/yellow/amber colors
+  orangeBorder: 'rgba(249, 115, 22, 0.3)',
+  orangeSoft: 'rgba(249, 115, 22, 0.15)',
+  yellowBorder: 'rgba(234, 179, 8, 0.3)',
+  yellowSoft: 'rgba(234, 179, 8, 0.15)',
+  orangeDeep: 'rgba(146, 64, 14, 0.4)',
+  yellowDeep: 'rgba(113, 63, 18, 0.4)',
+  yellowDeepSoft: 'rgba(113, 63, 18, 0.3)',
+  orangeDarkBg: '#422006',
+  orangeDarkBorder: '#92400e',
+  yellowDarkBorder: '#713f12',
+  textYellow: '#fcd34d',
+  textOrange: '#fdba74',
+
+  // Missing purple colors
+  purpleMid: 'rgba(168, 85, 247, 0.6)',
+  purpleBorder: 'rgba(168, 85, 247, 0.3)',
+  purpleSoft: 'rgba(168, 85, 247, 0.15)',
+  purpleFaint: 'rgba(168, 85, 247, 0.1)',
+  purpleDeepSoft: 'rgba(126, 34, 206, 0.1)',
+  purpleDarkBg: '#3b0764',
+  purpleDarkBorder: '#7e22ce',
+  purpleBorderBright: '#a855f7',
+
+  // Missing blue colors
+  blueBorder: 'rgba(59, 130, 246, 0.3)',
+  blueSoft: 'rgba(59, 130, 246, 0.15)',
+  blueLight: '#93c5fd',
+  blueDarkBorder: '#1d4ed8',
+  blueDarkBg: '#1e3a5f',
+
+  // Missing teal/cyan colors
+  tealMid: 'rgba(14, 116, 144, 0.4)',
+  tealDarkBg: '#0d1f2d',
+  tealDarkest: '#083344',
+  cyanHeavy: 'rgba(34, 211, 238, 0.8)',
+  cyanDeep: 'rgba(34, 211, 238, 0.4)',
+  cyanSoftBorder: 'rgba(34, 211, 238, 0.15)',
+  cyanDeepBorder: 'rgba(34, 211, 238, 0.08)',
+  cyanGlass: 'rgba(34, 211, 238, 0.6)',
+
+  // Missing gray/white/black colors
+  grayBorder: 'rgba(107, 114, 128, 0.3)',
+  graySoft: 'rgba(107, 114, 128, 0.15)',
+  shadowLight: 'rgba(0, 0, 0, 0.18)',
+  shadowMid: 'rgba(0, 0, 0, 0.3)',
+  shadowDark: 'rgba(0, 0, 0, 0.4)',
+  shadowDeep: 'rgba(0, 0, 0, 0.5)',
+  shadowHeavy: 'rgba(0, 0, 0, 0.6)',
+  transparentBg: 'rgba(17, 24, 39, 0)',
+  surfaceCardSolid: 'rgba(31, 41, 55, 0.95)',
+  surfaceCardMid: 'rgba(31, 41, 55, 0.6)',
+  borderFaint3: 'rgba(255, 255, 255, 0.08)',
+  borderFaint4: 'rgba(255, 255, 255, 0.06)',
+  borderHigh: 'rgba(255, 255, 255, 0.2)',
+  overlayFaint: 'rgba(0, 0, 0, 0.06)',
+  errorFaintBg: 'rgba(239, 68, 68, 0.1)',
+
 };
 
 // =============================================================================
