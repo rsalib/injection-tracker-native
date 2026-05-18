@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getDatabase, ref, get, set, update, onValue, runTransaction } from 'firebase/database';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { initializeAppCheck, ReCaptchaV3Provider, getToken } from 'firebase/app-check';
 
 const app = initializeApp({
   apiKey: "AIzaSyC5qJWkGvTumgJoAttVJwoLb03pcbTrqQg",
@@ -20,6 +20,16 @@ export const appCheck = initializeAppCheck(app, {
   provider: new ReCaptchaV3Provider('6LcF3-gsAAAAAHbr7DkcvqGLvyf4Yz5WZs1EOXJi'),
   isTokenAutoRefreshEnabled: true,
 });
+
+// Force App Check to issue its first token immediately on module load.
+// Consumers (LoginScreen, App auth listener) await this before any Firebase
+// Auth call so the App Check token is cached and Firebase Auth attaches it
+// to the request. Prevents the cold-start / redirect-return race that
+// produced the 8% Invalid telemetry on the Authentication API.
+// .catch returns null so a network/reCAPTCHA failure doesn't deadlock auth —
+// Firebase Auth's SDK will independently retry attaching a token, and if
+// that also fails, App Check enforcement rejects cleanly rather than hanging.
+export const appCheckReady = getToken(appCheck, false).catch(() => null);
 
 export function getUserPath() {
   const u = auth.currentUser;

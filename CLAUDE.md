@@ -225,8 +225,48 @@ Changes made:
 - reCAPTCHA v3 site key: `6LcF3-gsAAAAAHbr7DkcvqGLvyf4Yz5WZs1EOXJi`
 - **RTDB enforcement: ON** (Firebase Console, confirmed 2026-05-19). Console metrics over last 7 days show 97% verified / 1% outdated client / 0% unknown origin / 2% invalid — healthy. Stale earlier note in this section about "monitoring mode" was incorrect — RTDB has been enforced for some time.
 - **Cloud Functions enforcement: ON** (as of 2026-05-19). `askGemini` and `getCalendarToken` use `enforceAppCheck: true` in their `onRequest` options — Firebase v2 functions framework rejects requests without valid App Check tokens at the gateway, before the handler runs. Manual conditional `if (appCheckToken)` blocks removed as dead code. `getCalendarFeed` remains untouched (intentionally public for calendar app subscriptions).
-- **Authentication API enforcement: OFF** (monitoring mode, ~8% unverified — higher than RTDB; hold off enforcing until the cause is understood, likely the iOS popup-then-redirect login fallback losing the App Check token across the redirect).
+- **Authentication API enforcement: PLANNED — pending v58 deploy + verification.** Investigation traced the 8% Invalid telemetry to a race between `initializeAppCheck` (which loads reCAPTCHA from gstatic asynchronously) and the first Firebase Auth call. Three call sites raced: `signInWithPopup`/`signInWithRedirect` in `LoginScreen.jsx` fired on user click before App Check had its first token; `getRedirectResult(auth)` in `App.jsx` fired on app mount before App Check had its first token; and the redirect-return navigation reset the App Check context. **Fix (v58):** added `appCheckReady` exported from `firebase.js` — a `getToken(appCheck, false).catch(() => null)` promise that resolves when App Check has issued (or failed to issue) its first token. `LoginScreen.signIn` awaits `appCheckReady` before `signInWithPopup`. `App.jsx` auth listener awaits `appCheckReady` before `getRedirectResult`. Single-source dependency: one promise defined in `firebase.js`, consumed in two call sites. Fails open (catch returns null) so a network/reCAPTCHA failure doesn't deadlock auth — Firebase Auth's SDK independently retries attaching a token, and enforcement rejects cleanly rather than hanging. After v58 deploys and Invalid telemetry drops to RTDB's noise floor (~2%), flip Authentication enforcement in Firebase Console.
 - Note: `getAppCheck` is not exported by firebase v12's app-check package. Use the exported `appCheck` instance from `firebase.js` directly.
+
+### Verifying App Check Enforcement (DevTools recipe)
+
+Cloud Functions enforcement has no Firebase Console dashboard — the "View docs" link in the App Check console points to the same `enforceAppCheck: true` setup we use. To verify enforcement is actually live after a deploy, run these tests in Chrome DevTools on the live deployed app (`https://injectiontracker.web.app`):
+
+**Passive verification (just use the app, watch DevTools Network tab):**
+- Sign in, trigger a Cloud Function (Subscribe to Calendar in LogTab → `getCalendarToken`; or use AI Assistant / Resources tab → `askGemini`)
+- In Network tab, inspect the request headers — should see `X-Firebase-AppCheck: eyJraWQiOi...` (a JWT)
+- Any 401 from `*-pl4s2cxu2a-uc.a.run.app` after enforcement = App Check rejecting something; under normal use you should see zero 401s
+
+**Active verification — confirm gateway rejects unauthenticated requests:**
+
+In DevTools → **Console** tab, paste:
+```js
+fetch('https://askgemini-pl4s2cxu2a-uc.a.run.app/', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ prompt: 'test' })
+}).then(r => r.status).then(console.log)
+```
+Expected: `401`. Before enforcement, this rejected at the manual Auth check inside the handler with "Unauthorized: Missing token." After enforcement, the framework rejects at the gateway with an App Check–specific error before the handler ever runs.
+
+**Active verification — confirm authenticated requests without App Check token are blocked (the attacker scenario):**
+
+1. In Network tab, find a working `askgemini` or `getcalendartoken` request, copy the `Authorization: Bearer ...` value from Request Headers
+2. In Console, paste:
+```js
+fetch('https://askgemini-pl4s2cxu2a-uc.a.run.app/', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer <paste-token-here>'
+    // NOTE: no X-Firebase-AppCheck header
+  },
+  body: JSON.stringify({ prompt: 'test' })
+}).then(r => r.status).then(console.log)
+```
+Expected after enforcement: `401`. Before enforcement, this succeeded — the manual conditional check (`if (appCheckToken) {...}`) was bypassed when the header was absent, the request reached Gemini, and a response was returned. After enforcement, the framework rejects before the handler runs.
+
+If either active test *succeeds* (returns 200), enforcement did not take effect — re-run `firebase deploy --only functions` and re-test.
 
 ### Per-Record Log Writes & Atomic Vial Transactions (May 2026)
 Migrated logs from a single JSON array to individual RTDB nodes keyed by log ID. Added atomic transactions for vial deductions to prevent collision between two devices logging simultaneously.
@@ -300,13 +340,13 @@ All three functions are in `functions/index.js`:
 - Never intercepts: Firebase, Gemini, Google Auth, FDA, PubMed, Cloud Run
 - Auth redirect bypass: checks for `/__/auth/`, `apiKey`, `access_token`, `id_token`, `code`, `state` in URL to avoid intercepting Firebase Auth redirects
 - Bump `CACHE_VERSION` in `sw.js` on each deploy to force cache invalidation
-- Current version: `v57`
+- Current version: `v58`
 
 ---
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v57`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v58`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -513,6 +553,7 @@ Standing constraints that apply to all current and future work in this project:
 - **Architectural refactor: App.jsx cleanup** — Extracted `Header` into `src/components/ui/Header.jsx` and created a reusable `CircuitBreaker` component at `src/components/ui/CircuitBreaker.jsx`. Replaced hardcoded rate limit/crash screens in `App.jsx` and `ErrorBoundary.jsx` with the new unified `CircuitBreaker`. Transitioned to a "Thin Root, Thick Components" paradigm.
 - **CACHE_VERSION bumped to v40** (`public/sw.js`). Added fixes for the `navBar` styling object in `src/theme.js` to resolve stray/duplicate syntax errors from color changes.
 - **Sandbox fix and SW Bump**: Fixed comment-merge bug in `src/theme.js` where `export const colors` was commented out on line 6. CACHE_VERSION bumped to `v41`.
+- **Auth/App-Check race fix: `appCheckReady` promise gating sign-in and redirect-return (`src/services/firebase.js` + `src/LoginScreen.jsx` + `src/App.jsx`)** — Diagnosed the 8% Invalid telemetry on the Authentication API: `initializeAppCheck` returns synchronously but reCAPTCHA loads from `gstatic.com` asynchronously, so the first auth call (popup/redirect sign-in, or `getRedirectResult` on mount) typically beat App Check to the punch and went out with no token. Backend marked these as Invalid. **Fix:** exported `appCheckReady = getToken(appCheck, false).catch(() => null)` from `firebase.js` — a single promise that resolves once App Check has its first token (or definitively failed). `LoginScreen.signIn` awaits it before `signInWithPopup` / `signInWithRedirect`. `App.jsx` auth listener awaits it before `getRedirectResult`. Single source of truth for the readiness gate; no race-condition workarounds, no manual retry logic. Fails open: `.catch(() => null)` so a network failure doesn't hang auth indefinitely — Firebase Auth's SDK independently retries attaching the token, and if enforcement is on and the retry also fails, the request rejects cleanly. CACHE_VERSION bumped to `v58`. After deploy: verify sign-in flow works, then flip Authentication enforcement in Firebase Console (next step is `expected Invalid telemetry to drop from 8% to ~2%`).
 - **Cloud Functions App Check enforcement via `enforceAppCheck: true` (`functions/index.js` only)** — Investigated DevTools CSP eval warning, found reCAPTCHA v3 internals were the source (Function() calls in bot-scoring code), not an app-level issue. While investigating, discovered the existing App Check verification in `askGemini` and `getCalendarToken` was a conditional courtesy check — `if (appCheckToken) { verify }` — which means requests with no header at all bypassed the check. RTDB enforcement (Firebase Console, healthy 97% verified) had no equivalent on the Cloud Functions side. **Fix:** added `enforceAppCheck: true` to the `onRequest` options of both functions; removed the now-redundant manual `if (appCheckToken)` blocks (dead code under framework-level enforcement). The Firebase Functions v2 framework rejects requests without valid App Check tokens at the gateway, before the handler runs — same architectural pattern as the Console-level enforcement on managed services. `getCalendarFeed` intentionally untouched: ICS feed subscribers (Apple Calendar, Google Calendar) have no way to provide App Check tokens; that endpoint is protected by per-user calendar tokens instead. **No `CACHE_VERSION` bump:** SW caches static assets, not function endpoints — `firebase deploy` redeploys functions, enforcement begins immediately. **Trade-off accepted:** the ~2% of legitimate user requests where reCAPTCHA fails to issue a valid token will now surface as user-visible errors instead of silent telemetry; the `.catch(() => ({ token: '' }))` fallbacks in [LogTab.jsx:17](src/components/tabs/LogTab.jsx:17) and [gemini.js:39](src/services/gemini.js:39) still run but the empty token now produces a 401 instead of being accepted.
 - **Add standards-track `mobile-web-app-capable` meta alongside Apple-prefixed version (`index.html` only)** — Chrome DevTools warns that `<meta name="apple-mobile-web-app-capable">` is deprecated in favor of the W3C-standardized unprefixed `<meta name="mobile-web-app-capable">`. Added the unprefixed version alongside the existing Apple one — older iOS Safari still needs the prefixed form, modern browsers (and the spec) use the unprefixed form. Silences the DevTools deprecation warning without breaking iOS PWA install. CACHE_VERSION bumped to `v57`.
 - **Viewport `interactive-widget=overlays-content` to stop iOS keyboard auto-scrolling focused input (`index.html` viewport meta only)** — After v55, focusing the SearchDropdown TextInput caused iOS to aggressively auto-scroll the input to the top of the visible area above the keyboard, pushing the modal title and context above the input off-screen. Root cause: with `100lvh` keeping the layout at full screen height, iOS's default keyboard handling (`interactive-widget=resizes-visual`, the implicit default) scrolls the focused input into view — but with no layout compression to compensate, the scroll overshoots and hides context. **Fix:** added `interactive-widget=overlays-content` to the viewport meta. The keyboard now overlays content as a true overlay — iOS performs no auto-scroll, the input stays exactly where it was, and the keyboard simply covers whatever is below it. Tradeoff (accepted): the SearchDropdown panel rendered below the input is partially hidden behind the keyboard on small screens; user can still type and the dropdown filters live, surfacing top matches near the input. Architecturally clean: one property added to an already-existing meta tag, no JS, no scroll listeners, no SearchDropdown changes. Browser support: iOS Safari 17+, Chrome 108+ — PWAs on iOS use Safari engine. CACHE_VERSION bumped to `v56`.

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { colors, blur, shadow, navBar, layout, motion, radius, spacing, type } from './theme.js';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { auth, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
+import { auth, appCheckReady, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
 import { fetchInteractionsWithCache, fetchAllResources } from './services/gemini.js';
 import { getLocalDate, getLocalTime, parseLocalDate, getActiveDose, EMPTY_MED, NAV_TABS } from './constants.js';
@@ -133,7 +133,10 @@ export default function App() {
 
   // ── Auth listener ──────────────────────────────────────────────────
   useEffect(() => {
-    getRedirectResult(auth).catch(() => {});
+    // Wait for App Check token before processing redirect result so the
+    // post-redirect Auth backend call carries a valid App Check token.
+    // Prevents Invalid telemetry on the Authentication API during redirect-return.
+    appCheckReady.then(() => getRedirectResult(auth)).catch(() => {});
     const unsub = onAuthStateChanged(auth, u => {
       setUser(u);
       setAuthReady(true);
