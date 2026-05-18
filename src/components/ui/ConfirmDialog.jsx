@@ -39,8 +39,6 @@ export default ConfirmDialog;
 const styles = StyleSheet.create({
   card: {
     ...glass.modal,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     padding: 32,
     maxWidth: 340,
     width: '100%',

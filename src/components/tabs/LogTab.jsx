@@ -164,7 +164,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
     <View style={styles.container}>
 
       {/* Auto-Logger Status Bubble */}
-      <View style={[styles.autoLoggerCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
+      <View style={styles.autoLoggerCard}>
         <View style={styles.autoLoggerLeft}>
           <Text style={styles.autoLoggerTitle}>Auto-Logger</Text>
           <Text style={styles.autoLoggerStatus}>
@@ -182,7 +182,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
       </Pressable>
 
       {/* History Timeline Bubble */}
-      <View style={[styles.historyCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
+      <View style={styles.historyCard}>
         <Text style={styles.historyTitle}>Injection History</Text>
 
         {logs.length === 0 ? (
@@ -302,7 +302,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
       </View>
 
       {/* Calendar & CSV Export */}
-      <View style={[styles.exportCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
+      <View style={styles.exportCard}>
         <Text style={styles.exportTitle}>Export</Text>
         <Text style={styles.exportSub}>Share your protocols with a provider or archive your log history.</Text>
         <View style={styles.exportActions}>

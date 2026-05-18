@@ -340,8 +340,6 @@ const styles = StyleSheet.create({
   },
   statCard: {
     ...glass.card,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     flex: 1,
     borderRadius: 24,
     paddingVertical: 16,
@@ -365,8 +363,6 @@ const styles = StyleSheet.create({
   // ── Shared bubble ──────────────────────────────────────────────────
   bubble: {
     ...glass.card,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
   },
@@ -435,8 +431,6 @@ const styles = StyleSheet.create({
   },
   protocolList: {
     ...glass.card,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     overflow: 'hidden',
   },

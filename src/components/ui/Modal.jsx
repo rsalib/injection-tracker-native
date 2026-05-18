@@ -87,8 +87,6 @@ export default Modal;
 const styles = StyleSheet.create({
   card: {
     ...glass.modal,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     padding: 24,
     animationKeyframes: 'modalPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   },

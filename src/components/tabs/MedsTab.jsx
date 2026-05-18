@@ -106,7 +106,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
 
       {/* Interaction Monitor */}
       {activeMeds.length >= 2 && (
-        <View style={[styles.interactionCard, interactionError && styles.interactionCardError, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
+        <View style={[styles.interactionCard, interactionError && styles.interactionCardError]}>
           <View style={styles.interactionCardLeft}>
             <Text style={styles.interactionCardTitle}>AI Interaction Monitor</Text>
             <Text style={[
@@ -182,7 +182,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
             });
 
             return (
-              <Pressable key={m.id} onPress={() => toggleMed(m.id)} style={[styles.medCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
+              <Pressable key={m.id} onPress={() => toggleMed(m.id)} style={styles.medCard}>
                 {/* Header */}
                 <View style={styles.medCardHeader}>
                   <View style={styles.medCardHeaderTop}>

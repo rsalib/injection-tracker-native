@@ -190,8 +190,8 @@ export const glass = {
     borderTopColor: colors.borderHighTop,
     borderLeftColor: colors.borderHighLeft,
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-  },
-  cardBlur: {
+    // Backdrop blur bundled in so every card consumer gets the full glass effect
+    // via a single `...glass.card` spread — single source of truth.
     backdropFilter: 'blur(40px) saturate(180%)',
     WebkitBackdropFilter: 'blur(40px) saturate(180%)',
   },
@@ -205,8 +205,6 @@ export const glass = {
     borderTopColor: 'rgba(255, 255, 255, 0.12)',
     borderLeftColor: 'rgba(255, 255, 255, 0.06)',
     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
-  },
-  modalBlur: {
     backdropFilter: 'blur(40px) saturate(180%)',
     WebkitBackdropFilter: 'blur(40px) saturate(180%)',
   },

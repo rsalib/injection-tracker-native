@@ -261,7 +261,7 @@ export function Calculator() {
           </View>
 
           {stackData.peptides.map((p, idx) => (
-            <View key={p.id} style={[styles.peptideCard, { backdropFilter: blur.card, WebkitBackdropFilter: blur.card }]}>
+            <View key={p.id} style={styles.peptideCard}>
               {stackData.peptides.length > 1 && (
                 <Pressable
                   onPress={() => {

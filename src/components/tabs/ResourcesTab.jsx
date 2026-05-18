@@ -271,8 +271,6 @@ const styles = StyleSheet.create({
   },
   searchCard: {
     ...glass.card,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
   },
@@ -328,8 +326,6 @@ const styles = StyleSheet.create({
   },
   resultsCard: {
     ...glass.card,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
   },
@@ -454,8 +450,6 @@ const styles = StyleSheet.create({
   },
   libraryCard: {
     ...glass.card,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
   },

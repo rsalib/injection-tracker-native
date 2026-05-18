@@ -194,8 +194,6 @@ const styles = StyleSheet.create({
   },
   chatWindow: {
     ...glass.card,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     borderRadius: 32,
     padding: 24,
     minHeight: 460,
@@ -288,8 +286,6 @@ const styles = StyleSheet.create({
   },
   inputBar: {
     ...glass.card,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
     borderRadius: 100,
     borderColor: colors.borderSubtle,
     boxShadow: `0 4px 24px ${colors.shadowHeavy}, inset 0 1px 0 ${colors.borderHighlight}`,
