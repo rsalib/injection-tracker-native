@@ -26,7 +26,7 @@ export function PromptDialog({
       <View style={styles.card}>
         <Text style={styles.title}>{title}</Text>
         {message ? <Text style={styles.message}>{message}</Text> : null}
-        <TextInput
+        <TextInput id="field-promptdialog-18" name="field-promptdialog-18" nativeID="field-promptdialog-18"
           ref={inputRef}
           value={value}
           onChangeText={setValue}

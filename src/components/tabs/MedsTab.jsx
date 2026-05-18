@@ -336,7 +336,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
             {archiveExpanded && (
               <View style={styles.archiveList}>
                 {archivedMeds.length > 3 && (
-                  <TextInput
+                  <TextInput id="field-medstab-17" name="field-medstab-17" nativeID="field-medstab-17"
                     placeholder="Filter archive by name..."
                     placeholderTextColor={colors.textMuted}
                     value={archiveSearch}

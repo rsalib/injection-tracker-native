@@ -144,7 +144,7 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
 
       {/* Input bar */}
       <View style={styles.inputBar}>
-        <TextInput
+        <TextInput id="field-aiassistant-8" name="field-aiassistant-8" nativeID="field-aiassistant-8"
           value={input}
           onChangeText={setInput}
           onSubmitEditing={send}

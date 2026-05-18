@@ -57,6 +57,8 @@ export function QueueVialModal({ med, onClose, onSave }) {
                   {/* pill input — raw HTML */}
                   <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 120 }}>
                     <input
+                      id={`pep-total-${p.id}`}
+                      name={`pep-total-${p.id}`}
                       type="number"
                       value={p.vialTotal}
                       onChange={e => { const n = [...peptides]; n[idx].vialTotal = e.target.value; setPeptides(n); }}
@@ -73,7 +75,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
         ) : (
           <View style={styles.field}>
             <Text style={styles.lbl}>Vial Size ({med.vialUnit || med.unit})</Text>
-            <TextInput
+            <TextInput id="field-queuevialmodal-6" name="field-queuevialmodal-6" nativeID="field-queuevialmodal-6"
               style={styles.inp}
               value={String(vialTotal)}
               onChangeText={setVialTotal}
@@ -86,7 +88,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
 
         <View style={styles.field}>
           <Text style={styles.lbl}>Bacteriostatic Water Added (mL)</Text>
-          <TextInput
+          <TextInput id="field-queuevialmodal-7" name="field-queuevialmodal-7" nativeID="field-queuevialmodal-7"
             style={styles.inp}
             value={String(bwAdded)}
             onChangeText={setBwAdded}
@@ -99,6 +101,8 @@ export function QueueVialModal({ med, onClose, onSave }) {
           <Text style={styles.lbl}>Start Date</Text>
           {/* date input — raw HTML */}
           <input
+            id="start-date"
+            name="start-date"
             type="date"
             value={startDate}
             onChange={e => setStartDate(e.target.value)}

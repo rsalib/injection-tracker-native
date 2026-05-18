@@ -298,13 +298,13 @@ All three functions are in `functions/index.js`:
 - Never intercepts: Firebase, Gemini, Google Auth, FDA, PubMed, Cloud Run
 - Auth redirect bypass: checks for `/__/auth/`, `apiKey`, `access_token`, `id_token`, `code`, `state` in URL to avoid intercepting Firebase Auth redirects
 - Bump `CACHE_VERSION` in `sw.js` on each deploy to force cache invalidation
-- Current version: `v32`
+- Current version: `v41`
 
 ---
 
 ## Deploy Workflow
 
-**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v32`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
+**Before every deploy:** bump `CACHE_VERSION` in `public/sw.js` (currently `v41`). Skipping this means users continue to receive stale cached assets indefinitely — the old SW never picks up the new build.
 
 **Deploy command:**
 ```
@@ -354,14 +354,13 @@ Returns `true` only if the cached value is both within the 60-second TTL **and**
 - Primary action buttons use `linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)`
 - **Styling in this project:** All component styles are React Native `StyleSheet` objects, not inline CSS or web style objects. The web CSS constants (`inpStyle`, `labelStyle`, `wellStyle`) from v2 are not carried over — equivalents will be defined in `src/styles.js` as components are migrated.
 
-### GitHub
-Preferred workflow is **GitHub Desktop** (visual, no command line). User does not want to use git CLI commands.
+
 
 ---
 
 ## Environment Notes
 - **Real project:** `/Users/rsalib/Desktop/injection-tracker-native` (this folder)
-- **Reference project:** `/Users/rsalib/Desktop/injection-tracker-v2` (current production, read-only for migration purposes)
+
 
 ---
 
@@ -508,7 +507,11 @@ Standing constraints that apply to all current and future work in this project:
 - **Theme migration batch 8** — Swept `AddMedModal`, `LogFormModal`, `QueueVialModal`, `TitrationModal`, and `Calculator` to remove hardcoded visual values (`rgba`, hex, `blur()`, etc.) and replaced them with standard tokens from `theme.js`. Added missing `stackBadgeBg`, `tealDeep`, `cyanBorder`, etc. to `theme.js`. Build clean at 228 KB gzipped.
 - **Theme stabilization & bug fixes** — Added missing `colors` import to `constants.js` to fix `ReferenceError`. Fixed `LogTab.jsx` fatal text node crash by changing `{l.notes && (` to `{!!l.notes && (` to prevent empty strings rendering as bare text nodes in React Native for Web.
 - **QA Pass Fixes** — Found and fixed three UI components (`SortBar.jsx`, `Modal.jsx`, `ErrorBoundary.jsx`) that were improperly importing the raw React Native `Pressable` component. Migrated them to correctly import the custom `../ui/Pressable.jsx` animated wrapper.
-- **CACHE_VERSION bumped to v35** (`public/sw.js`).
+- **CSP and Accessibility Hardening** — Updated `index.html` with a strict `Content-Security-Policy` meta tag allowing `'unsafe-eval'` (for Vite dev server) and whitelisting `https://www.google.com` and `https://www.gstatic.com` for Firebase App Check ReCAPTCHA. Created and ran a script to inject unique `id`, `name`, and `nativeID` attributes into all React Native `<TextInput>` elements and raw HTML `<input>` elements across all modals and tabs to satisfy browser accessibility and autofill requirements.
+- **Architectural refactor: App.jsx cleanup** — Extracted `Header` into `src/components/ui/Header.jsx` and created a reusable `CircuitBreaker` component at `src/components/ui/CircuitBreaker.jsx`. Replaced hardcoded rate limit/crash screens in `App.jsx` and `ErrorBoundary.jsx` with the new unified `CircuitBreaker`. Transitioned to a "Thin Root, Thick Components" paradigm.
+- **CACHE_VERSION bumped to v40** (`public/sw.js`). Added fixes for the `navBar` styling object in `src/theme.js` to resolve stray/duplicate syntax errors from color changes.
+- **Sandbox fix and SW Bump**: Fixed comment-merge bug in `src/theme.js` where `export const colors` was commented out on line 6. CACHE_VERSION bumped to `v41`.
+- **Apple system color alignment (theme.js only)** — Migrated remaining Tailwind/custom colors to Apple iOS dark-mode system equivalents. Purple family swapped to **systemPurple** (`#bf5af2` base / `#da8fff` vibrant): `colors.purple` `#c084fc → #bf5af2`, `colors.purpleLight` and `badge.purple.text` `#d8b4fe → #da8fff`, `colors.purpleBorderBright` `#a855f7 → #bf5af2`, all `rgba(168, 85, 247, …)` → `rgba(191, 90, 242, …)` (purpleMid/purpleBorder/purpleSoft/purpleFaint/badge.purple.bg/badge.purple.border). Gray text swapped to **systemGray / systemGray2** (dark): `#9ca3af → #8e8e93` (textSecondary, badge.gray.text, navBar.label.color), `#6b7280 → #636366` (textMuted, navBar.iconInactive), `rgba(107, 114, 128, …)` → `rgba(142, 142, 147, …)` (grayBorder, graySoft, badge.gray.bg, badge.gray.border). Intentionally left alone: `purpleDarkBg`/`purpleDarkBorder`/`purpleDeepSoft` (no Apple equivalent for deep-purple chrome), all base backgrounds (`bg`, `bgMid*`, `navy`), amber `alert.*` palette, `textTertiary`/`textLight`/`textPrimary`. No component files touched — all changes confined to `src/theme.js`. CACHE_VERSION bumped to `v42`.
 
 ### Remaining
 - **Step 10 (next):** Add Metro for native iOS/Android build, App Store submission

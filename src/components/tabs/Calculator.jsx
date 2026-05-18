@@ -134,7 +134,7 @@ export function Calculator() {
           <View style={styles.col}>
             <Text style={styles.fieldLabel}>SYRINGE VOLUME</Text>
             <View style={styles.pillWrapper}>
-              <TextInput
+              <TextInput id="field-calculator-9" name="field-calculator-9" nativeID="field-calculator-9"
                 style={styles.pillInput}
                 keyboardType="decimal-pad"
                 value={sylMl}
@@ -147,7 +147,7 @@ export function Calculator() {
           <View style={styles.col}>
             <Text style={styles.fieldLabel}>SYRINGE UNITS</Text>
             <View style={styles.pillWrapper}>
-              <TextInput
+              <TextInput id="field-calculator-10" name="field-calculator-10" nativeID="field-calculator-10"
                 style={styles.pillInput}
                 keyboardType="decimal-pad"
                 value={sylU}
@@ -169,7 +169,7 @@ export function Calculator() {
               <View style={styles.col}>
                 <Text style={styles.fieldLabel}>VIAL TOTAL</Text>
                 <View style={styles.pillWrapper}>
-                  <TextInput
+                  <TextInput id="field-calculator-11" name="field-calculator-11" nativeID="field-calculator-11"
                     style={styles.pillInput}
                     keyboardType="decimal-pad"
                     value={singleData.vialMg}
@@ -184,7 +184,7 @@ export function Calculator() {
               <View style={styles.col}>
                 <Text style={styles.fieldLabel}>BW ADDED</Text>
                 <View style={styles.pillWrapper}>
-                  <TextInput
+                  <TextInput id="field-calculator-12" name="field-calculator-12" nativeID="field-calculator-12"
                     style={styles.pillInput}
                     keyboardType="decimal-pad"
                     value={singleData.bwMl}
@@ -202,7 +202,7 @@ export function Calculator() {
           <View>
             <Text style={styles.lbl}>Target Dose</Text>
             <View style={styles.pillWrapper}>
-              <TextInput
+              <TextInput id="field-calculator-13" name="field-calculator-13" nativeID="field-calculator-13"
                 style={styles.pillInput}
                 keyboardType="decimal-pad"
                 value={singleData.doseAmount}
@@ -213,6 +213,8 @@ export function Calculator() {
               <View style={styles.pillDivider} />
               {/* <select> kept as native HTML per migration rules */}
               <select
+                id="field-calculator-unit-single"
+                name="field-calculator-unit-single"
                 style={selectStyle}
                 value={singleData.doseUnit}
                 onChange={e => {
@@ -245,7 +247,7 @@ export function Calculator() {
             <Text style={styles.lbl}>Shared Reconstitution</Text>
             <Text style={styles.fieldLabel}>BW ADDED (TOTAL)</Text>
             <View style={styles.pillWrapper}>
-              <TextInput
+              <TextInput id="field-calculator-14" name="field-calculator-14" nativeID="field-calculator-14"
                 style={styles.pillInput}
                 keyboardType="decimal-pad"
                 value={stackData.bwMl}
@@ -279,7 +281,7 @@ export function Calculator() {
                 <View style={styles.col}>
                   <Text style={styles.fieldLabel}>VIAL TOTAL</Text>
                   <View style={styles.pillWrapper}>
-                    <TextInput
+                    <TextInput id="field-calculator-15" name="field-calculator-15" nativeID="field-calculator-15"
                       style={styles.pillInput}
                       keyboardType="decimal-pad"
                       value={p.vialMg}
@@ -298,7 +300,7 @@ export function Calculator() {
                 <View style={styles.col}>
                   <Text style={styles.fieldLabel}>TARGET DOSE</Text>
                   <View style={styles.pillWrapper}>
-                    <TextInput
+                    <TextInput id="field-calculator-16" name="field-calculator-16" nativeID="field-calculator-16"
                       style={styles.pillInput}
                       keyboardType="decimal-pad"
                       value={p.doseAmount}
@@ -308,6 +310,8 @@ export function Calculator() {
                     />
                     <View style={styles.pillDivider} />
                     <select
+                      id={`field-calculator-unit-stack-${idx}`}
+                      name={`field-calculator-unit-stack-${idx}`}
                       style={selectStyle}
                       value={p.doseUnit}
                       onChange={e => handleStackUnitChange(idx, e.target.value)}

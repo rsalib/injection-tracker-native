@@ -50,6 +50,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Medication</Text>
           <select
+            id="addschedule-med" name="addschedule-med"
             style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
             value={medId}
             onChange={e => handleMedSelect(e.target.value)}
@@ -79,6 +80,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Injection Time</Text>
           <input
+            id="addschedule-time" name="addschedule-time"
             type="time"
             value={time}
             onChange={e => setTime(e.target.value)}
@@ -90,7 +92,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         <View style={styles.row2}>
           <View style={styles.doseField}>
             <Text style={styles.lbl}>Dose</Text>
-            <TextInput
+            <TextInput id="field-addschedulemodal-2" name="field-addschedulemodal-2" nativeID="field-addschedulemodal-2"
               style={styles.inp}
               value={dose}
               onChangeText={setDose}
@@ -102,6 +104,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
           <View style={styles.unitField}>
             <Text style={styles.lbl}>Unit</Text>
             <select
+              id="addschedule-unit" name="addschedule-unit"
               style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
               value={unit}
               onChange={e => setUnit(e.target.value)}
@@ -115,6 +118,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Injection Site</Text>
           <select
+            id="addschedule-site" name="addschedule-site"
             style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
             value={site}
             onChange={e => setSite(e.target.value)}
@@ -126,7 +130,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         {/* Notes */}
         <View style={styles.field}>
           <Text style={styles.lbl}>Notes (optional)</Text>
-          <TextInput
+          <TextInput id="field-addschedulemodal-3" name="field-addschedulemodal-3" nativeID="field-addschedulemodal-3"
             style={styles.inp}
             value={notes}
             onChangeText={setNotes}

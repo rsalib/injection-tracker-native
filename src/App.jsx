@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import { colors, blur, shadow } from './theme.js';
+import { colors, blur, shadow, navBar } from './theme.js';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { auth, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
@@ -23,6 +23,8 @@ import { QueueVialModal } from './components/modals/QueueVialModal.jsx';
 import { LogFormModal } from './components/modals/LogFormModal.jsx';
 import { AddScheduleModal } from './components/modals/AddScheduleModal.jsx';
 import { Pressable } from './components/ui/Pressable.jsx';
+import { CircuitBreaker } from './components/ui/CircuitBreaker.jsx';
+import { Header } from './components/ui/Header.jsx';
 
 const TAB_ICONS = {
   Dashboard:    DashboardIcon,
@@ -718,39 +720,20 @@ export default function App() {
   if (!user) return <LoginScreen />;
 
   if (circuitTripped) return (
-    <View style={styles.circuitScreen}>
-      <Text style={styles.circuitIcon}>🛑</Text>
-      <Text style={styles.circuitTitle}>Safety Lock Activated</Text>
-      <Text style={styles.circuitBody}>
-        The app has paused cloud syncing because it detected abnormal database activity (over 100 requests in this session).{'\n\n'}
-        This protects your account from excessive billing. If you were just using the app normally, you can safely reset the counter below.
-      </Text>
-      <Pressable
-        onPress={() => {
-          sessionStorage.removeItem('fb_breaker_tripped');
-          sessionStorage.setItem('fb_call_count', '0');
-          window.location.reload();
-        }}
-        style={styles.circuitBtn}
-      >
-        <Text style={styles.circuitBtnText}>RESET AND REFRESH</Text>
-      </Pressable>
-    </View>
+    <CircuitBreaker
+      icon="🛑"
+      title="Safety Lock Activated"
+      message="The app has paused cloud syncing because it detected abnormal database activity (over 100 requests in this session). This protects your account from excessive billing. If you were just using the app normally, you can safely reset the counter below."
+      buttonText="RESET COUNTER"
+      onAction={() => {
+        sessionStorage.removeItem('fb_breaker_tripped');
+        sessionStorage.setItem('fb_call_count', '0');
+        window.location.reload();
+      }}
+    />
   );
 
   const firstName = user.displayName ? user.displayName.split(' ')[0].toUpperCase() : 'MY';
-
-  const scText =
-    syncStatus === 'synced' ? 'Synced' :
-    syncStatus === 'saving' ? 'Saving...' :
-    syncStatus === 'error'  ? 'Error – tap 🔄' :
-    'Loading...';
-
-  const syncDotStyle =
-    syncStatus === 'synced' ? styles.dotSynced :
-    syncStatus === 'saving' ? styles.dotSaving :
-    syncStatus === 'error'  ? styles.dotError  :
-    styles.dotIdle;
 
   return (
     <ErrorBoundary>
@@ -772,55 +755,19 @@ export default function App() {
       </svg>
 
       {/* ── Header ─────────────────────────────────────────────────── */}
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
-      <View className="header-wrap" style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]} onStartShouldSetResponder={() => true}>
-        <View style={styles.headerCard}>
-
-          {/* Title + sync status / logout */}
-          <View style={styles.headerTop}>
-            <View>
-              <Text style={styles.headerTitle}>{firstName} TRACKER</Text>
-              <View style={styles.syncRow}>
-                <View style={[styles.syncDot, syncDotStyle]} />
-                <Text style={styles.syncLabel}>{scText}</Text>
-              </View>
-            </View>
-            <Pressable onPress={() => signOut(auth)} style={[styles.logoutBtn, { alignItems: 'center' }]}>
-              <Text style={styles.logoutText}>LOGOUT</Text>
-            </Pressable>
-          </View>
-
-          {/* Action buttons */}
-          <View style={styles.actionRow}>
-            <Pressable
-              onPress={async () => {
-                setSyncStatus('saving');
-                await syncAllPending();
-                await load();
-              }}
-              style={styles.syncBtn}
-            >
-              <View style={styles.syncBtnInner}>
-                <Text>{syncStatus === 'saving' ? '⏳' : '🔄'}</Text>
-                <Text style={styles.syncBtnText}>Sync</Text>
-              </View>
-              {pendingCount > 0 && <View style={styles.pendingDot} />}
-            </Pressable>
-
-            <Pressable onPress={exportBackup} style={styles.actionBtn}>
-              <Text style={styles.actionBtnText}>💾 Backup</Text>
-            </Pressable>
-
-            {/* Restore — raw HTML label+file-input (DOM-specific, like <select>/<a>) */}
-            <label style={{ flex: 1, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderSubtle, borderRadius: 100, padding: 10, alignItems: 'center', justifyContent: 'center', cursor: 'pointer', display: 'flex', boxSizing: 'border-box' }}>
-              <span style={{ color: colors.white, fontSize: 12, fontWeight: 800 }}>📂 Restore</span>
-              <input type="file" accept=".json" style={{ display: 'none' }} onChange={importBackup} />
-            </label>
-          </View>
-
-        </View>
-      </View>
-      </div>
+      <Header
+        firstName={firstName}
+        syncStatus={syncStatus}
+        pendingCount={pendingCount}
+        onSync={async () => {
+          setSyncStatus('saving');
+          await syncAllPending();
+          await load();
+        }}
+        onExport={exportBackup}
+        onImport={importBackup}
+        onLogout={() => signOut(auth)}
+      />
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
       <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" bounces={false} overScrollMode="never">
@@ -913,7 +860,7 @@ export default function App() {
                 onPress={() => setActiveTab(t.id)}
                 accessibilityLabel={t.id}
                 accessibilityRole="button"
-                style={[styles.tabBtn, active && styles.tabBtnActive, { color: active ? colors.cyan : colors.textSecondary }]}
+                style={[styles.tabBtn, active && styles.tabBtnActive, { color: active ? navBar.iconActive : navBar.iconInactive }]}
               >
                 <Icon active={active} />
                 {active && (
@@ -1013,169 +960,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bg,
   },
 
-  // ── Circuit breaker screen ─────────────────────────────────────────
-  circuitScreen: {
-    flex: 1,
-    backgroundColor: colors.bg,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 32,
-    minHeight: '100vh',
-  },
-  circuitIcon: {
-    fontSize: 72,
-    marginBottom: 24,
-  },
-  circuitTitle: {
-    color: colors.errorStrong,
-    fontSize: 28,
-    fontWeight: '900',
-    marginBottom: 16,
-    letterSpacing: -0.56,
-    textAlign: 'center',
-  },
-  circuitBody: {
-    color: colors.textSecondary,
-    fontSize: 16,
-    marginBottom: 32,
-    lineHeight: 26,
-    maxWidth: 400,
-    textAlign: 'center',
-  },
-  circuitBtn: {
-    backgroundColor: colors.errorStrong, // TODO: expo-linear-gradient(135deg, #7f1d1d 0%, #ef4444 100%)
-    borderRadius: 100,
-    paddingVertical: 18,
-    paddingHorizontal: 32,
-    cursor: 'pointer',
-    boxShadow: `0 10px 25px -5px ${colors.errorDeepMid}`,
-  },
-  circuitBtnText: {
-    color: colors.white,
-    fontSize: 16,
-    fontWeight: '900',
-  },
-
-  // ── Header — full-bleed, no maxWidth constraint ─────────────────
-  headerWrap: {
-    paddingTop: 16,
-    paddingHorizontal: 16,
-    paddingBottom: 10,
-    touchAction: 'none',
-  },
-  headerCard: {
-    backgroundColor: colors.surfaceCardMid,
-    backdropFilter: blur.header,
-    WebkitBackdropFilter: blur.header,
-    borderRadius: 24,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    borderTopColor: colors.borderHighTop,
-    borderLeftColor: colors.borderHighLeft,
-    boxShadow: `0 8px 32px ${colors.shadowHeavy}, inset 0 1px 0 ${colors.borderHighlight}`,
-  },
-  headerTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '900',
-    color: colors.white,
-    letterSpacing: -0.54,
-  },
-  syncRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 2,
-  },
-  syncDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-  },
-  dotSynced: { backgroundColor: colors.success, boxShadow: `0 0 8px ${colors.cyanHeavy}, 0 0 16px ${colors.cyanDeep}` },
-  dotSaving: { backgroundColor: colors.syncSaving },
-  dotError:  { backgroundColor: colors.error },
-  dotIdle:   { backgroundColor: colors.textSecondary },
-  syncLabel: {
-    fontSize: 10,
-    color: colors.textSecondary,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  logoutBtn: {
-    backgroundColor: colors.errorSoft,
-    borderRadius: 12,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    cursor: 'pointer',
-  },
-  logoutText: {
-    color: colors.error,
-    fontSize: 11,
-    fontWeight: '800',
-  },
-  actionRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 16,
-  },
-  syncBtn: {
-    flex: 1,
-    position: 'relative',
-    backgroundColor: colors.cyanDim,
-    borderWidth: 1,
-    borderColor: colors.cyanMid,
-    borderRadius: 100,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-  },
-  syncBtnInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  syncBtnText: {
-    color: colors.cyan,
-    fontSize: 12,
-    fontWeight: '800',
-  },
-  pendingDot: {
-    position: 'absolute',
-    top: -2,
-    right: 10,
-    width: 10,
-    height: 10,
-    backgroundColor: colors.syncPending,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: colors.bgMid,
-    boxShadow: `0 0 8px ${colors.syncPending}`,
-  },
-  actionBtn: {
-    flex: 1,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    borderRadius: 100,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-  },
-  actionBtnText: {
-    color: colors.white,
-    fontSize: 12,
-    fontWeight: '800',
-  },
-
   // ── Content — constrained to 672px matching v2 ─────────────────
   scrollArea: {
     position: 'absolute',
@@ -1206,18 +990,12 @@ const styles = StyleSheet.create({
     touchAction: 'none',
   },
   tabBarCapsule: {
+    ...navBar.capsule,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingVertical: 8,
     paddingHorizontal: 12,
-    backgroundColor: colors.borderFaint2,
-    backdropFilter: blur.card,
-    WebkitBackdropFilter: blur.card,
-    borderRadius: 100,
-    borderWidth: 1,
-    borderColor: colors.borderHighLeft,
-    boxShadow: `0 4px 24px ${colors.shadowDeep}, inset 0 1px 0 ${colors.borderSubtle}`,
     width: '100%',
     maxWidth: 500,
   },
@@ -1234,14 +1012,13 @@ const styles = StyleSheet.create({
   },
   tabBtnActive: {
     flex: 1.2,
-    backgroundColor: colors.cyanSoftBorder,
+    ...navBar.btnActive,
   },
   tabLabel: {
     fontSize: 9,
     fontWeight: '800',
     textTransform: 'uppercase',
-    color: colors.cyan,
     letterSpacing: 0.45,
-    textShadow: `0 0 12px ${colors.cyanGlass}`,
+    ...navBar.label,
   },
 });

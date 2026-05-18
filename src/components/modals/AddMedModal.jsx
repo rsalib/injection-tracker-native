@@ -225,7 +225,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
         <View style={styles.well}>
           <Text style={styles.lbl}>Reconstitution Volume</Text>
           <Text style={styles.hint}>TOTAL BW ADDED (mL)</Text>
-          <TextInput
+          <TextInput id="field-addmedmodal-1" name="field-addmedmodal-1" nativeID="field-addmedmodal-1"
             style={styles.inp}
             value={form.bwAdded}
             onChangeText={v => set('bwAdded', v)}
@@ -277,7 +277,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
               <View style={styles.flex1}>
                 <Text style={styles.hint}>VIAL TOTAL</Text>
                 <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
-                  <input type="number" value={p.vialTotal} placeholder="e.g. 5" onChange={e => { const n = [...peptides]; n[idx].vialTotal = e.target.value; setPeptides(n); }} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+                  <input id={`pep-vial-${idx}`} name={`pep-vial-${idx}`} type="number" value={p.vialTotal} placeholder="e.g. 5" onChange={e => { const n = [...peptides]; n[idx].vialTotal = e.target.value; setPeptides(n); }} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
                   <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
                   <select value={p.vialUnit} onChange={e => { const n = [...peptides]; n[idx].vialUnit = e.target.value; setPeptides(n); }} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: colors.white, padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                     <option style={{color:'black'}}>mg</option><option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>IU</option>
@@ -287,7 +287,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
               <View style={styles.flex1}>
                 <Text style={styles.hintCyan}>TARGET DOSE</Text>
                 <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.cyanBorder}`, borderRadius: '100px', overflow: 'hidden' }}>
-                  <input type="number" value={p.dose} placeholder="e.g. 250" onChange={e => handleStackDoseChange(idx, e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+                  <input id={`pep-dose-${idx}`} name={`pep-dose-${idx}`} type="number" value={p.dose} placeholder="e.g. 250" onChange={e => handleStackDoseChange(idx, e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
                   <div style={{ width: 1, background: colors.cyanBorder, margin: '8px 0' }} />
                   <select value={p.unit} onChange={e => handleStackUnitChange(idx, e.target.value)} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: colors.white, padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                     <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option>
@@ -312,9 +312,9 @@ export function MedForm({ initial, onSave, onClose, title }) {
             <Text style={styles.lbl}>Start Date & Time</Text>
             {/* date + time inputs — raw HTML */}
             <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
-              <input type="date" value={form.startDate || ''} onChange={e => set('startDate', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+              <input id="addmed-start-date" name="addmed-start-date" type="date" value={form.startDate || ''} onChange={e => set('startDate', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
               <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
-              <input type="time" value={form.injectionTime || ''} onChange={e => set('injectionTime', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+              <input id="addmed-inj-time" name="addmed-inj-time" type="time" value={form.injectionTime || ''} onChange={e => set('injectionTime', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
             </div>
           </View>
           <View>

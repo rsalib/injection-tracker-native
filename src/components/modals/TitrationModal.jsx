@@ -116,7 +116,7 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                       <Text style={styles.stackPepName}>{p.name.split('(')[0].trim()}</Text>
                       {/* pill input — raw HTML */}
                       <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 100 }}>
-                        <input type="number" value={p.dose} onChange={e => handleStepDoseChange(idx, e.target.value)} placeholder="0" style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.cyan, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }} />
+                        <input id={`titration-pep-${idx}`} name={`titration-pep-${idx}`} type="number" value={p.dose} onChange={e => handleStepDoseChange(idx, e.target.value)} placeholder="0" style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.cyan, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }} />
                         <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
                         <div style={{ padding: '8px', fontSize: 11, color: colors.textSecondary, fontWeight: 800 }}>{p.unit}</div>
                       </div>
@@ -133,9 +133,9 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                 <Text style={styles.lbl}>New Dose & Unit</Text>
                 {/* dose + unit pill — raw HTML */}
                 <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
-                  <input type="number" value={newDose} onChange={e => setNewDose(e.target.value)} placeholder={med.dose} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+                  <input id="titration-new-dose" name="titration-new-dose" type="number" value={newDose} onChange={e => setNewDose(e.target.value)} placeholder={med.dose} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
                   <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
-                  <select value={newUnit} onChange={e => setNewUnit(e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
+                  <select id="titration-new-unit" name="titration-new-unit" value={newUnit} onChange={e => setNewUnit(e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                     <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option>
                   </select>
                 </div>

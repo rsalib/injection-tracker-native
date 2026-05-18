@@ -4,7 +4,6 @@
 // =============================================================================
 // COLORS
 // =============================================================================
-
 export const colors = {
   // Base backgrounds
   bg: '#111827',
@@ -14,7 +13,7 @@ export const colors = {
   bgMid3: '#4b5563',
   bgFallback: '#121212',
   navy: '#0f172a',
-  loginGradientStop: '#164e63',
+  loginGradientStop: '#0a2e5c', // Apple Deep Blue stop
 
   // Translucent surfaces (most common card/well bgs)
   surface: 'rgba(255, 255, 255, 0.05)',
@@ -40,127 +39,127 @@ export const colors = {
   borderHighLeft: 'rgba(255, 255, 255, 0.12)',
   borderHighlight: 'rgba(255, 255, 255, 0.15)',
 
-  // Primary brand — cyan family
-  cyan: '#22d3ee',
-  cyanLight: '#67e8f9',
-  cyanFaint: 'rgba(34, 211, 238, 0.05)',
-  cyanDim: 'rgba(34, 211, 238, 0.1)',
-  cyanMid: 'rgba(34, 211, 238, 0.2)',
-  primary: '#0e7490',
+  // Primary brand — mapped to Apple System Blue family
+  cyan: '#0a84ff',
+  cyanLight: '#64d2ff',
+  cyanFaint: 'rgba(10, 132, 255, 0.05)',
+  cyanDim: 'rgba(10, 132, 255, 0.1)',
+  cyanMid: 'rgba(10, 132, 255, 0.2)',
+  primary: '#0a84ff',
 
   // Text
   white: '#ffffff',
   textPrimary: '#f9fafb',
-  textSecondary: '#9ca3af',
-  textMuted: '#6b7280',
+  textSecondary: '#8e8e93',
+  textMuted: '#636366',
   textTertiary: '#d1d5db',
   textLight: '#e5e7eb',
   textSortLabel: '#b0b8c4',
-  textAmber: '#fde68a',
-  textGreen: '#86efac',
-  textCyan: '#22d3ee',
+  textAmber: '#ffd60a',
+  textGreen: '#30d158',
+  textCyan: '#0a84ff',
 
   // Semantic
-  error: '#f87171',
-  errorStrong: '#ef4444',
-  errorStrongBg: 'rgba(239, 68, 68, 0.15)',
-  errorLight: '#fca5a5',
-  errorSoft: 'rgba(248, 113, 113, 0.1)',
-  success: '#4ade80',
-  amber: '#fbbf24',
-  amberWarm: '#fbbf24',
+  error: '#ff453a',
+  errorStrong: '#ff3b30',
+  errorStrongBg: 'rgba(255, 69, 58, 0.15)',
+  errorLight: '#ff6961',
+  errorSoft: 'rgba(255, 69, 58, 0.1)',
+  success: '#30d158',
+  amber: '#ffd60a',
+  amberWarm: '#ffd60a',
 
-  // Accents
-  purple: '#c084fc',
-  purpleLight: '#d8b4fe',
+  // Accents — Apple systemPurple (dark base / vibrant)
+  purple: '#bf5af2',
+  purpleLight: '#da8fff',
 
   // Dropdown (light-on-dark portal overlay)
   dropdownBg: '#f3f4f6',
   dropdownDivider: 'rgba(0, 0, 0, 0.06)',
 
   // Sync indicators
-  syncPending: '#f97316',
-  syncSaving: '#facc15',
+  syncPending: '#ff9f0a', // Apple System Orange
+  syncSaving: '#ffd60a', // Apple System Yellow
 
-  cyanBorder: 'rgba(34,211,238,0.3)',
-  cyanGlowSoft: 'rgba(34,211,238,0.25)',
-  errorDeepBg: 'rgba(69,10,10,0.4)',
-  errorDeepBorder: 'rgba(153,27,27,0.5)',
-  stackBadgeBg: 'rgba(113,63,18,0.6)',
-  tealDeep: 'rgba(8,51,68,0.4)',
-  tealBorder: 'rgba(21,94,117,0.3)',
-  tealBorderFaint: 'rgba(21,94,117,0.2)',
+  cyanBorder: 'rgba(10, 132, 255, 0.3)',
+  cyanGlowSoft: 'rgba(10, 132, 255, 0.25)',
+  errorDeepBg: 'rgba(255, 69, 58, 0.2)',
+  errorDeepBorder: 'rgba(255, 69, 58, 0.4)',
+  stackBadgeBg: 'rgba(255, 214, 10, 0.15)',
+  tealDeep: 'rgba(10, 132, 255, 0.15)',
+  tealBorder: 'rgba(10, 132, 255, 0.25)',
+  tealBorderFaint: 'rgba(10, 132, 255, 0.12)',
 
   // Missing error colors
-  errorSoftBg: 'rgba(248, 113, 113, 0.3)',
-  errorSoftFaint: 'rgba(248, 113, 113, 0.15)',
-  errorDeepMid: 'rgba(239, 68, 68, 0.4)',
-  errorBright: 'rgba(239, 68, 68, 0.8)',
-  errorFaint: 'rgba(239, 68, 68, 0.2)',
-  errorDark: 'rgba(127, 29, 29, 0.6)',
-  errorDarkMid: 'rgba(127, 29, 29, 0.4)',
-  errorDarkestSolid: 'rgba(69, 10, 10, 0.95)',
-  errorDarkest: '#450a0a',
-  errorDarkBg: '#3b0a0a',
-  errorDarkBorder: '#7f1d1d',
-  errorDarkBorderAlt: '#991b1b',
+  errorSoftBg: 'rgba(255, 69, 58, 0.3)',
+  errorSoftFaint: 'rgba(255, 69, 58, 0.15)',
+  errorDeepMid: 'rgba(255, 69, 58, 0.4)',
+  errorBright: 'rgba(255, 69, 58, 0.8)',
+  errorFaint: 'rgba(255, 69, 58, 0.2)',
+  errorDark: 'rgba(255, 69, 58, 0.6)',
+  errorDarkMid: 'rgba(255, 69, 58, 0.4)',
+  errorDarkestSolid: 'rgba(100, 10, 10, 0.95)',
+  errorDarkest: '#4a0e0e',
+  errorDarkBg: '#3d0707',
+  errorDarkBorder: '#7a1212',
+  errorDarkBorderAlt: '#941818',
 
   // Missing success colors
-  successBorder: 'rgba(34, 197, 94, 0.3)',
-  successSoft: 'rgba(34, 197, 94, 0.15)',
-  successDeep: 'rgba(16, 185, 129, 0.4)',
-  successDark: 'rgba(22, 101, 52, 0.6)',
-  successDarkestSolid: 'rgba(20, 83, 45, 0.95)',
-  successDarkSoft: 'rgba(20, 83, 45, 0.3)',
-  successLightSoft: 'rgba(134, 239, 172, 0.4)',
-  successLightFaint: 'rgba(134, 239, 172, 0.1)',
-  successDarkBg: '#166534',
-  successDarkest: '#14532d',
+  successBorder: 'rgba(48, 209, 88, 0.3)',
+  successSoft: 'rgba(48, 209, 88, 0.15)',
+  successDeep: 'rgba(48, 209, 88, 0.4)',
+  successDark: 'rgba(48, 209, 88, 0.6)',
+  successDarkestSolid: 'rgba(10, 60, 20, 0.95)',
+  successDarkSoft: 'rgba(48, 209, 88, 0.3)',
+  successLightSoft: 'rgba(48, 209, 88, 0.4)',
+  successLightFaint: 'rgba(48, 209, 88, 0.1)',
+  successDarkBg: '#1e4620',
+  successDarkest: '#123014',
 
   // Missing orange/yellow/amber colors
-  orangeBorder: 'rgba(249, 115, 22, 0.3)',
-  orangeSoft: 'rgba(249, 115, 22, 0.15)',
-  yellowBorder: 'rgba(234, 179, 8, 0.3)',
-  yellowSoft: 'rgba(234, 179, 8, 0.15)',
-  orangeDeep: 'rgba(146, 64, 14, 0.4)',
-  yellowDeep: 'rgba(113, 63, 18, 0.4)',
-  yellowDeepSoft: 'rgba(113, 63, 18, 0.3)',
-  orangeDarkBg: '#422006',
-  orangeDarkBorder: '#92400e',
-  yellowDarkBorder: '#713f12',
-  textYellow: '#fcd34d',
-  textOrange: '#fdba74',
+  orangeBorder: 'rgba(255, 159, 10, 0.3)',
+  orangeSoft: 'rgba(255, 159, 10, 0.15)',
+  yellowBorder: 'rgba(255, 214, 10, 0.3)',
+  yellowSoft: 'rgba(255, 214, 10, 0.15)',
+  orangeDeep: 'rgba(255, 159, 10, 0.4)',
+  yellowDeep: 'rgba(255, 214, 10, 0.4)',
+  yellowDeepSoft: 'rgba(255, 214, 10, 0.3)',
+  orangeDarkBg: '#542000',
+  orangeDarkBorder: '#8c3a00',
+  yellowDarkBorder: 'rgba(255, 214, 10, 0.5)',
+  textYellow: '#ffd60a',
+  textOrange: '#ff9f0a',
 
   // Missing purple colors
-  purpleMid: 'rgba(168, 85, 247, 0.6)',
-  purpleBorder: 'rgba(168, 85, 247, 0.3)',
-  purpleSoft: 'rgba(168, 85, 247, 0.15)',
-  purpleFaint: 'rgba(168, 85, 247, 0.1)',
+  purpleMid: 'rgba(191, 90, 242, 0.6)',
+  purpleBorder: 'rgba(191, 90, 242, 0.3)',
+  purpleSoft: 'rgba(191, 90, 242, 0.15)',
+  purpleFaint: 'rgba(191, 90, 242, 0.1)',
   purpleDeepSoft: 'rgba(126, 34, 206, 0.1)',
   purpleDarkBg: '#3b0764',
   purpleDarkBorder: '#7e22ce',
-  purpleBorderBright: '#a855f7',
+  purpleBorderBright: '#bf5af2',
 
   // Missing blue colors
-  blueBorder: 'rgba(59, 130, 246, 0.3)',
-  blueSoft: 'rgba(59, 130, 246, 0.15)',
-  blueLight: '#93c5fd',
-  blueDarkBorder: '#1d4ed8',
-  blueDarkBg: '#1e3a5f',
+  blueBorder: 'rgba(10, 132, 255, 0.3)',
+  blueSoft: 'rgba(10, 132, 255, 0.15)',
+  blueLight: '#64d2ff',
+  blueDarkBorder: '#0070e3',
+  blueDarkBg: '#0c1a30',
 
   // Missing teal/cyan colors
-  tealMid: 'rgba(14, 116, 144, 0.4)',
-  tealDarkBg: '#0d1f2d',
-  tealDarkest: '#083344',
-  cyanHeavy: 'rgba(34, 211, 238, 0.8)',
-  cyanDeep: 'rgba(34, 211, 238, 0.4)',
-  cyanSoftBorder: 'rgba(34, 211, 238, 0.15)',
-  cyanDeepBorder: 'rgba(34, 211, 238, 0.08)',
-  cyanGlass: 'rgba(34, 211, 238, 0.6)',
+  tealMid: 'rgba(10, 132, 255, 0.3)',
+  tealDarkBg: '#0c1a30',
+  tealDarkest: '#071a2e',
+  cyanHeavy: 'rgba(10, 132, 255, 0.8)',
+  cyanDeep: 'rgba(10, 132, 255, 0.4)',
+  cyanSoftBorder: 'rgba(10, 132, 255, 0.15)',
+  cyanDeepBorder: 'rgba(10, 132, 255, 0.08)',
+  cyanGlass: 'rgba(10, 132, 255, 0.6)',
 
   // Missing gray/white/black colors
-  grayBorder: 'rgba(107, 114, 128, 0.3)',
-  graySoft: 'rgba(107, 114, 128, 0.15)',
+  grayBorder: 'rgba(142, 142, 147, 0.3)',
+  graySoft: 'rgba(142, 142, 147, 0.15)',
   shadowLight: 'rgba(0, 0, 0, 0.18)',
   shadowMid: 'rgba(0, 0, 0, 0.3)',
   shadowDark: 'rgba(0, 0, 0, 0.4)',
@@ -173,8 +172,7 @@ export const colors = {
   borderFaint4: 'rgba(255, 255, 255, 0.06)',
   borderHigh: 'rgba(255, 255, 255, 0.2)',
   overlayFaint: 'rgba(0, 0, 0, 0.06)',
-  errorFaintBg: 'rgba(239, 68, 68, 0.1)',
-
+  errorFaintBg: 'rgba(255, 69, 58, 0.1)',
 };
 
 // =============================================================================
@@ -278,7 +276,7 @@ export const button = {
   primary: {
     ...pillShape,
     backgroundColor: colors.primary,
-    boxShadow: '0 4px 12px rgba(34, 211, 238, 0.3)',
+    boxShadow: '0 4px 12px rgba(10, 132, 255, 0.3)',
   },
   primaryText: {
     color: colors.white,
@@ -296,9 +294,9 @@ export const button = {
   },
   danger: {
     ...pillShape,
-    backgroundColor: 'rgba(248, 113, 113, 0.15)',
+    backgroundColor: 'rgba(255, 69, 58, 0.15)',
     borderWidth: 1,
-    borderColor: 'rgba(248, 113, 113, 0.3)',
+    borderColor: 'rgba(255, 69, 58, 0.3)',
   },
   dangerText: {
     color: colors.error,
@@ -323,8 +321,8 @@ export const alert = {
 // =============================================================================
 
 export const errorBox = {
-  bg: 'rgba(239, 68, 68, 0.1)',
-  border: 'rgba(239, 68, 68, 0.2)',
+  bg: 'rgba(255, 69, 58, 0.1)',
+  border: 'rgba(255, 69, 58, 0.2)',
 };
 
 // =============================================================================
@@ -354,25 +352,25 @@ export const cycleEnd = {
 // =============================================================================
 
 export const syringe = {
-  // Normal state — cyan fill
-  normalFillFrom: '#083344',
+  // Normal state — cyan fill (now mapped to blue)
+  normalFillFrom: '#071a2e',
   normalFillTo: colors.cyan,
   normalText: colors.cyan,
-  normalGlow: 'rgba(34, 211, 238, 0.8)',
+  normalGlow: 'rgba(10, 132, 255, 0.8)',
   normalBorder: colors.bgMid2,
 
   // Overdrawn state — red fill
-  overdrawnFillFrom: '#7f1d1d',
+  overdrawnFillFrom: '#4a0e0e',
   overdrawnFillTo: colors.errorStrong,
   overdrawnText: colors.errorStrong,
-  overdrawnGlow: 'rgba(239, 68, 68, 0.8)',
-  overdrawnBorder: '#991b1b',
+  overdrawnGlow: 'rgba(255, 69, 58, 0.8)',
+  overdrawnBorder: '#941818',
 
   // Static visualizer chrome
   barrelBg: colors.bgMid,
   trackBg: colors.bg,
   trackBorder: colors.bgMid3,
-  overdrawnBannerBg: '#450a0a',
+  overdrawnBannerBg: '#3d0707',
   overdrawnBannerText: colors.errorLight,
 };
 
@@ -404,41 +402,41 @@ export const toast = {
 
 export const badge = {
   blue: {
-    bg: 'rgba(59, 130, 246, 0.15)',
-    text: '#93c5fd',
-    border: 'rgba(59, 130, 246, 0.3)',
-    glow: '0 0 4px rgba(34, 211, 238, 0.4)',
+    bg: 'rgba(10, 132, 255, 0.15)',
+    text: '#64d2ff',
+    border: 'rgba(10, 132, 255, 0.3)',
+    glow: '0 0 4px rgba(10, 132, 255, 0.4)',
   },
   green: {
-    bg: 'rgba(34, 197, 94, 0.15)',
-    text: '#86efac',
-    border: 'rgba(34, 197, 94, 0.3)',
-    glow: '0 0 4px rgba(16, 185, 129, 0.4)',
+    bg: 'rgba(48, 209, 88, 0.15)',
+    text: '#30d158',
+    border: 'rgba(48, 209, 88, 0.3)',
+    glow: '0 0 4px rgba(48, 209, 88, 0.4)',
   },
   red: {
-    bg: 'rgba(239, 68, 68, 0.15)',
-    text: '#fca5a5',
-    border: 'rgba(239, 68, 68, 0.3)',
+    bg: 'rgba(255, 69, 58, 0.15)',
+    text: '#ff6961',
+    border: 'rgba(255, 69, 58, 0.3)',
   },
   yellow: {
-    bg: 'rgba(234, 179, 8, 0.15)',
-    text: '#fde68a',
-    border: 'rgba(234, 179, 8, 0.3)',
+    bg: 'rgba(255, 214, 10, 0.15)',
+    text: '#ffd60a',
+    border: 'rgba(255, 214, 10, 0.3)',
   },
   orange: {
-    bg: 'rgba(249, 115, 22, 0.15)',
-    text: '#fdba74',
-    border: 'rgba(249, 115, 22, 0.3)',
+    bg: 'rgba(255, 159, 10, 0.15)',
+    text: '#ff9f0a',
+    border: 'rgba(255, 159, 10, 0.3)',
   },
   purple: {
-    bg: 'rgba(168, 85, 247, 0.15)',
-    text: '#d8b4fe',
-    border: 'rgba(168, 85, 247, 0.3)',
+    bg: 'rgba(191, 90, 242, 0.15)',
+    text: '#da8fff',
+    border: 'rgba(191, 90, 242, 0.3)',
   },
   gray: {
-    bg: 'rgba(107, 114, 128, 0.15)',
-    text: '#9ca3af',
-    border: 'rgba(107, 114, 128, 0.3)',
+    bg: 'rgba(142, 142, 147, 0.15)',
+    text: '#8e8e93',
+    border: 'rgba(142, 142, 147, 0.3)',
   },
 };
 
@@ -449,25 +447,25 @@ export const badge = {
 export const shadow = {
   glassCard: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   glassModal: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
-  btnPrimary: '0 4px 12px rgba(34, 211, 238, 0.3)',
-  btnPrimaryInset: '0 4px 12px rgba(34, 211, 238, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-  cyanGlowSmall: '0 0 8px rgba(34, 211, 238, 0.6)',
-  cyanGlowLarge: '0 0 8px rgba(34, 211, 238, 0.8), 0 0 16px rgba(34, 211, 238, 0.4)',
+  btnPrimary: '0 4px 12px rgba(10, 132, 255, 0.3)',
+  btnPrimaryInset: '0 4px 12px rgba(10, 132, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+  cyanGlowSmall: '0 0 8px rgba(10, 132, 255, 0.6)',
+  cyanGlowLarge: '0 0 8px rgba(10, 132, 255, 0.8), 0 0 16px rgba(10, 132, 255, 0.4)',
   dropdownPanel: '0 4px 16px rgba(0, 0, 0, 0.18)',
-  errorBtn: '0 4px 12px rgba(239, 68, 68, 0.3)',
-  errorCircuit: '0 10px 25px -5px rgba(239, 68, 68, 0.4)',
+  errorBtn: '0 4px 12px rgba(255, 69, 58, 0.3)',
+  errorCircuit: '0 10px 25px -5px rgba(255, 69, 58, 0.4)',
   loginCard: '0 10px 15px -3px rgba(0, 0, 0, 0.2)',
   toast: '0 10px 25px rgba(0, 0, 0, 0.4)',
   aiInputBar: '0 4px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-  aiSendBtn: '0 4px 16px rgba(14, 116, 144, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+  aiSendBtn: '0 4px 16px rgba(10, 132, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   tabBarCapsule: '0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-  calcResult: '0 10px 40px -10px rgba(34, 211, 238, 0.25)',
+  calcResult: '0 10px 40px -10px rgba(10, 132, 255, 0.25)',
   syringeInset: 'inset 0 2px 6px rgba(0, 0, 0, 0.5)',
   resultItem: '0 4px 12px rgba(0, 0, 0, 0.2)',
-  msgBubbleUser: '0 4px 12px rgba(34, 211, 238, 0.2)',
-  pendingDot: '0 0 8px #f97316',
+  msgBubbleUser: '0 4px 12px rgba(10, 132, 255, 0.2)',
+  pendingDot: '0 0 8px #ff9f0a',
   // textShadow
-  tabActiveGlow: '0 0 12px rgba(34, 211, 238, 0.6)',
+  tabActiveGlow: '0 0 12px rgba(10, 132, 255, 0.6)',
 };
 
 // =============================================================================
@@ -554,4 +552,28 @@ export const radius = {
   lg: 24,
   xl: 32,
   pill: 100,
+};
+
+// =============================================================================
+// NAVBAR — bottom navigation bar styling
+// =============================================================================
+
+export const navBar = {
+  capsule: {
+    backgroundColor: 'rgba(17, 24, 39, 0.75)',
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderWidth: 1,
+    borderRadius: 100,
+    boxShadow: '0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+  },
+  btnActive: {
+    backgroundColor: 'rgba(10, 132, 255, 0.15)',
+    borderColor: 'rgba(10, 132, 255, 0.3)',
+    borderWidth: 1,
+  },
+  label: {
+    color: '#8e8e93',
+  },
+  iconActive: '#0a84ff',
+  iconInactive: '#636366',
 };

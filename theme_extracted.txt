@@ -1,0 +1,33 @@
+<USER_REQUEST>
+theme.js:
+// Global design tokens — edit here to change the entire app's appearance.
+// Every component imports from this file. No styling value should be hardcoded in any component.
+
+// =============================================================================
+// COLORS
+// =============================================================================
+
+export const colors = {
+  // Base backgrounds
+  bg: '#111827',
+  bgDeep: '#0f1923',
+  bgMid: '#1f2937',
+  bgMid2: '#374151',
+  bgMid3: '#4b5563',
+  bgFallback: '#121212',
+  navy: '#0f172a',
+  loginGradientStop: '#164e63',
+
+  // Translucent surfaces (most common card/well bgs)
+  surface: 'rgba(255, 255, 255, 0.05)',
+  surfaceDark: 'rgba(17, 24, 39, 0.85)',
+  surfaceMid: 'rgba(17, 24, 39, 0.6)',
+  surfaceRow: 'rgba(17, 24, 39, 0.4)',
+  surfaceDeep: 'rgba(17, 24, 39, 0.3)',
+  surfaceEmpty: 'rgba(31, 41, 55, 0.2)',
+  surfaceCard: 'rgba(31,41,55,0.4)',
+
+  // Overlays / shadows
+  overlay: 'rgba(0, 0, 0, 0.7)',
+  overlayDark: 'rgba(0, 0, 0, 0.75)',
+<truncated 66196 bytes>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
-import { colors, shadow } from '../../theme.js';
+import { CircuitBreaker } from './CircuitBreaker.jsx';
 
 export class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -26,15 +26,13 @@ export class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <View style={styles.root}>
-          <Text style={styles.heading}>⚠️ Application Error</Text>
-          <Text style={styles.body}>
-            The app encountered a critical error, likely due to corrupted local data. Don't worry, your cloud backup is safe.
-          </Text>
-          <Pressable onPress={this.handleEmergencyReset} style={styles.btn}>
-            <Text style={styles.btnText}>Clear Local Cache &amp; Reload</Text>
-          </Pressable>
-        </View>
+        <CircuitBreaker
+          icon="⚠️"
+          title="Application Error"
+          message="The app encountered a critical error, likely due to corrupted local data. Don't worry, your cloud backup is safe."
+          buttonText="Clear Local Cache & Reload"
+          onAction={this.handleEmergencyReset}
+        />
       );
     }
     return this.props.children;
@@ -42,42 +40,3 @@ export class ErrorBoundary extends React.Component {
 }
 
 export default ErrorBoundary;
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    padding: 20,
-    backgroundColor: colors.bg,
-  },
-  heading: {
-    color: colors.errorStrong,
-    fontSize: 20,
-    fontWeight: '800',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  body: {
-    color: colors.textSecondary,
-    fontSize: 15,
-    marginBottom: 24,
-    maxWidth: 400,
-    textAlign: 'center',
-    lineHeight: 22,
-  },
-  btn: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    backgroundColor: colors.errorStrong,
-    borderRadius: 100,
-    boxShadow: shadow.errorBtn,
-    cursor: 'pointer',
-  },
-  btnText: {
-    color: colors.white,
-    fontWeight: '800',
-    fontSize: 15,
-  },
-});

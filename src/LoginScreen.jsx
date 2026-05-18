@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Pressable } from './components/ui/Pressable.jsx';
-import iconPng from '../public/icon.png';
 import { colors, glass, blur, shadow, errorBox } from './theme.js';
 import { auth } from './services/firebase.js';
 import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from 'firebase/auth';
@@ -35,7 +34,7 @@ export function LoginScreen() {
     <View style={styles.root}>
       <View style={[styles.card, { backdropFilter: blur.login, WebkitBackdropFilter: blur.login }]}>
         <Image
-          source={iconPng}
+          source={{ uri: '/icon.png' }}
           style={{ width: 72, height: 72, alignSelf: 'center', marginBottom: 12, borderRadius: 16 }}
         />
         <Text style={styles.title}>INJECTION TRACKER</Text>

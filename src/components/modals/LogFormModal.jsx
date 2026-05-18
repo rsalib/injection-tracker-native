@@ -56,6 +56,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
           <View style={styles.field}>
             <Text style={styles.lbl}>Quick Select Protocol</Text>
             <select
+              id="logform-quick-select" name="logform-quick-select"
               style={{ width: '100%', backgroundColor: colors.surface, backdropFilter: blur.input, WebkitBackdropFilter: blur.input, border: `1px solid ${colors.borderSubtle}`, borderTop: `1px solid ${colors.borderHighlight}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
               onChange={e => selMed(e.target.value)}
             >
@@ -68,7 +69,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
         {/* Med name */}
         <View style={styles.field}>
           <Text style={styles.lbl}>Medication Name</Text>
-          <TextInput
+          <TextInput id="field-logformmodal-4" name="field-logformmodal-4" nativeID="field-logformmodal-4"
             style={[styles.inp, isEdit && styles.inpDisabled]}
             value={form.medName}
             onChangeText={v => set('medName', v)}
@@ -106,6 +107,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
                     {/* pill input+select — raw HTML */}
                     <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 140 }}>
                       <input
+                        id={`logform-pep-${p.id}`} name={`logform-pep-${p.id}`}
                         type="number"
                         value={form.dose ? parseFloat(displayNum.toFixed(3)) : ''}
                         onChange={e => handleDoseEdit(e.target.value)}
@@ -114,6 +116,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
                       />
                       <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
                       <select
+                        id={`logform-pep-unit-${p.id}`} name={`logform-pep-unit-${p.id}`}
                         value={p.unit || 'mcg'}
                         disabled
                         style={{ flex: '0 0 65px', background: colors.shadowSoft, border: 'none', color: colors.textSecondary, padding: '0 8px', fontSize: 12, fontWeight: 700, outline: 'none', appearance: 'none', textAlign: 'center', opacity: 0.8 }}
@@ -137,9 +140,9 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
             <Text style={styles.lbl}>Dose & Unit</Text>
             {/* dose + unit pill — raw HTML */}
             <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
-              <input type="number" value={form.dose} onChange={e => set('dose', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+              <input id="logform-dose" name="logform-dose" type="number" value={form.dose} onChange={e => set('dose', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
               <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
-              <select value={form.unit} onChange={e => set('unit', e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
+              <select id="logform-unit" name="logform-unit" value={form.unit} onChange={e => set('unit', e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                 <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option><option style={{color:'black'}}>mL</option>
               </select>
             </div>
@@ -150,6 +153,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Injection Site</Text>
           <select
+            id="logform-site" name="logform-site"
             style={{ width: '100%', backgroundColor: colors.surface, backdropFilter: blur.input, WebkitBackdropFilter: blur.input, border: `1px solid ${colors.borderSubtle}`, borderTop: `1px solid ${colors.borderHighlight}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
             value={form.site}
             onChange={e => set('site', e.target.value)}
@@ -163,16 +167,16 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
           <Text style={styles.lbl}>Date & Time</Text>
           {/* date + time pill — raw HTML */}
           <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
-            <input type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+            <input id="logform-date" name="logform-date" type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
             <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
-            <input type="time" value={form.time} onChange={e => set('time', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
+            <input id="logform-time" name="logform-time" type="time" value={form.time} onChange={e => set('time', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
           </div>
         </View>
 
         {/* Notes */}
         <View style={styles.field}>
           <Text style={styles.lbl}>Notes</Text>
-          <TextInput
+          <TextInput id="field-logformmodal-5" name="field-logformmodal-5" nativeID="field-logformmodal-5"
             style={styles.notesInp}
             multiline
             numberOfLines={3}
