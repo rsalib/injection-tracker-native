@@ -8,6 +8,7 @@ export const colors = {
   // Base backgrounds
   bg: '#111827',
   bgDeep: '#0f1923',
+  bgDeepest: '#0d1f2d',
   bgMid: '#1f2937',
   bgMid2: '#374151',
   bgMid3: '#4b5563',
@@ -530,6 +531,12 @@ export const type = {
     fontSize: 11,
     color: colors.textMuted,
   },
+  tabLabel: {
+    fontSize: 9,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 0.45,
+  },
 };
 
 // =============================================================================
@@ -552,6 +559,37 @@ export const radius = {
   lg: 24,
   xl: 32,
   pill: 100,
+};
+
+// =============================================================================
+// LAYOUT — global layout magic numbers used across the shell
+// =============================================================================
+
+export const layout = {
+  contentMaxWidth: 672,       // v2 border-box content width (matches paddingHorizontal: 16 → 640px content)
+  tabBarMaxWidth: 500,        // tab capsule cap
+  headerClearance: 150,       // ScrollView paddingTop to clear fixed header
+  tabBarClearance: 100,       // ScrollView paddingBottom to clear fixed tab bar
+  tabBarSafeBottom: 'max(16px, calc(env(safe-area-inset-bottom) - 20px))',
+  noiseOpacity: 0.06,
+};
+
+// =============================================================================
+// MOTION — shared transitions
+// =============================================================================
+
+export const motion = {
+  tabTransition: 'all 0.3s ease',
+};
+
+// =============================================================================
+// GRADIENTS — app shell background gradients (consumed by index.css via CSS vars)
+// =============================================================================
+
+export const gradients = {
+  screen: 'linear-gradient(160deg, #0f1923 0%, #111827 40%, #0d1f2d 100%)',
+  headerFade: 'linear-gradient(to bottom, #111827 80%, rgba(17,24,39,0) 100%)',
+  tabBarFade: 'linear-gradient(to top, #111827 80%, rgba(17,24,39,0) 100%)',
 };
 
 // =============================================================================

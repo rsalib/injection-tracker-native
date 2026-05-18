@@ -1,5 +1,5 @@
 html, body {
-  background: #111827;
+  background: var(--bg);
   overscroll-behavior: none;
   height: 100%;
 }
@@ -13,11 +13,11 @@ html, body {
 }
 
 .screen-wrap {
-  background: linear-gradient(160deg, #0f1923 0%, #111827 40%, #0d1f2d 100%) !important;
+  background: var(--gradient-screen) !important;
 }
 .header-wrap {
-  background: linear-gradient(to bottom, #111827 80%, rgba(17,24,39,0) 100%) !important;
+  background: var(--gradient-headerFade) !important;
 }
 .tabbar-wrap {
-  background: linear-gradient(to top, #111827 80%, rgba(17,24,39,0) 100%) !important;
+  background: var(--gradient-tabBarFade) !important;
 }

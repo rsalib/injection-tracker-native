@@ -1,3 +1,4 @@
+import './themeBridge.js';
 import './index.css';
 import { AppRegistry } from 'react-native'
 import { createElement } from 'react'

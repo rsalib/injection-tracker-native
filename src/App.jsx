@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import { colors, blur, shadow, navBar } from './theme.js';
+import { colors, blur, shadow, navBar, layout, motion, radius, spacing, type } from './theme.js';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { auth, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
@@ -741,7 +741,7 @@ export default function App() {
     <View style={styles.screen} className="screen-wrap">
 
       {/* SVG noise texture overlay */}
-      <svg style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', opacity: 0.06 }}>
+      <svg style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', opacity: layout.noiseOpacity }}>
         <filter id="noise">
           <feTurbulence
             type="fractalNoise"
@@ -849,7 +849,7 @@ export default function App() {
 
       {/* ── Bottom tab navigation ──────────────────────────────────── */}
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100 }}>
-      <View className="tabbar-wrap" style={[styles.tabBarWrap, { paddingBottom: 'max(16px, calc(env(safe-area-inset-bottom) - 20px))' }]} onStartShouldSetResponder={() => true}>
+      <View className="tabbar-wrap" style={[styles.tabBarWrap, { paddingBottom: layout.tabBarSafeBottom }]} onStartShouldSetResponder={() => true}>
         <View style={styles.tabBarCapsule}>
           {NAV_TABS.map(t => {
             const active = activeTab === t.id;
@@ -970,20 +970,20 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   content: {
-    paddingTop: 150,
-    paddingBottom: 100,
+    paddingTop: layout.headerClearance,
+    paddingBottom: layout.tabBarClearance,
   },
   appContainer: {
     width: '100%',
-    maxWidth: 672,
-    paddingHorizontal: 16,
+    maxWidth: layout.contentMaxWidth,
+    paddingHorizontal: spacing.screenPad,
     alignSelf: 'center',
     flex: 1,
   },
 
-  // ── Tab bar — full-bleed outer, capsule maxWidth 500 ───────────
+  // ── Tab bar — full-bleed outer, capsule constrained ────────────
   tabBarWrap: {
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing.screenPad,
     paddingTop: 6,
     paddingBottom: 24,
     alignItems: 'center',
@@ -997,7 +997,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     width: '100%',
-    maxWidth: 500,
+    maxWidth: layout.tabBarMaxWidth,
   },
   tabBtn: {
     flex: 1,
@@ -1006,8 +1006,8 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingVertical: 8,
     paddingHorizontal: 4,
-    borderRadius: 100,
-    transition: 'all 0.3s ease',
+    borderRadius: radius.pill,
+    transition: motion.tabTransition,
     cursor: 'pointer',
   },
   tabBtnActive: {
@@ -1015,10 +1015,7 @@ const styles = StyleSheet.create({
     ...navBar.btnActive,
   },
   tabLabel: {
-    fontSize: 9,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 0.45,
+    ...type.tabLabel,
     ...navBar.label,
   },
 });
