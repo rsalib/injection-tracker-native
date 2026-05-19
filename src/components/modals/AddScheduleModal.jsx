@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   dayBtnActive: {
-    backgroundColor: colors.cyanMid,
+    backgroundColor: colors.blueMid,
   },
   dayBtnText: {
     fontSize: 13,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   dayBtnTextActive: {
-    color: colors.cyan,
+    color: colors.blue,
   },
   submitBtn: {
     ...button.primary,

@@ -288,12 +288,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   searchBtn: {
-    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
+    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490 0%, #0a84ff 100%)
     borderRadius: 100,
     paddingVertical: 14,
     paddingHorizontal: 24,
     cursor: 'pointer',
-    boxShadow: `0 4px 12px ${colors.cyanMid}`,
+    boxShadow: `0 4px 12px ${colors.blueMid}`,
   },
   searchBtnDisabled: {
     opacity: 0.5,
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   saveAllBtn: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 100,
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
   saveAllText: {
     fontSize: 12,
     fontWeight: '900',
-    color: colors.cyan,
+    color: colors.blue,
   },
   summaryCard: {
     backgroundColor: colors.surfaceMid,
@@ -364,12 +364,12 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: colors.cyanMid,
+    borderColor: colors.blueMid,
   },
   summaryLabel: {
     fontSize: 11,
     fontWeight: '900',
-    color: colors.cyan,
+    color: colors.blue,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 12,
@@ -411,11 +411,11 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
-    borderTopColor: colors.cyanSoftBorder,
-    borderRightColor: colors.cyanSoftBorder,
-    borderBottomColor: colors.cyanSoftBorder,
+    borderTopColor: colors.blueSoft,
+    borderRightColor: colors.blueSoft,
+    borderBottomColor: colors.blueSoft,
     borderLeftWidth: 4,
-    borderLeftColor: colors.cyan,
+    borderLeftColor: colors.blue,
     boxShadow: `0 4px 12px ${colors.shadowSoft}`,
   },
   resultItemLeft: {
@@ -430,7 +430,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   saveBtn: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 100,
@@ -443,7 +443,7 @@ const styles = StyleSheet.create({
   saveBtnText: {
     fontSize: 12,
     fontWeight: '900',
-    color: colors.cyan,
+    color: colors.blue,
   },
   saveBtnTextSaved: {
     color: colors.textGreen,

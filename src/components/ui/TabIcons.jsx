@@ -1,6 +1,6 @@
 // SVG icon components for the bottom tab bar.
 // Each accepts { active } and uses currentColor, which is inherited from
-// the Pressable's color style in App.jsx (#22d3ee active / #9ca3af inactive).
+// the Pressable's color style in App.jsx (#0a84ff active / #9ca3af inactive).
 
 export function DashboardIcon({ active }) {
   return (

@@ -208,7 +208,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                     </View>
                   </View>
                   <View style={styles.progressTrack}>
-                    <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.cyan : colors.errorStrong }]} />
+                    <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.blue : colors.errorStrong }]} />
                   </View>
                   <View style={styles.progressLabels}>
                     <Text style={styles.progressLabelText}>{rem.toFixed(2)} {m.vialUnit || m.unit} Left</Text>
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
   statusWarn: { color: colors.textSecondary },
   statusOk: { color: colors.textGreen },
   recheckBtn: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
     borderRadius: 100,
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
   recheckBtnText: {
     fontSize: 11,
     fontWeight: '800',
-    color: colors.cyan,
+    color: colors.blue,
   },
   recheckBtnTextError: {
     color: colors.error,
@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
   pctText: {
     fontSize: 14,
     fontWeight: '800',
-    color: colors.cyan,
+    color: colors.blue,
   },
   pctTextLow: {
     color: colors.error,
@@ -528,7 +528,7 @@ const styles = StyleSheet.create({
   progressFill: {
     height: 8,
     borderRadius: 9999,
-    boxShadow: `0 0 8px ${colors.cyanGlass}`,
+    boxShadow: `0 0 8px ${colors.blueGlass}`,
   },
   progressLabels: {
     flexDirection: 'row',
@@ -579,7 +579,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   syringeMetricLabel: {
-    color: colors.cyan,
+    color: colors.blue,
     fontSize: 10,
     fontWeight: '800',
     textTransform: 'uppercase',
@@ -649,7 +649,7 @@ const styles = StyleSheet.create({
   useDoseBtn: {
     ...button.primary,
     flex: 1,
-    boxShadow: `0 4px 12px ${colors.cyanBorder}, inset 0 1px 0 ${colors.borderHighlight}`,
+    boxShadow: `0 4px 12px ${colors.blueBorder}, inset 0 1px 0 ${colors.borderHighlight}`,
     cursor: 'pointer',
   },
   useDoseBtnText: {
@@ -680,14 +680,14 @@ const styles = StyleSheet.create({
   },
   smBtnCyan: {
     flex: 1,
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
     borderRadius: 12,
     padding: 10,
     alignItems: 'center',
     cursor: 'pointer',
   },
   smBtnCyanText: {
-    color: colors.cyan,
+    color: colors.blue,
     fontWeight: '800',
     fontSize: 11,
   },
@@ -806,14 +806,14 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   archiveRestartBtn: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
     paddingVertical: 10,
     paddingHorizontal: 18,
     borderRadius: 100,
     cursor: 'pointer',
   },
   archiveRestartText: {
-    color: colors.cyan,
+    color: colors.blue,
     fontSize: 12,
     fontWeight: '800',
   },

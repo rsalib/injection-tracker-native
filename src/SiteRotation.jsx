@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
   },
   tileRight: {
     flex: 1,
-    backgroundColor: colors.cyanFaint,
+    backgroundColor: colors.blueFaint,
     borderRadius: 20,
     padding: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.cyanDim,
+    borderColor: colors.blueDim,
   },
   tileLabel: {
     fontSize: 10,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   tileLabelCyan: {
     fontSize: 10,
-    color: colors.cyan,
+    color: colors.blue,
     fontWeight: '800',
     textTransform: 'uppercase',
     marginBottom: 4,

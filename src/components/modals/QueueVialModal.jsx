@@ -63,7 +63,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
                       value={p.vialTotal}
                       onChange={e => { const n = [...peptides]; n[idx].vialTotal = e.target.value; setPeptides(n); }}
                       placeholder="0"
-                      style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.cyan, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }}
+                      style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.blue, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }}
                     />
                     <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
                     <div style={{ padding: '8px', fontSize: 11, color: colors.textSecondary, fontWeight: 800 }}>{p.vialUnit}</div>
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   blendTitle: {
-    color: colors.cyanLight,
+    color: colors.blueLight,
     fontSize: 11,
     fontWeight: '900',
     textTransform: 'uppercase',

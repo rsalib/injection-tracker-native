@@ -40,13 +40,16 @@ export const colors = {
   borderHighLeft: 'rgba(255, 255, 255, 0.12)',
   borderHighlight: 'rgba(255, 255, 255, 0.15)',
 
-  // Primary brand — mapped to Apple System Blue family
-  cyan: '#0a84ff',
-  cyanLight: '#64d2ff',
-  cyanFaint: 'rgba(10, 132, 255, 0.05)',
-  cyanDim: 'rgba(10, 132, 255, 0.1)',
-  cyanMid: 'rgba(10, 132, 255, 0.2)',
-  primary: '#0a84ff',
+  // Primary brand — Apple System Blue family
+  // colors.blue (#0a84ff) — iOS systemBlue. Decorative use only (icons, accent strokes,
+  //   large/bold text, badges that don't host white text).
+  // colors.primary (#0066CC) — accessible darker variant. ALL solid-fill buttons that
+  //   host white text use this token. Guarantees WCAG AA contrast at small text sizes.
+  blue: '#0a84ff',
+  blueFaint: 'rgba(10, 132, 255, 0.05)',
+  blueDim: 'rgba(10, 132, 255, 0.1)',
+  blueMid: 'rgba(10, 132, 255, 0.2)',
+  primary: '#0066CC',
 
   // Text
   white: '#ffffff',
@@ -58,7 +61,7 @@ export const colors = {
   textSortLabel: '#b0b8c4',
   textAmber: '#ffd60a',
   textGreen: '#30d158',
-  textCyan: '#0a84ff',
+  textBlue: '#0a84ff',
 
   // Semantic
   error: '#ff453a',
@@ -82,8 +85,7 @@ export const colors = {
   syncPending: '#ff9f0a', // Apple System Orange
   syncSaving: '#ffd60a', // Apple System Yellow
 
-  cyanBorder: 'rgba(10, 132, 255, 0.3)',
-  cyanGlowSoft: 'rgba(10, 132, 255, 0.25)',
+  blueGlowSoft: 'rgba(10, 132, 255, 0.25)',
   errorDeepBg: 'rgba(255, 69, 58, 0.2)',
   errorDeepBorder: 'rgba(255, 69, 58, 0.4)',
   stackBadgeBg: 'rgba(255, 214, 10, 0.15)',
@@ -148,15 +150,15 @@ export const colors = {
   blueDarkBorder: '#0070e3',
   blueDarkBg: '#0c1a30',
 
-  // Missing teal/cyan colors
+  // Misnamed teal* tokens — values are actually blue. Known debt; left as-is for a
+  // dedicated future cleanup pass. Treat them as blue-family aliases for now.
   tealMid: 'rgba(10, 132, 255, 0.3)',
   tealDarkBg: '#0c1a30',
   tealDarkest: '#071a2e',
-  cyanHeavy: 'rgba(10, 132, 255, 0.8)',
-  cyanDeep: 'rgba(10, 132, 255, 0.4)',
-  cyanSoftBorder: 'rgba(10, 132, 255, 0.15)',
-  cyanDeepBorder: 'rgba(10, 132, 255, 0.08)',
-  cyanGlass: 'rgba(10, 132, 255, 0.6)',
+  blueHeavy: 'rgba(10, 132, 255, 0.8)',
+  blueDeep: 'rgba(10, 132, 255, 0.4)',
+  blueDeepBorder: 'rgba(10, 132, 255, 0.08)',
+  blueGlass: 'rgba(10, 132, 255, 0.6)',
 
   // Missing gray/white/black colors
   grayBorder: 'rgba(142, 142, 147, 0.3)',
@@ -351,10 +353,10 @@ export const cycleEnd = {
 // =============================================================================
 
 export const syringe = {
-  // Normal state — cyan fill (now mapped to blue)
+  // Normal state — iOS systemBlue fill
   normalFillFrom: '#071a2e',
-  normalFillTo: colors.cyan,
-  normalText: colors.cyan,
+  normalFillTo: colors.blue,
+  normalText: colors.blue,
   normalGlow: 'rgba(10, 132, 255, 0.8)',
   normalBorder: colors.bgMid2,
 
@@ -448,8 +450,8 @@ export const shadow = {
   glassModal: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
   btnPrimary: '0 4px 12px rgba(10, 132, 255, 0.3)',
   btnPrimaryInset: '0 4px 12px rgba(10, 132, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-  cyanGlowSmall: '0 0 8px rgba(10, 132, 255, 0.6)',
-  cyanGlowLarge: '0 0 8px rgba(10, 132, 255, 0.8), 0 0 16px rgba(10, 132, 255, 0.4)',
+  blueGlowSmall: '0 0 8px rgba(10, 132, 255, 0.6)',
+  blueGlowLarge: '0 0 8px rgba(10, 132, 255, 0.8), 0 0 16px rgba(10, 132, 255, 0.4)',
   dropdownPanel: '0 4px 16px rgba(0, 0, 0, 0.18)',
   errorBtn: '0 4px 12px rgba(255, 69, 58, 0.3)',
   errorCircuit: '0 10px 25px -5px rgba(255, 69, 58, 0.4)',

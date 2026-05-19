@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
   },
   modeBtnActive: {
     // TODO: replace with expo-linear-gradient / react-native-linear-gradient
-    // when adding native builds. v2 used: linear-gradient(135deg, #0e7490 0%, #22d3ee 100%)
+    // when adding native builds. v2 used: linear-gradient(135deg, #0e7490 0%, #0a84ff 100%)
     backgroundColor: colors.primary,
   },
   modeBtnText: {
@@ -533,9 +533,9 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   addPeptideBtn: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
     borderWidth: 1,
-    borderColor: colors.cyanBorder,
+    borderColor: colors.blueBorder,
     borderStyle: 'dashed',
     borderRadius: 100,
     paddingVertical: 18,
@@ -545,7 +545,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   addPeptideBtnText: {
-    color: colors.cyan,
+    color: colors.blue,
     fontWeight: '900',
     fontSize: 14,
   },
@@ -558,8 +558,8 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     backgroundColor: colors.tealDeep,
     borderWidth: 1,
-    borderColor: colors.cyanBorder,
-    boxShadow: `0 10px 40px -10px ${colors.cyanGlowSoft}`,
+    borderColor: colors.blueBorder,
+    boxShadow: `0 10px 40px -10px ${colors.blueGlowSoft}`,
   },
   resultsTitle: {
     fontSize: 18,
@@ -581,7 +581,7 @@ const styles = StyleSheet.create({
   resultValue: {
     fontSize: 40,
     fontWeight: '900',
-    color: colors.cyan,
+    color: colors.blue,
     lineHeight: 40,         // v2: lineHeight: 1 (= 1× fontSize = 40)
   },
   resultUnit: {
@@ -595,7 +595,7 @@ const styles = StyleSheet.create({
   resultsDivider: {
     width: 1,
     height: 48,
-    backgroundColor: colors.cyanMid,
+    backgroundColor: colors.blueMid,
   },
   dosesLeftBadge: {
     alignItems: 'center',

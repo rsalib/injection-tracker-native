@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
     transition: '0.3s',
   },
   toggleTrackActive: {
-    backgroundColor: colors.cyanMid,
+    backgroundColor: colors.blueMid,
   },
   toggleDot: {
     width: 24,
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
     boxShadow: `0 2px 4px ${colors.shadowMid}`,
   },
   toggleDotActive: {
-    backgroundColor: colors.cyan,
+    backgroundColor: colors.blue,
     left: 28,
   },
   logBtn: {
@@ -468,7 +468,7 @@ const styles = StyleSheet.create({
     top: 8,
     bottom: 16,
     width: 2,
-    backgroundColor: colors.cyan, // TODO: expo-linear-gradient(to bottom, #22d3ee, rgba(34,211,238,0.1))
+    backgroundColor: colors.blue, // TODO: expo-linear-gradient(to bottom, #0a84ff, rgba(34,211,238,0.1))
     borderRadius: 2,
   },
   dateBlock: {
@@ -496,7 +496,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: colors.navy,
     borderWidth: 2,
-    borderColor: colors.cyan,
+    borderColor: colors.blue,
     zIndex: 2,
     transform: [{ translateX: -5 }],
   },
@@ -693,16 +693,16 @@ const styles = StyleSheet.create({
   },
   exportBtnCyan: {
     flex: 1,
-    backgroundColor: colors.cyanDeepBorder,
+    backgroundColor: colors.blueDeepBorder,
     borderWidth: 1,
-    borderColor: colors.cyanMid,
+    borderColor: colors.blueMid,
     borderRadius: 16,
     padding: 12,
     alignItems: 'center',
     cursor: 'pointer',
   },
   exportBtnCyanText: {
-    color: colors.cyan,
+    color: colors.blue,
     fontSize: 13,
     fontWeight: '800',
   },

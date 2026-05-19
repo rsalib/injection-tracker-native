@@ -286,9 +286,9 @@ export function MedForm({ initial, onSave, onClose, title }) {
               </View>
               <View style={styles.flex1}>
                 <Text style={styles.hintCyan}>TARGET DOSE</Text>
-                <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.cyanBorder}`, borderRadius: '100px', overflow: 'hidden' }}>
+                <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.blueBorder}`, borderRadius: '100px', overflow: 'hidden' }}>
                   <input id={`pep-dose-${idx}`} name={`pep-dose-${idx}`} type="number" value={p.dose} placeholder="e.g. 250" onChange={e => handleStackDoseChange(idx, e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-                  <div style={{ width: 1, background: colors.cyanBorder, margin: '8px 0' }} />
+                  <div style={{ width: 1, background: colors.blueBorder, margin: '8px 0' }} />
                   <select value={p.unit} onChange={e => handleStackUnitChange(idx, e.target.value)} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: colors.white, padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                     <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option>
                   </select>
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
   },
   hintCyan: {
     fontSize: 10,
-    color: colors.cyan,
+    color: colors.blue,
     fontWeight: '800',
     marginBottom: 6,
     paddingLeft: 4,
@@ -453,9 +453,9 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   addPepBtn: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
     borderWidth: 1,
-    borderColor: colors.cyanBorder,
+    borderColor: colors.blueBorder,
     borderStyle: 'dashed',
     borderRadius: 100,
     padding: 18,
@@ -463,7 +463,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   addPepText: {
-    color: colors.cyan,
+    color: colors.blue,
     fontWeight: '900',
     fontSize: 14,
   },
@@ -481,7 +481,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   presetBtnActive: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
   },
   presetBtnText: {
     fontSize: 12,
@@ -489,7 +489,7 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   presetBtnTextActive: {
-    color: colors.cyan,
+    color: colors.blue,
   },
   daysGrid: {
     flexDirection: 'row',
@@ -507,7 +507,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   dayBtnActive: {
-    backgroundColor: colors.cyan,
+    backgroundColor: colors.blue,
   },
   dayBtnText: {
     fontSize: 12,

@@ -112,7 +112,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
                         value={form.dose ? parseFloat(displayNum.toFixed(3)) : ''}
                         onChange={e => handleDoseEdit(e.target.value)}
                         placeholder="0"
-                        style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px 12px', color: colors.cyan, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none', minWidth: 0 }}
+                        style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px 12px', color: colors.blue, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none', minWidth: 0 }}
                       />
                       <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
                       <select
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   stackBoxTitle: {
-    color: colors.cyan,
+    color: colors.blue,
     fontSize: 11,
     fontWeight: '900',
     textTransform: 'uppercase',
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   stackTotalValue: {
-    color: colors.cyan,
+    color: colors.blue,
     fontSize: 15,
     fontWeight: '900',
   },

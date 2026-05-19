@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     ...button.secondaryText,
   },
   confirmBtn: {
-    ...button.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
+    ...button.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #0a84ff) for native
     flex: 1,
     cursor: 'pointer',
   },

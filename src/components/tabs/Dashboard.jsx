@@ -94,7 +94,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
       {/* Quick Stats */}
       <View style={styles.statsRow}>
         {[
-          { v: activeMeds.length, l: 'Protocols', c: colors.cyan },
+          { v: activeMeds.length, l: 'Protocols', c: colors.blue },
           { v: todayLogs.length,  l: 'Dosed',     c: colors.success },
           { v: logs.length,       l: 'Total',      c: colors.purple },
         ].map(({ v, l, c }) => (
@@ -214,12 +214,12 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
                   </View>
 
                   <View style={styles.pctPill}>
-                    <Text style={[styles.pctText, { color: pct < 15 ? colors.error : colors.cyan }]}>{pct}%</Text>
+                    <Text style={[styles.pctText, { color: pct < 15 ? colors.error : colors.blue }]}>{pct}%</Text>
                   </View>
                 </View>
 
                 <View style={styles.progressTrack}>
-                  <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.cyan : colors.errorStrong }]} />
+                  <View style={[styles.progressFill, { width: `${pct}%`, backgroundColor: pct > 20 ? colors.blue : colors.errorStrong }]} />
                 </View>
 
                 <View style={styles.progressLabels}>
@@ -501,7 +501,7 @@ const styles = StyleSheet.create({
   progressFill: {
     height: 8,
     borderRadius: 9999,
-    boxShadow: `0 0 8px ${colors.cyanGlass}`,
+    boxShadow: `0 0 8px ${colors.blueGlass}`,
   },
   progressLabels: {
     flexDirection: 'row',

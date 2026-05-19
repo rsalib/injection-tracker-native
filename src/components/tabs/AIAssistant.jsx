@@ -109,7 +109,7 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
                       if (!url) return null;
                       return (
                         <li key={cIdx} style={{ fontSize: 12 }}>
-                          <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: colors.cyan, textDecoration: "none", fontWeight: 600 }}>
+                          <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: colors.blue, textDecoration: "none", fontWeight: 600 }}>
                             {title}
                           </a>
                         </li>
@@ -216,10 +216,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   msgBubbleUser: {
-    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
+    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #0a84ff) for native
     borderRadius: 24,
     borderBottomRightRadius: 4,
-    boxShadow: `0 4px 12px ${colors.cyanMid}`,
+    boxShadow: `0 4px 12px ${colors.blueMid}`,
   },
   msgBubbleAssistant: {
     backgroundColor: colors.surfaceMid,
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
   sendBtn: {
     width: 48,
     height: 48,
-    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #22d3ee) for native
+    backgroundColor: colors.primary, // TODO: expo-linear-gradient(135deg, #0e7490, #0a84ff) for native
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',

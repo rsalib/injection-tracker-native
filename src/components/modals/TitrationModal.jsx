@@ -116,7 +116,7 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                       <Text style={styles.stackPepName}>{p.name.split('(')[0].trim()}</Text>
                       {/* pill input — raw HTML */}
                       <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 100 }}>
-                        <input id={`titration-pep-${idx}`} name={`titration-pep-${idx}`} type="number" value={p.dose} onChange={e => handleStepDoseChange(idx, e.target.value)} placeholder="0" style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.cyan, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }} />
+                        <input id={`titration-pep-${idx}`} name={`titration-pep-${idx}`} type="number" value={p.dose} onChange={e => handleStepDoseChange(idx, e.target.value)} placeholder="0" style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.blue, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }} />
                         <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
                         <div style={{ padding: '8px', fontSize: 11, color: colors.textSecondary, fontWeight: 800 }}>{p.unit}</div>
                       </div>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   toggleBtnActive: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
   },
   toggleBtnText: {
     fontWeight: '800',
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   toggleBtnTextActive: {
-    color: colors.cyan,
+    color: colors.blue,
   },
   stepBox: {
     backgroundColor: colors.surface,
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   stepBoxTitle: {
     fontSize: 11,
     fontWeight: '900',
-    color: colors.cyan,
+    color: colors.blue,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   stackBoxTitle: {
-    color: colors.cyanLight,
+    color: colors.blueLight,
     fontSize: 11,
     fontWeight: '900',
     textTransform: 'uppercase',
@@ -310,19 +310,19 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   stackTotalValue: {
-    color: colors.cyanLight,
+    color: colors.blueLight,
     fontSize: 14,
     fontWeight: '900',
   },
   addStepBtn: {
-    backgroundColor: colors.cyanDim,
+    backgroundColor: colors.blueDim,
     borderRadius: 100,
     padding: 16,
     alignItems: 'center',
     cursor: 'pointer',
   },
   addStepText: {
-    color: colors.cyan,
+    color: colors.blue,
     fontSize: 14,
     fontWeight: '900',
   },
@@ -349,8 +349,8 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   schedItemActive: {
-    backgroundColor: colors.cyanFaint,
-    borderColor: colors.cyanMid,
+    backgroundColor: colors.blueFaint,
+    borderColor: colors.blueMid,
   },
   schedDoseRow: {
     flexDirection: 'row',
@@ -365,8 +365,8 @@ const styles = StyleSheet.create({
   },
   activeBadge: {
     fontSize: 10,
-    color: colors.cyan,
-    backgroundColor: colors.cyanDim,
+    color: colors.blue,
+    backgroundColor: colors.blueDim,
     paddingVertical: 2,
     paddingHorizontal: 6,
     borderRadius: 4,

@@ -861,7 +861,7 @@ export default function App() {
               <Pressable
                 key={t.id}
                 onPress={() => setActiveTab(t.id)}
-                accessibilityLabel={t.id}
+                accessibilityLabel={t.label}
                 accessibilityRole="button"
                 style={[styles.tabBtn, active && styles.tabBtnActive, { color: active ? navBar.iconActive : navBar.iconInactive }]}
               >
