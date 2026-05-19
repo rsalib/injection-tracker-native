@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Pressable } from './components/ui/Pressable.jsx';
 import { colors, glass, blur, shadow, errorBox } from './theme.js';
-import { auth, appCheckReady } from './services/firebase.js';
+import { auth, ensureAppCheckReady } from './services/firebase.js';
 import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from 'firebase/auth';
 
 export function LoginScreen() {
@@ -13,7 +13,7 @@ export function LoginScreen() {
     setLoading(true);
     setError('');
     try {
-      await appCheckReady;  // ensure App Check token is cached before Firebase Auth call
+      await ensureAppCheckReady();  // triggers App Check lazy-init on first sign-in click; cached for subsequent calls
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({ prompt: 'select_account' });
       try {

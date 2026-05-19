@@ -4,7 +4,7 @@ import { Pressable } from '../ui/Pressable.jsx';
 import { formatDisplayDate } from '../../constants.js';
 import { colors, glass, button } from '../../theme.js';
 import { auth } from '../../services/firebase.js';
-import { appCheck } from '../../services/firebase.js';
+import { getAppCheck } from '../../services/firebase.js';
 import { getToken as getAppCheckToken } from 'firebase/app-check';
 
 const CALENDAR_TOKEN_URL = "https://getcalendartoken-pl4s2cxu2a-uc.a.run.app";
@@ -14,7 +14,7 @@ async function getSubscribeURL() {
   const user = auth.currentUser;
   if (!user) throw new Error("Not signed in");
   const idToken = await user.getIdToken();
-  const { token: acToken } = await getAppCheckToken(appCheck, false).catch(() => ({ token: '' }));
+  const { token: acToken } = await getAppCheckToken(getAppCheck(), false).catch(() => ({ token: '' }));
   const res = await fetch(CALENDAR_TOKEN_URL, {
     headers: { Authorization: `Bearer ${idToken}`, "X-Firebase-AppCheck": acToken }
   });

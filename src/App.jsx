@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { colors, blur, shadow, navBar, layout, motion, radius, spacing, type } from './theme.js';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { auth, appCheckReady, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
+import { auth, ensureAppCheckReady, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
 import { fetchInteractionsWithCache, fetchAllResources } from './services/gemini.js';
 import { getLocalDate, getLocalTime, parseLocalDate, getActiveDose, EMPTY_MED, NAV_TABS } from './constants.js';
@@ -133,11 +133,17 @@ export default function App() {
 
   // ── Auth listener ──────────────────────────────────────────────────
   useEffect(() => {
-    // Wait for App Check token before processing redirect result so the
-    // post-redirect Auth backend call carries a valid App Check token.
-    // Prevents Invalid telemetry on the Authentication API during redirect-return.
-    appCheckReady.then(() => getRedirectResult(auth)).catch(() => {});
-    const unsub = onAuthStateChanged(auth, u => {
+    // Trigger App Check lazy-init and wait for the token before processing
+    // the redirect result. If no redirect is pending, getRedirectResult
+    // resolves to null instantly — App Check was initialized for that case
+    // but the cost is paid in parallel with auth listener setup, after
+    // first paint.
+    ensureAppCheckReady().then(() => getRedirectResult(auth)).catch(() => {});
+    const unsub = onAuthStateChanged(auth, async u => {
+      // When a user becomes present (returning persistent session OR fresh
+      // sign-in), ensure App Check is ready before downstream RTDB / Cloud
+      // Function calls fire. Idempotent — same singleton promise as above.
+      if (u) await ensureAppCheckReady();
       setUser(u);
       setAuthReady(true);
     });

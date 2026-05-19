@@ -16,20 +16,49 @@ const app = initializeApp({
 export const auth = getAuth(app);
 export const db = getDatabase(app);
 
-export const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LcF3-gsAAAAAHbr7DkcvqGLvyf4Yz5WZs1EOXJi'),
-  isTokenAutoRefreshEnabled: true,
-});
+// App Check lazy-init.
+//
+// Why factory functions instead of eager singleton exports:
+//   - Module imports should be cheap and side-effect-free; eager
+//     initializeAppCheck triggers a ~360 KB reCAPTCHA download from gstatic
+//     on every cold start, even when the user is just looking at the login
+//     screen and may never sign in.
+//   - Matches Firebase v9+ modular SDK convention (`getAuth(app)`,
+//     `getDatabase(app)` are all factories).
+//   - First call to either function below triggers reCAPTCHA load + token
+//     issuance. Subsequent calls return the cached instance / promise.
+//
+// Trigger points (intentional):
+//   - LoginScreen.signIn() awaits ensureAppCheckReady before any auth call
+//   - App.jsx auth useEffect calls ensureAppCheckReady before getRedirectResult
+//     AND inside onAuthStateChanged when a user is present, so App Check is
+//     guaranteed ready before any downstream RTDB / Cloud Function call
+//   - gemini.js and LogTab.jsx call getAppCheck() when fetching App Check
+//     tokens for Cloud Function requests
+//
+// Failure mode: getToken's .catch returns null so a network/reCAPTCHA
+// failure doesn't deadlock auth. Firebase Auth's SDK independently retries
+// attaching a token; if that also fails, App Check enforcement rejects
+// cleanly rather than hanging.
 
-// Force App Check to issue its first token immediately on module load.
-// Consumers (LoginScreen, App auth listener) await this before any Firebase
-// Auth call so the App Check token is cached and Firebase Auth attaches it
-// to the request. Prevents the cold-start / redirect-return race that
-// produced the 8% Invalid telemetry on the Authentication API.
-// .catch returns null so a network/reCAPTCHA failure doesn't deadlock auth —
-// Firebase Auth's SDK will independently retry attaching a token, and if
-// that also fails, App Check enforcement rejects cleanly rather than hanging.
-export const appCheckReady = getToken(appCheck, false).catch(() => null);
+let _appCheck = null;
+let _appCheckReady = null;
+
+export function getAppCheck() {
+  if (!_appCheck) {
+    _appCheck = initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider('6LcF3-gsAAAAAHbr7DkcvqGLvyf4Yz5WZs1EOXJi'),
+      isTokenAutoRefreshEnabled: true,
+    });
+    _appCheckReady = getToken(_appCheck, false).catch(() => null);
+  }
+  return _appCheck;
+}
+
+export function ensureAppCheckReady() {
+  getAppCheck();
+  return _appCheckReady;
+}
 
 export function getUserPath() {
   const u = auth.currentUser;

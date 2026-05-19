@@ -1,6 +1,6 @@
 import { auth } from './firebase.js';
 import { cacheGet, cacheSet } from './firebase.js';
-import { appCheck } from './firebase.js';
+import { getAppCheck } from './firebase.js';
 import { getToken as getAppCheckToken } from 'firebase/app-check';
 
 const CACHE_TTL = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -36,7 +36,7 @@ async function getAuthToken() {
 
 async function getACToken() {
   try {
-    const { token } = await getAppCheckToken(appCheck, false);
+    const { token } = await getAppCheckToken(getAppCheck(), false);
     return token;
   } catch { return ''; }
 }
