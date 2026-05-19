@@ -35,7 +35,7 @@ export function LoginScreen() {
     <View style={styles.root}>
       <View style={[styles.card, { backdropFilter: blur.login, WebkitBackdropFilter: blur.login }]}>
         <Image
-          source={{ uri: '/icon.png' }}
+          source={{ uri: '/icon-180.png' }}
           style={{ width: 72, height: 72, alignSelf: 'center', marginBottom: 12, borderRadius: 16 }}
         />
         <Text style={styles.title}>INJECTION TRACKER</Text>
