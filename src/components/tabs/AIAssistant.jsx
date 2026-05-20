@@ -91,7 +91,7 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
       )}
 
       {/* Chat window */}
-      <View className="glass-card" style={styles.chatWindow}>
+      <View style={styles.chatWindow}>
         {messages.map((m, i) => (
           <View key={i} style={[styles.msgRow, m.role === "user" && styles.msgRowUser]}>
             <View style={[
@@ -144,7 +144,7 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
       )}
 
       {/* Input bar */}
-      <View className="glass-card" style={styles.inputBar}>
+      <View style={styles.inputBar}>
         <InputField id="field-aiassistant-8" name="field-aiassistant-8" nativeID="field-aiassistant-8"
           value={input}
           onChangeText={setInput}

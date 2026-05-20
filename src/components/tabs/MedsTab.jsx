@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
-import { colors, glass, button, input } from '../../theme.js';
+import { colors, glass, button, input, type } from '../../theme.js';
 import { SortBar } from '../ui/SortBar.jsx';
 import { ConfirmDialog } from '../ui/ConfirmDialog.jsx';
 import { PromptDialog } from '../ui/PromptDialog.jsx';
@@ -107,7 +107,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
 
       {/* Interaction Monitor */}
       {activeMeds.length >= 2 && (
-        <View className="glass-card" style={[styles.interactionCard, interactionError && styles.interactionCardError]}>
+        <View style={[styles.interactionCard, interactionError && styles.interactionCardError]}>
           <View style={styles.interactionCardLeft}>
             <Text style={styles.interactionCardTitle}>AI Interaction Monitor</Text>
             <Text style={[
@@ -408,10 +408,7 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   interactionCardTitle: {
-    fontWeight: '800',
-    fontSize: 16,
-    color: colors.white,
-    letterSpacing: -0.32,
+    ...type.cardTitle,
   },
   interactionCardStatus: {
     fontSize: 12,

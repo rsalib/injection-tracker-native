@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { formatDisplayDate } from '../../constants.js';
-import { colors, glass, button } from '../../theme.js';
+import { colors, glass, button, type } from '../../theme.js';
 import { auth } from '../../services/firebase.js';
 import { getAppCheck } from '../../services/firebase.js';
 import { getToken as getAppCheckToken } from 'firebase/app-check';
@@ -164,7 +164,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
     <View style={styles.container}>
 
       {/* Auto-Logger Status Bubble */}
-      <View className="glass-card" style={styles.autoLoggerCard}>
+      <View style={styles.autoLoggerCard}>
         <View style={styles.autoLoggerLeft}>
           <Text style={styles.autoLoggerTitle}>Auto-Logger</Text>
           <Text style={styles.autoLoggerStatus}>
@@ -182,7 +182,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
       </Pressable>
 
       {/* History Timeline Bubble */}
-      <View className="glass-card" style={styles.historyCard}>
+      <View style={styles.historyCard}>
         <Text style={styles.historyTitle}>Injection History</Text>
 
         {logs.length === 0 ? (
@@ -302,7 +302,7 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
       </View>
 
       {/* Calendar & CSV Export */}
-      <View className="glass-card" style={styles.exportCard}>
+      <View style={styles.exportCard}>
         <Text style={styles.exportTitle}>Export</Text>
         <Text style={styles.exportSub}>Share your protocols with a provider or archive your log history.</Text>
         <View style={styles.exportActions}>
@@ -406,10 +406,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   historyTitle: {
-    fontWeight: '900',
-    fontSize: 18,
-    color: colors.white,
-    letterSpacing: -0.36,
+    ...type.cardTitle,
     marginBottom: 24,
   },
   emptyState: {
@@ -657,10 +654,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   exportTitle: {
-    fontWeight: '800',
-    fontSize: 16,
-    color: colors.white,
-    marginBottom: 8,
+    ...type.cardTitle,
   },
   exportSub: {
     fontSize: 12,

@@ -47,8 +47,8 @@ export const colors = {
   //   host white text use this token. Guarantees WCAG AA contrast at small text sizes.
   blue: '#0a84ff',
   blueFaint: 'rgba(10, 132, 255, 0.05)',
-  blueDim: 'rgba(10, 132, 255, 0.1)',
-  blueMid: 'rgba(10, 132, 255, 0.2)',
+  blueDim: 'rgba(10, 132, 255, 0.22)',
+  blueMid: 'rgba(10, 132, 255, 0.42)',
   primary: '#0066CC',
 
   // Text
@@ -85,8 +85,8 @@ export const colors = {
   syncPending: '#ff9f0a', // Apple System Orange
   syncSaving: '#ffd60a', // Apple System Yellow
 
-  blueSurface: 'rgba(10, 132, 255, 0.08)',  // Neural Expressive accent wash for active/hover card states
-  blueGlowSoft: 'rgba(10, 132, 255, 0.25)',
+  blueSurface: 'rgba(10, 132, 255, 0.22)',  // Neural Expressive accent wash for active/hover card states
+  blueGlowSoft: 'rgba(10, 132, 255, 0.5)',
   errorDeepBg: 'rgba(255, 69, 58, 0.2)',
   errorDeepBorder: 'rgba(255, 69, 58, 0.4)',
   stackBadgeBg: 'rgba(255, 214, 10, 0.15)',
@@ -651,9 +651,11 @@ export const type = {
     letterSpacing: 2,
   },
   cardTitle: {
-    fontWeight: '700',
-    fontSize: 15,
+    fontSize: 20,
+    fontWeight: '800',
+    letterSpacing: -0.4,
     color: colors.white,
+    marginBottom: 16,
   },
   body: {
     fontSize: 14,

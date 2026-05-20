@@ -5,7 +5,7 @@ import { Badge } from '../ui/Badge.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { CAT_META, POPULAR_MEDS } from '../../constants.js';
 import { fetchAllResources } from '../../services/gemini.js';
-import { colors, glass } from '../../theme.js';
+import { colors, glass, type } from '../../theme.js';
 
 export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibrary, onRefreshMed }) {
   const [query, setQuery] = useState("");
@@ -60,7 +60,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
     <View style={styles.container}>
 
       {/* Search Area */}
-      <View className="glass-card" style={styles.searchCard}>
+      <View style={styles.searchCard}>
         <Text style={styles.searchTitle}>🔍 Search Resources</Text>
         <View style={styles.searchRow}>
           <View style={{ flex: 1 }}>
@@ -103,7 +103,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
 
       {/* Live Results */}
       {liveResults !== null && !searching && (
-        <View className="glass-card" style={styles.resultsCard}>
+        <View style={styles.resultsCard}>
           <View style={styles.resultsHeader}>
             <View>
               <Text style={styles.resultsTitle}>📡 Live Results</Text>
@@ -171,7 +171,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
       )}
 
       {/* My Library */}
-      <View className="glass-card" style={styles.libraryCard}>
+      <View style={styles.libraryCard}>
         <Text style={styles.libraryTitle}>📚 My Library</Text>
         {allLibraryNames.length === 0 && (
           <View style={styles.libraryEmpty}>
@@ -275,11 +275,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   searchTitle: {
-    fontWeight: '800',
-    fontSize: 18,
-    color: colors.white,
-    letterSpacing: -0.36,
-    marginBottom: 16,
+    ...type.cardTitle,
   },
   searchRow: {
     flexDirection: 'row',
@@ -454,9 +450,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   libraryTitle: {
-    fontWeight: '800',
-    fontSize: 18,
-    color: colors.white,
+    ...type.cardTitle,
     marginBottom: 20,
   },
   libraryEmpty: {

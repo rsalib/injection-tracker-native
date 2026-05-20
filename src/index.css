@@ -19,17 +19,6 @@ html, body {
   background: var(--gradient-tabBarFade) !important;
 }
 
-/* Glass-card hover lift — Neural Expressive elevation language.
-   Fires on bare <View> cards. On <Pressable> cards the inline Animated transform
-   wins (higher specificity than CSS :hover), so the JS spring handles those.
-   Both produce the same -2px translateY visual; mechanism differs by element type. */
-.glass-card {
-  transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
-}
-.glass-card:hover {
-  transform: translateY(-2px);
-}
-
 /* Input tap ripple — Material Design Ripple visual on Apple Fluid easing.
    Created imperatively by InputField.jsx on pointerdown at the exact tap
    coordinates; self-removes on animationend. CSS keyframe (not RN Animated)

@@ -98,7 +98,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
           { v: todayLogs.length,  l: 'Dosed',     c: colors.success },
           { v: logs.length,       l: 'Total',      c: colors.purple },
         ].map(({ v, l, c }) => (
-          <View key={l} className="glass-card" style={styles.statCard}>
+          <View key={l} style={styles.statCard}>
             <Text style={[styles.statValue, { color: c }]}>{v}</Text>
             <Text style={styles.statLabel}>{l}</Text>
           </View>
@@ -106,7 +106,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
       </View>
 
       {/* Today's Schedule */}
-      <View className="glass-card" style={styles.bubble}>
+      <View style={styles.bubble}>
         <Text style={styles.bubbleTitle}>Today's Schedule</Text>
         {schedule.length === 0 && todaysDueMeds.length === 0 ? (
           <Text style={styles.empty}>Clear schedule today.</Text>
@@ -140,11 +140,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
         )}
       </View>
 
-      {/* Active Protocols Header */}
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Active Protocols</Text>
-        <SortBar sort={sort} setSort={updateSort} />
-      </View>
+      {/* Active Protocols SortBar (title moved onto card) */}
+      <SortBar sort={sort} setSort={updateSort} />
 
       {/* Active Protocols List */}
       {sorted.length === 0 ? (
@@ -152,7 +149,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
           <Text style={styles.empty}>No active protocols tracked.</Text>
         </View>
       ) : (
-        <View className="glass-card" style={styles.protocolList}>
+        <View style={styles.protocolList}>
+          <Text style={styles.protocolListTitle}>Active Protocols</Text>
           {sorted.map((m, index) => {
             const isLastItem = index === sorted.length - 1;
             const rem = parseFloat(m.vialRemaining) || 0;
@@ -235,7 +233,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
       <SiteRotation logs={logs} />
 
       {/* Recent Injections */}
-      <View className="glass-card" style={styles.bubble}>
+      <View style={styles.bubble}>
         <Text style={styles.recentTitle}>Recent Injections</Text>
         {logs.length === 0 ? (
           <Text style={[styles.empty, { textAlign: 'center', paddingVertical: 20 }]}>No history found.</Text>
@@ -367,11 +365,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   bubbleTitle: {
-    fontWeight: '800',
-    fontSize: 18,
-    color: colors.white,
-    marginBottom: 16,
-    letterSpacing: -0.36,
+    ...type.cardTitle,
   },
   col12: {
     gap: 12,
@@ -405,20 +399,6 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
 
-  // ── Section header ─────────────────────────────────────────────────
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-  },
-  sectionTitle: {
-    fontWeight: '800',
-    fontSize: 18,
-    color: colors.white,
-    letterSpacing: -0.36,
-  },
-
   // ── Protocol list ──────────────────────────────────────────────────
   emptyCard: {
     padding: 40,
@@ -433,6 +413,11 @@ const styles = StyleSheet.create({
     ...glass.card,
     borderRadius: 32,
     overflow: 'hidden',
+  },
+  protocolListTitle: {
+    ...type.cardTitle,
+    paddingHorizontal: 24,
+    paddingTop: 24,
   },
   protocolItem: {
     padding: 24,
@@ -515,8 +500,7 @@ const styles = StyleSheet.create({
 
   // ── Recent injections ──────────────────────────────────────────────
   recentTitle: {
-    ...type.sectionHeading,
-    marginBottom: 16,
+    ...type.cardTitle,
   },
   recentRow: {
     flexDirection: 'row',

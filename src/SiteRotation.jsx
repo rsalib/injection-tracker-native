@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SITES } from './constants.js';
-import { colors, glass, blur, siteActive } from './theme.js';
+import { colors, glass, blur, siteActive, type } from './theme.js';
 
 export function SiteRotation({ logs }) {
   const recent = [...logs].reverse().slice(0, 20);
@@ -13,7 +13,7 @@ export function SiteRotation({ logs }) {
   const suggested = SITES.filter(s => s !== lastSite).sort((a, b) => counts[a] - counts[b])[0];
 
   return (
-    <View className="glass-card" style={[styles.card, { backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog }]}>
+    <View style={[styles.card, { backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog }]}>
       <Text style={styles.heading}>💉 Site Rotation</Text>
       {lastSite ? (
         <View style={styles.body}>
@@ -65,12 +65,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   heading: {
-    fontWeight: '800',
-    fontSize: 16,
-    color: colors.white,
-    textTransform: 'uppercase',
-    letterSpacing: 1.6,
-    marginBottom: 16,
+    ...type.cardTitle,
   },
   body: {
     flexDirection: 'column',
