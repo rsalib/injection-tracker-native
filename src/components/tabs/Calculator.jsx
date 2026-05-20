@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
@@ -134,7 +135,7 @@ export function Calculator() {
           <View style={styles.col}>
             <Text style={styles.fieldLabel}>SYRINGE VOLUME</Text>
             <View style={styles.pillWrapper}>
-              <TextInput id="field-calculator-9" name="field-calculator-9" nativeID="field-calculator-9"
+              <InputField id="field-calculator-9" name="field-calculator-9" nativeID="field-calculator-9"
                 style={styles.pillInput}
                 keyboardType="decimal-pad"
                 value={sylMl}
@@ -147,7 +148,7 @@ export function Calculator() {
           <View style={styles.col}>
             <Text style={styles.fieldLabel}>SYRINGE UNITS</Text>
             <View style={styles.pillWrapper}>
-              <TextInput id="field-calculator-10" name="field-calculator-10" nativeID="field-calculator-10"
+              <InputField id="field-calculator-10" name="field-calculator-10" nativeID="field-calculator-10"
                 style={styles.pillInput}
                 keyboardType="decimal-pad"
                 value={sylU}
@@ -169,7 +170,7 @@ export function Calculator() {
               <View style={styles.col}>
                 <Text style={styles.fieldLabel}>VIAL TOTAL</Text>
                 <View style={styles.pillWrapper}>
-                  <TextInput id="field-calculator-11" name="field-calculator-11" nativeID="field-calculator-11"
+                  <InputField id="field-calculator-11" name="field-calculator-11" nativeID="field-calculator-11"
                     style={styles.pillInput}
                     keyboardType="decimal-pad"
                     value={singleData.vialMg}
@@ -184,7 +185,7 @@ export function Calculator() {
               <View style={styles.col}>
                 <Text style={styles.fieldLabel}>BW ADDED</Text>
                 <View style={styles.pillWrapper}>
-                  <TextInput id="field-calculator-12" name="field-calculator-12" nativeID="field-calculator-12"
+                  <InputField id="field-calculator-12" name="field-calculator-12" nativeID="field-calculator-12"
                     style={styles.pillInput}
                     keyboardType="decimal-pad"
                     value={singleData.bwMl}
@@ -202,7 +203,7 @@ export function Calculator() {
           <View>
             <Text style={styles.lbl}>Target Dose</Text>
             <View style={styles.pillWrapper}>
-              <TextInput id="field-calculator-13" name="field-calculator-13" nativeID="field-calculator-13"
+              <InputField id="field-calculator-13" name="field-calculator-13" nativeID="field-calculator-13"
                 style={styles.pillInput}
                 keyboardType="decimal-pad"
                 value={singleData.doseAmount}
@@ -247,7 +248,7 @@ export function Calculator() {
             <Text style={styles.lbl}>Shared Reconstitution</Text>
             <Text style={styles.fieldLabel}>BW ADDED (TOTAL)</Text>
             <View style={styles.pillWrapper}>
-              <TextInput id="field-calculator-14" name="field-calculator-14" nativeID="field-calculator-14"
+              <InputField id="field-calculator-14" name="field-calculator-14" nativeID="field-calculator-14"
                 style={styles.pillInput}
                 keyboardType="decimal-pad"
                 value={stackData.bwMl}
@@ -281,7 +282,7 @@ export function Calculator() {
                 <View style={styles.col}>
                   <Text style={styles.fieldLabel}>VIAL TOTAL</Text>
                   <View style={styles.pillWrapper}>
-                    <TextInput id="field-calculator-15" name="field-calculator-15" nativeID="field-calculator-15"
+                    <InputField id="field-calculator-15" name="field-calculator-15" nativeID="field-calculator-15"
                       style={styles.pillInput}
                       keyboardType="decimal-pad"
                       value={p.vialMg}
@@ -300,7 +301,7 @@ export function Calculator() {
                 <View style={styles.col}>
                   <Text style={styles.fieldLabel}>TARGET DOSE</Text>
                   <View style={styles.pillWrapper}>
-                    <TextInput id="field-calculator-16" name="field-calculator-16" nativeID="field-calculator-16"
+                    <InputField id="field-calculator-16" name="field-calculator-16" nativeID="field-calculator-16"
                       style={styles.pillInput}
                       keyboardType="decimal-pad"
                       value={p.doseAmount}

@@ -92,7 +92,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         <View style={styles.row2}>
           <View style={styles.doseField}>
             <Text style={styles.lbl}>Dose</Text>
-            <TextInput id="field-addschedulemodal-2" name="field-addschedulemodal-2" nativeID="field-addschedulemodal-2"
+            <InputField id="field-addschedulemodal-2" name="field-addschedulemodal-2" nativeID="field-addschedulemodal-2"
               style={styles.inp}
               value={dose}
               onChangeText={setDose}
@@ -130,7 +130,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
         {/* Notes */}
         <View style={styles.field}>
           <Text style={styles.lbl}>Notes (optional)</Text>
-          <TextInput id="field-addschedulemodal-3" name="field-addschedulemodal-3" nativeID="field-addschedulemodal-3"
+          <InputField id="field-addschedulemodal-3" name="field-addschedulemodal-3" nativeID="field-addschedulemodal-3"
             style={styles.inp}
             value={notes}
             onChangeText={setNotes}

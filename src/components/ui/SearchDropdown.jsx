@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { TextInput } from 'react-native';
 import { colors, shadow, blur, input } from '../../theme.js';
+import { InputField } from './InputField.jsx';
 
 export function SearchDropdown({ value, onChange, onSelect, options, renderOption, placeholder, onSubmit }) {
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
 
   return (
     <div ref={wrapperRef} style={{ position: 'relative', width: '100%' }}>
-      <TextInput id="field-searchdropdown-19" name="field-searchdropdown-19" nativeID="field-searchdropdown-19"
+      <InputField id="field-searchdropdown-19" name="field-searchdropdown-19" nativeID="field-searchdropdown-19"
         style={{ width: '100%', ...input.field, backdropFilter: blur.input, WebkitBackdropFilter: blur.input }}
         placeholder={placeholder || 'Search...'}
         placeholderTextColor={colors.textMuted}

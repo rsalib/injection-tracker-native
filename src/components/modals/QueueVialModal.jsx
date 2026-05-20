@@ -75,7 +75,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
         ) : (
           <View style={styles.field}>
             <Text style={styles.lbl}>Vial Size ({med.vialUnit || med.unit})</Text>
-            <TextInput id="field-queuevialmodal-6" name="field-queuevialmodal-6" nativeID="field-queuevialmodal-6"
+            <InputField id="field-queuevialmodal-6" name="field-queuevialmodal-6" nativeID="field-queuevialmodal-6"
               style={styles.inp}
               value={String(vialTotal)}
               onChangeText={setVialTotal}
@@ -88,7 +88,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
 
         <View style={styles.field}>
           <Text style={styles.lbl}>Bacteriostatic Water Added (mL)</Text>
-          <TextInput id="field-queuevialmodal-7" name="field-queuevialmodal-7" nativeID="field-queuevialmodal-7"
+          <InputField id="field-queuevialmodal-7" name="field-queuevialmodal-7" nativeID="field-queuevialmodal-7"
             style={styles.inp}
             value={String(bwAdded)}
             onChangeText={setBwAdded}

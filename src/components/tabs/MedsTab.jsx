@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
 import { colors, glass, button, input } from '../../theme.js';
@@ -336,7 +337,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
             {archiveExpanded && (
               <View style={styles.archiveList}>
                 {archivedMeds.length > 3 && (
-                  <TextInput id="field-medstab-17" name="field-medstab-17" nativeID="field-medstab-17"
+                  <InputField id="field-medstab-17" name="field-medstab-17" nativeID="field-medstab-17"
                     placeholder="Filter archive by name..."
                     placeholderTextColor={colors.textMuted}
                     value={archiveSearch}

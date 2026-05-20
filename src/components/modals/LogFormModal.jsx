@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { colors, blur, input } from '../../theme.js';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
@@ -69,7 +70,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
         {/* Med name */}
         <View style={styles.field}>
           <Text style={styles.lbl}>Medication Name</Text>
-          <TextInput id="field-logformmodal-4" name="field-logformmodal-4" nativeID="field-logformmodal-4"
+          <InputField id="field-logformmodal-4" name="field-logformmodal-4" nativeID="field-logformmodal-4"
             style={[styles.inp, isEdit && styles.inpDisabled]}
             value={form.medName}
             onChangeText={v => set('medName', v)}
@@ -176,7 +177,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
         {/* Notes */}
         <View style={styles.field}>
           <Text style={styles.lbl}>Notes</Text>
-          <TextInput id="field-logformmodal-5" name="field-logformmodal-5" nativeID="field-logformmodal-5"
+          <InputField id="field-logformmodal-5" name="field-logformmodal-5" nativeID="field-logformmodal-5"
             style={styles.notesInp}
             multiline
             numberOfLines={3}

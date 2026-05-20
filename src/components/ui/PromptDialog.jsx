@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
+import { InputField } from './InputField.jsx';
 import { colors, glass, button, input, blur } from '../../theme.js';
 
 export function PromptDialog({
@@ -26,7 +27,7 @@ export function PromptDialog({
       <View style={styles.card}>
         <Text style={styles.title}>{title}</Text>
         {message ? <Text style={styles.message}>{message}</Text> : null}
-        <TextInput id="field-promptdialog-18" name="field-promptdialog-18" nativeID="field-promptdialog-18"
+        <InputField id="field-promptdialog-18" name="field-promptdialog-18" nativeID="field-promptdialog-18"
           ref={inputRef}
           value={value}
           onChangeText={setValue}

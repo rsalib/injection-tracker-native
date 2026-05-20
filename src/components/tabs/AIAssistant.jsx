@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { callGeminiChat } from '../../services/gemini.js';
 import { colors, glass, input } from '../../theme.js';
@@ -144,7 +145,7 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
 
       {/* Input bar */}
       <View style={styles.inputBar}>
-        <TextInput id="field-aiassistant-8" name="field-aiassistant-8" nativeID="field-aiassistant-8"
+        <InputField id="field-aiassistant-8" name="field-aiassistant-8" nativeID="field-aiassistant-8"
           value={input}
           onChangeText={setInput}
           onSubmitEditing={send}

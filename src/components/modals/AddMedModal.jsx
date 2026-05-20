@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
@@ -210,7 +211,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
         <View style={styles.well}>
           <Text style={styles.lbl}>Reconstitution Volume</Text>
           <Text style={styles.hint}>TOTAL BW ADDED (mL)</Text>
-          <TextInput id="field-addmedmodal-1" name="field-addmedmodal-1" nativeID="field-addmedmodal-1"
+          <InputField id="field-addmedmodal-1" name="field-addmedmodal-1" nativeID="field-addmedmodal-1"
             style={styles.inp}
             value={form.bwAdded}
             onChangeText={v => set('bwAdded', v)}
