@@ -60,7 +60,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
     <View style={styles.container}>
 
       {/* Search Area */}
-      <View style={styles.searchCard}>
+      <View className="glass-card" style={styles.searchCard}>
         <Text style={styles.searchTitle}>🔍 Search Resources</Text>
         <View style={styles.searchRow}>
           <View style={{ flex: 1 }}>
@@ -103,7 +103,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
 
       {/* Live Results */}
       {liveResults !== null && !searching && (
-        <View style={styles.resultsCard}>
+        <View className="glass-card" style={styles.resultsCard}>
           <View style={styles.resultsHeader}>
             <View>
               <Text style={styles.resultsTitle}>📡 Live Results</Text>
@@ -171,7 +171,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
       )}
 
       {/* My Library */}
-      <View style={styles.libraryCard}>
+      <View className="glass-card" style={styles.libraryCard}>
         <Text style={styles.libraryTitle}>📚 My Library</Text>
         {allLibraryNames.length === 0 && (
           <View style={styles.libraryEmpty}>

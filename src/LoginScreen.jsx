@@ -33,7 +33,7 @@ export function LoginScreen() {
 
   return (
     <View style={styles.root}>
-      <View style={[styles.card, { backdropFilter: blur.login, WebkitBackdropFilter: blur.login }]}>
+      <View className="glass-card" style={[styles.card, { backdropFilter: blur.login, WebkitBackdropFilter: blur.login }]}>
         <Image
           source={{ uri: '/icon-180.png' }}
           style={{ width: 72, height: 72, alignSelf: 'center', marginBottom: 12, borderRadius: 16 }}

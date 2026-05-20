@@ -20,8 +20,9 @@ function splitStyle(style) {
   return { layout, visual };
 }
 
-export function Pressable({ onPress, onPressIn, onPressOut, style, disabled, children, ...props }) {
+export function Pressable({ onPress, onPressIn, onPressOut, onHoverIn, onHoverOut, style, disabled, children, ...props }) {
   const scale = useRef(new Animated.Value(1)).current;
+  const translateY = useRef(new Animated.Value(0)).current;
   const [pressed, setPressed] = useState(false);
 
   const handlePressIn = (e) => {
@@ -36,15 +37,27 @@ export function Pressable({ onPress, onPressIn, onPressOut, style, disabled, chi
     onPressOut?.(e);
   };
 
+  const handleHoverIn = (e) => {
+    Animated.spring(translateY, { toValue: -2, useNativeDriver: false, speed: 80, bounciness: 2 }).start();
+    onHoverIn?.(e);
+  };
+
+  const handleHoverOut = (e) => {
+    Animated.spring(translateY, { toValue: 0, useNativeDriver: false, speed: 80, bounciness: 2 }).start();
+    onHoverOut?.(e);
+  };
+
   const resolvedStyle = typeof style === 'function' ? style({ pressed }) : style;
   const { layout, visual } = splitStyle(resolvedStyle);
 
   return (
-    <Animated.View style={[layout, { transform: [{ scale }] }]}>
+    <Animated.View style={[layout, { transform: [{ scale }, { translateY }] }]}>
       <RNPressable
         onPress={onPress}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
+        onHoverIn={handleHoverIn}
+        onHoverOut={handleHoverOut}
         disabled={disabled}
         style={[visual, { width: '100%', height: '100%' }]}
         {...props}

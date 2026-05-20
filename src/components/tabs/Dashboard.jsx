@@ -8,7 +8,7 @@ import { SiteRotation } from '../../SiteRotation.jsx';
 import { sortMeds, parseLocalDate, formatDisplayDate, getLocalDate } from '../../constants.js';
 import { toMg } from '../../mathEngine.js';
 import { InteractionEngine } from '../../services/gemini.js';
-import { colors, glass } from '../../theme.js';
+import { colors, glass, type } from '../../theme.js';
 
 export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, actionableInteractions, onAlertClick, onSaveMeds, logDose, undoDose, today, onQueueVial, settings, updateSetting }) {
   const sort = settings?.dashSort || 'newest';
@@ -98,7 +98,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
           { v: todayLogs.length,  l: 'Dosed',     c: colors.success },
           { v: logs.length,       l: 'Total',      c: colors.purple },
         ].map(({ v, l, c }) => (
-          <View key={l} style={styles.statCard}>
+          <View key={l} className="glass-card" style={styles.statCard}>
             <Text style={[styles.statValue, { color: c }]}>{v}</Text>
             <Text style={styles.statLabel}>{l}</Text>
           </View>
@@ -106,7 +106,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
       </View>
 
       {/* Today's Schedule */}
-      <View style={styles.bubble}>
+      <View className="glass-card" style={styles.bubble}>
         <Text style={styles.bubbleTitle}>Today's Schedule</Text>
         {schedule.length === 0 && todaysDueMeds.length === 0 ? (
           <Text style={styles.empty}>Clear schedule today.</Text>
@@ -152,7 +152,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
           <Text style={styles.empty}>No active protocols tracked.</Text>
         </View>
       ) : (
-        <View style={styles.protocolList}>
+        <View className="glass-card" style={styles.protocolList}>
           {sorted.map((m, index) => {
             const isLastItem = index === sorted.length - 1;
             const rem = parseFloat(m.vialRemaining) || 0;
@@ -235,7 +235,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
       <SiteRotation logs={logs} />
 
       {/* Recent Injections */}
-      <View style={styles.bubble}>
+      <View className="glass-card" style={styles.bubble}>
         <Text style={styles.recentTitle}>Recent Injections</Text>
         {logs.length === 0 ? (
           <Text style={[styles.empty, { textAlign: 'center', paddingVertical: 20 }]}>No history found.</Text>
@@ -515,11 +515,7 @@ const styles = StyleSheet.create({
 
   // ── Recent injections ──────────────────────────────────────────────
   recentTitle: {
-    fontWeight: '800',
-    fontSize: 16,
-    color: colors.white,
-    textTransform: 'uppercase',
-    letterSpacing: 1.6,
+    ...type.sectionHeading,
     marginBottom: 16,
   },
   recentRow: {

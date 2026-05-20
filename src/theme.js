@@ -85,6 +85,7 @@ export const colors = {
   syncPending: '#ff9f0a', // Apple System Orange
   syncSaving: '#ffd60a', // Apple System Yellow
 
+  blueSurface: 'rgba(10, 132, 255, 0.08)',  // Neural Expressive accent wash for active/hover card states
   blueGlowSoft: 'rgba(10, 132, 255, 0.25)',
   errorDeepBg: 'rgba(255, 69, 58, 0.2)',
   errorDeepBorder: 'rgba(255, 69, 58, 0.4)',
@@ -647,7 +648,7 @@ export const type = {
     fontSize: 16,
     color: colors.white,
     textTransform: 'uppercase',
-    letterSpacing: 1.6,
+    letterSpacing: 2,
   },
   cardTitle: {
     fontWeight: '700',
@@ -668,6 +669,10 @@ export const type = {
     textTransform: 'uppercase',
     letterSpacing: 0.45,
   },
+  // Neural Expressive hierarchy — for expressive headers and nested section titles
+  heading1: { fontSize: 24, fontWeight: '800', letterSpacing: -0.5, color: colors.white },
+  heading2: { fontSize: 20, fontWeight: '700', letterSpacing: -0.3, color: colors.white },
+  subheading: { fontSize: 13, fontWeight: '600', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 1.2 },
 };
 
 // =============================================================================
@@ -712,6 +717,7 @@ export const layout = {
 
 export const motion = {
   tabTransition: 'all 0.3s ease',
+  hoverLiftPx: -2,
 };
 
 // =============================================================================

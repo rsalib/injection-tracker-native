@@ -13,7 +13,7 @@ export function SiteRotation({ logs }) {
   const suggested = SITES.filter(s => s !== lastSite).sort((a, b) => counts[a] - counts[b])[0];
 
   return (
-    <View style={[styles.card, { backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog }]}>
+    <View className="glass-card" style={[styles.card, { backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog }]}>
       <Text style={styles.heading}>💉 Site Rotation</Text>
       {lastSite ? (
         <View style={styles.body}>

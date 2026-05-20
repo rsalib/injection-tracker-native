@@ -107,7 +107,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
 
       {/* Interaction Monitor */}
       {activeMeds.length >= 2 && (
-        <View style={[styles.interactionCard, interactionError && styles.interactionCardError]}>
+        <View className="glass-card" style={[styles.interactionCard, interactionError && styles.interactionCardError]}>
           <View style={styles.interactionCardLeft}>
             <Text style={styles.interactionCardTitle}>AI Interaction Monitor</Text>
             <Text style={[
