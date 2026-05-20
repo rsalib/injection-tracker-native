@@ -488,15 +488,81 @@ export const blur = {
 // =============================================================================
 
 export const input = {
+  // Standalone pill TextInput
   field: {
     backgroundColor: colors.surface,
-    borderRadius: 14,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+    borderTopColor: colors.borderHighlight,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    color: colors.white,
+    fontSize: 16,
+    outlineStyle: 'none',
+  },
+  // Smaller pill for archive/filter search inputs
+  fieldSearch: {
+    backgroundColor: colors.borderFaint,
+    borderRadius: 100,
     borderWidth: 1,
     borderColor: colors.borderSubtle,
     paddingVertical: 10,
-    paddingHorizontal: 14,
-    color: colors.textPrimary,
+    paddingHorizontal: 16,
+    color: colors.white,
     fontSize: 15,
+    outlineStyle: 'none',
+  },
+  // Multiline textarea variant (notes fields)
+  fieldMultiline: {
+    backgroundColor: colors.surface,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    color: colors.white,
+    fontSize: 15,
+    minHeight: 80,
+    textAlignVertical: 'top',
+    outlineStyle: 'none',
+  },
+  // Transparent inline input — for TextInputs embedded inside a pillWrapper or glass card
+  fieldPill: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    color: colors.white,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: 16,
+    outlineStyle: 'none',
+    minWidth: 0,
+  },
+  // Raw CSS object for standalone <select> elements (surface background)
+  // Must be used as inline style on DOM elements — StyleSheet silently strips backdropFilter
+  rawSelect: {
+    width: '100%',
+    backgroundColor: colors.surface,
+    border: `1px solid ${colors.borderSubtle}`,
+    borderTop: `1px solid ${colors.borderHighlight}`,
+    borderRadius: '100px',
+    padding: '14px 18px',
+    color: colors.white,
+    fontSize: 16,
+    boxSizing: 'border-box',
+    outline: 'none',
+  },
+  // Raw CSS object for <select>/<input type="date/time"> with faint background
+  rawSelectFaint: {
+    width: '100%',
+    background: colors.borderFaint,
+    border: `1px solid ${colors.borderSubtle}`,
+    borderRadius: '100px',
+    padding: '14px 18px',
+    color: colors.white,
+    fontSize: 15,
+    boxSizing: 'border-box',
+    outline: 'none',
   },
   label: {
     fontSize: 11,

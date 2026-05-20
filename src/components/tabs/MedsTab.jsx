@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
-import { colors, glass, button } from '../../theme.js';
+import { colors, glass, button, input } from '../../theme.js';
 import { SortBar } from '../ui/SortBar.jsx';
 import { ConfirmDialog } from '../ui/ConfirmDialog.jsx';
 import { PromptDialog } from '../ui/PromptDialog.jsx';
@@ -760,13 +760,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   archiveSearch: {
-    backgroundColor: colors.borderFaint,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    borderRadius: 100,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    color: colors.white,
+    ...input.fieldSearch,
     fontSize: 14,
     marginBottom: 12,
   },

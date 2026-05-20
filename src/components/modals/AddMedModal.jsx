@@ -3,25 +3,10 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
-import { colors, button } from '../../theme.js';
+import { colors, blur, button, input } from '../../theme.js';
 import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constants.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
-// Raw CSS objects for HTML elements (select, input[type=date/time], pill input+select combos)
-const rawInp = {
-  width: '100%',
-  backgroundColor: colors.surface,
-  backdropFilter: blur.input,
-  WebkitBackdropFilter: blur.input,
-  border: `1px solid ${colors.borderSubtle}`,
-  borderTop: `1px solid ${colors.borderHighlight}`,
-  borderRadius: '100px',
-  padding: '14px 18px',
-  color: colors.white,
-  fontSize: 16,
-  boxSizing: 'border-box',
-  outline: 'none',
-};
 
 export function MedForm({ initial, onSave, onClose, title }) {
   const isEdit = !!initial.id;
@@ -199,7 +184,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
         {peptides.length === 1 && (
           <View style={styles.field}>
             <Text style={styles.lbl}>Type</Text>
-            <select style={rawInp} value={form.type} onChange={e => set('type', e.target.value)}>
+            <select style={input.rawSelect} value={form.type} onChange={e => set('type', e.target.value)}>
               <option>Peptide</option><option>Hormone</option><option>SARM</option><option>Other</option>
             </select>
           </View>
@@ -209,13 +194,13 @@ export function MedForm({ initial, onSave, onClose, title }) {
         <View style={styles.row2}>
           <View style={styles.flex1}>
             <Text style={styles.lbl}>Syringe Vol (mL)</Text>
-            <select style={rawInp} value={form.syringeMl} onChange={e => set('syringeMl', e.target.value)}>
+            <select style={input.rawSelect} value={form.syringeMl} onChange={e => set('syringeMl', e.target.value)}>
               <option value="0.3">0.3 mL</option><option value="0.5">0.5 mL</option><option value="1">1.0 mL</option>
             </select>
           </View>
           <View style={styles.flex1}>
             <Text style={styles.lbl}>Syringe Units</Text>
-            <select style={rawInp} value={form.syringeUnits} onChange={e => set('syringeUnits', e.target.value)}>
+            <select style={input.rawSelect} value={form.syringeUnits} onChange={e => set('syringeUnits', e.target.value)}>
               <option value="30">30 U</option><option value="50">50 U</option><option value="100">100 U</option>
             </select>
           </View>
@@ -319,7 +304,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
           </View>
           <View>
             <Text style={styles.lbl}>Location</Text>
-            <select style={{ ...rawInp, width: '100%' }} value={form.site} onChange={e => set('site', e.target.value)}>
+            <select style={input.rawSelect} value={form.site} onChange={e => set('site', e.target.value)}>
               {SITES.map(s => <option key={s}>{s}</option>)}
             </select>
           </View>
@@ -397,14 +382,7 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    borderRadius: 100,
-    paddingVertical: 14,
-    paddingHorizontal: 18,
-    color: colors.white,
-    fontSize: 15,
+    ...input.field,
   },
   well: {
     backgroundColor: colors.surfaceDeep,

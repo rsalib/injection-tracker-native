@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SITES, DAYS } from '../../constants.js';
-import { colors, button } from '../../theme.js';
+import { colors, button, input } from '../../theme.js';
 
 export function AddScheduleModal({ meds, onClose, onSave }) {
   const [medId, setMedId] = useState('');
@@ -51,7 +51,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
           <Text style={styles.lbl}>Medication</Text>
           <select
             id="addschedule-med" name="addschedule-med"
-            style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={input.rawSelectFaint}
             value={medId}
             onChange={e => handleMedSelect(e.target.value)}
           >
@@ -84,7 +84,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
             type="time"
             value={time}
             onChange={e => setTime(e.target.value)}
-            style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={input.rawSelectFaint}
           />
         </View>
 
@@ -105,7 +105,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
             <Text style={styles.lbl}>Unit</Text>
             <select
               id="addschedule-unit" name="addschedule-unit"
-              style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+              style={input.rawSelectFaint}
               value={unit}
               onChange={e => setUnit(e.target.value)}
             >
@@ -119,7 +119,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
           <Text style={styles.lbl}>Injection Site</Text>
           <select
             id="addschedule-site" name="addschedule-site"
-            style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={input.rawSelectFaint}
             value={site}
             onChange={e => setSite(e.target.value)}
           >
@@ -166,14 +166,7 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    borderRadius: 100,
-    paddingVertical: 14,
-    paddingHorizontal: 18,
-    color: colors.white,
-    fontSize: 15,
+    ...input.field,
   },
   row2: {
     flexDirection: 'row',

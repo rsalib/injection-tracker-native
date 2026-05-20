@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { colors } from '../../theme.js';
+import { colors, blur, input } from '../../theme.js';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
@@ -57,7 +57,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
             <Text style={styles.lbl}>Quick Select Protocol</Text>
             <select
               id="logform-quick-select" name="logform-quick-select"
-              style={{ width: '100%', backgroundColor: colors.surface, backdropFilter: blur.input, WebkitBackdropFilter: blur.input, border: `1px solid ${colors.borderSubtle}`, borderTop: `1px solid ${colors.borderHighlight}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
+              style={input.rawSelect}
               onChange={e => selMed(e.target.value)}
             >
               <option value="">-- Select --</option>
@@ -154,7 +154,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
           <Text style={styles.lbl}>Injection Site</Text>
           <select
             id="logform-site" name="logform-site"
-            style={{ width: '100%', backgroundColor: colors.surface, backdropFilter: blur.input, WebkitBackdropFilter: blur.input, border: `1px solid ${colors.borderSubtle}`, borderTop: `1px solid ${colors.borderHighlight}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 16, boxSizing: 'border-box', outline: 'none' }}
+            style={input.rawSelect}
             value={form.site}
             onChange={e => set('site', e.target.value)}
           >
@@ -219,14 +219,7 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    borderRadius: 100,
-    paddingVertical: 14,
-    paddingHorizontal: 18,
-    color: colors.white,
-    fontSize: 15,
+    ...input.field,
   },
   inpDisabled: {
     opacity: 0.5,
@@ -238,16 +231,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   notesInp: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    borderRadius: 24,
-    paddingVertical: 14,
-    paddingHorizontal: 18,
-    color: colors.white,
-    fontSize: 15,
-    minHeight: 80,
-    textAlignVertical: 'top',
+    ...input.fieldMultiline,
   },
   stackBox: {
     backgroundColor: colors.surfaceDeep,

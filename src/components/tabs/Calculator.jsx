@@ -4,7 +4,7 @@ import { Pressable } from '../ui/Pressable.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { ALL_STACKS } from '../../constants.js';
-import { colors, glass, button } from '../../theme.js';
+import { colors, glass, button, input } from '../../theme.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
 export function Calculator() {
@@ -484,14 +484,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   pillInput: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    color: colors.white,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 16,
-    outlineStyle: 'none',
-    minWidth: 0,
+    ...input.fieldPill,
   },
   pillDivider: {
     width: 1,

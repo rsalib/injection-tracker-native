@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { colors } from '../../theme.js';
+import { colors, input } from '../../theme.js';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
@@ -106,7 +106,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
             type="date"
             value={startDate}
             onChange={e => setStartDate(e.target.value)}
-            style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+            style={input.rawSelectFaint}
           />
         </View>
 
@@ -148,14 +148,7 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   inp: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderSubtle,
-    borderRadius: 100,
-    paddingVertical: 14,
-    paddingHorizontal: 18,
-    color: colors.white,
-    fontSize: 15,
+    ...input.field,
   },
   blendBox: {
     backgroundColor: colors.tealDeep,

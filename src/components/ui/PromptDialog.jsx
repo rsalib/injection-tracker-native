@@ -76,14 +76,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   input: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.borderHighlight,
-    borderRadius: 16,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    color: colors.white,
-    fontSize: 16,
+    ...input.field,
     marginBottom: 16,
   },
   btnRow: {

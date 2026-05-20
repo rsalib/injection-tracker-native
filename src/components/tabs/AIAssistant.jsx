@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { callGeminiChat } from '../../services/gemini.js';
-import { colors, glass } from '../../theme.js';
+import { colors, glass, input } from '../../theme.js';
 
 export function AIAssistant({ meds, interactions, onRecheck }) {
   const actionableInteractions = (Array.isArray(interactions) ? interactions : []).filter(i => i.severity && !["none", "safe"].includes(i.severity.toLowerCase()));
@@ -295,12 +295,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputField: {
-    flex: 1,
-    backgroundColor: 'transparent',
+    ...input.fieldPill,
     paddingVertical: 8,
     paddingHorizontal: 20,
-    fontSize: 16,
-    color: colors.white,
     fontWeight: '500',
   },
   sendBtn: {

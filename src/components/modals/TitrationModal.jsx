@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { colors, blur, shadow } from '../../theme.js';
+import { colors, blur, shadow, input } from '../../theme.js';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
@@ -103,7 +103,7 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                 type="date"
                 value={newDate}
                 onChange={e => setNewDate(e.target.value)}
-                style={{ width: '100%', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', padding: '14px 18px', color: colors.white, fontSize: 15, boxSizing: 'border-box', outline: 'none' }}
+                style={input.rawSelectFaint}
               />
             </View>
 
