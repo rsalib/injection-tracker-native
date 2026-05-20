@@ -15,7 +15,7 @@ const MedsTab = lazy(() => import('./components/tabs/MedsTab.jsx').then(m => ({ 
 const LogTab = lazy(() => import('./components/tabs/LogTab.jsx').then(m => ({ default: m.LogTab })));
 const ResourcesTab = lazy(() => import('./components/tabs/ResourcesTab.jsx').then(m => ({ default: m.ResourcesTab })));
 const AIAssistant = lazy(() => import('./components/tabs/AIAssistant.jsx').then(m => ({ default: m.AIAssistant })));
-import { DashboardIcon, LogIcon, MedsIcon, CalcIcon, ResourcesIcon, AIIcon } from './components/ui/TabIcons.jsx';
+import { AnimatedTabIcon } from './components/ui/AnimatedTabIcon.jsx';
 import { AddMedModal } from './components/modals/AddMedModal.jsx';
 import { EditMedModal } from './components/modals/EditMedModal.jsx';
 import { TitrationModal } from './components/modals/TitrationModal.jsx';
@@ -25,15 +25,6 @@ import { AddScheduleModal } from './components/modals/AddScheduleModal.jsx';
 import { Pressable } from './components/ui/Pressable.jsx';
 import { CircuitBreaker } from './components/ui/CircuitBreaker.jsx';
 import { Header } from './components/ui/Header.jsx';
-
-const TAB_ICONS = {
-  Dashboard:    DashboardIcon,
-  LogInjection: LogIcon,
-  Medications:  MedsIcon,
-  Calculator:   CalcIcon,
-  Resources:    ResourcesIcon,
-  AIAssistant:  AIIcon,
-};
 
 // Simple fbSet wrapper passed to LogTab (matches v2 signature)
 const save = async (path, data) => { await fbSet(path, data); };
@@ -862,7 +853,6 @@ export default function App() {
         <View style={styles.tabBarCapsule}>
           {NAV_TABS.map(t => {
             const active = activeTab === t.id;
-            const Icon = TAB_ICONS[t.iconKey];
             return (
               <Pressable
                 key={t.id}
@@ -871,7 +861,11 @@ export default function App() {
                 accessibilityRole="button"
                 style={[styles.tabBtn, active && styles.tabBtnActive, { color: active ? navBar.iconActive : navBar.iconInactive }]}
               >
-                <Icon active={active} />
+                <AnimatedTabIcon
+                  name={t.iconKey}
+                  active={active}
+                  pulse={t.iconKey === 'Medications' && actionableInteractions.length > 0}
+                />
                 {active && (
                   <Text style={styles.tabLabel} numberOfLines={1}>{t.label}</Text>
                 )}
