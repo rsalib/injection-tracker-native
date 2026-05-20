@@ -39,7 +39,7 @@ export const InputField = forwardRef(function InputField({ style, onFocus, onBlu
     pulseAnim.setValue(0);
     Animated.timing(pulseAnim, {
       toValue: 1,
-      duration: 400,
+      duration: 600,
       easing: APPLE_EASE,
       useNativeDriver: false,
     }).start();
@@ -61,8 +61,8 @@ export const InputField = forwardRef(function InputField({ style, onFocus, onBlu
   const hasBorder = (flat.borderWidth || 0) > 0;
 
   // Pulse ring: expands outward from input bounds, fades to transparent
-  const ringScale = pulseAnim.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] });
-  const ringOpacity = pulseAnim.interpolate({ inputRange: [0, 1], outputRange: [0.55, 0] });
+  const ringScale = pulseAnim.interpolate({ inputRange: [0, 1], outputRange: [1, 1.2] });
+  const ringOpacity = pulseAnim.interpolate({ inputRange: [0, 1], outputRange: [0.85, 0] });
 
   // Settled focused state: border color transitions to blue
   const animatedBorderColor = focusAnim.interpolate({
@@ -79,7 +79,7 @@ export const InputField = forwardRef(function InputField({ style, onFocus, onBlu
             position: 'absolute',
             top: 0, left: 0, right: 0, bottom: 0,
             borderRadius,
-            borderWidth: 2,
+            borderWidth: 3,
             borderColor: colors.blue,
             opacity: ringOpacity,
             transform: [{ scale: ringScale }],
