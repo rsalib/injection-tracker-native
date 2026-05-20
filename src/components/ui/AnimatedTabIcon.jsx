@@ -51,8 +51,8 @@ export function AnimatedTabIcon({ name, active, pulse }) {
     if (pulse) {
       const loop = Animated.loop(
         Animated.sequence([
-          Animated.timing(pulseVal, { toValue: 1.06, duration: 800, easing: FLUID, useNativeDriver: false }),
-          Animated.timing(pulseVal, { toValue: 1.0,  duration: 800, easing: FLUID, useNativeDriver: false }),
+          Animated.timing(pulseVal, { toValue: 1.18, duration: 700, easing: FLUID, useNativeDriver: false }),
+          Animated.timing(pulseVal, { toValue: 1.0,  duration: 700, easing: FLUID, useNativeDriver: false }),
         ])
       );
       pulseLoopRef.current = loop;
