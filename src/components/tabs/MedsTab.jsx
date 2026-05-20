@@ -558,11 +558,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   metricLabel: {
-    color: colors.textSecondary,
-    fontSize: 10,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.microLabel,
   },
   metricValue: {
     fontSize: 16,
@@ -595,11 +591,7 @@ const styles = StyleSheet.create({
     borderColor: colors.borderFaint,
   },
   safetyLabel: {
-    fontSize: 10,
-    fontWeight: '800',
-    color: colors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.microLabel,
     marginBottom: 10,
   },
   safetyList: {

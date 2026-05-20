@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
-import { colors, blur } from '../../theme.js';
+import { colors, blur, type } from '../../theme.js';
 
 export function Header({
   firstName,
@@ -116,11 +116,7 @@ const styles = StyleSheet.create({
   dotError:  { backgroundColor: colors.error },
   dotIdle:   { backgroundColor: colors.textSecondary },
   syncLabel: {
-    fontSize: 10,
-    color: colors.textSecondary,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.microLabel,
   },
   logoutBtn: {
     backgroundColor: colors.errorSoft,

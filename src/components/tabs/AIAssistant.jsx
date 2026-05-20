@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { callGeminiChat } from '../../services/gemini.js';
-import { colors, glass, input } from '../../theme.js';
+import { colors, glass, input, type } from '../../theme.js';
 
 export function AIAssistant({ meds, interactions, onRecheck }) {
   const actionableInteractions = (Array.isArray(interactions) ? interactions : []).filter(i => i.severity && !["none", "safe"].includes(i.severity.toLowerCase()));
@@ -244,11 +244,7 @@ const styles = StyleSheet.create({
     borderTopColor: colors.borderSubtle,
   },
   sourcesLabel: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: colors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.formLabel,
     marginBottom: 8,
   },
   loadingBubble: {

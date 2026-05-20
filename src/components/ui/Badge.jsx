@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { badge } from '../../theme.js';
+import { badge, type } from '../../theme.js';
 
 const COLOR_MAP = badge;
 
@@ -24,9 +24,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   label: {
-    fontSize: 10,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.microLabel,
   },
 });

@@ -94,17 +94,12 @@ const styles = StyleSheet.create({
     borderColor: colors.blueDim,
   },
   tileLabel: {
-    fontSize: 10,
-    color: colors.textSecondary,
-    fontWeight: '800',
-    textTransform: 'uppercase',
+    ...type.microLabel,
     marginBottom: 4,
   },
   tileLabelCyan: {
-    fontSize: 10,
+    ...type.microLabel,
     color: colors.blue,
-    fontWeight: '800',
-    textTransform: 'uppercase',
     marginBottom: 4,
   },
   tileValueAmber: {

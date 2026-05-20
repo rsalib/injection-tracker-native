@@ -4,7 +4,7 @@ import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
-import { colors, blur, button, input } from '../../theme.js';
+import { colors, blur, button, input, type } from '../../theme.js';
 import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constants.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
@@ -360,11 +360,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   lbl: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: colors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.formLabel,
     marginBottom: 8,
     paddingLeft: 4,
   },

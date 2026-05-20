@@ -675,6 +675,16 @@ export const type = {
   heading1: { fontSize: 24, fontWeight: '800', letterSpacing: -0.5, color: colors.white },
   heading2: { fontSize: 20, fontWeight: '700', letterSpacing: -0.3, color: colors.white },
   subheading: { fontSize: 13, fontWeight: '600', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 1.2 },
+  // Bold body — med names, log row primary text, list-row primaries
+  bodyEmphasis: { fontSize: 14, fontWeight: '700', color: colors.textPrimary },
+  // Mid-weight uppercase eyebrow labels — between caption and subheading
+  sectionLabel: { fontSize: 12, fontWeight: '700', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 0.5 },
+  // Smallest uppercase labels — badges, meta pills
+  microLabel: { fontSize: 10, fontWeight: '800', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 0.5 },
+  // Form-field labels — the "lbl" above every modal input
+  formLabel: { fontSize: 11, fontWeight: '800', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 0.5 },
+  // Hero numeric callouts — Calculator result, Dashboard stat values. Per-site fontSize override allowed.
+  display: { fontSize: 32, fontWeight: '900', letterSpacing: -0.8, color: colors.white },
 };
 
 // =============================================================================

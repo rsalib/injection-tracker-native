@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { colors, input } from '../../theme.js';
+import { colors, input, type } from '../../theme.js';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
@@ -139,11 +139,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   lbl: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: colors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.formLabel,
     marginBottom: 8,
     paddingLeft: 4,
   },

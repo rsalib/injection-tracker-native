@@ -419,11 +419,7 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   resultSource: {
-    fontSize: 11,
-    color: colors.textSecondary,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.formLabel,
   },
   saveBtn: {
     backgroundColor: colors.blueDim,

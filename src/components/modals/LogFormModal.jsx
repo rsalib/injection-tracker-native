@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { colors, blur, input } from '../../theme.js';
+import { colors, blur, input, type } from '../../theme.js';
 import { View, Text, StyleSheet } from 'react-native';
 import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
@@ -211,11 +211,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   lbl: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: colors.textSecondary,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    ...type.formLabel,
     marginBottom: 8,
     paddingLeft: 4,
   },
