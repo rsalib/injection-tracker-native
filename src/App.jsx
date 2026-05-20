@@ -779,7 +779,7 @@ export default function App() {
       />
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
-      <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" bounces={false} overScrollMode="never">
+      <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main">
         <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: colors.bgFallback }} />}>
         <View style={styles.appContainer}>
           {activeTab === 'Dashboard' && (

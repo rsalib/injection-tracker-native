@@ -1,6 +1,8 @@
 html, body {
   background: var(--bg);
-  overscroll-behavior: none;
+  /* Block pull-to-refresh chaining to the browser, but let the inner ScrollView
+     surface its own native iOS rubber-band overscroll inside its bounds. */
+  overscroll-behavior-y: contain;
   height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", system-ui, sans-serif;
 }
