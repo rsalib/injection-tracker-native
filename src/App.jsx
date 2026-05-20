@@ -864,7 +864,7 @@ export default function App() {
                 <AnimatedTabIcon
                   name={t.iconKey}
                   active={active}
-                  pulse={t.iconKey === 'Medications' && actionableInteractions.length > 0}
+                  pulse={t.iconKey === 'Medications' && !active && actionableInteractions.length > 0}
                 />
                 {active && (
                   <Text style={styles.tabLabel} numberOfLines={1}>{t.label}</Text>
