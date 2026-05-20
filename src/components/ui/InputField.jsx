@@ -1,10 +1,5 @@
-import React, { forwardRef, useRef } from 'react';
-import { Animated, TextInput, View, StyleSheet, Easing } from 'react-native';
-import { colors } from '../../theme.js';
-
-// Apple deliberate ease — matches dropdownUnfold and other Fluid motion in this app
-const APPLE_EASE = Easing.bezier(0.32, 0.72, 0, 1);
-const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+import React, { forwardRef, useRef, useEffect } from 'react';
+import { TextInput, View, StyleSheet } from 'react-native';
 
 const LAYOUT_PROPS = new Set([
   'flex', 'flexGrow', 'flexShrink', 'flexBasis',
@@ -25,75 +20,47 @@ function splitStyle(style) {
   return { layout, visual, flat };
 }
 
-export const InputField = forwardRef(function InputField({ style, onFocus, onBlur, ...props }, ref) {
-  const focusAnim = useRef(new Animated.Value(0)).current;
-  const pulseAnim = useRef(new Animated.Value(0)).current;
+export const InputField = forwardRef(function InputField({ style, ...props }, ref) {
+  const wrapperRef = useRef(null);
 
-  const handleFocus = (e) => {
-    Animated.timing(focusAnim, {
-      toValue: 1,
-      duration: 250,
-      easing: APPLE_EASE,
-      useNativeDriver: false,
-    }).start();
-    pulseAnim.setValue(0);
-    Animated.timing(pulseAnim, {
-      toValue: 1,
-      duration: 600,
-      easing: APPLE_EASE,
-      useNativeDriver: false,
-    }).start();
-    onFocus?.(e);
-  };
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el || typeof el.addEventListener !== 'function') return;
 
-  const handleBlur = (e) => {
-    Animated.timing(focusAnim, {
-      toValue: 0,
-      duration: 250,
-      easing: APPLE_EASE,
-      useNativeDriver: false,
-    }).start();
-    onBlur?.(e);
-  };
+    const handler = (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const size = Math.max(rect.width, rect.height) * 2.5;
+
+      const ripple = document.createElement('span');
+      ripple.className = 'tap-ripple';
+      ripple.style.width = `${size}px`;
+      ripple.style.height = `${size}px`;
+      ripple.style.left = `${x - size / 2}px`;
+      ripple.style.top = `${y - size / 2}px`;
+      el.appendChild(ripple);
+
+      ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+    };
+
+    el.addEventListener('pointerdown', handler);
+    return () => el.removeEventListener('pointerdown', handler);
+  }, []);
 
   const { layout, visual, flat } = splitStyle(style);
-  const borderRadius = flat.borderRadius || 0;
-  const hasBorder = (flat.borderWidth || 0) > 0;
-
-  // Pulse ring: expands outward from input bounds, fades to transparent
-  const ringScale = pulseAnim.interpolate({ inputRange: [0, 1], outputRange: [1, 1.2] });
-  const ringOpacity = pulseAnim.interpolate({ inputRange: [0, 1], outputRange: [0.85, 0] });
-
-  // Settled focused state: border color transitions to blue
-  const animatedBorderColor = focusAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [flat.borderColor || 'transparent', colors.blue],
-  });
 
   return (
-    <View style={[layout, { position: 'relative' }]}>
-      {hasBorder && (
-        <Animated.View
-          pointerEvents="none"
-          style={{
-            position: 'absolute',
-            top: 0, left: 0, right: 0, bottom: 0,
-            borderRadius,
-            borderWidth: 3,
-            borderColor: colors.blue,
-            opacity: ringOpacity,
-            transform: [{ scale: ringScale }],
-            zIndex: 1,
-          }}
-        />
-      )}
-      <AnimatedTextInput
-        ref={ref}
-        {...props}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        style={[visual, hasBorder && { borderColor: animatedBorderColor }]}
-      />
+    <View
+      ref={wrapperRef}
+      className="input-ripple-wrap"
+      style={[layout, {
+        position: 'relative',
+        overflow: 'hidden',
+        borderRadius: flat.borderRadius || 0,
+      }]}
+    >
+      <TextInput ref={ref} {...props} style={visual} />
     </View>
   );
 });

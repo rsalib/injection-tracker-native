@@ -29,3 +29,24 @@ html, body {
 .glass-card:hover {
   transform: translateY(-2px);
 }
+
+/* Input tap ripple — Material Design Ripple visual on Apple Fluid easing.
+   Created imperatively by InputField.jsx on pointerdown at the exact tap
+   coordinates; self-removes on animationend. CSS keyframe (not RN Animated)
+   so the browser compositor runs it independently of the JS thread —
+   survives JS jank, hits 120Hz on Pro displays. */
+.input-ripple-wrap {
+  -webkit-tap-highlight-color: transparent;
+}
+.tap-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  pointer-events: none;
+  transform: scale(0);
+  animation: tap-ripple-grow 500ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+@keyframes tap-ripple-grow {
+  0%   { transform: scale(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
