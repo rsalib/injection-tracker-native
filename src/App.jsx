@@ -69,11 +69,29 @@ export default function App() {
   const isProcessingRef = useRef(false);
   const stateRef = useRef({ meds, logs, schedule, autoLogEnabled });
   const scrollRef = useRef(null);
+  const parallaxRafRef = useRef(0);
 
   // Scroll to top on tab change
   useEffect(() => {
     scrollRef.current?.scrollTo({ y: 0, animated: false });
+    // Reset parallax offset so the new tab starts with the gradient at rest.
+    document.documentElement.style.setProperty('--parallax-y', '0px');
   }, [activeTab]);
+
+  // Parallax background gradient: gradient translates at 10% of scroll speed,
+  // creating depth between the foreground glass cards and the background plane.
+  // Writes to a CSS variable consumed by `.screen-wrap` in index.css — keeps
+  // `gradients.screen` in theme.js as the single source of truth for the
+  // gradient itself; JS only animates the offset. rAF-throttled to one write
+  // per frame even if scroll fires faster.
+  const handleScroll = (e) => {
+    const y = e.nativeEvent.contentOffset.y;
+    if (parallaxRafRef.current) return;
+    parallaxRafRef.current = requestAnimationFrame(() => {
+      document.documentElement.style.setProperty('--parallax-y', `${-y * 0.1}px`);
+      parallaxRafRef.current = 0;
+    });
+  };
 
   // Keep stateRef current so the minute-check interval reads fresh state
   useEffect(() => {
@@ -88,6 +106,17 @@ export default function App() {
   );
   const highInteractions = interactions.filter(i => i.severity === 'high');
   const actionableInteractions = interactions.filter(i => i.severity && i.severity !== 'none');
+
+  // Tab-icon pulse acknowledgement: signature of the current actionable set.
+  // When the user visits the Meds tab, the current signature is stored as
+  // acknowledged. The pulse only fires while the live signature differs from
+  // the acknowledged one — so once seen, the nagging stops, and if new
+  // interactions appear later the signature changes and the pulse resumes.
+  const interactionSig = JSON.stringify(actionableInteractions.map(i => i.pair).slice().sort());
+  const [ackInteractionSig, setAckInteractionSig] = useState('');
+  useEffect(() => {
+    if (activeTab === 'Medications') setAckInteractionSig(interactionSig);
+  }, [activeTab, interactionSig]);
 
   // ── Prefetch all tab chunks on mount so navigation is instant ─────────
   useEffect(() => {
@@ -770,7 +799,7 @@ export default function App() {
       />
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
-      <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main">
+      <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" onScroll={handleScroll} scrollEventThrottle={16}>
         <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: colors.bgFallback }} />}>
         <View style={styles.appContainer}>
           {activeTab === 'Dashboard' && (
@@ -864,7 +893,7 @@ export default function App() {
                 <AnimatedTabIcon
                   name={t.iconKey}
                   active={active}
-                  pulse={t.iconKey === 'Medications' && !active && actionableInteractions.length > 0}
+                  pulse={t.iconKey === 'Medications' && !active && actionableInteractions.length > 0 && interactionSig !== ackInteractionSig}
                 />
                 {active && (
                   <Text style={styles.tabLabel} numberOfLines={1}>{t.label}</Text>

@@ -13,6 +13,9 @@ html, body {
 
 .screen-wrap {
   background: var(--gradient-screen) !important;
+  background-size: 100% 110% !important;
+  background-repeat: no-repeat !important;
+  background-position: 0 var(--parallax-y, 0px) !important;
 }
 .header-wrap {
   background: var(--gradient-headerFade) !important;
