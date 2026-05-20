@@ -151,8 +151,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
       ) : (
         <View style={styles.protocolList}>
           <Text style={styles.protocolListTitle}>Active Protocols</Text>
-          {sorted.map((m, index) => {
-            const isLastItem = index === sorted.length - 1;
+          {sorted.map((m) => {
             const rem = parseFloat(m.vialRemaining) || 0;
             const vt = parseFloat(m.vialTotal) || 0;
             const pct = vt > 0 ? Math.round((rem / vt) * 100) : 0;
@@ -188,7 +187,7 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
             });
 
             return (
-              <View key={m.id} style={[styles.protocolItem, !isLastItem && styles.protocolItemBorder]}>
+              <View key={m.id} style={styles.protocolItem}>
                 <View style={styles.protocolHeader}>
                   <View style={styles.protocolLeft}>
                     <View style={styles.protocolNameRow}>
@@ -412,19 +411,18 @@ const styles = StyleSheet.create({
   protocolList: {
     ...glass.card,
     borderRadius: 32,
-    overflow: 'hidden',
+    padding: 24,
+    gap: 12,
   },
   protocolListTitle: {
     ...type.cardTitle,
-    paddingHorizontal: 24,
-    paddingTop: 24,
   },
   protocolItem: {
-    padding: 24,
-  },
-  protocolItemBorder: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    padding: 20,
+    backgroundColor: colors.surfaceRow,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.borderFaint,
   },
   protocolHeader: {
     flexDirection: 'row',
