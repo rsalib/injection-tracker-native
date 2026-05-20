@@ -513,6 +513,18 @@ export const input = {
     fontSize: 15,
     outlineStyle: 'none',
   },
+  // Compact variant of fieldSearch — smaller font for dense archive/filter rows
+  fieldSearchCompact: {
+    backgroundColor: colors.borderFaint,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    color: colors.white,
+    fontSize: 14,
+    outlineStyle: 'none',
+  },
   // Multiline textarea variant (notes fields)
   fieldMultiline: {
     backgroundColor: colors.surface,
@@ -537,6 +549,57 @@ export const input = {
     fontSize: 16,
     outlineStyle: 'none',
     minWidth: 0,
+  },
+  // Compact transparent inline input — chat composer style (tighter padding, medium weight)
+  fieldChat: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    color: colors.white,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    fontSize: 16,
+    fontWeight: '500',
+    outlineStyle: 'none',
+    minWidth: 0,
+  },
+  // Raw CSS objects for composite pill wrappers — <div> containers holding <input> + <select>/divider/unit
+  // Used as inline style on DOM elements. Width is structural (caller decides) so not included.
+  compositePill: {
+    display: 'flex',
+    background: colors.surface,
+    border: `1px solid ${colors.borderSubtle}`,
+    borderRadius: '100px',
+    overflow: 'hidden',
+  },
+  compositePillFaint: {
+    display: 'flex',
+    background: colors.borderFaint,
+    border: `1px solid ${colors.borderSubtle}`,
+    borderRadius: '100px',
+    overflow: 'hidden',
+  },
+  compositePillAccent: {
+    display: 'flex',
+    background: colors.borderFaint,
+    border: `1px solid ${colors.blueBorder}`,
+    borderRadius: '100px',
+    overflow: 'hidden',
+  },
+  // Inner vertical divider for composite pill wrappers
+  compositePillDivider: {
+    width: 1,
+    background: colors.borderSubtle,
+    margin: '8px 0',
+  },
+  compositePillDividerCompact: {
+    width: 1,
+    background: colors.borderSubtle,
+    margin: '6px 0',
+  },
+  compositePillDividerAccent: {
+    width: 1,
+    background: colors.blueBorder,
+    margin: '8px 0',
   },
   // Raw CSS object for standalone <select> elements (surface background)
   // Must be used as inline style on DOM elements — StyleSheet silently strips backdropFilter

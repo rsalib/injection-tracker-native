@@ -295,10 +295,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputField: {
-    ...input.fieldPill,
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    fontWeight: '500',
+    ...input.fieldChat,
   },
   sendBtn: {
     width: 48,

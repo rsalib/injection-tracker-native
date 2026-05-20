@@ -55,7 +55,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
                 <View key={p.id} style={styles.blendRow}>
                   <Text style={styles.blendPepName}>{p.name.split('(')[0].trim()}</Text>
                   {/* pill input — raw HTML */}
-                  <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 120 }}>
+                  <div style={{ ...input.compositePill, width: 120 }}>
                     <input
                       id={`pep-total-${p.id}`}
                       name={`pep-total-${p.id}`}
@@ -65,7 +65,7 @@ export function QueueVialModal({ med, onClose, onSave }) {
                       placeholder="0"
                       style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px', color: colors.blue, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none' }}
                     />
-                    <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
+                    <div style={input.compositePillDividerCompact} />
                     <div style={{ padding: '8px', fontSize: 11, color: colors.textSecondary, fontWeight: 800 }}>{p.vialUnit}</div>
                   </div>
                 </View>

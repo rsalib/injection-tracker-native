@@ -105,7 +105,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
                   <View key={p.id} style={styles.stackRow}>
                     <Text style={styles.stackPepName}>{p.name.split('(')[0].trim()}</Text>
                     {/* pill input+select — raw HTML */}
-                    <div style={{ display: 'flex', background: colors.surface, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden', width: 140 }}>
+                    <div style={{ ...input.compositePill, width: 140 }}>
                       <input
                         id={`logform-pep-${p.id}`} name={`logform-pep-${p.id}`}
                         type="number"
@@ -114,7 +114,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
                         placeholder="0"
                         style={{ flex: 1, width: '100%', background: 'transparent', border: 'none', padding: '8px 12px', color: colors.blue, fontSize: 14, fontWeight: 800, textAlign: 'center', outline: 'none', minWidth: 0 }}
                       />
-                      <div style={{ width: 1, background: colors.borderSubtle, margin: '6px 0' }} />
+                      <div style={input.compositePillDividerCompact} />
                       <select
                         id={`logform-pep-unit-${p.id}`} name={`logform-pep-unit-${p.id}`}
                         value={p.unit || 'mcg'}
@@ -139,9 +139,9 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
           <View style={styles.field}>
             <Text style={styles.lbl}>Dose & Unit</Text>
             {/* dose + unit pill — raw HTML */}
-            <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
+            <div style={input.compositePillFaint}>
               <input id="logform-dose" name="logform-dose" type="number" value={form.dose} onChange={e => set('dose', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-              <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
+              <div style={input.compositePillDivider} />
               <select id="logform-unit" name="logform-unit" value={form.unit} onChange={e => set('unit', e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
                 <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option><option style={{color:'black'}}>mL</option>
               </select>
@@ -166,9 +166,9 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
         <View style={styles.field}>
           <Text style={styles.lbl}>Date & Time</Text>
           {/* date + time pill — raw HTML */}
-          <div style={{ display: 'flex', background: colors.borderFaint, border: `1px solid ${colors.borderSubtle}`, borderRadius: '100px', overflow: 'hidden' }}>
+          <div style={input.compositePillFaint}>
             <input id="logform-date" name="logform-date" type="date" value={form.date} onChange={e => set('date', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
-            <div style={{ width: 1, background: colors.borderSubtle, margin: '8px 0' }} />
+            <div style={input.compositePillDivider} />
             <input id="logform-time" name="logform-time" type="time" value={form.time} onChange={e => set('time', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 13, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
           </div>
         </View>

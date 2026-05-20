@@ -760,8 +760,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   archiveSearch: {
-    ...input.fieldSearch,
-    fontSize: 14,
+    ...input.fieldSearchCompact,
     marginBottom: 12,
   },
   archiveItems: {
