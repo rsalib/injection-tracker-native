@@ -78,6 +78,43 @@ export default function App() {
     document.documentElement.style.setProperty('--parallax-y', '0px');
   }, [activeTab]);
 
+  // ── Tab highlight cascade (sub-project 13, v85) ────────────────────
+  // `activeTab` drives page rendering and changes immediately on tap.
+  // `displayedActiveTab` cascades through intermediate indices at 100ms
+  // intervals so each intermediate tab briefly receives the full v84 active
+  // styling (highlight, label, lift) as the wave passes through. Tab button
+  // visual styling is unchanged from v84.
+  const [displayedActiveTab, setDisplayedActiveTab] = useState('Dashboard');
+  const displayedActiveTabRef = useRef('Dashboard');
+
+  useEffect(() => {
+    const tabIds = NAV_TABS.map(t => t.id);
+    const fromIdx = tabIds.indexOf(displayedActiveTabRef.current);
+    const toIdx = tabIds.indexOf(activeTab);
+    if (fromIdx === toIdx) return;
+    if (fromIdx === -1 || toIdx === -1) {
+      displayedActiveTabRef.current = activeTab;
+      setDisplayedActiveTab(activeTab);
+      return;
+    }
+    const direction = toIdx > fromIdx ? 1 : -1;
+    const stepDuration = 85;
+    const timers = [];
+    let stepIdx = fromIdx + direction;
+    let delay = 0;
+    while (true) {
+      const target = tabIds[stepIdx];
+      timers.push(setTimeout(() => {
+        displayedActiveTabRef.current = target;
+        setDisplayedActiveTab(target);
+      }, delay));
+      if (stepIdx === toIdx) break;
+      stepIdx += direction;
+      delay += stepDuration;
+    }
+    return () => timers.forEach(clearTimeout);
+  }, [activeTab]);
+
   // Parallax background gradient: gradient translates at 10% of scroll speed,
   // creating depth between the foreground glass cards and the background plane.
   // Writes to a CSS variable consumed by `.screen-wrap` in index.css — keeps
@@ -881,7 +918,7 @@ export default function App() {
       <View className="tabbar-wrap" style={[styles.tabBarWrap, { paddingBottom: layout.tabBarSafeBottom }]} onStartShouldSetResponder={() => true}>
         <View style={styles.tabBarCapsule}>
           {NAV_TABS.map(t => {
-            const active = activeTab === t.id;
+            const active = displayedActiveTab === t.id;
             return (
               <Pressable
                 key={t.id}
