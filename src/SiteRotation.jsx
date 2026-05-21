@@ -60,7 +60,7 @@ export default SiteRotation;
 
 const styles = StyleSheet.create({
   card: {
-    ...glass.card,
+    ...glass.cardSubtle,
     borderRadius: 32,
     padding: 24,
   },

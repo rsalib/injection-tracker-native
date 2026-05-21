@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   searchCard: {
-    ...glass.card,
+    ...glass.cardEmphasis,
     borderRadius: 32,
     padding: 24,
   },

@@ -505,7 +505,7 @@ const styles = StyleSheet.create({
 
   // ── Stack peptide card ────────────────────────────────────────────
   peptideCard: {
-    ...glass.card,
+    ...glass.cardEmphasis,
     borderRadius: 32,
     padding: 24,
     position: 'relative',

@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   statCard: {
-    ...glass.card,
+    ...glass.cardSubtle,
     flex: 1,
     borderRadius: 24,
     paddingVertical: 16,

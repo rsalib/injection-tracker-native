@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   card: {
-    ...glass.card,
+    ...glass.cardEmphasis,
     alignItems: 'center',
     maxWidth: 400,
     width: '100%',

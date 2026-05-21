@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   autoLoggerCard: {
-    ...glass.card,
+    ...glass.cardEmphasis,
     borderRadius: 32,
     padding: 24,
     flexDirection: 'row',
@@ -648,7 +648,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   exportCard: {
-    ...glass.card,
+    ...glass.cardSubtle,
     borderRadius: 32,
     padding: 24,
     marginTop: 8,

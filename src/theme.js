@@ -199,6 +199,49 @@ export const glass = {
     WebkitBackdropFilter: 'blur(40px) saturate(180%)',
   },
 
+  // Subtle glass card — recedes. Lower opacity, softer borders, lighter shadow.
+  // Use for ancillary/secondary cards (stat cards, utility cards, side surfaces).
+  cardSubtle: {
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderTopColor: 'rgba(255, 255, 255, 0.15)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.06)',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+    backdropFilter: 'blur(40px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+  },
+
+  // Emphasis glass card — projects. Higher opacity, brighter top border, deeper shadow.
+  // Use for hero CTA cards and primary focal surfaces.
+  cardEmphasis: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderTopColor: 'rgba(255, 255, 255, 0.35)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.18)',
+    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+    backdropFilter: 'blur(40px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+  },
+
+  // Warning glass card — leans warm. Faint amber wash + warm-tinted top border.
+  // Defined but not consumed by any surface in v83. Reserved for future conditional
+  // application (e.g., interactionCard only when interactionError is truthy).
+  cardWarning: {
+    backgroundColor: 'rgba(255, 159, 10, 0.04)',
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderTopColor: 'rgba(255, 214, 10, 0.2)',
+    borderLeftColor: colors.borderHighLeft,
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
+    backdropFilter: 'blur(40px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+  },
+
   // Modal glass — overlay dialogs
   modal: {
     backgroundColor: colors.surfaceDark,

@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   inputBar: {
-    ...glass.card,
+    ...glass.cardEmphasis,
     borderRadius: 100,
     borderColor: colors.borderSubtle,
     boxShadow: `0 4px 24px ${colors.shadowHeavy}, inset 0 1px 0 ${colors.borderHighlight}`,
