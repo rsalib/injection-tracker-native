@@ -215,9 +215,10 @@ export const glass = {
 
   // Emphasis glass card — projects. Higher opacity, brighter top border, deeper shadow.
   // Use for hero CTA cards and primary focal surfaces.
+  // borderRadius 28 = radius.hero (sub-project 12, v84) — +4 over radius.standard for shape emphasis.
   cardEmphasis: {
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    borderRadius: 24,
+    borderRadius: 28,
     borderWidth: 1,
     borderColor: colors.border,
     borderTopColor: 'rgba(255, 255, 255, 0.35)',
@@ -750,6 +751,10 @@ export const radius = {
   lg: 24,
   xl: 32,
   pill: 100,
+  // Shape hierarchy — semantic radii used by card/row variants (sub-project 12, v84)
+  hero: 28,       // emphasis cards — slightly larger than standard
+  standard: 24,   // default glass card — matches glass.card current value (no visual change)
+  inset: 20,      // inset rows inside a card — matches Dashboard schedule/protocol/recent current value (no visual change)
 };
 
 // =============================================================================

@@ -2,7 +2,7 @@
 // Strategy: cache-first for app shell (Vite-built assets), network-first for live data.
 // Bump CACHE_VERSION on each deploy so clients pick up the new hashed bundles.
 
-const CACHE_VERSION = "v83";
+const CACHE_VERSION = "v84";
 const APP_CACHE = `injtrack-shell-${CACHE_VERSION}`;
 
 self.addEventListener("install", (event) => {

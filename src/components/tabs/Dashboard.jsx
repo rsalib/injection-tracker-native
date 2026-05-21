@@ -8,7 +8,7 @@ import { SiteRotation } from '../../SiteRotation.jsx';
 import { sortMeds, parseLocalDate, formatDisplayDate, getLocalDate } from '../../constants.js';
 import { toMg } from '../../mathEngine.js';
 import { InteractionEngine } from '../../services/gemini.js';
-import { colors, glass, type } from '../../theme.js';
+import { colors, glass, type, radius } from '../../theme.js';
 
 export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, actionableInteractions, onAlertClick, onSaveMeds, logDose, undoDose, today, onQueueVial, settings, updateSetting }) {
   const sort = settings?.dashSort || 'newest';
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 12,
     backgroundColor: colors.surfaceRow,
-    borderRadius: 20,
+    borderRadius: radius.inset,
     borderWidth: 1,
     borderColor: colors.borderFaint,
   },
@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
   protocolItem: {
     padding: 20,
     backgroundColor: colors.surfaceRow,
-    borderRadius: 20,
+    borderRadius: radius.inset,
     borderWidth: 1,
     borderColor: colors.borderFaint,
   },
@@ -507,7 +507,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     backgroundColor: colors.surfaceRow,
-    borderRadius: 20,
+    borderRadius: radius.inset,
     borderWidth: 1,
     borderColor: colors.borderFaint,
   },
