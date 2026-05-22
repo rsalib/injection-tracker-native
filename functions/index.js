@@ -1,5 +1,5 @@
 const { onRequest } = require("firebase-functions/v2/https");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenAI } = require("@google/genai");
 const admin = require("firebase-admin");
 const crypto = require("crypto");
 
@@ -35,18 +35,18 @@ exports.askGemini = onRequest({
         // You could even log decodedToken.uid if you wanted to track usage per user.
 
         // 3. PROCEED TO GEMINI
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        
-        const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
-            tools: req.body.tools || []
+        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+        const result = await ai.models.generateContent({
+            model: "gemini-3.5-flash",
+            contents: req.body.contents || req.body.prompt,
+            ...(req.body.tools && req.body.tools.length ? { config: { tools: req.body.tools } } : {})
         });
-        
-        const result = req.body.contents
-            ? await model.generateContent({ contents: req.body.contents })
-            : await model.generateContent(req.body.prompt);
-            
-        res.json(result.response);
+
+        // New SDK returns the response object directly (no `.response` accessor).
+        // Top-level shape (candidates[], usageMetadata, etc.) matches what the
+        // frontend already reads from `src/services/gemini.js`.
+        res.json(result);
 
     } catch (error) {
         console.error("Server Error:", error);
