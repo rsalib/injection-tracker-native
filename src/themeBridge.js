@@ -2,7 +2,7 @@
 // can read the same values JS does. Single source of truth = theme.js.
 // Imported once from main.jsx before App renders.
 
-import { colors, gradients } from './theme.js';
+import { colors, gradients, motion } from './theme.js';
 
 function setVar(name, value) {
   if (value == null) return;
@@ -11,3 +11,9 @@ function setVar(name, value) {
 
 Object.entries(colors).forEach(([k, v]) => setVar(k, v));
 Object.entries(gradients).forEach(([k, v]) => setVar(`gradient-${k}`, v));
+
+// Motion — only bridge the cubic-bezier string curves (skip array bezier tuples,
+// numeric duration tokens, and the legacy `tabTransition`/`hoverLiftPx`).
+['emphasized', 'emphasizedDecelerate', 'emphasizedAccelerate', 'standard'].forEach((k) => {
+  setVar(`motion-${k}`, motion[k]);
+});

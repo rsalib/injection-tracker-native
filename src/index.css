@@ -1,10 +1,17 @@
+/* Roboto Flex variable font — the M3 Expressive type carrier. Loads opsz + wght axes
+   in one request so the M3 type scale (display/headline/title/body/label) can read
+   the right optical-size cut at every size. Google Sans is Google-internal-only and
+   will not load via Fonts; it stays in the stack as a graceful fallback (resolves
+   to the next entry on any non-Google-product viewer). */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
 html, body {
   background: var(--bg);
   /* Block pull-to-refresh chaining to the browser, but let the inner ScrollView
      surface its own native iOS rubber-band overscroll inside its bounds. */
   overscroll-behavior-y: contain;
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", system-ui, sans-serif;
+  font-family: 'Roboto Flex', 'Google Sans', -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", system-ui, sans-serif;
 }
 
 #root > div > div {
@@ -38,7 +45,7 @@ html, body {
   background: rgba(255, 255, 255, 0.15);
   pointer-events: none;
   transform: scale(0);
-  animation: tap-ripple-grow 500ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  animation: tap-ripple-grow 500ms var(--motion-emphasized, cubic-bezier(0.2, 0.0, 0, 1.0)) forwards;
 }
 @keyframes tap-ripple-grow {
   0%   { transform: scale(0); opacity: 1; }

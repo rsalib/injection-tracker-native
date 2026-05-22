@@ -1,5 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { Animated, Pressable as RNPressable, StyleSheet } from 'react-native';
+import { Animated, Easing, Pressable as RNPressable, StyleSheet } from 'react-native';
+import { motion } from '../../theme.js';
+
+// M3 emphasized motion curves — see theme.js motion docblock.
+const EMPHASIZED = Easing.bezier(...motion.emphasizedBezier);
+const EMPHASIZED_DECEL = Easing.bezier(...motion.emphasizedDecelerateBezier);
 
 const LAYOUT_PROPS = new Set([
   'flex', 'flexGrow', 'flexShrink', 'flexBasis',
@@ -27,23 +32,56 @@ export function Pressable({ onPress, onPressIn, onPressOut, onHoverIn, onHoverOu
 
   const handlePressIn = (e) => {
     setPressed(true);
-    Animated.spring(scale, { toValue: 0.97, useNativeDriver: false, speed: 50, bounciness: 4 }).start();
+    // M3 emphasized press: snap down to 0.97 over motion.short on the standard curve.
+    Animated.timing(scale, {
+      toValue: 0.97,
+      duration: motion.short,
+      easing: EMPHASIZED,
+      useNativeDriver: false,
+    }).start();
     onPressIn?.(e);
   };
 
   const handlePressOut = (e) => {
     setPressed(false);
-    Animated.spring(scale, { toValue: 1, useNativeDriver: false, speed: 50, bounciness: 4 }).start();
+    // M3 expressive release-back: overshoot to 1.04, then settle to 1.0.
+    // Two-stage sequence so the snap reads as a tactile rebound rather than a
+    // flat tween. Total duration matches motion.short for parity with press-in.
+    Animated.sequence([
+      Animated.timing(scale, {
+        toValue: 1.04,
+        duration: 130,
+        easing: EMPHASIZED,
+        useNativeDriver: false,
+      }),
+      Animated.timing(scale, {
+        toValue: 1,
+        duration: 70,
+        easing: EMPHASIZED_DECEL,
+        useNativeDriver: false,
+      }),
+    ]).start();
     onPressOut?.(e);
   };
 
   const handleHoverIn = (e) => {
-    Animated.spring(translateY, { toValue: -2, useNativeDriver: false, speed: 80, bounciness: 2 }).start();
+    // Hover lift uses emphasizedDecelerate — element arriving toward the cursor.
+    Animated.timing(translateY, {
+      toValue: motion.hoverLiftPx,
+      duration: 250,
+      easing: EMPHASIZED_DECEL,
+      useNativeDriver: false,
+    }).start();
     onHoverIn?.(e);
   };
 
   const handleHoverOut = (e) => {
-    Animated.spring(translateY, { toValue: 0, useNativeDriver: false, speed: 80, bounciness: 2 }).start();
+    Animated.timing(translateY, {
+      toValue: 0,
+      duration: 200,
+      easing: EMPHASIZED,
+      useNativeDriver: false,
+    }).start();
     onHoverOut?.(e);
   };
 

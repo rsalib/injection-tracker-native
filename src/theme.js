@@ -40,32 +40,80 @@ export const colors = {
   borderHighLeft: 'rgba(255, 255, 255, 0.12)',
   borderHighlight: 'rgba(255, 255, 255, 0.15)',
 
-  // Primary brand — Apple System Blue family
-  // colors.blue (#0a84ff) — iOS systemBlue. Decorative use only (icons, accent strokes,
-  //   large/bold text, badges that don't host white text).
-  // colors.primary (#0066CC) — accessible darker variant. ALL solid-fill buttons that
-  //   host white text use this token. Guarantees WCAG AA contrast at small text sizes.
-  blue: '#0a84ff',
+  // -----------------------------------------------------------------------
+  // M3 color roles — sub-project 14 (v86) — Tier 1 Neural Expressive paint.
+  // Dark-theme tonal palette derived from a #0a84ff seed via Material Theme
+  // Builder. The "role" names below (primary / onPrimary / *Container,
+  // surface / onSurface / outline, error / *Container) are the canonical
+  // M3 surface system. New M3-role tokens are added alongside legacy ones.
+  // Existing legacy tokens (`primary`, `blue`, `textPrimary`,
+  // `textSecondary`, `textMuted`, `errorStrong`) are *repurposed* to point
+  // at the new M3 equivalents — that is the actual paint swap. Translucent
+  // surface tokens (`surface`, `surfaceRow`, etc.) are deliberately NOT
+  // touched: glass identity is kept through Tier 1 and only retires in
+  // Tier 2 when blur is dropped for opaque tonal `surfaceContainer*`.
+  // -----------------------------------------------------------------------
+
+  // Primary brand — M3 primary role (light tonal 80 on dark theme).
+  // Buttons paint primary bg + onPrimary text (M3 filled-button pattern).
+  // Decorative legacy `blue` (icons, accent strokes) now aliases primary.
+  blue: '#a8c8ff',
   blueFaint: 'rgba(10, 132, 255, 0.05)',
   blueDim: 'rgba(10, 132, 255, 0.22)',
   blueMid: 'rgba(10, 132, 255, 0.42)',
-  primary: '#0066CC',
+  primary: '#a8c8ff',
+  onPrimary: '#003062',
+  primaryContainer: '#00468a',
+  onPrimaryContainer: '#d6e3ff',
 
-  // Text
+  // Secondary — desaturated blue-gray. Containers for less-emphatic actions.
+  secondary: '#bbc7db',
+  onSecondary: '#253140',
+  secondaryContainer: '#3c4858',
+  onSecondaryContainer: '#d7e3f7',
+
+  // Tertiary — hue-shifted accent (warm violet) for contrast/highlights.
+  tertiary: '#d8bdde',
+  onTertiary: '#3b2942',
+  tertiaryContainer: '#533f5a',
+  onTertiaryContainer: '#f4daf9',
+
+  // Surface roles — opaque tonal surfaces. NOT consumed in Tier 1
+  // (translucent `surface` / glass.* still own card chrome). Reserved for
+  // Tier 2 step 2.1 when blur is dropped.
+  surfaceM3: '#111418',
+  surfaceContainerLowest: '#0c0f12',
+  surfaceContainerLow: '#1a1d21',
+  surfaceContainerM3: '#1e2125',
+  surfaceContainerHigh: '#282a2f',
+  surfaceContainerHighest: '#33363a',
+
+  // On-surface text + outline roles (consumed by textPrimary/Secondary/Muted aliases below).
+  onSurface: '#e2e2e6',
+  onSurfaceVariant: '#c3c6cf',
+  outline: '#8d9199',
+  outlineVariant: '#43474e',
+
+  // Error roles — M3 tonal 80/20/30/90.
+  onError: '#690005',
+  errorContainer: '#93000a',
+  onErrorContainer: '#ffdad6',
+
+  // Text — legacy names aliased to M3 on-surface roles.
   white: '#ffffff',
-  textPrimary: '#f9fafb',
-  textSecondary: '#8e8e93',
-  textMuted: '#636366',
+  textPrimary: '#e2e2e6',       // M3 onSurface
+  textSecondary: '#c3c6cf',     // M3 onSurfaceVariant
+  textMuted: '#8d9199',         // M3 outline
   textTertiary: '#d1d5db',
   textLight: '#e5e7eb',
   textSortLabel: '#b0b8c4',
   textAmber: '#ffd60a',
   textGreen: '#30d158',
-  textBlue: '#0a84ff',
+  textBlue: '#a8c8ff',          // aliases M3 primary
 
   // Semantic
   error: '#ff453a',
-  errorStrong: '#ff3b30',
+  errorStrong: '#ffb4ab',       // M3 error (tonal 80)
   errorStrongBg: 'rgba(255, 69, 58, 0.15)',
   errorLight: '#ff6961',
   errorSoft: 'rgba(255, 69, 58, 0.1)',
@@ -325,7 +373,9 @@ export const button = {
     boxShadow: '0 4px 12px rgba(10, 132, 255, 0.3)',
   },
   primaryText: {
-    color: colors.white,
+    // M3 filled-button pattern: onPrimary text on primary bg.
+    // primary is light blue (#a8c8ff); white text would fail contrast — onPrimary (#003062) guarantees AA.
+    color: colors.onPrimary,
     fontWeight: '900',
     fontSize: 15,
   },
@@ -686,49 +736,89 @@ export const input = {
 // TYPE — typography scale
 // =============================================================================
 
+// -----------------------------------------------------------------------
+// M3 type scale — sub-project 15 (v87), Tier 1 Step 1.2.
+// 15 canonical roles (display/headline/title/body/label × Large/Medium/Small).
+// fontSize + lineHeight + letterSpacing match the M3 spec; weights leaned
+// heavier than M3 defaults for the Expressive direction (display 900,
+// headline 800, title 700, label 700). Default color is textPrimary,
+// which after step 1.1 aliases M3 onSurface (#e2e2e6). Roboto Flex variable
+// font is loaded in index.css; type tokens themselves do not specify
+// fontFamily — inheritance from html, body carries the stack.
+// -----------------------------------------------------------------------
+const _m3 = {
+  displayLarge:  { fontSize: 57, lineHeight: 64, letterSpacing: -0.25, fontWeight: '900', color: colors.textPrimary },
+  displayMedium: { fontSize: 45, lineHeight: 52, letterSpacing: 0,     fontWeight: '900', color: colors.textPrimary },
+  displaySmall:  { fontSize: 36, lineHeight: 44, letterSpacing: 0,     fontWeight: '900', color: colors.textPrimary },
+
+  headlineLarge:  { fontSize: 32, lineHeight: 40, letterSpacing: 0, fontWeight: '800', color: colors.textPrimary },
+  headlineMedium: { fontSize: 28, lineHeight: 36, letterSpacing: 0, fontWeight: '800', color: colors.textPrimary },
+  headlineSmall:  { fontSize: 24, lineHeight: 32, letterSpacing: 0, fontWeight: '800', color: colors.textPrimary },
+
+  titleLarge:  { fontSize: 22, lineHeight: 28, letterSpacing: 0,    fontWeight: '700', color: colors.textPrimary },
+  titleMedium: { fontSize: 16, lineHeight: 24, letterSpacing: 0.15, fontWeight: '600', color: colors.textPrimary },
+  titleSmall:  { fontSize: 14, lineHeight: 20, letterSpacing: 0.1,  fontWeight: '600', color: colors.textPrimary },
+
+  bodyLarge:  { fontSize: 16, lineHeight: 24, letterSpacing: 0.5,  fontWeight: '400', color: colors.textPrimary },
+  bodyMedium: { fontSize: 14, lineHeight: 20, letterSpacing: 0.25, fontWeight: '400', color: colors.textPrimary },
+  bodySmall:  { fontSize: 12, lineHeight: 16, letterSpacing: 0.4,  fontWeight: '400', color: colors.textPrimary },
+
+  labelLarge:  { fontSize: 14, lineHeight: 20, letterSpacing: 0.1, fontWeight: '700', color: colors.textPrimary },
+  labelMedium: { fontSize: 12, lineHeight: 16, letterSpacing: 0.5, fontWeight: '700', color: colors.textSecondary },
+  labelSmall:  { fontSize: 11, lineHeight: 16, letterSpacing: 0.5, fontWeight: '700', color: colors.textSecondary },
+};
+
 export const type = {
-  sectionHeading: {
-    fontWeight: '800',
-    fontSize: 16,
-    color: colors.white,
-    textTransform: 'uppercase',
-    letterSpacing: 2,
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: '800',
-    letterSpacing: -0.4,
-    color: colors.white,
-    marginBottom: 16,
-  },
-  body: {
-    fontSize: 14,
-    color: colors.textPrimary,
-  },
-  caption: {
-    fontSize: 11,
-    color: colors.textMuted,
-  },
-  tabLabel: {
-    fontSize: 9,
-    fontWeight: '800',
-    textTransform: 'uppercase',
-    letterSpacing: 0.45,
-  },
-  // Neural Expressive hierarchy — for expressive headers and nested section titles
-  heading1: { fontSize: 24, fontWeight: '800', letterSpacing: -0.5, color: colors.white },
-  heading2: { fontSize: 20, fontWeight: '700', letterSpacing: -0.3, color: colors.white },
-  subheading: { fontSize: 13, fontWeight: '600', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 1.2 },
-  // Bold body — med names, log row primary text, list-row primaries
-  bodyEmphasis: { fontSize: 14, fontWeight: '700', color: colors.textPrimary },
-  // Mid-weight uppercase eyebrow labels — between caption and subheading
-  sectionLabel: { fontSize: 12, fontWeight: '700', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 0.5 },
+  // Canonical M3 roles — preferred for any new code.
+  ..._m3,
+
+  // -----------------------------------------------------------------------
+  // Legacy aliases — preserve consumer JSX. Each redirects to the closest
+  // M3 role and overlays only the consumer-needed extras (marginBottom,
+  // uppercase transform, specific color). M3 fontSize + letterSpacing
+  // take effect on every consumer — that is the v87 visible paint shift.
+  // -----------------------------------------------------------------------
+
+  // Card titles ("Active Protocols", "Today's Schedule", etc.)
+  // 20/800/-0.4 → 22/700/0 (M3 titleLarge). marginBottom + white preserved.
+  cardTitle: { ..._m3.titleLarge, color: colors.white, marginBottom: 16 },
+
+  // Section header eyebrow ("ACTIVE PROTOCOLS" uppercase row label)
+  // 16/800/upper/ls 2 → 14/700/upper/ls 0.1 (M3 labelLarge + upper)
+  sectionHeading: { ..._m3.labelLarge, color: colors.white, textTransform: 'uppercase' },
+
+  // Body copy
+  body: { ..._m3.bodyMedium },
+
+  // Smaller body — meta text
+  // 11/textMuted → 12/textMuted (M3 bodySmall + muted color)
+  caption: { ..._m3.bodySmall, color: colors.textMuted },
+
+  // Tab bar labels — 6-tab capsule, width-budget-calibrated. Keep at 9pt
+  // since labelSmall at 11pt would overflow the active-tab pill. Color
+  // inherits from parent <Pressable> (currentColor) so token leaves it open.
+  tabLabel: { fontSize: 9, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 0.45 },
+
+  // Neural Expressive hierarchy aliases
+  heading1: { ..._m3.headlineSmall, color: colors.white },                                       // 24/800/0
+  heading2: { ..._m3.titleLarge, color: colors.white },                                          // 22/700/0
+  subheading: { ..._m3.labelLarge, color: colors.textSecondary, textTransform: 'uppercase' },    // 14/700/0.1 upper
+
+  // Bold body — med names, log row primary text
+  bodyEmphasis: { ..._m3.titleSmall, fontWeight: '700' },                                        // 14/700/0.1
+
+  // Mid-weight uppercase eyebrow labels
+  sectionLabel: { ..._m3.labelMedium, textTransform: 'uppercase' },                              // 12/700/0.5 upper
+
   // Smallest uppercase labels — badges, meta pills
-  microLabel: { fontSize: 10, fontWeight: '800', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 0.5 },
-  // Form-field labels — the "lbl" above every modal input
-  formLabel: { fontSize: 11, fontWeight: '800', color: colors.textSecondary, textTransform: 'uppercase', letterSpacing: 0.5 },
-  // Hero numeric callouts — Calculator result, Dashboard stat values. Per-site fontSize override allowed.
-  display: { fontSize: 32, fontWeight: '900', letterSpacing: -0.8, color: colors.white },
+  microLabel: { ..._m3.labelSmall, fontWeight: '800', textTransform: 'uppercase' },              // 11/800/0.5 upper
+
+  // Form-field labels — modal "lbl" rows
+  formLabel: { ..._m3.labelSmall, fontWeight: '800', textTransform: 'uppercase' },               // 11/800/0.5 upper
+
+  // Hero numeric callouts — Calculator result, Dashboard stat values
+  // 32/900/-0.8 → 36/900/0 (M3 displaySmall). Per-site fontSize override allowed.
+  display: { ..._m3.displaySmall, color: colors.white },
 };
 
 // =============================================================================
@@ -776,6 +866,32 @@ export const layout = {
 // =============================================================================
 
 export const motion = {
+  // -----------------------------------------------------------------------
+  // M3 emphasized motion curves — sub-project 16 (v88), Tier 1 Step 1.3.
+  // The M3 motion language uses cubic-beziers tuned for tactile, expressive
+  // animation. `emphasized` is the default for interactive feedback;
+  // `emphasizedDecelerate` for elements arriving on screen (hover lift,
+  // panel reveal); `emphasizedAccelerate` for elements leaving (dismissal).
+  // `standard` is the fallback for ambient transitions. Durations follow
+  // the M3 token scale: short for micro-interactions, medium for component
+  // changes, long for full-screen transitions.
+  // -----------------------------------------------------------------------
+  emphasized:           'cubic-bezier(0.2, 0.0, 0, 1.0)',
+  emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+  emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.8, 0.15)',
+  standard:             'cubic-bezier(0.2, 0.0, 0, 1.0)',
+
+  // Numeric bezier coefficients — for RN Easing.bezier() consumers
+  // (JS Animated cannot consume the CSS string form).
+  emphasizedBezier:           [0.2, 0.0, 0, 1.0],
+  emphasizedDecelerateBezier: [0.05, 0.7, 0.1, 1.0],
+  emphasizedAccelerateBezier: [0.3, 0.0, 0.8, 0.15],
+
+  // Duration tokens — M3 standard scale (ms)
+  short: 200,
+  medium: 400,
+  long: 500,
+
   tabTransition: 'all 0.3s ease',
   hoverLiftPx: -2,
 };
@@ -803,13 +919,14 @@ export const navBar = {
     boxShadow: '0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
   },
   btnActive: {
-    backgroundColor: 'rgba(10, 132, 255, 0.15)',
-    borderColor: 'rgba(10, 132, 255, 0.3)',
+    // M3 primary at low alpha — same hue family as colors.primary (#a8c8ff)
+    backgroundColor: 'rgba(168, 200, 255, 0.15)',
+    borderColor: 'rgba(168, 200, 255, 0.3)',
     borderWidth: 1,
   },
   label: {
-    color: '#8e8e93',
+    color: colors.textSecondary,
   },
-  iconActive: '#0a84ff',
-  iconInactive: '#636366',
+  iconActive: colors.primary,
+  iconInactive: colors.textMuted,
 };
