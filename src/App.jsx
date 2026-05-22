@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { colors, blur, shadow, navBar, layout, spacing } from './theme.js';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { auth, ensureAppCheckReady, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
@@ -25,6 +25,7 @@ import { AddScheduleModal } from './components/modals/AddScheduleModal.jsx';
 import { Pressable } from './components/ui/Pressable.jsx';
 import { CircuitBreaker } from './components/ui/CircuitBreaker.jsx';
 import { Header } from './components/ui/Header.jsx';
+import { TabContainer } from './components/ui/TabContainer.jsx';
 
 // Simple fbSet wrapper passed to LogTab (matches v2 signature)
 const save = async (path, data) => { await fbSet(path, data); };
@@ -71,12 +72,14 @@ export default function App() {
   const scrollRef = useRef(null);
   const parallaxRafRef = useRef(0);
 
-  // Scroll to top on tab change
-  useEffect(() => {
+  // Scroll-to-top + parallax reset on tab change. Sub-project 26 (v102) moved
+  // these out of a useEffect keyed on `activeTab` into a callback fired by
+  // TabContainer at the start of the cross-fade — so the new tab arrives at
+  // scrollTop=0 while still translated/transparent, not mid-animation.
+  const handleTabSwap = useCallback(() => {
     scrollRef.current?.scrollTo({ y: 0, animated: false });
-    // Reset parallax offset so the new tab starts with the gradient at rest.
     document.documentElement.style.setProperty('--parallax-y', '0px');
-  }, [activeTab]);
+  }, []);
 
   // ── Tab highlight cascade (sub-project 13, v85) ────────────────────
   // `activeTab` drives page rendering and changes immediately on tap.
@@ -839,6 +842,7 @@ export default function App() {
       <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" onScroll={handleScroll} scrollEventThrottle={16}>
         <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: colors.bgFallback }} />}>
         <View style={styles.appContainer}>
+        <TabContainer activeTab={activeTab} onTabChange={handleTabSwap}>
           {activeTab === 'Dashboard' && (
             <Dashboard
               meds={meds.filter(m => !m.isArchived)}
@@ -909,6 +913,7 @@ export default function App() {
               onRecheck={() => checkInteractions(meds.filter(m => !m.isArchived))}
             />
           )}
+        </TabContainer>
         </View>
         </Suspense>
       </ScrollView>
