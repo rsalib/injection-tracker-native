@@ -78,15 +78,20 @@ export const colors = {
   tertiaryContainer: '#533f5a',
   onTertiaryContainer: '#f4daf9',
 
-  // Surface roles — opaque tonal surfaces. NOT consumed in Tier 1
-  // (translucent `surface` / glass.* still own card chrome). Reserved for
-  // Tier 2 step 2.1 when blur is dropped.
-  surfaceM3: '#111418',
-  surfaceContainerLowest: '#0c0f12',
-  surfaceContainerLow: '#1a1d21',
-  surfaceContainerM3: '#1e2125',
-  surfaceContainerHigh: '#282a2f',
-  surfaceContainerHighest: '#33363a',
+  // Surface roles — opaque tonal surfaces. Sub-project 21 (v93) retinted
+  // from neutral grays to Tailwind slate family — cards now sit in the
+  // same hue family as the deep-navy backdrop gradient (which already
+  // uses slate-900 #111827), eliminating the warm/brown simultaneous-contrast
+  // cast that neutral grays picked up against the cool blue field. Consumed
+  // by glass.cardSubtle (Low) / glass.card (M3) / glass.cardEmphasis (High)
+  // / glass.modal (Highest) / glass.stepBox (Low). surfaceM3 + Lowest are
+  // defined for the full M3 scale but not currently consumed.
+  surfaceM3: '#111827',                 // Tailwind slate-900 (matches colors.bg)
+  surfaceContainerLowest: '#0f172a',    // Tailwind slate-950
+  surfaceContainerLow: '#1f2937',       // Tailwind slate-800
+  surfaceContainerM3: '#2a3441',        // Between slate-800 and slate-700
+  surfaceContainerHigh: '#374151',      // Tailwind slate-700
+  surfaceContainerHighest: '#4b5563',   // Tailwind slate-600
 
   // On-surface text + outline roles (consumed by textPrimary/Secondary/Muted aliases below).
   onSurface: '#e2e2e6',
@@ -231,54 +236,55 @@ export const colors = {
 // GLASS — composite card/well surfaces
 // =============================================================================
 
+// -----------------------------------------------------------------------
+// Tier 2 Step 2.1 (sub-project 17, v89) — Liquid Glass identity retires.
+// Card variants drop translucent backgrounds + backdropFilter blur and adopt
+// opaque M3 tonal `surfaceContainer*` levels. Depth now communicated through
+// M3 layered elevation shadows (shadow.elevation1..5) instead of blur-based
+// vibrancy. cardWarning keeps its amber wash (semantic, not chrome) but
+// drops the blur. Border highlights kept where present — they read as gentle
+// rim-light on opaque surfaces, not as part of the glass effect.
+// -----------------------------------------------------------------------
+
 export const glass = {
-  // Standard glass card — tabs, dashboard cards, section cards
+  // Standard card — surfaceContainerM3 (M3 standard surface container tone).
   card: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceContainerM3,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: colors.border,
     borderTopColor: colors.borderHighTop,
     borderLeftColor: colors.borderHighLeft,
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-    // Backdrop blur bundled in so every card consumer gets the full glass effect
-    // via a single `...glass.card` spread — single source of truth.
-    backdropFilter: 'blur(40px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)', // elevation2
   },
 
-  // Subtle glass card — recedes. Lower opacity, softer borders, lighter shadow.
-  // Use for ancillary/secondary cards (stat cards, utility cards, side surfaces).
+  // Subtle card — surfaceContainerLow. Use for ancillary/secondary cards
+  // (stat cards, utility cards, side surfaces). Recedes against standard cards.
   cardSubtle: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: colors.surfaceContainerLow,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: colors.border,
     borderTopColor: 'rgba(255, 255, 255, 0.15)',
     borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
-    backdropFilter: 'blur(40px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)', // elevation1
   },
 
-  // Emphasis glass card — projects. Higher opacity, brighter top border, deeper shadow.
-  // Use for hero CTA cards and primary focal surfaces.
-  // borderRadius 28 = radius.hero (sub-project 12, v84) — +4 over radius.standard for shape emphasis.
+  // Emphasis card — surfaceContainerHigh. Use for hero CTA cards and primary
+  // focal surfaces. borderRadius 28 = radius.hero (sub-project 12, v84).
   cardEmphasis: {
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: colors.surfaceContainerHigh,
     borderRadius: 28,
     borderWidth: 1,
     borderColor: colors.border,
     borderTopColor: 'rgba(255, 255, 255, 0.35)',
     borderLeftColor: 'rgba(255, 255, 255, 0.18)',
-    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-    backdropFilter: 'blur(40px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15)', // elevation3
   },
 
-  // Warning glass card — leans warm. Faint amber wash + warm-tinted top border.
-  // Defined but not consumed by any surface in v83. Reserved for future conditional
-  // application (e.g., interactionCard only when interactionError is truthy).
+  // Warning card — leans warm. Amber wash is the semantic signal, not chrome,
+  // so kept verbatim; blur dropped. Reserved for conditional application
+  // (e.g., interactionCard only when interactionError is truthy).
   cardWarning: {
     backgroundColor: 'rgba(255, 159, 10, 0.04)',
     borderRadius: 24,
@@ -286,22 +292,19 @@ export const glass = {
     borderColor: colors.border,
     borderTopColor: 'rgba(255, 214, 10, 0.2)',
     borderLeftColor: colors.borderHighLeft,
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
-    backdropFilter: 'blur(40px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)', // elevation2
   },
 
-  // Modal glass — overlay dialogs
+  // Modal — surfaceContainerHighest (M3 reserves highest tonal level for
+  // overlaid surfaces). elevation4 — pronounced layered shadow.
   modal: {
-    backgroundColor: colors.surfaceDark,
+    backgroundColor: colors.surfaceContainerHighest,
     borderRadius: 32,
     borderWidth: 1,
     borderColor: colors.border,
     borderTopColor: 'rgba(255, 255, 255, 0.12)',
     borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
-    backdropFilter: 'blur(40px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+    boxShadow: '0 2px 3px rgba(0, 0, 0, 0.3), 0 6px 10px 4px rgba(0, 0, 0, 0.15)', // elevation4
   },
 
   // Inset sub-surface — inner wells, input backgrounds
@@ -344,15 +347,16 @@ export const glass = {
     borderRadius: 24,
   },
 
-  // TitrationModal stepBox — variant of card with lighter shadow
+  // TitrationModal stepBox — inset card inside a modal. surfaceContainerLow
+  // (one step down from the parent modal's surfaceContainerHighest), elevation2.
   stepBox: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceContainerLow,
     borderRadius: 16,
     borderWidth: 1,
     borderColor: colors.border,
     borderTopColor: 'rgba(255, 255, 255, 0.12)',
     borderLeftColor: 'rgba(255, 255, 255, 0.06)',
-    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)', // elevation2
   },
 };
 
@@ -541,6 +545,21 @@ export const badge = {
 // =============================================================================
 
 export const shadow = {
+  // -----------------------------------------------------------------------
+  // M3 elevation tokens — sub-project 17 (v89), Tier 2 Step 2.1.
+  // Layered ambient + key shadows per M3 elevation level. Replaces the
+  // blur-based depth language (glass + backdrop-filter) with explicit
+  // shadow geometry. Levels 1–5 correspond to M3 dp 1/3/6/8/12 in tactile
+  // hierarchy: low (subtle) → high (modal overlays). glass.* card variants
+  // consume these inline (not by token reference) so a future card-by-card
+  // tuning remains a one-property edit; tokens here are the canonical set.
+  // -----------------------------------------------------------------------
+  elevation1: '0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15)',
+  elevation2: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)',
+  elevation3: '0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15)',
+  elevation4: '0 2px 3px rgba(0, 0, 0, 0.3), 0 6px 10px 4px rgba(0, 0, 0, 0.15)',
+  elevation5: '0 4px 4px rgba(0, 0, 0, 0.3), 0 8px 12px 6px rgba(0, 0, 0, 0.15)',
+
   glassCard: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   glassModal: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
   btnPrimary: '0 4px 12px rgba(10, 132, 255, 0.3)',
@@ -845,6 +864,35 @@ export const radius = {
   hero: 28,       // emphasis cards — slightly larger than standard
   standard: 24,   // default glass card — matches glass.card current value (no visual change)
   inset: 20,      // inset rows inside a card — matches Dashboard schedule/protocol/recent current value (no visual change)
+};
+
+// -----------------------------------------------------------------------
+// M3 shape scale — sub-project 18 (v90), Tier 2 Step 2.2.
+// Canonical M3 corner-radius scale: none → xs → sm → md → lg → xl → full.
+// Use these for any *new* radius declaration. Legacy `radius` export
+// (pill / inset / standard / hero / sm/md/lg/xl) is kept alongside for
+// the existing 4 consumer call sites (App.jsx pill button, Dashboard
+// inset rows) — Tier 1 alias-preservation philosophy.
+//
+// emphasisCTA is the M3 "asymmetric expressive" CTA shape — two diagonal
+// corners at xl (28), two at sm (8). Defined here but not yet consumed —
+// reserved for Tier 2 Step 2.4 FAB / hero CTA. Apply via spread on the
+// container View's style, NOT as a single borderRadius value.
+// -----------------------------------------------------------------------
+export const shape = {
+  none: 0,
+  xs:   4,
+  sm:   8,
+  md:  12,
+  lg:  16,
+  xl:  28,
+  full: 9999,
+  emphasisCTA: {
+    borderTopLeftRadius:     28,
+    borderTopRightRadius:     8,
+    borderBottomLeftRadius:   8,
+    borderBottomRightRadius: 28,
+  },
 };
 
 // =============================================================================

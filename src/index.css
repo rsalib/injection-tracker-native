@@ -5,6 +5,31 @@
    to the next entry on any non-Google-product viewer). */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
+/* Material Symbols Rounded — variable-axis icon font (Tier 2 Step 2.3, v91).
+   Loads opsz (20..48), wght (100..700), FILL (0..1), GRAD (-50..200) — enough range
+   for outline ↔ filled cross-fade plus weight/grade fine-tuning at any size.
+   Consumed by `TabIcons.jsx` (6 tab icons) and ready for use anywhere the codebase
+   needs a Material icon. Ligature-based: the span's text content (e.g., "home")
+   becomes the rendered glyph. */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  display: inline-block;
+}
+
 html, body {
   background: var(--bg);
   /* Block pull-to-refresh chaining to the browser, but let the inner ScrollView

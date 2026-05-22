@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
+import { Chip } from '../ui/Chip.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { CAT_META, POPULAR_MEDS } from '../../constants.js';
 import { fetchAllResources } from '../../services/gemini.js';
@@ -136,9 +137,13 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
             return (
               <View key={cat} style={styles.catSection}>
                 <View style={styles.catBadgeWrap}>
-                  <span style={{ fontSize: 11, padding: "4px 10px", borderRadius: "100px", fontWeight: 800, backgroundColor: mStyle.bg, color: mStyle.text, border: `1px solid ${mStyle.border}`, letterSpacing: "0.05em" }}>
-                    {mStyle.icon} {cat.toUpperCase()}
-                  </span>
+                  <Chip
+                    label={cat}
+                    iconText={mStyle.icon}
+                    bg={mStyle.bg}
+                    textColor={mStyle.text}
+                    borderColor={mStyle.border}
+                  />
                 </View>
                 <View style={styles.catItems}>
                   {items.map((r, i) => {
@@ -233,9 +238,13 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                     return (
                       <View key={cat} style={styles.libCatSection}>
                         <View style={styles.catBadgeWrap}>
-                          <span style={{ fontSize: 10, padding: "4px 8px", borderRadius: "100px", fontWeight: 800, backgroundColor: mStyle.bg, color: mStyle.text, border: `1px solid ${mStyle.border}`, textTransform: "uppercase" }}>
-                            {mStyle.icon} {cat}
-                          </span>
+                          <Chip
+                            label={cat}
+                            iconText={mStyle.icon}
+                            bg={mStyle.bg}
+                            textColor={mStyle.text}
+                            borderColor={mStyle.border}
+                          />
                         </View>
                         <View style={styles.catItems}>
                           {catItems.map((r, i) => (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
+import { FAB } from '../ui/FAB.jsx';
 import { formatDisplayDate } from '../../constants.js';
 import { colors, glass, button, type } from '../../theme.js';
 import { auth } from '../../services/firebase.js';
@@ -176,10 +177,10 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
         </Pressable>
       </View>
 
-      {/* Primary Action Button */}
-      <Pressable onPress={() => setShowAddLog(true)} style={[styles.logBtn, { justifyContent: 'center' }]}>
-        <Text style={styles.logBtnText}>+ LOG INJECTION</Text>
-      </Pressable>
+      {/* Primary Action — extracted into a floating action button (FAB) at the
+          bottom-right of the Log tab. Rendered at the end of the component so
+          it sits in DOM order after the tab content; `position: fixed` inside
+          FAB anchors it to the viewport, not the scroll content. */}
 
       {/* History Timeline Bubble */}
       <View style={styles.historyCard}>
@@ -329,6 +330,8 @@ export function LogTab({ meds, logs, delLog, onEditLog, autoLogEnabled, toggleAu
           </Pressable>
         </View>
       </View>
+
+      <FAB icon="add" label="LOG INJECTION" onPress={() => setShowAddLog(true)} />
     </View>
   );
 }
@@ -389,16 +392,6 @@ const styles = StyleSheet.create({
   toggleDotActive: {
     backgroundColor: colors.blue,
     left: 28,
-  },
-  logBtn: {
-    ...button.primary,
-    width: '100%',
-    cursor: 'pointer',
-  },
-  logBtnText: {
-    color: colors.white,
-    fontSize: 16,
-    fontWeight: '900',
   },
   historyCard: {
     ...glass.card,
