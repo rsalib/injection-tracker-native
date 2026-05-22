@@ -32,11 +32,21 @@ export function Modal({ title, onClose, children }) {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  // Trigger the enter slide on the next frame so the off-screen initial
-  // transform paints before the transition kicks in.
+  // Trigger the enter slide AFTER the off-screen initial transform has
+  // painted. Single-rAF is insufficient: modern browser engines often
+  // batch the mount render and the next state-flip into one paint cycle,
+  // which skips the transition entirely and pops the sheet onscreen.
+  // Double-rAF guarantees the off-screen frame paints first, then the
+  // entered=true frame triggers the transition. v101.
   React.useEffect(() => {
-    const id = requestAnimationFrame(() => setEntered(true));
-    return () => cancelAnimationFrame(id);
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => setEntered(true));
+    });
+    return () => {
+      cancelAnimationFrame(outer);
+      if (inner) cancelAnimationFrame(inner);
+    };
   }, []);
 
   const triggerClose = React.useCallback(() => {
@@ -223,10 +233,15 @@ export function Modal({ title, onClose, children }) {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         style={{
+          // v101: glass.modal spread MUST come before sheetShape so its
+          // `borderRadius: 32` shorthand doesn't override the longhand
+          // per-corner radii (`borderTopLeftRadius` etc.) — otherwise the
+          // bottom-sheet's bottom corners and the side-sheet's right corners
+          // re-round and reveal visible gaps against the screen edges.
+          ...glass.modal,
           position: 'fixed',
           ...sheetPositionStyle,
           ...sheetShape,
-          ...glass.modal,
           padding: 24,
           paddingBottom: isDesktop ? 24 : 'max(24px, env(safe-area-inset-bottom))',
           overflowY: 'auto',
