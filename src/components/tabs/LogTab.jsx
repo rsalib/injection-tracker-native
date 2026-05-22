@@ -342,6 +342,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     gap: 16,
+    // Extra bottom clearance for the floating "+ LOG INJECTION" FAB so the
+    // last interactive element (Subscribe to Calendar) never sits under it.
+    // FAB is ~52px tall + 96px bottom offset from viewport = ~148px reserved
+    // zone above the tab bar; 80px here pads the content stack above that.
+    paddingBottom: 80,
   },
   autoLoggerCard: {
     ...glass.cardEmphasis,
