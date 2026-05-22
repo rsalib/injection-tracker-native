@@ -58,9 +58,9 @@ export const colors = {
   // Buttons paint primary bg + onPrimary text (M3 filled-button pattern).
   // Decorative legacy `blue` (icons, accent strokes) now aliases primary.
   blue: '#a8c8ff',
-  blueFaint: 'rgba(10, 132, 255, 0.05)',
-  blueDim: 'rgba(10, 132, 255, 0.22)',
-  blueMid: 'rgba(10, 132, 255, 0.42)',
+  blueFaint: 'rgba(168, 200, 255, 0.05)',
+  blueDim: 'rgba(168, 200, 255, 0.22)',
+  blueMid: 'rgba(168, 200, 255, 0.42)',
   primary: '#a8c8ff',
   onPrimary: '#003062',
   primaryContainer: '#00468a',
@@ -138,14 +138,14 @@ export const colors = {
   syncPending: '#ff9f0a', // Apple System Orange
   syncSaving: '#ffd60a', // Apple System Yellow
 
-  blueSurface: 'rgba(10, 132, 255, 0.22)',  // Neural Expressive accent wash for active/hover card states
-  blueGlowSoft: 'rgba(10, 132, 255, 0.5)',
+  blueSurface: 'rgba(168, 200, 255, 0.22)',  // Neural Expressive accent wash for active/hover card states
+  blueGlowSoft: 'rgba(168, 200, 255, 0.5)',
   errorDeepBg: 'rgba(255, 69, 58, 0.2)',
   errorDeepBorder: 'rgba(255, 69, 58, 0.4)',
   stackBadgeBg: 'rgba(255, 214, 10, 0.15)',
-  tealDeep: 'rgba(10, 132, 255, 0.15)',
-  tealBorder: 'rgba(10, 132, 255, 0.25)',
-  tealBorderFaint: 'rgba(10, 132, 255, 0.12)',
+  tealDeep: 'rgba(168, 200, 255, 0.15)',
+  tealBorder: 'rgba(168, 200, 255, 0.25)',
+  tealBorderFaint: 'rgba(168, 200, 255, 0.12)',
 
   // Missing error colors
   errorSoftBg: 'rgba(255, 69, 58, 0.3)',
@@ -198,21 +198,21 @@ export const colors = {
   purpleBorderBright: '#bf5af2',
 
   // Missing blue colors
-  blueBorder: 'rgba(10, 132, 255, 0.3)',
-  blueSoft: 'rgba(10, 132, 255, 0.15)',
+  blueBorder: 'rgba(168, 200, 255, 0.3)',
+  blueSoft: 'rgba(168, 200, 255, 0.15)',
   blueLight: '#64d2ff',
   blueDarkBorder: '#0070e3',
   blueDarkBg: '#0c1a30',
 
   // Misnamed teal* tokens — values are actually blue. Known debt; left as-is for a
   // dedicated future cleanup pass. Treat them as blue-family aliases for now.
-  tealMid: 'rgba(10, 132, 255, 0.3)',
+  tealMid: 'rgba(168, 200, 255, 0.3)',
   tealDarkBg: '#0c1a30',
   tealDarkest: '#071a2e',
-  blueHeavy: 'rgba(10, 132, 255, 0.8)',
-  blueDeep: 'rgba(10, 132, 255, 0.4)',
-  blueDeepBorder: 'rgba(10, 132, 255, 0.08)',
-  blueGlass: 'rgba(10, 132, 255, 0.6)',
+  blueHeavy: 'rgba(168, 200, 255, 0.8)',
+  blueDeep: 'rgba(168, 200, 255, 0.4)',
+  blueDeepBorder: 'rgba(168, 200, 255, 0.08)',
+  blueGlass: 'rgba(168, 200, 255, 0.6)',
 
   // Missing gray/white/black colors
   grayBorder: 'rgba(142, 142, 147, 0.3)',
@@ -224,7 +224,6 @@ export const colors = {
   shadowHeavy: 'rgba(0, 0, 0, 0.6)',
   transparentBg: 'rgba(17, 24, 39, 0)',
   surfaceCardSolid: 'rgba(31, 41, 55, 0.95)',
-  surfaceCardMid: 'rgba(31, 41, 55, 0.6)',
   borderFaint3: 'rgba(255, 255, 255, 0.08)',
   borderFaint4: 'rgba(255, 255, 255, 0.06)',
   borderHigh: 'rgba(255, 255, 255, 0.2)',
@@ -374,7 +373,7 @@ export const button = {
   primary: {
     ...pillShape,
     backgroundColor: colors.primary,
-    boxShadow: '0 4px 12px rgba(10, 132, 255, 0.3)',
+    boxShadow: '0 4px 12px rgba(168, 200, 255, 0.3)',
   },
   primaryText: {
     // M3 filled-button pattern: onPrimary text on primary bg.
@@ -456,7 +455,7 @@ export const syringe = {
   normalFillFrom: '#071a2e',
   normalFillTo: colors.blue,
   normalText: colors.blue,
-  normalGlow: 'rgba(10, 132, 255, 0.8)',
+  normalGlow: 'rgba(168, 200, 255, 0.8)',
   normalBorder: colors.bgMid2,
 
   // Overdrawn state — red fill
@@ -502,10 +501,10 @@ export const toast = {
 
 export const badge = {
   blue: {
-    bg: 'rgba(10, 132, 255, 0.15)',
+    bg: 'rgba(168, 200, 255, 0.15)',
     text: '#64d2ff',
-    border: 'rgba(10, 132, 255, 0.3)',
-    glow: '0 0 4px rgba(10, 132, 255, 0.4)',
+    border: 'rgba(168, 200, 255, 0.3)',
+    glow: '0 0 4px rgba(168, 200, 255, 0.4)',
   },
   green: {
     bg: 'rgba(48, 209, 88, 0.15)',
@@ -562,25 +561,25 @@ export const shadow = {
 
   glassCard: '0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   glassModal: '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
-  btnPrimary: '0 4px 12px rgba(10, 132, 255, 0.3)',
-  btnPrimaryInset: '0 4px 12px rgba(10, 132, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-  blueGlowSmall: '0 0 8px rgba(10, 132, 255, 0.6)',
-  blueGlowLarge: '0 0 8px rgba(10, 132, 255, 0.8), 0 0 16px rgba(10, 132, 255, 0.4)',
+  btnPrimary: '0 4px 12px rgba(168, 200, 255, 0.3)',
+  btnPrimaryInset: '0 4px 12px rgba(168, 200, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+  blueGlowSmall: '0 0 8px rgba(168, 200, 255, 0.6)',
+  blueGlowLarge: '0 0 8px rgba(168, 200, 255, 0.8), 0 0 16px rgba(168, 200, 255, 0.4)',
   dropdownPanel: '0 4px 16px rgba(0, 0, 0, 0.18)',
   errorBtn: '0 4px 12px rgba(255, 69, 58, 0.3)',
   errorCircuit: '0 10px 25px -5px rgba(255, 69, 58, 0.4)',
   loginCard: '0 10px 15px -3px rgba(0, 0, 0, 0.2)',
   toast: '0 10px 25px rgba(0, 0, 0, 0.4)',
   aiInputBar: '0 4px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
-  aiSendBtn: '0 4px 16px rgba(10, 132, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+  aiSendBtn: '0 4px 16px rgba(168, 200, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
   tabBarCapsule: '0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-  calcResult: '0 10px 40px -10px rgba(10, 132, 255, 0.25)',
+  calcResult: '0 10px 40px -10px rgba(168, 200, 255, 0.25)',
   syringeInset: 'inset 0 2px 6px rgba(0, 0, 0, 0.5)',
   resultItem: '0 4px 12px rgba(0, 0, 0, 0.2)',
-  msgBubbleUser: '0 4px 12px rgba(10, 132, 255, 0.2)',
+  msgBubbleUser: '0 4px 12px rgba(168, 200, 255, 0.2)',
   pendingDot: '0 0 8px #ff9f0a',
   // textShadow
-  tabActiveGlow: '0 0 12px rgba(10, 132, 255, 0.6)',
+  tabActiveGlow: '0 0 12px rgba(168, 200, 255, 0.6)',
 };
 
 // =============================================================================
@@ -959,12 +958,17 @@ export const gradients = {
 // =============================================================================
 
 export const navBar = {
+  // Sub-project 22 (v95): capsule retinted to opaque M3 tonal surface + M3
+  // elevation2 shadow, completing the Liquid Glass → M3 migration that the
+  // glass.* block already underwent in Step 2.1. Capsule now matches the
+  // tonal hierarchy of cards (surfaceContainerLow = slate-800) with shadow
+  // elevation appropriate for the bottom-anchored navigation chrome.
   capsule: {
-    backgroundColor: 'rgba(17, 24, 39, 0.75)',
+    backgroundColor: colors.surfaceContainerLow,
     borderColor: 'rgba(255, 255, 255, 0.08)',
     borderWidth: 1,
     borderRadius: 100,
-    boxShadow: '0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)', // elevation2
   },
   btnActive: {
     // M3 primary at low alpha — same hue family as colors.primary (#a8c8ff)

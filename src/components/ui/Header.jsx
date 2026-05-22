@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
-import { colors, blur, type } from '../../theme.js';
+import { colors, type } from '../../theme.js';
 
 export function Header({
   firstName,
@@ -77,17 +77,20 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     touchAction: 'none',
   },
+  // Sub-project 22 (v95): headerCard retinted to opaque M3 tonal surface + M3
+  // elevation2 shadow, completing the Liquid Glass → M3 migration. backdropFilter
+  // dropped — no translucency to blur. surfaceContainerHigh (slate-700) sits one
+  // tonal step above the standard card surface, distinguishing the header chrome
+  // from the scrolling content cards below.
   headerCard: {
-    backgroundColor: colors.surfaceCardMid,
-    backdropFilter: blur.header,
-    WebkitBackdropFilter: blur.header,
+    backgroundColor: colors.surfaceContainerHigh,
     borderRadius: 24,
     padding: 16,
     borderWidth: 1,
     borderColor: colors.borderSubtle,
     borderTopColor: colors.borderHighTop,
     borderLeftColor: colors.borderHighLeft,
-    boxShadow: `0 8px 32px ${colors.shadowHeavy}, inset 0 1px 0 ${colors.borderHighlight}`,
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)', // elevation2
   },
   headerTop: {
     flexDirection: 'row',
