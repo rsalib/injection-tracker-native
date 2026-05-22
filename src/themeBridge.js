@@ -12,8 +12,14 @@ function setVar(name, value) {
 Object.entries(colors).forEach(([k, v]) => setVar(k, v));
 Object.entries(gradients).forEach(([k, v]) => setVar(`gradient-${k}`, v));
 
-// Motion — only bridge the cubic-bezier string curves (skip array bezier tuples,
-// numeric duration tokens, and the legacy `tabTransition`/`hoverLiftPx`).
+// Motion — bridge the cubic-bezier string curves (skip array bezier tuples
+// and the legacy `tabTransition`/`hoverLiftPx`).
 ['emphasized', 'emphasizedDecelerate', 'emphasizedAccelerate', 'standard'].forEach((k) => {
   setVar(`motion-${k}`, motion[k]);
+});
+
+// Motion durations — bridged as ms-suffixed CSS values so transition/animation
+// rules in index.css and inline styles can reference var(--motion-short) etc.
+['short', 'medium', 'long'].forEach((k) => {
+  setVar(`motion-${k}`, `${motion[k]}ms`);
 });
