@@ -901,18 +901,16 @@ export const layout = {
   // v100: tabBarMaxWidth restored — floating capsule caps width on wider viewports
   tabBarMaxWidth: 500,
   headerClearance: 160,       // ScrollView paddingTop to clear fixed header (legacy static — prefer headerClearanceSafe)
-  // v104 fine-tune: bumped 150 → 160 to cover the ~10px of header card elevation
-  // shadow that was bleeding into content on desktop (no safe-area-inset-top to
-  // pad it). PWA already had ample clearance via the iOS notch inset; an extra
-  // 10px there is imperceptible.
-  headerClearanceSafe: 'calc(160px + env(safe-area-inset-top))',
-  // v104 fine-tune: changed from static 100 to safe-area-aware calc. On PWA with
-  // a home indicator, the tab bar capsule's TOP edge sits at ~64dp + env(...)
-  // (typically 34px), pushing it ~98px above the screen bottom — only 2px of
-  // breathing room above content with the old static 100. Now scales with the
-  // device's home-indicator inset so bottom-of-tab content clears the floating
-  // capsule on every form factor.
-  tabBarClearance: 'calc(100px + env(safe-area-inset-bottom))',
+  // v106 fine-tune: read the base from a CSS custom property so index.css can
+  // override under @media (display-mode: standalone) — desktop gets 160 (covers
+  // header shadow bleed), PWA gets 150 (no shadow-bleed problem there, since
+  // the iOS notch inset already pushes content well clear of the card edge).
+  headerClearanceSafe: 'calc(var(--header-clearance-base, 160px) + env(safe-area-inset-top))',
+  // v106 fine-tune: same media-query split as headerClearanceSafe. Desktop base
+  // 100 keeps comfortable clearance above the floating tab capsule (no home
+  // indicator); PWA base 80 + env(safe-area-inset-bottom) ~34 = ~114px total,
+  // ~16px clear above the ~98px capsule top edge — tight but unhurried.
+  tabBarClearance: 'calc(var(--tab-bar-clearance-base, 100px) + env(safe-area-inset-bottom))',
   tabBarSafeBottom: 'max(12px, env(safe-area-inset-bottom))',
   noiseOpacity: 0.06,
 };

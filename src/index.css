@@ -39,6 +39,25 @@ html, body {
   font-family: 'Roboto Flex', 'Google Sans', -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", system-ui, sans-serif;
 }
 
+/* Header + tab-bar scroll-clearance bases, consumed by `layout.headerClearanceSafe`
+   and `layout.tabBarClearance` in theme.js via `var(--header-clearance-base, ...)`
+   and `var(--tab-bar-clearance-base, ...)`. Defaults below are tuned for desktop
+   browser, where the header card's drop-shadow bleeds ~10px into content space
+   and the tab bar has no home-indicator inset to add to its clearance.
+   Under iOS PWA (and any other installed standalone surface), the standalone
+   media query tightens both bases — the safe-area-inset env(...) values add
+   the platform's actual chrome height back on top of these. */
+:root {
+  --header-clearance-base: 160px;
+  --tab-bar-clearance-base: 100px;
+}
+@media (display-mode: standalone) {
+  :root {
+    --header-clearance-base: 150px;
+    --tab-bar-clearance-base: 80px;
+  }
+}
+
 #root > div > div {
   overscroll-behavior-y: contain;
 }
