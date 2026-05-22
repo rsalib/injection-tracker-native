@@ -9,7 +9,7 @@ import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constant
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
 
-export function MedForm({ initial, onSave, onClose, title }) {
+export function MedForm({ initial, onSave, onClose, title, originElement }) {
   const isEdit = !!initial.id;
 
   const initPeps = initial.isStack && initial.subPeptides
@@ -135,7 +135,7 @@ export function MedForm({ initial, onSave, onClose, title }) {
   const medOpts = [...indivOpts, ...stackOpts];
 
   return (
-    <Modal title={title} onClose={onClose}>
+    <Modal title={title} onClose={onClose} originElement={originElement}>
       <View style={styles.form}>
 
         {/* Search / Blend Name */}

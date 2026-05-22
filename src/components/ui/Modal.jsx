@@ -12,9 +12,27 @@ const DESKTOP_DRAG_GUTTER_PX = 24;
 // confirmed so a swipe-up at scrollTop===0 still scrolls the content natively.
 const DRAG_DIRECTION_THRESHOLD_PX = 10;
 
-export function Modal({ title, onClose, children }) {
+// Compute the FLIP "from" transform that warps the sheet's resting rect
+// exactly onto the origin element's current rect. transformOrigin: 'top left'
+// is the contract — sheet's top-left aligns with card's top-left, then scale
+// shrinks down to the card's footprint dimensions. Sub-project 27.
+function computeFlipTransform(sheetEl, originEl) {
+  if (!sheetEl || !originEl) return null;
+  const rect = sheetEl.getBoundingClientRect();
+  const orig = originEl.getBoundingClientRect();
+  if (rect.width === 0 || rect.height === 0) return null;
+  if (orig.width === 0 || orig.height === 0) return null;
+  const scaleX = orig.width / rect.width;
+  const scaleY = orig.height / rect.height;
+  const tx = orig.left - rect.left;
+  const ty = orig.top - rect.top;
+  return `translate3d(${tx}px, ${ty}px, 0) scale(${scaleX}, ${scaleY})`;
+}
+
+export function Modal({ title, onClose, children, originElement }) {
   const dialogRef = React.useRef(null);
   const previouslyFocusedRef = React.useRef(null);
+  const useFlip = !!originElement;
 
   const [isDesktop, setIsDesktop] = React.useState(() =>
     typeof window !== 'undefined' && window.matchMedia(DESKTOP_QUERY).matches
@@ -22,6 +40,12 @@ export function Modal({ title, onClose, children }) {
   const [entered, setEntered] = React.useState(false);
   const [closing, setClosing] = React.useState(false);
   const [dragOffset, setDragOffset] = React.useState(0);
+  // FLIP "from" transform (card-footprint warp). Null until measured.
+  const [flipFromTransform, setFlipFromTransform] = React.useState(null);
+  // FLIP "to" transform on exit — re-measured at triggerClose time so the
+  // exit lands on the card's CURRENT viewport position (handles background
+  // scroll / resize during modal lifetime).
+  const [closeToTransform, setCloseToTransform] = React.useState(null);
   const dragStateRef = React.useRef(null); // { axis: 'y'|'x', start, pointerId } | null
 
   // Track viewport changes (e.g. iPad rotation, browser resize across 768px).
@@ -32,13 +56,33 @@ export function Modal({ title, onClose, children }) {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  // Trigger the enter slide AFTER the off-screen initial transform has
-  // painted. Single-rAF is insufficient: modern browser engines often
-  // batch the mount render and the next state-flip into one paint cycle,
-  // which skips the transition entirely and pops the sheet onscreen.
-  // Double-rAF guarantees the off-screen frame paints first, then the
-  // entered=true frame triggers the transition. v101.
+  // FLIP measurement — sub-project 27.
+  // Runs synchronously after the first commit, BEFORE paint, in the very
+  // first render where the sheet is laid out at its resting position with
+  // visibility hidden (no transform applied yet). We measure both the
+  // sheet's rest rect and the origin card's live rect, compute the FLIP
+  // transform, and set it as the "from" state. The next render applies it
+  // and the sheet appears at the card footprint for the first visible frame.
+  // useLayoutEffect (vs useEffect) is critical: it lets us set state and
+  // re-render BEFORE the browser commits a paint, so the user never sees
+  // the bare-resting-position frame.
+  React.useLayoutEffect(() => {
+    if (!useFlip) return;
+    const tr = computeFlipTransform(dialogRef.current, originElement);
+    if (tr) setFlipFromTransform(tr);
+  }, [useFlip, originElement]);
+
+  // Trigger the enter morph AFTER the "from" frame has painted.
+  // Single-rAF is insufficient: modern browser engines often batch the
+  // mount render and the next state-flip into one paint cycle, skipping
+  // the transition entirely and popping the sheet onscreen. Double-rAF
+  // guarantees the "from" frame paints first, then the entered=true frame
+  // triggers the transition. v101.
+  // In FLIP mode we additionally wait for flipFromTransform to be set —
+  // otherwise the enter would fire before measurement and the sheet would
+  // slide from the bottom edge instead of growing from the card.
   React.useEffect(() => {
+    if (useFlip && flipFromTransform === null) return;
     let inner = 0;
     const outer = requestAnimationFrame(() => {
       inner = requestAnimationFrame(() => setEntered(true));
@@ -47,13 +91,23 @@ export function Modal({ title, onClose, children }) {
       cancelAnimationFrame(outer);
       if (inner) cancelAnimationFrame(inner);
     };
-  }, []);
+  }, [useFlip, flipFromTransform]);
 
   const triggerClose = React.useCallback(() => {
     if (closing) return;
+    // FLIP exit: re-measure originElement at this exact moment (NOT a
+    // snapshot from mount time). Handles the case where the user scrolled
+    // the background while the modal was open — the card has moved in
+    // viewport coordinates, and our exit transform must land on its
+    // CURRENT position. If origin is detached (rare — user nav'd away),
+    // computeFlipTransform returns null and we fall back to the slide.
+    if (useFlip) {
+      const tr = computeFlipTransform(dialogRef.current, originElement);
+      if (tr) setCloseToTransform(tr);
+    }
     setClosing(true);
     setTimeout(() => onClose(), motion.short);
-  }, [closing, onClose]);
+  }, [closing, onClose, useFlip, originElement]);
 
   // Focus trap, Escape key, focus restore — unchanged from prior implementation.
   // Routes Escape through triggerClose so the exit animation plays.
@@ -174,13 +228,22 @@ export function Modal({ title, onClose, children }) {
   // transition value is moot.
   const isDragging = dragStateRef.current?.captured === true;
 
-  // Sheet transform: the off-screen start, the resting in-screen, the
-  // dragged offset, and the closing exit are composed here.
+  // Sheet transform: composes the from/to/drag/exit states for both the
+  // slide path (originElement absent) and the FLIP path (sub-project 27).
   const sheetTransform = (() => {
     if (closing) {
+      // FLIP exit: morph back to the freshly-measured card rect.
+      if (useFlip && closeToTransform) return closeToTransform;
       return isDesktop ? 'translateX(100%)' : 'translateY(100%)';
     }
     if (!entered) {
+      // Pre-entered "from" state.
+      if (useFlip) {
+        // FLIP "from": warp to the card footprint. Until measurement
+        // completes, we render with visibility hidden (see sheetVisibility
+        // below) so there's no flash of bare-resting-position content.
+        return flipFromTransform || 'none';
+      }
       return isDesktop ? 'translateX(100%)' : 'translateY(100%)';
     }
     if (dragOffset > 0) {
@@ -188,6 +251,25 @@ export function Modal({ title, onClose, children }) {
     }
     return 'translate(0, 0)';
   })();
+
+  // FLIP mode hides the sheet during the brief window between mount and
+  // the useLayoutEffect measurement completing. visibility:hidden preserves
+  // layout (so getBoundingClientRect returns the resting rect) but no paint
+  // reaches the user.
+  const sheetVisibility = useFlip && flipFromTransform === null ? 'hidden' : 'visible';
+
+  // Children container opacity: in FLIP mode, the sheet shape morphs from
+  // the small card footprint to the full resting rect — during that grow,
+  // any form fields rendered at full size would visually squish (transform
+  // scale shrinks geometry). Fade children in over motion.short so they
+  // become readable only as the sheet approaches its rest size. The outer
+  // sheet stays opaque throughout so the morph reads as one continuous
+  // shape. In slide mode (no originElement), children stay opaque — the
+  // sheet just slides in fully composed.
+  const childrenOpacity = useFlip ? (entered && !closing ? 1 : 0) : 1;
+  const childrenTransition = useFlip
+    ? `opacity var(--motion-short, 200ms) var(--motion-emphasized, cubic-bezier(0.2, 0.0, 0, 1.0))`
+    : 'none';
 
   const sheetTransition = isDragging
     ? 'none'
@@ -248,22 +330,39 @@ export function Modal({ title, onClose, children }) {
           outline: 'none',
           touchAction: isDesktop ? 'manipulation' : 'pan-y',
           transform: sheetTransform,
+          // FLIP math contract — sub-project 27: standardize to top-left so
+          // translate3d(tx,ty,0) + scale(sx,sy) lands the sheet's top-left
+          // corner exactly on the card's top-left corner. Slide path doesn't
+          // care about origin (translate by 100% is origin-agnostic) but
+          // pinning it doesn't break the slide either.
+          transformOrigin: 'top left',
           transition: sheetTransition,
+          visibility: sheetVisibility,
+          // Disable interactions on the exiting sheet so taps don't land
+          // on form fields or the ✕ during the close animation.
+          pointerEvents: closing ? 'none' : 'auto',
           willChange: 'transform',
         }}
       >
-        {!isDesktop && (
-          <View style={styles.dragHandleRow}>
-            <View style={styles.dragHandle} />
+        <div
+          style={{
+            opacity: childrenOpacity,
+            transition: childrenTransition,
+          }}
+        >
+          {!isDesktop && (
+            <View style={styles.dragHandleRow}>
+              <View style={styles.dragHandle} />
+            </View>
+          )}
+          <View style={styles.header}>
+            <Text style={styles.title}>{title}</Text>
+            <Pressable onPress={triggerClose} accessibilityLabel="Close" style={styles.closeBtn}>
+              <Text style={styles.closeText}>✕</Text>
+            </Pressable>
           </View>
-        )}
-        <View style={styles.header}>
-          <Text style={styles.title}>{title}</Text>
-          <Pressable onPress={triggerClose} accessibilityLabel="Close" style={styles.closeBtn}>
-            <Text style={styles.closeText}>✕</Text>
-          </Pressable>
-        </View>
-        {children}
+          {children}
+        </div>
       </div>
     </div>
   );

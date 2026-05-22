@@ -2,10 +2,11 @@ import React from 'react';
 import { EMPTY_MED, DAYS } from '../../constants.js';
 import { MedForm } from './AddMedModal.jsx';
 
-export function EditMedModal({ med, onClose, onSave }) {
+export function EditMedModal({ med, onClose, onSave, originElement }) {
   return (
     <MedForm
       title={`Edit: ${med.name}`}
+      originElement={originElement}
       initial={{
         ...EMPTY_MED,
         ...med,

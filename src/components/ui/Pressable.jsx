@@ -38,7 +38,7 @@ function splitStyle(style) {
   return { layout, visual };
 }
 
-export function Pressable({ onPress, onPressIn, onPressOut, onHoverIn, onHoverOut, style, disabled, children, ...props }) {
+export const Pressable = React.forwardRef(function Pressable({ onPress, onPressIn, onPressOut, onHoverIn, onHoverOut, style, disabled, children, ...props }, ref) {
   const scale = useRef(new Animated.Value(1)).current;
   const translateY = useRef(new Animated.Value(0)).current;
   const [pressed, setPressed] = useState(false);
@@ -131,7 +131,7 @@ export function Pressable({ onPress, onPressIn, onPressOut, onHoverIn, onHoverOu
   };
 
   return (
-    <Animated.View style={[layout, { transform: [{ scale }, { translateY }] }]}>
+    <Animated.View ref={ref} style={[layout, { transform: [{ scale }, { translateY }] }]}>
       <AnimatedPressable
         onPress={onPress}
         onPressIn={handlePressIn}
@@ -146,6 +146,6 @@ export function Pressable({ onPress, onPressIn, onPressOut, onHoverIn, onHoverOu
       </AnimatedPressable>
     </Animated.View>
   );
-}
+});
 
 export default Pressable;

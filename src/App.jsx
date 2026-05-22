@@ -56,6 +56,11 @@ export default function App() {
   // ── Modal open state ───────────────────────────────────────────────
   const [showAddMed, setShowAddMed] = useState(false);
   const [editMed, setEditMed] = useState(null);
+  // Live DOM node of the med card that launched the edit modal — threaded
+  // through to Modal.jsx for the FLIP transform. Stored separately from
+  // editMed so React state doesn't deep-equal-check a DOM ref. Cleared
+  // alongside editMed on close. Sub-project 27.
+  const [editMedOriginEl, setEditMedOriginEl] = useState(null);
   const [titrationMed, setTitrationMed] = useState(null);
   const [queueMed, setQueueMed] = useState(null);
   const [showAddLog, setShowAddLog] = useState(false);
@@ -883,7 +888,7 @@ export default function App() {
               highInteractions={highInteractions}
               interactionError={interactionError}
               onAdd={() => setShowAddMed(true)}
-              onEdit={setEditMed}
+              onEdit={(m, el) => { setEditMed(m); setEditMedOriginEl(el); }}
               onTitrate={setTitrationMed}
               onRemove={removeMed}
               onSaveMeds={applyMedsUpdate}
@@ -962,8 +967,9 @@ export default function App() {
     {editMed && (
       <EditMedModal
         med={editMed}
-        onClose={() => setEditMed(null)}
-        onSave={async m => { await updateMed(m); setEditMed(null); }}
+        originElement={editMedOriginEl}
+        onClose={() => { setEditMed(null); setEditMedOriginEl(null); }}
+        onSave={async m => { await updateMed(m); setEditMed(null); setEditMedOriginEl(null); }}
       />
     )}
     {titrationMed && (

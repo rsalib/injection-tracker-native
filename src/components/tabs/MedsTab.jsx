@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
@@ -15,6 +15,11 @@ import { InteractionEngine } from '../../services/gemini.js';
 
 export function MedsTab({ meds, logs, interactions, highInteractions, interactionError, onAdd, onEdit, onTitrate, onRemove, onSaveMeds, onRecheck, logDose, undoDose, today, onQueueVial, settings, updateSetting }) {
   const sort = settings?.medsSort || "newest";
+  // Per-card DOM refs keyed by med id — captured via callback ref on each med
+  // card Pressable. Used by the EDIT button to pass the card's live DOM node
+  // to onEdit(m, el) so the EditMedModal can FLIP from the card footprint.
+  // Sub-project 27, Tier 3 Step 3.4.
+  const cardRefs = useRef(new Map());
   const [checking, setChecking] = useState(false);
   const [confirmRemove, setConfirmRemove] = useState(null);
   const [setVialPrompt, setSetVialPrompt] = useState(null);
@@ -183,7 +188,15 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
             });
 
             return (
-              <Pressable key={m.id} onPress={() => toggleMed(m.id)} style={styles.medCard}>
+              <Pressable
+                key={m.id}
+                ref={(el) => {
+                  if (el) cardRefs.current.set(m.id, el);
+                  else cardRefs.current.delete(m.id);
+                }}
+                onPress={() => toggleMed(m.id)}
+                style={styles.medCard}
+              >
                 {/* Header */}
                 <View style={styles.medCardHeader}>
                   <View style={styles.medCardHeaderTop}>
@@ -299,7 +312,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                         )}
                       </View>
                       <View style={styles.actionRow4}>
-                        <Pressable onPress={() => onEdit(m)} style={styles.xsBtn}>
+                        <Pressable onPress={() => onEdit(m, cardRefs.current.get(m.id) || null)} style={styles.xsBtn}>
                           <Text style={styles.xsBtnText}>EDIT</Text>
                         </Pressable>
                         <Pressable onPress={() => onTitrate(m)} style={styles.xsBtnPurple}>
