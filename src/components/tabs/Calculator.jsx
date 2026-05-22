@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
   pillWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.borderFaint,
+    backgroundColor: colors.surfaceRow, // v97: inner-well color (was colors.borderFaint)
     borderWidth: 1,
     borderColor: colors.borderSubtle,
     borderRadius: 100,

@@ -21,7 +21,7 @@ export const colors = {
   surfaceDark: 'rgba(17, 24, 39, 0.85)',
   surfaceMid: 'rgba(17, 24, 39, 0.6)',
   surfaceRow: 'rgba(17, 24, 39, 0.4)',
-  surfaceDeep: 'rgba(17, 24, 39, 0.3)',
+  surfaceDeep: '#2a3441', // v97: repointed from translucent slate-900-0.3 to opaque M3 slate-700-mid (same value as surfaceContainerM3 — the glass.card outer surface). Tier 2 gap closure.
   surfaceEmpty: 'rgba(31, 41, 55, 0.2)',
   surfaceCard: 'rgba(31,41,55,0.4)',
 
@@ -603,7 +603,7 @@ export const blur = {
 export const input = {
   // Standalone pill TextInput
   field: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceRow, // v97: inner-well color — matches dashboard inset-row treatment
     borderRadius: 100,
     borderWidth: 1,
     borderColor: colors.borderSubtle,
@@ -616,7 +616,7 @@ export const input = {
   },
   // Smaller pill for archive/filter search inputs
   fieldSearch: {
-    backgroundColor: colors.borderFaint,
+    backgroundColor: colors.surfaceRow, // v97: inner-well color
     borderRadius: 100,
     borderWidth: 1,
     borderColor: colors.borderSubtle,
@@ -628,7 +628,7 @@ export const input = {
   },
   // Compact variant of fieldSearch — smaller font for dense archive/filter rows
   fieldSearchCompact: {
-    backgroundColor: colors.borderFaint,
+    backgroundColor: colors.surfaceRow, // v97: inner-well color
     borderRadius: 100,
     borderWidth: 1,
     borderColor: colors.borderSubtle,
@@ -640,7 +640,7 @@ export const input = {
   },
   // Multiline textarea variant (notes fields)
   fieldMultiline: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceRow, // v97: inner-well color
     borderRadius: 24,
     borderWidth: 1,
     borderColor: colors.borderSubtle,
@@ -679,14 +679,14 @@ export const input = {
   // Used as inline style on DOM elements. Width is structural (caller decides) so not included.
   compositePill: {
     display: 'flex',
-    background: colors.surface,
+    background: colors.surfaceRow, // v97: inner-well color
     border: `1px solid ${colors.borderSubtle}`,
     borderRadius: '100px',
     overflow: 'hidden',
   },
   compositePillFaint: {
     display: 'flex',
-    background: colors.borderFaint,
+    background: colors.surfaceRow, // v97: inner-well color
     border: `1px solid ${colors.borderSubtle}`,
     borderRadius: '100px',
     overflow: 'hidden',
