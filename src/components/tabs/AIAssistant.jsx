@@ -26,8 +26,21 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
   const [loading, setLoading] = useState(false);
   const [recheckLoading, setRecheckLoading] = useState(false);
   const bottomRef = useRef(null);
+  // Track message count across renders so we only auto-scroll-to-bottom when
+  // a new message ARRIVES (count increases), not on initial mount and not on
+  // re-renders that don't add a message. Without this guard, AI Assistant's
+  // fresh-mount inside TabContainer's outgoing layer (sub-project 26, v102)
+  // would scrollIntoView() and propagate to the app-shell ScrollView,
+  // scrolling the page mid-cross-fade — visible bug on far-tab jumps from
+  // AI Assistant where the cross-fade duration overlaps the smooth scroll.
+  const prevMessageCountRef = useRef(messages.length);
 
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
+  useEffect(() => {
+    if (messages.length > prevMessageCountRef.current) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    prevMessageCountRef.current = messages.length;
+  }, [messages]);
 
   useEffect(() => {
     try {
