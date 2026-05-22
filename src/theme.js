@@ -812,10 +812,8 @@ export const type = {
   // 11/textMuted → 12/textMuted (M3 bodySmall + muted color)
   caption: { ..._m3.bodySmall, color: colors.textMuted },
 
-  // Tab bar labels — 6-tab capsule, width-budget-calibrated. Keep at 9pt
-  // since labelSmall at 11pt would overflow the active-tab pill. Color
-  // inherits from parent <Pressable> (currentColor) so token leaves it open.
-  tabLabel: { fontSize: 9, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 0.45 },
+  // v98: type.tabLabel removed — M3 NavigationBar consumes its label style
+  // directly via navBar.label / labelActive (labelSmall, 11pt/700/+0.5).
 
   // Neural Expressive hierarchy aliases
   heading1: { ..._m3.headlineSmall, color: colors.white },                                       // 24/800/0
@@ -900,11 +898,11 @@ export const shape = {
 
 export const layout = {
   contentMaxWidth: 672,       // v2 border-box content width (matches paddingHorizontal: 16 → 640px content)
-  tabBarMaxWidth: 500,        // tab capsule cap
+  // v98: tabBarMaxWidth removed — M3 NavigationBar is full-bleed, no width cap.
   headerClearance: 150,       // ScrollView paddingTop to clear fixed header (legacy static — prefer headerClearanceSafe)
   headerClearanceSafe: 'calc(150px + env(safe-area-inset-top))',
-  tabBarClearance: 100,       // ScrollView paddingBottom to clear fixed tab bar
-  tabBarSafeBottom: 'max(16px, calc(env(safe-area-inset-bottom) - 20px))',
+  tabBarClearance: 96,        // v98: 80dp M3 NavigationBar + ~16dp safe-area pad
+  tabBarSafeBottom: 'env(safe-area-inset-bottom)',
   noiseOpacity: 0.06,
 };
 
@@ -950,7 +948,8 @@ export const motion = {
 export const gradients = {
   screen: 'linear-gradient(160deg, #0f1923 0%, #111827 40%, #0d1f2d 100%)',
   headerFade: 'linear-gradient(to bottom, #111827 80%, rgba(17,24,39,0) 100%)',
-  tabBarFade: 'linear-gradient(to top, #111827 80%, rgba(17,24,39,0) 100%)',
+  // v98: tabBarFade removed — the M3 NavigationBar is opaque and edge-to-edge;
+  // no fade needed (and a fade would tint content above the bar).
 };
 
 // =============================================================================
@@ -958,27 +957,47 @@ export const gradients = {
 // =============================================================================
 
 export const navBar = {
-  // Sub-project 22 (v95): capsule retinted to opaque M3 tonal surface + M3
-  // elevation2 shadow, completing the Liquid Glass → M3 migration that the
-  // glass.* block already underwent in Step 2.1. Capsule now matches the
-  // tonal hierarchy of cards (surfaceContainerLow = slate-800) with shadow
-  // elevation appropriate for the bottom-anchored navigation chrome.
-  capsule: {
+  // Sub-project 24 (v98): full-bleed M3 NavigationBar replaces the Liquid Glass
+  // floating capsule. Bar is bottom-anchored, edge-to-edge, opaque
+  // surfaceContainerLow with a 1px outlineVariant top border (the M3-canonical
+  // separator between content and chrome). Each item is a column: icon-wrap
+  // (64x32 indicator pill when active, secondaryContainer bg) on top, label
+  // always visible below.
+  bar: {
     backgroundColor: colors.surfaceContainerLow,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-    borderWidth: 1,
-    borderRadius: 100,
-    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)', // elevation2
+    borderTopWidth: 1,
+    borderTopColor: colors.outlineVariant,
   },
-  btnActive: {
-    // M3 primary at low alpha — same hue family as colors.primary (#a8c8ff)
-    backgroundColor: 'rgba(168, 200, 255, 0.15)',
-    borderColor: 'rgba(168, 200, 255, 0.3)',
-    borderWidth: 1,
+  item: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 12,
+    paddingBottom: 16,
+    gap: 4,
+    cursor: 'pointer',
+  },
+  iconWrap: {
+    width: 64,
+    height: 32,
+    borderRadius: 9999,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconWrapActive: {
+    // M3 spec: active indicator uses secondaryContainer behind the icon only.
+    backgroundColor: colors.secondaryContainer,
   },
   label: {
-    color: colors.textSecondary,
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    color: colors.onSurfaceVariant,
+    textAlign: 'center',
   },
-  iconActive: colors.primary,
-  iconInactive: colors.textMuted,
+  labelActive: {
+    color: colors.onSurface,
+  },
+  iconActive: colors.onSecondaryContainer,
+  iconInactive: colors.onSurfaceVariant,
 };

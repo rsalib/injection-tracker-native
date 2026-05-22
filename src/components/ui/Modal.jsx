@@ -7,6 +7,10 @@ const DESKTOP_QUERY = '(min-width: 768px)';
 const DRAG_THRESHOLD_PCT = 0.30;
 const DRAG_THRESHOLD_FLOOR_PX = 80;
 const DESKTOP_DRAG_GUTTER_PX = 24;
+// Pixel travel before we commit to a dismiss-direction drag vs. let the native
+// scroll handle the gesture. v99: defers setPointerCapture until direction is
+// confirmed so a swipe-up at scrollTop===0 still scrolls the content natively.
+const DRAG_DIRECTION_THRESHOLD_PX = 10;
 
 export function Modal({ title, onClose, children }) {
   const dialogRef = React.useRef(null);
@@ -81,10 +85,16 @@ export function Modal({ title, onClose, children }) {
   }, [triggerClose]);
 
   // ----- Drag handling -----------------------------------------------------
-  // Mobile: any pointerdown on the sheet starts a drag along Y, unless the
-  // inner content is scrolled past the top (let native scroll handle it).
-  // Desktop: only pointerdown within the 24px left-edge gutter starts a
-  // drag along X — preserves text-selection and inner scroll in the body.
+  // Two-phase: pointerdown records start coords + tentative axis WITHOUT
+  // capturing the pointer; pointermove waits for ~10px of travel before
+  // committing. If the travel direction is the dismiss direction (down for
+  // bottom-sheet, right for side-sheet), capture the pointer and animate.
+  // If the travel is in the opposite direction (e.g. swipe-up at scrollTop===0
+  // to scroll the modal content), discard the tentative state and let the
+  // native scroll container handle it. Mobile: tentative drag starts only at
+  // scrollTop===0 (otherwise native scroll wins immediately). Desktop:
+  // tentative drag starts only within the 24px left-edge gutter (preserves
+  // text selection / inner scroll across the rest of the sheet body).
   const handlePointerDown = (e) => {
     if (closing) return;
     if (dragStateRef.current) return;
@@ -94,26 +104,45 @@ export function Modal({ title, onClose, children }) {
     if (isDesktop) {
       const rect = sheet.getBoundingClientRect();
       if (e.clientX - rect.left > DESKTOP_DRAG_GUTTER_PX) return;
-      dragStateRef.current = { axis: 'x', start: e.clientX, pointerId: e.pointerId };
+      dragStateRef.current = { axis: 'x', start: e.clientX, pointerId: e.pointerId, captured: false };
     } else {
       if (sheet.scrollTop > 0) return;
-      dragStateRef.current = { axis: 'y', start: e.clientY, pointerId: e.pointerId };
+      dragStateRef.current = { axis: 'y', start: e.clientY, pointerId: e.pointerId, captured: false };
     }
-    try { e.currentTarget.setPointerCapture(e.pointerId); } catch {}
+    // No setPointerCapture here — deferred to pointermove direction commit.
   };
 
   const handlePointerMove = (e) => {
     const state = dragStateRef.current;
     if (!state) return;
     const coord = state.axis === 'y' ? e.clientY : e.clientX;
-    const delta = Math.max(0, coord - state.start);
-    setDragOffset(delta);
+    const delta = coord - state.start;
+
+    if (!state.captured) {
+      // Direction-commit phase: wait until the user has moved ~10px to decide
+      // whether this is a dismiss drag or a native-scroll gesture.
+      if (delta >= DRAG_DIRECTION_THRESHOLD_PX) {
+        // Dismiss direction — commit to the drag.
+        state.captured = true;
+        try { e.currentTarget.setPointerCapture(state.pointerId); } catch {}
+      } else if (delta <= -DRAG_DIRECTION_THRESHOLD_PX) {
+        // Opposite direction — abandon this gesture so native scroll wins.
+        dragStateRef.current = null;
+        return;
+      } else {
+        // Still under threshold — keep watching.
+        return;
+      }
+    }
+    setDragOffset(Math.max(0, delta));
   };
 
   const handlePointerUp = (e) => {
     const state = dragStateRef.current;
     if (!state) return;
-    try { e.currentTarget.releasePointerCapture(state.pointerId); } catch {}
+    if (state.captured) {
+      try { e.currentTarget.releasePointerCapture(state.pointerId); } catch {}
+    }
     const sheet = dialogRef.current;
     const dim = state.axis === 'y'
       ? (sheet?.offsetHeight ?? window.innerHeight)
@@ -130,7 +159,10 @@ export function Modal({ title, onClose, children }) {
   };
 
   // ----- Visual state ------------------------------------------------------
-  const isDragging = dragStateRef.current !== null;
+  // Only suppress the transition once the drag has committed to dismiss
+  // direction (post-capture). Pre-commit, dragOffset stays at 0 so the
+  // transition value is moot.
+  const isDragging = dragStateRef.current?.captured === true;
 
   // Sheet transform: the off-screen start, the resting in-screen, the
   // dragged offset, and the closing exit are composed here.
@@ -154,6 +186,11 @@ export function Modal({ title, onClose, children }) {
       : `transform var(--motion-medium, 400ms) var(--motion-emphasized, cubic-bezier(0.2, 0.0, 0, 1.0))`;
 
   const overlayOpacity = entered && !closing ? 1 : 0;
+  // v99: overlay fade-out timing matches the sheet exit so the dim doesn't
+  // snap off mid-fade when the modal unmounts at `motion.short`.
+  const overlayTransition = closing
+    ? `opacity var(--motion-short, 200ms) var(--motion-emphasizedAccelerate, cubic-bezier(0.3, 0.0, 0.8, 0.15))`
+    : `opacity var(--motion-medium, 400ms) var(--motion-emphasized, cubic-bezier(0.2, 0.0, 0, 1.0))`;
 
   // ----- Layout: bottom-sheet vs side-sheet --------------------------------
   const sheetPositionStyle = isDesktop
@@ -172,7 +209,7 @@ export function Modal({ title, onClose, children }) {
         position: 'fixed', inset: 0, zIndex: 200,
         background: colors.overlay,
         opacity: overlayOpacity,
-        transition: `opacity var(--motion-medium, 400ms) var(--motion-emphasized, cubic-bezier(0.2, 0.0, 0, 1.0))`,
+        transition: overlayTransition,
       }}
     >
       <div

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import { colors, blur, shadow, navBar, layout, motion, radius, spacing, type } from './theme.js';
+import { colors, blur, shadow, navBar, layout, spacing } from './theme.js';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { auth, ensureAppCheckReady, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
@@ -913,10 +913,10 @@ export default function App() {
         </Suspense>
       </ScrollView>
 
-      {/* ── Bottom tab navigation ──────────────────────────────────── */}
+      {/* ── M3 NavigationBar ──────────────────────────────────────── */}
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100 }}>
-      <View className="tabbar-wrap" style={[styles.tabBarWrap, { paddingBottom: layout.tabBarSafeBottom }]} onStartShouldSetResponder={() => true}>
-        <View style={styles.tabBarCapsule}>
+      <View style={[styles.navBarOuter, { paddingBottom: layout.tabBarSafeBottom }]} onStartShouldSetResponder={() => true}>
+        <View style={styles.navBar}>
           {NAV_TABS.map(t => {
             const active = displayedActiveTab === t.id;
             return (
@@ -925,16 +925,17 @@ export default function App() {
                 onPress={() => setActiveTab(t.id)}
                 accessibilityLabel={t.label}
                 accessibilityRole="button"
-                style={[styles.tabBtn, active && styles.tabBtnActive, { color: active ? navBar.iconActive : navBar.iconInactive }]}
+                accessibilityState={{ selected: active }}
+                style={[styles.navItem, { color: active ? navBar.iconActive : navBar.iconInactive }]}
               >
-                <AnimatedTabIcon
-                  name={t.iconKey}
-                  active={active}
-                  pulse={t.iconKey === 'Medications' && !active && actionableInteractions.length > 0 && interactionSig !== ackInteractionSig}
-                />
-                {active && (
-                  <Text style={styles.tabLabel} numberOfLines={1}>{t.label}</Text>
-                )}
+                <View style={[styles.navIconWrap, active && styles.navIconWrapActive]}>
+                  <AnimatedTabIcon
+                    name={t.iconKey}
+                    active={active}
+                    pulse={t.iconKey === 'Medications' && !active && actionableInteractions.length > 0 && interactionSig !== ackInteractionSig}
+                  />
+                </View>
+                <Text style={[styles.navLabel, active && styles.navLabelActive]} numberOfLines={1}>{t.label}</Text>
               </Pressable>
             );
           })}
@@ -1049,41 +1050,34 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  // ── Tab bar — full-bleed outer, capsule constrained ────────────
-  tabBarWrap: {
-    paddingHorizontal: spacing.screenPad,
-    paddingTop: 6,
-    paddingBottom: 24,
-    alignItems: 'center',
+  // ── M3 NavigationBar — full-bleed, bottom-anchored, 80dp ───────
+  // Sub-project 24 (v98). Outer view carries safe-area padding so the bar
+  // surface extends edge-to-edge through the home-indicator zone without
+  // exposing the page bg underneath.
+  navBarOuter: {
+    ...navBar.bar,
     touchAction: 'none',
   },
-  tabBarCapsule: {
-    ...navBar.capsule,
+  navBar: {
     flexDirection: 'row',
+    alignItems: 'stretch',
     justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    width: '100%',
-    maxWidth: layout.tabBarMaxWidth,
+    minHeight: 80,
   },
-  tabBtn: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 4,
-    paddingVertical: 8,
-    paddingHorizontal: 4,
-    borderRadius: radius.pill,
-    transition: motion.tabTransition,
-    cursor: 'pointer',
+  navItem: {
+    ...navBar.item,
   },
-  tabBtnActive: {
-    flex: 1.2,
-    ...navBar.btnActive,
+  navIconWrap: {
+    ...navBar.iconWrap,
+    transition: 'background-color 0.2s var(--motion-emphasized, cubic-bezier(0.2,0,0,1))',
   },
-  tabLabel: {
-    ...type.tabLabel,
+  navIconWrapActive: {
+    ...navBar.iconWrapActive,
+  },
+  navLabel: {
     ...navBar.label,
+  },
+  navLabelActive: {
+    ...navBar.labelActive,
   },
 });

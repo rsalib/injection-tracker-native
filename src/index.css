@@ -52,9 +52,8 @@ html, body {
 .header-wrap {
   background: var(--gradient-headerFade) !important;
 }
-.tabbar-wrap {
-  background: var(--gradient-tabBarFade) !important;
-}
+/* v98: .tabbar-wrap rule removed — M3 NavigationBar is opaque + edge-to-edge,
+   no gradient fade needed (the bar surface itself blocks scrolling content). */
 
 /* Input tap ripple — Material Design Ripple visual on Apple Fluid easing.
    Created imperatively by InputField.jsx on pointerdown at the exact tap
