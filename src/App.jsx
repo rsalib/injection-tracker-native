@@ -913,7 +913,7 @@ export default function App() {
         </Suspense>
       </ScrollView>
 
-      {/* ── M3 NavigationBar ──────────────────────────────────────── */}
+      {/* ── M3 NavigationBar (compact floating capsule) ───────────── */}
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100 }}>
       <View style={[styles.navBarOuter, { paddingBottom: layout.tabBarSafeBottom }]} onStartShouldSetResponder={() => true}>
         <View style={styles.navBar}>
@@ -935,7 +935,9 @@ export default function App() {
                     pulse={t.iconKey === 'Medications' && !active && actionableInteractions.length > 0 && interactionSig !== ackInteractionSig}
                   />
                 </View>
-                <Text style={[styles.navLabel, active && styles.navLabelActive]} numberOfLines={1}>{t.label}</Text>
+                {active && (
+                  <Text style={styles.navLabel} numberOfLines={1}>{t.label}</Text>
+                )}
               </Pressable>
             );
           })}
@@ -1050,19 +1052,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  // ── M3 NavigationBar — full-bleed, bottom-anchored, 80dp ───────
-  // Sub-project 24 (v98). Outer view carries safe-area padding so the bar
-  // surface extends edge-to-edge through the home-indicator zone without
-  // exposing the page bg underneath.
+  // ── M3 NavigationBar — compact floating capsule ────────────────
+  // Sub-project 25 (v100). Outer wrap carries horizontal margin and safe-area
+  // bottom padding so the floating capsule sits clear of the screen edges and
+  // the home indicator. Capsule itself is the floating card (token-driven via
+  // navBar.bar) with maxWidth to keep it from stretching on wider viewports.
   navBarOuter: {
-    ...navBar.bar,
+    paddingHorizontal: spacing.screenPad,
+    paddingTop: 4,
+    alignItems: 'center',
     touchAction: 'none',
   },
   navBar: {
+    ...navBar.bar,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-around',
-    minHeight: 80,
+    paddingVertical: 4,
+    paddingHorizontal: 4,
+    width: '100%',
+    maxWidth: layout.tabBarMaxWidth,
   },
   navItem: {
     ...navBar.item,
@@ -1076,8 +1085,5 @@ const styles = StyleSheet.create({
   },
   navLabel: {
     ...navBar.label,
-  },
-  navLabelActive: {
-    ...navBar.labelActive,
   },
 });

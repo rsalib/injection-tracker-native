@@ -898,11 +898,12 @@ export const shape = {
 
 export const layout = {
   contentMaxWidth: 672,       // v2 border-box content width (matches paddingHorizontal: 16 → 640px content)
-  // v98: tabBarMaxWidth removed — M3 NavigationBar is full-bleed, no width cap.
+  // v100: tabBarMaxWidth restored — floating capsule caps width on wider viewports
+  tabBarMaxWidth: 500,
   headerClearance: 150,       // ScrollView paddingTop to clear fixed header (legacy static — prefer headerClearanceSafe)
   headerClearanceSafe: 'calc(150px + env(safe-area-inset-top))',
-  tabBarClearance: 96,        // v98: 80dp M3 NavigationBar + ~16dp safe-area pad
-  tabBarSafeBottom: 'env(safe-area-inset-bottom)',
+  tabBarClearance: 100,       // ScrollView paddingBottom to clear floating bar (~60dp capsule + safe-area)
+  tabBarSafeBottom: 'max(12px, env(safe-area-inset-bottom))',
   noiseOpacity: 0.06,
 };
 
@@ -957,29 +958,36 @@ export const gradients = {
 // =============================================================================
 
 export const navBar = {
-  // Sub-project 24 (v98): full-bleed M3 NavigationBar replaces the Liquid Glass
-  // floating capsule. Bar is bottom-anchored, edge-to-edge, opaque
-  // surfaceContainerLow with a 1px outlineVariant top border (the M3-canonical
-  // separator between content and chrome). Each item is a column: icon-wrap
-  // (64x32 indicator pill when active, secondaryContainer bg) on top, label
-  // always visible below.
+  // Sub-project 25 (v100): compact floating M3 NavigationBar — matches the
+  // header card aesthetic (surfaceContainerHigh + 24px corners + rim-light
+  // borders + elevation2) for visual symmetry between the top and bottom
+  // chrome. Drops the v98 full-bleed edge-to-edge surface, which read as
+  // disproportionately tall and visually disconnected from the header card.
+  // Keeps the M3 indicator-pill-behind-icon affordance and secondaryContainer
+  // tonal color from v98. Labels only render on the active tab (compact mode
+  // — full M3 always-visible labels can't fit 6 destinations on a 320–400px
+  // viewport without truncation per sub-project 24's accepted trade-off).
   bar: {
-    backgroundColor: colors.surfaceContainerLow,
-    borderTopWidth: 1,
-    borderTopColor: colors.outlineVariant,
+    backgroundColor: colors.surfaceContainerHigh,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+    borderTopColor: colors.borderHighTop,
+    borderLeftColor: colors.borderHighLeft,
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)', // elevation2
   },
   item: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 12,
-    paddingBottom: 16,
-    gap: 4,
+    paddingTop: 6,
+    paddingBottom: 6,
+    gap: 2,
     cursor: 'pointer',
   },
   iconWrap: {
-    width: 64,
-    height: 32,
+    width: 56,
+    height: 28,
     borderRadius: 9999,
     alignItems: 'center',
     justifyContent: 'center',
@@ -989,14 +997,11 @@ export const navBar = {
     backgroundColor: colors.secondaryContainer,
   },
   label: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '700',
-    letterSpacing: 0.5,
-    color: colors.onSurfaceVariant,
-    textAlign: 'center',
-  },
-  labelActive: {
+    letterSpacing: 0.4,
     color: colors.onSurface,
+    textAlign: 'center',
   },
   iconActive: colors.onSecondaryContainer,
   iconInactive: colors.onSurfaceVariant,
