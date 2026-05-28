@@ -3,9 +3,9 @@ import { colors, blur, shadow, input, type } from '../../theme.js';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
-import { formatDisplayDate } from '../../constants.js';
+import { formatDisplayDate, DOSE_UNIT_OPTIONS } from '../../constants.js';
 import { button } from '../../theme.js';
-import { toMg, calculateProportionateStack } from '../../mathEngine.js';
+import { toMg, fromMg, calculateProportionateStack } from '../../mathEngine.js';
 
 export function TitrationModal({ med, onClose, onSave, today }) {
   const [sched, setSched] = useState(med.titrationSchedule || []);
@@ -21,8 +21,8 @@ export function TitrationModal({ med, onClose, onSave, today }) {
     const updated = calculateProportionateStack(tempPeps, idx, val);
     setTempPeps(updated);
     let totalMg = 0;
-    updated.forEach(p => totalMg += toMg(p.dose, p.unit));
-    const totalDisp = newUnit === 'mcg' ? totalMg * 1000 : totalMg;
+    updated.forEach(p => totalMg += toMg(p.dose, p.unit, p.iuPerMg));
+    const totalDisp = fromMg(totalMg, newUnit, med.iuPerMg);
     setNewDose(parseFloat(totalDisp.toFixed(3)).toString());
   };
 
@@ -44,8 +44,8 @@ export function TitrationModal({ med, onClose, onSave, today }) {
       window.showToast?.('Dose must be a positive, realistic number.', 'error');
       return;
     }
-    const currentDoseMg = toMg(med.dose, med.unit);
-    const newDoseMg = toMg(parsedDose, newUnit);
+    const currentDoseMg = toMg(med.dose, med.unit, med.iuPerMg);
+    const newDoseMg = toMg(parsedDose, newUnit, med.iuPerMg);
     if (currentDoseMg > 0 && (newDoseMg > currentDoseMg * 10 || newDoseMg < currentDoseMg / 10)) {
       window.showToast?.(`Note: this dose is very different from the current ${med.dose} ${med.unit}. Double-check before saving.`, 'info');
     }
@@ -136,7 +136,7 @@ export function TitrationModal({ med, onClose, onSave, today }) {
                   <input id="titration-new-dose" name="titration-new-dose" type="number" value={newDose} onChange={e => setNewDose(e.target.value)} placeholder={med.dose} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
                   <div style={input.compositePillDivider} />
                   <select id="titration-new-unit" name="titration-new-unit" value={newUnit} onChange={e => setNewUnit(e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
-                    <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option>
+                    {DOSE_UNIT_OPTIONS.map(u => <option key={u} style={{color:'black'}}>{u}</option>)}
                   </select>
                 </div>
               </View>

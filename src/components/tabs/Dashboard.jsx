@@ -60,8 +60,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
 
       {/* Low Inventory Alerts */}
       {sorted.filter(m => {
-        const remMg = toMg(parseFloat(m.vialRemaining) || 0, m.vialUnit || m.unit);
-        const doseMg = toMg(parseFloat(m.dose) || 0, m.unit);
+        const remMg = toMg(parseFloat(m.vialRemaining) || 0, m.vialUnit || m.unit, m.iuPerMg);
+        const doseMg = toMg(parseFloat(m.dose) || 0, m.unit, m.iuPerMg);
         const currentDoses = doseMg > 0 ? Math.floor(remMg / doseMg) : 0;
         const isSnoozed = m.snoozedAtDoses !== undefined && currentDoses <= m.snoozedAtDoses;
         const isActive = !m.startDate || m.startDate <= today;
@@ -69,8 +69,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
         const isStarted = diff > 0.01;
         return isActive && isStarted && currentDoses <= 4 && !m.nextVial && !m.isEndingCycle && !m.isAlertDismissed && !isSnoozed;
       }).map(m => {
-        const remMg = toMg(parseFloat(m.vialRemaining) || 0, m.vialUnit || m.unit);
-        const doseMg = toMg(parseFloat(m.dose) || 0, m.unit);
+        const remMg = toMg(parseFloat(m.vialRemaining) || 0, m.vialUnit || m.unit, m.iuPerMg);
+        const doseMg = toMg(parseFloat(m.dose) || 0, m.unit, m.iuPerMg);
         const currentDoses = doseMg > 0 ? Math.floor(remMg / doseMg) : 0;
         return (
           <View key={`alert-${m.id}`} style={styles.alertCard}>
@@ -157,8 +157,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
             const pct = vt > 0 ? Math.round((rem / vt) * 100) : 0;
 
             const displayDose = parseFloat(m.dose) || 0;
-            const remMg = toMg(rem, m.vialUnit || m.unit);
-            const doseMg = toMg(displayDose, m.unit);
+            const remMg = toMg(rem, m.vialUnit || m.unit, m.iuPerMg);
+            const doseMg = toMg(displayDose, m.unit, m.iuPerMg);
             const dosesLeft = doseMg > 0 ? Math.floor(remMg / doseMg) : 0;
 
             const isScheduledToday = Array.isArray(m.scheduleDays) && m.scheduleDays.includes(dayNameToday);

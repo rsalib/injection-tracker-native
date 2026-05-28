@@ -6,8 +6,8 @@ import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
 import { button } from '../../theme.js';
-import { SITES, getLocalDate, getLocalTime } from '../../constants.js';
-import { toMg } from '../../mathEngine.js';
+import { SITES, getLocalDate, getLocalTime, DOSE_UNIT_OPTIONS, LOG_UNIT_OPTIONS } from '../../constants.js';
+import { toMg, fromMg } from '../../mathEngine.js';
 
 export function LogFormModal({ meds, initialData, onClose, onSave }) {
   const isEdit = !!initialData;
@@ -28,9 +28,9 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
     if (form.medId && form.dose) {
       const m = meds.find(x => x.id === form.medId);
       if (m && parseFloat(m.vialTotal) > 0 && parseFloat(m.bwAdded) > 0) {
-        const vMg = toMg(m.vialTotal, m.vialUnit || m.unit);
+        const vMg = toMg(m.vialTotal, m.vialUnit || m.unit, m.iuPerMg);
         const conc = vMg / parseFloat(m.bwAdded);
-        const doseMg = toMg(form.dose, form.unit);
+        const doseMg = toMg(form.dose, form.unit, m.iuPerMg);
         if (doseMg > 0) {
           const dMl = doseMg / conc;
           const sMl = parseFloat(m.syringeMl || '1');
@@ -85,20 +85,20 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
             <Text style={styles.stackBoxTitle}>📊 Stack Delivery Breakdown</Text>
             <View style={styles.stackRows}>
               {selectedMed.subPeptides.map(p => {
-                const savedTotalDoseMg = toMg(selectedMed.dose, selectedMed.unit);
-                const enteredDoseMg = toMg(form.dose, form.unit);
+                const savedTotalDoseMg = toMg(selectedMed.dose, selectedMed.unit, selectedMed.iuPerMg);
+                const enteredDoseMg = toMg(form.dose, form.unit, selectedMed.iuPerMg);
                 const ratio = savedTotalDoseMg > 0 ? (enteredDoseMg / savedTotalDoseMg) : 0;
-                const pSavedDoseMg = toMg(p.dose, p.unit);
+                const pSavedDoseMg = toMg(p.dose, p.unit, p.iuPerMg);
                 const deliveredMg = pSavedDoseMg * ratio;
-                const displayNum = p.unit === 'mcg' ? deliveredMg * 1000 : deliveredMg;
+                const displayNum = fromMg(deliveredMg, p.unit, p.iuPerMg);
 
                 const handleDoseEdit = (val) => {
                   const newDoseVal = parseFloat(val);
                   if (isNaN(newDoseVal) || newDoseVal <= 0) { set('dose', ''); return; }
-                  const newDoseMg = toMg(String(newDoseVal), p.unit);
+                  const newDoseMg = toMg(String(newDoseVal), p.unit, p.iuPerMg);
                   const newRatio = pSavedDoseMg > 0 ? newDoseMg / pSavedDoseMg : 0;
                   const newTotalDoseMg = savedTotalDoseMg * newRatio;
-                  const newFormDose = form.unit === 'mcg' ? newTotalDoseMg * 1000 : newTotalDoseMg;
+                  const newFormDose = fromMg(newTotalDoseMg, form.unit, selectedMed.iuPerMg);
                   set('dose', parseFloat(newFormDose.toFixed(3)).toString());
                 };
 
@@ -122,9 +122,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
                         disabled
                         style={{ flex: '0 0 65px', background: colors.shadowSoft, border: 'none', color: colors.textSecondary, padding: '0 8px', fontSize: 12, fontWeight: 700, outline: 'none', appearance: 'none', textAlign: 'center', opacity: 0.8 }}
                       >
-                        <option style={{color:'black'}}>mcg</option>
-                        <option style={{color:'black'}}>mg</option>
-                        <option style={{color:'black'}}>IU</option>
+                        {DOSE_UNIT_OPTIONS.map(u => <option key={u} style={{color:'black'}}>{u}</option>)}
                       </select>
                     </div>
                   </View>
@@ -144,7 +142,7 @@ export function LogFormModal({ meds, initialData, onClose, onSave }) {
               <input id="logform-dose" name="logform-dose" type="number" value={form.dose} onChange={e => set('dose', e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '12px 16px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
               <div style={input.compositePillDivider} />
               <select id="logform-unit" name="logform-unit" value={form.unit} onChange={e => set('unit', e.target.value)} style={{ flex: '0 0 85px', background: 'transparent', border: 'none', color: colors.white, padding: '12px 14px', fontSize: 15, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
-                <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option><option style={{color:'black'}}>mL</option>
+                {LOG_UNIT_OPTIONS.map(u => <option key={u} style={{color:'black'}}>{u}</option>)}
               </select>
             </div>
           </View>

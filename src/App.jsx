@@ -263,7 +263,7 @@ export default function App() {
             cMeds = cMeds.map(m => {
               if (m.id === medId) {
                 const vUnit = m.vialUnit || m.unit;
-                const deductAmount = convertToVialUnit(deductRaw, unit, vUnit);
+                const deductAmount = convertToVialUnit(deductRaw, unit, vUnit, m.iuPerMg);
                 const newRemaining = Math.max(0, Math.round((parseFloat(m.vialRemaining || m.vialTotal || 0) - deductAmount) * 1000) / 1000);
                 return { ...m, vialRemaining: newRemaining };
               }
@@ -386,7 +386,7 @@ export default function App() {
           currentMeds = currentMeds.map(m => {
             if (m.id === medId) {
               const vUnit = m.vialUnit || m.unit;
-              const deductAmount = convertToVialUnit(deductRaw, unit, vUnit);
+              const deductAmount = convertToVialUnit(deductRaw, unit, vUnit, m.iuPerMg);
               const newRemaining = Math.max(0, Math.round((parseFloat(m.vialRemaining || m.vialTotal || 0) - deductAmount) * 1000) / 1000);
               return { ...m, vialRemaining: newRemaining };
             }
@@ -619,8 +619,8 @@ export default function App() {
     }
 
     if (!isAuto && med) {
-      const expectedDoseMg = toMg(parseFloat(med.dose) || 0, med.unit);
-      const actualDoseMg = toMg(deductRaw, unit);
+      const expectedDoseMg = toMg(parseFloat(med.dose) || 0, med.unit, med.iuPerMg);
+      const actualDoseMg = toMg(deductRaw, unit, med.iuPerMg);
       if (expectedDoseMg > 0 && actualDoseMg > 0) {
         const ratio = actualDoseMg / expectedDoseMg;
         if (ratio >= 10 || ratio <= 0.1) {
@@ -640,7 +640,7 @@ export default function App() {
     await fbTransaction(`meds/${med.id}`, (current) => {
       if (!current) return current;
       const vUnit = current.vialUnit || current.unit;
-      const deductAmount = convertToVialUnit(deductRaw, unit, vUnit);
+      const deductAmount = convertToVialUnit(deductRaw, unit, vUnit, current.iuPerMg);
       const newRemaining = Math.max(0, Math.round((parseFloat(current.vialRemaining || current.vialTotal || 0) - deductAmount) * 1000) / 1000);
       return { ...current, vialRemaining: newRemaining };
     });
@@ -648,7 +648,7 @@ export default function App() {
     const um = meds.map(m => {
       if (m.id === med.id) {
         const vUnit = m.vialUnit || m.unit;
-        const deductAmount = convertToVialUnit(deductRaw, unit, vUnit);
+        const deductAmount = convertToVialUnit(deductRaw, unit, vUnit, m.iuPerMg);
         const newRemaining = Math.max(0, Math.round((parseFloat(m.vialRemaining || m.vialTotal || 0) - deductAmount) * 1000) / 1000);
         return { ...m, vialRemaining: newRemaining };
       }
@@ -668,8 +668,8 @@ export default function App() {
     const um = meds.map(m => {
       if (m.id === updatedLog.medId) {
         const vUnit = m.vialUnit || m.unit;
-        const oldDeduct = convertToVialUnit(parseFloat(oldLog.dose) || 0, oldLog.unit, vUnit);
-        const newDeduct = convertToVialUnit(parseFloat(updatedLog.dose) || 0, updatedLog.unit, vUnit);
+        const oldDeduct = convertToVialUnit(parseFloat(oldLog.dose) || 0, oldLog.unit, vUnit, m.iuPerMg);
+        const newDeduct = convertToVialUnit(parseFloat(updatedLog.dose) || 0, updatedLog.unit, vUnit, m.iuPerMg);
         const doseDiff = newDeduct - oldDeduct;
         if (doseDiff !== 0) {
           const newRemaining = Math.round((parseFloat(m.vialRemaining || 0) - doseDiff) * 1000) / 1000;
@@ -693,7 +693,7 @@ export default function App() {
     const um = meds.map(m => {
       if (m.id === logToDel.medId) {
         const vUnit = m.vialUnit || m.unit;
-        const restoreAmount = convertToVialUnit(parseFloat(logToDel.dose) || 0, logToDel.unit, vUnit);
+        const restoreAmount = convertToVialUnit(parseFloat(logToDel.dose) || 0, logToDel.unit, vUnit, m.iuPerMg);
         const restored = Math.round((parseFloat(m.vialRemaining || 0) + restoreAmount) * 1000) / 1000;
         const maxVol = parseFloat(m.vialTotal || Infinity);
         return { ...m, vialRemaining: Math.min(maxVol, restored) };

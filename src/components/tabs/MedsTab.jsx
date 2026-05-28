@@ -158,12 +158,12 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
             const at = getActiveDose(m, today);
             const displayDose = at ? parseFloat(at.dose) : parseFloat(m.dose) || 0;
             const displayUnit = at ? at.unit : m.unit;
-            const remMg = toMg(rem, m.vialUnit || m.unit);
-            const dsMg = toMg(displayDose, displayUnit);
+            const remMg = toMg(rem, m.vialUnit || m.unit, m.iuPerMg);
+            const dsMg = toMg(displayDose, displayUnit, m.iuPerMg);
             const usesRem = dsMg > 0 && remMg > 0 ? Math.floor(remMg / dsMg) : 0;
 
             const bw = parseFloat(m.bwAdded) || 0;
-            const vtMg = toMg(vt, m.vialUnit || m.unit);
+            const vtMg = toMg(vt, m.vialUnit || m.unit, m.iuPerMg);
             const conc = vtMg > 0 && bw > 0 ? vtMg / bw : 0;
             const su = parseFloat(m.syringeUnits || "100");
             const drawMl = conc > 0 && dsMg > 0 ? dsMg / conc : 0;
@@ -253,7 +253,7 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                         <View style={styles.metricsGrid}>
                           <View style={styles.metricItem}>
                             <Text style={styles.syringeMetricLabel}>Concentration</Text>
-                            <Text style={styles.syringeMetricValue}>{fromMg(conc, m.vialUnit || m.unit).toFixed(2)} {m.vialUnit || m.unit}/mL</Text>
+                            <Text style={styles.syringeMetricValue}>{fromMg(conc, m.vialUnit || m.unit, m.iuPerMg).toFixed(2)} {m.vialUnit || m.unit}/mL</Text>
                           </View>
                           <View style={styles.metricItem}>
                             <Text style={styles.syringeMetricLabel}>Draw Volume</Text>

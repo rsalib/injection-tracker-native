@@ -4,7 +4,7 @@ import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
-import { ALL_STACKS } from '../../constants.js';
+import { ALL_STACKS, POPULAR_MEDS, VIAL_UNIT_OPTIONS, DOSE_UNIT_OPTIONS, getIuPerMg } from '../../constants.js';
 import { colors, glass, button, input } from '../../theme.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
@@ -13,11 +13,11 @@ export function Calculator() {
   const [sylMl, setSylMl] = useState('1');
   const [sylU, setSylU] = useState('100');
 
-  const [singleData, setSingleData] = useState({ vialMg: '', bwMl: '', doseAmount: '', doseUnit: 'mcg' });
+  const [singleData, setSingleData] = useState({ name: '', iuPerMg: null, vialMg: '', vialUnit: 'mg', bwMl: '', doseAmount: '', doseUnit: 'mcg' });
 
   const [stackData, setStackData] = useState({
     bwMl: '',
-    peptides: [{ id: Date.now().toString(), name: '', vialMg: '', doseAmount: '', doseUnit: 'mcg' }]
+    peptides: [{ id: Date.now().toString(), name: '', vialMg: '', vialUnit: 'mg', doseAmount: '', doseUnit: 'mcg' }]
   });
   const [stackSearch, setStackSearch] = useState('');
 
@@ -34,6 +34,9 @@ export function Calculator() {
       let newAmt = currentAmt;
       if (oldUnit === 'mcg' && newUnit === 'mg') newAmt = currentAmt / 1000;
       if (oldUnit === 'mg' && newUnit === 'mcg') newAmt = currentAmt * 1000;
+      // IU↔mg/mcg conversion has no generic factor in the Calculator (no peptide
+      // identity to look up iuPerMg from). When crossing the IU boundary, keep the
+      // numeric value as-is — the user is asserting a new unit, not a conversion.
       p.doseAmount = parseFloat(newAmt.toFixed(3)).toString();
     }
     setStackData({ ...stackData, peptides: newPeps });
@@ -46,29 +49,33 @@ export function Calculator() {
   const sMl = parseFloat(sylMl) || 1;
   const sU = parseFloat(sylU) || 100;
 
+  // Calculator math: normalize vial + dose to a common base via toMg. When the
+  // selected peptide has a known iuPerMg ratio (e.g., HGH = 3 IU/mg), cross-unit
+  // entries like vial 24 IU + dose 1 mg compute correctly (1 mg → 3 IU on a 24 IU
+  // vial). Without a ratio, IU is closed-family pass-through; mg ↔ mcg always works.
   if (calcMode === 'single') {
-    const vMg = parseFloat(singleData.vialMg) || 0;
+    const vRaw = parseFloat(singleData.vialMg) || 0;
     const bw = parseFloat(singleData.bwMl) || 0;
-    const dAmt = parseFloat(singleData.doseAmount) || 0;
-    if (vMg > 0 && bw > 0 && dAmt > 0) {
-      const conc = vMg / bw;
-      const dMg = toMg(String(dAmt), singleData.doseUnit);
-      calcMl = dMg / conc;
+    const dRaw = parseFloat(singleData.doseAmount) || 0;
+    if (vRaw > 0 && bw > 0 && dRaw > 0) {
+      const vNorm = toMg(String(vRaw), singleData.vialUnit, singleData.iuPerMg);
+      const dNorm = toMg(String(dRaw), singleData.doseUnit, singleData.iuPerMg);
+      const conc = vNorm / bw;
+      calcMl = dNorm / conc;
       calcUnits = (calcMl / sMl) * sU;
-      dosesLeft = vMg / dMg;
+      dosesLeft = vNorm / dNorm;
     }
   } else {
     const bw = parseFloat(stackData.bwMl) || 0;
     if (bw > 0) {
       const validPep = stackData.peptides.find(p => parseFloat(p.vialMg) > 0 && parseFloat(p.doseAmount) > 0);
       if (validPep) {
-        const vMg = parseFloat(validPep.vialMg);
-        const dAmt = parseFloat(validPep.doseAmount);
-        const dMg = toMg(String(dAmt), validPep.doseUnit);
-        const conc = vMg / bw;
-        calcMl = dMg / conc;
+        const vNorm = toMg(String(parseFloat(validPep.vialMg)), validPep.vialUnit || 'mg', validPep.iuPerMg);
+        const dNorm = toMg(String(parseFloat(validPep.doseAmount)), validPep.doseUnit, validPep.iuPerMg);
+        const conc = vNorm / bw;
+        calcMl = dNorm / conc;
         calcUnits = (calcMl / sMl) * sU;
-        dosesLeft = vMg / dMg;
+        dosesLeft = vNorm / dNorm;
       }
     }
   }
@@ -118,12 +125,42 @@ export function Calculator() {
                 peptides: m.peptides.map((p, i) => ({
                   id: `sp_${Date.now()}_${i}`,
                   name: p.name || '',
+                  iuPerMg: getIuPerMg(p.name),
                   vialMg: p.amount || '',
+                  vialUnit: p.unit || 'mg',
                   doseAmount: p.dose || '',
                   doseUnit: p.doseUnit || 'mcg',
                 }))
               });
             }}
+          />
+        </View>
+      )}
+
+      {/* 1.6 Single-peptide search — mirrors the stack-mode "Load Pre-Made Blend"
+          search in the same slot. Picks up iuPerMg via getIuPerMg() so cross-unit
+          IU↔mg math works in this tab too. */}
+      {calcMode === 'single' && (
+        <View style={styles.searchWrap}>
+          <Text style={styles.lbl}>Load Peptide</Text>
+          <SearchDropdown
+            value={singleData.name}
+            onChange={v => setSingleData({ ...singleData, name: v, iuPerMg: getIuPerMg(v) })}
+            placeholder="Search peptides..."
+            options={POPULAR_MEDS.filter(m => !singleData.name || m.name.toLowerCase().includes(singleData.name.toLowerCase())).slice(0, 15)}
+            renderOption={m => (
+              <>
+                <span>{m.name}</span>
+                <span style={{ fontSize: 11, color: colors.textSecondary, marginLeft: 8, fontWeight: 600 }}>{m.type}</span>
+              </>
+            )}
+            onSelect={m => setSingleData({
+              ...singleData,
+              name: m.name,
+              iuPerMg: m.iuPerMg ?? null,
+              vialUnit: m.unit === 'mcg' ? 'mg' : m.unit,
+              doseUnit: m.unit,
+            })}
           />
         </View>
       )}
@@ -179,7 +216,15 @@ export function Calculator() {
                     placeholderTextColor={colors.bgMid3}
                   />
                   <View style={styles.pillDivider} />
-                  <View style={styles.pillUnit}><Text style={styles.pillUnitText}>mg</Text></View>
+                  <select
+                    id="field-calculator-vialunit-single"
+                    name="field-calculator-vialunit-single"
+                    style={selectStyle}
+                    value={singleData.vialUnit}
+                    onChange={e => setSingleData({ ...singleData, vialUnit: e.target.value })}
+                  >
+                    {VIAL_UNIT_OPTIONS.map(u => <option key={u}>{u}</option>)}
+                  </select>
                 </View>
               </View>
               <View style={styles.col}>
@@ -225,6 +270,7 @@ export function Calculator() {
                   if (!isNaN(amt)) {
                     if (oldUnit === 'mcg' && newUnit === 'mg') amt = amt / 1000;
                     if (oldUnit === 'mg' && newUnit === 'mcg') amt = amt * 1000;
+                    // Crossing the IU boundary: keep the numeric value (no generic ratio in Calculator).
                   }
                   setSingleData({
                     ...singleData,
@@ -233,8 +279,7 @@ export function Calculator() {
                   });
                 }}
               >
-                <option>mcg</option>
-                <option>mg</option>
+                {DOSE_UNIT_OPTIONS.map(u => <option key={u}>{u}</option>)}
               </select>
             </View>
           </View>
@@ -295,7 +340,19 @@ export function Calculator() {
                       }}
                     />
                     <View style={styles.pillDivider} />
-                    <View style={styles.pillUnit}><Text style={styles.pillUnitText}>mg</Text></View>
+                    <select
+                      id={`field-calculator-vialunit-stack-${idx}`}
+                      name={`field-calculator-vialunit-stack-${idx}`}
+                      style={selectStyle}
+                      value={p.vialUnit || 'mg'}
+                      onChange={e => {
+                        const n = [...stackData.peptides];
+                        n[idx].vialUnit = e.target.value;
+                        setStackData({ ...stackData, peptides: n });
+                      }}
+                    >
+                      {VIAL_UNIT_OPTIONS.map(u => <option key={u}>{u}</option>)}
+                    </select>
                   </View>
                 </View>
                 <View style={styles.col}>
@@ -317,8 +374,7 @@ export function Calculator() {
                       value={p.doseUnit}
                       onChange={e => handleStackUnitChange(idx, e.target.value)}
                     >
-                      <option>mcg</option>
-                      <option>mg</option>
+                      {DOSE_UNIT_OPTIONS.map(u => <option key={u}>{u}</option>)}
                     </select>
                   </View>
                 </View>
@@ -329,7 +385,7 @@ export function Calculator() {
           <Pressable
             onPress={() => setStackData({
               ...stackData,
-              peptides: [...stackData.peptides, { id: Date.now().toString(), name: '', vialMg: '', doseAmount: '', doseUnit: 'mcg' }]
+              peptides: [...stackData.peptides, { id: Date.now().toString(), name: '', vialMg: '', vialUnit: 'mg', doseAmount: '', doseUnit: 'mcg' }]
             })}
             style={[styles.addPeptideBtn, { justifyContent: 'center' }]}
           >

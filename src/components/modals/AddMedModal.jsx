@@ -5,7 +5,7 @@ import { Pressable } from '../ui/Pressable.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
 import { colors, blur, button, input, type } from '../../theme.js';
-import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS } from '../../constants.js';
+import { SITES, DAYS, EMPTY_MED, POPULAR_MEDS, ALL_STACKS, VIAL_UNIT_OPTIONS, DOSE_UNIT_OPTIONS, getIuPerMg } from '../../constants.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
 
 
@@ -91,6 +91,7 @@ export function MedForm({ initial, onSave, onClose, title, originElement }) {
         vialTotal: parseFloat(p.vialTotal) || 0,
         vialRemaining: isEdit && form.vialRemaining ? parseFloat(form.vialRemaining) : (parseFloat(p.vialTotal) || 0),
         vialUnit: p.vialUnit,
+        iuPerMg: p.iuPerMg ?? form.iuPerMg ?? null,
         bwAdded: parseFloat(form.bwAdded) || 0,
       });
     } else {
@@ -103,8 +104,8 @@ export function MedForm({ initial, onSave, onClose, title, originElement }) {
       let totalStackMg = 0;
       let totalDoseMg = 0;
       validPeps.forEach(p => {
-        totalStackMg += toMg(parseFloat(p.vialTotal) || 0, p.vialUnit);
-        totalDoseMg += toMg(parseFloat(p.dose) || 0, p.unit);
+        totalStackMg += toMg(parseFloat(p.vialTotal) || 0, p.vialUnit, p.iuPerMg);
+        totalDoseMg += toMg(parseFloat(p.dose) || 0, p.unit, p.iuPerMg);
       });
 
       const displayDoseUnit = totalDoseMg < 1 ? 'mcg' : 'mg';
@@ -162,20 +163,23 @@ export function MedForm({ initial, onSave, onClose, title, originElement }) {
             )}
             onSelect={m => {
               if (m._isStack) {
+                // Each stack peptide carries its own iuPerMg via the shared getIuPerMg helper.
                 const firstP = m.peptides[0];
-                const firstAmt = toMg(parseFloat(firstP.amount) || 0, firstP.unit);
-                const firstDose = toMg(parseFloat(firstP.dose) || 0, firstP.doseUnit);
+                const firstIuPerMg = getIuPerMg(firstP.name);
+                const firstAmt = toMg(parseFloat(firstP.amount) || 0, firstP.unit, firstIuPerMg);
+                const firstDose = toMg(parseFloat(firstP.dose) || 0, firstP.doseUnit, firstIuPerMg);
                 const drawRatio = firstAmt > 0 && firstDose > 0 ? firstDose / firstAmt : 0;
                 setPeptides(m.peptides.map((p, i) => {
-                  const pAmt = toMg(parseFloat(p.amount) || 0, p.unit);
+                  const pIuPerMg = getIuPerMg(p.name);
+                  const pAmt = toMg(parseFloat(p.amount) || 0, p.unit, pIuPerMg);
                   const normalizedMg = i === 0 ? firstDose : (pAmt * drawRatio);
                   const normalizedDose = i === 0 ? p.dose : (p.doseUnit === 'mcg' ? parseFloat((normalizedMg * 1000).toFixed(3)).toString() : parseFloat(normalizedMg.toFixed(3)).toString());
-                  return { id: `sp_${Date.now()}_${i}`, name: p.name, dose: normalizedDose, unit: p.doseUnit, vialTotal: p.amount, vialUnit: p.unit };
+                  return { id: `sp_${Date.now()}_${i}`, name: p.name, dose: normalizedDose, unit: p.doseUnit, vialTotal: p.amount, vialUnit: p.unit, iuPerMg: pIuPerMg };
                 }));
                 setForm(f => ({ ...f, name: m.name, type: 'Stack' }));
               } else {
-                setPeptides([{ id: `sp_${Date.now()}`, name: m.name, dose: m.dose || '', unit: m.unit, vialTotal: '', vialUnit: m.unit === 'mcg' ? 'mg' : m.unit }]);
-                setForm(f => ({ ...f, name: m.name, type: m.type }));
+                setPeptides([{ id: `sp_${Date.now()}`, name: m.name, dose: m.dose || '', unit: m.unit, vialTotal: '', vialUnit: m.unit === 'mcg' ? 'mg' : m.unit, iuPerMg: m.iuPerMg ?? null }]);
+                setForm(f => ({ ...f, name: m.name, type: m.type, iuPerMg: m.iuPerMg ?? null }));
               }
             }}
           />
@@ -266,7 +270,7 @@ export function MedForm({ initial, onSave, onClose, title, originElement }) {
                   <input id={`pep-vial-${idx}`} name={`pep-vial-${idx}`} type="number" value={p.vialTotal} placeholder="e.g. 5" onChange={e => { const n = [...peptides]; n[idx].vialTotal = e.target.value; setPeptides(n); }} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
                   <div style={input.compositePillDivider} />
                   <select value={p.vialUnit} onChange={e => { const n = [...peptides]; n[idx].vialUnit = e.target.value; setPeptides(n); }} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: colors.white, padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
-                    <option style={{color:'black'}}>mg</option><option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>IU</option>
+                    {VIAL_UNIT_OPTIONS.map(u => <option key={u} style={{color:'black'}}>{u}</option>)}
                   </select>
                 </div>
               </View>
@@ -276,7 +280,7 @@ export function MedForm({ initial, onSave, onClose, title, originElement }) {
                   <input id={`pep-dose-${idx}`} name={`pep-dose-${idx}`} type="number" value={p.dose} placeholder="e.g. 250" onChange={e => handleStackDoseChange(idx, e.target.value)} style={{ flex: 1, background: 'transparent', border: 'none', color: colors.white, padding: '10px 8px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box' }} />
                   <div style={input.compositePillDividerAccent} />
                   <select value={p.unit} onChange={e => handleStackUnitChange(idx, e.target.value)} style={{ flex: '0 0 55px', background: 'transparent', border: 'none', color: colors.white, padding: '10px 4px', fontSize: 14, outline: 'none', minWidth: 0, boxSizing: 'border-box', appearance: 'none', cursor: 'pointer', textAlign: 'center' }}>
-                    <option style={{color:'black'}}>mcg</option><option style={{color:'black'}}>mg</option><option style={{color:'black'}}>IU</option>
+                    {DOSE_UNIT_OPTIONS.map(u => <option key={u} style={{color:'black'}}>{u}</option>)}
                   </select>
                 </div>
               </View>

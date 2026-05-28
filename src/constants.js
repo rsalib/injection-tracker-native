@@ -24,7 +24,7 @@ export const EMPTY_MED = {
   scheduleDays: [...DAYS], injectionTime: "08:00", site: "Abdomen",
   vialTotal: "", vialUnit: "mg", vialRemaining: "", bwAdded: "", notes: "",
   startDate: "", syringeMl: "1", syringeUnits: "100", isTitrating: false, titrationSchedule: [],
-  isArchived: false, nextVial: null
+  isArchived: false, nextVial: null, iuPerMg: null
 };
 
 export const POPULAR_MEDS = [
@@ -42,13 +42,13 @@ export const POPULAR_MEDS = [
   {name:"Retatrutide",type:"Peptide",unit:"mg",dose:2},{name:"Liraglutide",type:"Peptide",unit:"mg",dose:0.6},
   {name:"Testosterone Cypionate",type:"Hormone",unit:"mg",dose:100},{name:"Testosterone Enanthate",type:"Hormone",unit:"mg",dose:100},
   {name:"Testosterone Propionate",type:"Hormone",unit:"mg",dose:50},{name:"Testosterone Undecanoate",type:"Hormone",unit:"mg",dose:250},
-  {name:"HCG (Human Chorionic Gonadotropin)",type:"Hormone",unit:"IU",dose:500},{name:"HGH (Human Growth Hormone)",type:"Hormone",unit:"IU",dose:2},
+  {name:"HCG (Human Chorionic Gonadotropin)",type:"Hormone",unit:"IU",dose:500,iuPerMg:1500},{name:"HGH (Human Growth Hormone)",type:"Hormone",unit:"IU",dose:2,iuPerMg:3},
   {name:"Gonadorelin",type:"Hormone",unit:"mcg",dose:100},{name:"Estradiol Cypionate",type:"Hormone",unit:"mg",dose:2},
   {name:"Progesterone (Injectable)",type:"Hormone",unit:"mg",dose:50},{name:"Nandrolone Decanoate (Deca)",type:"Hormone",unit:"mg",dose:200},
   {name:"Trenbolone Acetate",type:"Hormone",unit:"mg",dose:50},{name:"Masteron (Drostanolone)",type:"Hormone",unit:"mg",dose:100},
   {name:"Primobolan (Methenolone Enanthate)",type:"Hormone",unit:"mg",dose:100},
   {name:"Vitamin B12 (Methylcobalamin)",type:"Other",unit:"mcg",dose:1000},{name:"Glutathione (Injectable)",type:"Other",unit:"mg",dose:600},
-  {name:"Methylene Blue (Injectable)",type:"Other",unit:"mg",dose:10},{name:"Oxytocin",type:"Peptide",unit:"IU",dose:10},
+  {name:"Methylene Blue (Injectable)",type:"Other",unit:"mg",dose:10},{name:"Oxytocin",type:"Peptide",unit:"IU",dose:10,iuPerMg:600},
   {name:"MOTS-c",type:"Peptide",unit:"mg",dose:5},{name:"SS-31 (Elamipretide)",type:"Peptide",unit:"mg",dose:4},
   {name:"Melanotan II",type:"Peptide",unit:"mg",dose:0.5},{name:"LL-37",type:"Peptide",unit:"mg",dose:1},
   {name:"Cagrilintide",type:"Peptide",unit:"mg",dose:0.3},{name:"SLU-PP-332",type:"Other",unit:"mg",dose:5},
@@ -71,6 +71,23 @@ export const ALL_STACKS = [
   {name:"Epithalon + Thymosin Alpha-1",category:"Longevity",desc:"Immune support + telomere health",peptides:[{name:"Epithalon",amount:"10",unit:"mg",dose:"5",doseUnit:"mg"},{name:"Thymosin Alpha-1",amount:"3",unit:"mg",dose:"1.5",doseUnit:"mg"}]},
   {name:"KLOW Blend",category:"Skin / Anti-aging",desc:"GHK-Cu, BPC, TB-500, KPV skin & healing blend",peptides:[{name:"GHK-Cu (Copper Peptide)",amount:"50",unit:"mg",dose:"1.25",doseUnit:"mg"},{name:"BPC-157",amount:"10",unit:"mg",dose:"250",doseUnit:"mcg"},{name:"TB-500 (Thymosin Beta-4)",amount:"10",unit:"mg",dose:"250",doseUnit:"mcg"},{name:"KPV",amount:"10",unit:"mg",dose:"250",doseUnit:"mcg"}]},
 ];
+
+// Unit option lists — single source of truth for every vial / dose / log dropdown.
+// Conventions: vial pickers lead with mg (most common); dose pickers lead with mcg
+// (the most common entry unit for peptides); log dose adds mL as a volume option.
+export const VIAL_UNIT_OPTIONS = ['mg', 'mcg', 'IU'];
+export const DOSE_UNIT_OPTIONS = ['mcg', 'mg', 'IU'];
+export const LOG_UNIT_OPTIONS = ['mcg', 'mg', 'IU', 'mL'];
+
+// Look up a published IU↔mg ratio for a named peptide. Returns null when the name
+// isn't a known POPULAR_MEDS entry or the entry has no iuPerMg. Single source for
+// the "given a name, what's the conversion?" question used by AddMedModal stack
+// load + Calculator stack blend load.
+export function getIuPerMg(name) {
+  if (!name) return null;
+  const src = POPULAR_MEDS.find(m => m.name === name);
+  return src?.iuPerMg ?? null;
+}
 
 export function getLocalDate() {
   const n = new Date();
