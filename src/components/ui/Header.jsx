@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
   },
   logoutText: {
-    color: colors.error,
+    color: colors.white,
     fontSize: 11,
     fontWeight: '800',
   },
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   syncBtnText: {
-    color: colors.blue,
+    color: colors.white,
     fontSize: 12,
     fontWeight: '800',
   },
