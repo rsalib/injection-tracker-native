@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { colors, input, type } from '../../theme.js';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
+import { InputField } from '../ui/InputField.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { getLocalDate } from '../../constants.js';
 import { button } from '../../theme.js';
