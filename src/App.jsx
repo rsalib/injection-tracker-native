@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
-import { colors, blur, shadow, navBar, layout, spacing } from './theme.js';
+import { colors, navBar, layout, spacing } from './theme.js';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { auth, ensureAppCheckReady, fbGet, fbSet, fbTransaction, fbSetLog, fbDeleteLog } from './services/firebase.js';
 import { onAuthStateChanged, getRedirectResult, signOut } from 'firebase/auth';
