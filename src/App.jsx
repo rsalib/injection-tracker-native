@@ -16,12 +16,12 @@ const LogTab = lazy(() => import('./components/tabs/LogTab.jsx').then(m => ({ de
 const ResourcesTab = lazy(() => import('./components/tabs/ResourcesTab.jsx').then(m => ({ default: m.ResourcesTab })));
 const AIAssistant = lazy(() => import('./components/tabs/AIAssistant.jsx').then(m => ({ default: m.AIAssistant })));
 import { AnimatedTabIcon } from './components/ui/AnimatedTabIcon.jsx';
-import { AddMedModal } from './components/modals/AddMedModal.jsx';
-import { EditMedModal } from './components/modals/EditMedModal.jsx';
-import { TitrationModal } from './components/modals/TitrationModal.jsx';
-import { QueueVialModal } from './components/modals/QueueVialModal.jsx';
-import { LogFormModal } from './components/modals/LogFormModal.jsx';
-import { AddScheduleModal } from './components/modals/AddScheduleModal.jsx';
+const AddMedModal = lazy(() => import('./components/modals/AddMedModal.jsx').then(m => ({ default: m.AddMedModal })));
+const EditMedModal = lazy(() => import('./components/modals/EditMedModal.jsx').then(m => ({ default: m.EditMedModal })));
+const TitrationModal = lazy(() => import('./components/modals/TitrationModal.jsx').then(m => ({ default: m.TitrationModal })));
+const QueueVialModal = lazy(() => import('./components/modals/QueueVialModal.jsx').then(m => ({ default: m.QueueVialModal })));
+const LogFormModal = lazy(() => import('./components/modals/LogFormModal.jsx').then(m => ({ default: m.LogFormModal })));
+const AddScheduleModal = lazy(() => import('./components/modals/AddScheduleModal.jsx').then(m => ({ default: m.AddScheduleModal })));
 import { Pressable } from './components/ui/Pressable.jsx';
 import { CircuitBreaker } from './components/ui/CircuitBreaker.jsx';
 import { Header } from './components/ui/Header.jsx';
@@ -958,6 +958,7 @@ export default function App() {
     </View>
 
     {/* ── Modals ─────────────────────────────────────────────────────── */}
+    <Suspense fallback={null}>
     {showAddMed && (
       <AddMedModal
         onClose={() => setShowAddMed(false)}
@@ -1032,6 +1033,7 @@ export default function App() {
         }}
       />
     )}
+    </Suspense>
     </ErrorBoundary>
   );
 }

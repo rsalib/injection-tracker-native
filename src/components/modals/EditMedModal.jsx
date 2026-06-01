@@ -1,6 +1,6 @@
 import React from 'react';
 import { EMPTY_MED, DAYS } from '../../constants.js';
-import { MedForm } from './AddMedModal.jsx';
+import { MedForm } from './MedForm.jsx';
 
 export function EditMedModal({ med, onClose, onSave, originElement }) {
   return (
