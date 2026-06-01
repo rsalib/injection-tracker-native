@@ -8,10 +8,16 @@
 /* Material Symbols Rounded — variable-axis icon font (Tier 2 Step 2.3, v91).
    Loads opsz (20..48), wght (100..700), FILL (0..1), GRAD (-50..200) — enough range
    for outline ↔ filled cross-fade plus weight/grade fine-tuning at any size.
-   Consumed by `TabIcons.jsx` (6 tab icons) and ready for use anywhere the codebase
-   needs a Material icon. Ligature-based: the span's text content (e.g., "home")
-   becomes the rendered glyph. */
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+   Consumed by `TabIcons.jsx` (6 tab icons) + `FAB.jsx` (1 icon). Ligature-based:
+   the span's text content (e.g., "home") becomes the rendered glyph.
+
+   IMPORTANT: `&icon_names=` subsets the font to ONLY the icons listed (v119).
+   Cuts the font transfer from ~5.2 MB → ~20 KB. If you add a new Material icon
+   anywhere in the codebase, append its name to the comma-separated list below
+   or the icon will render as a blank box.
+   Current icons: home, vaccines, medication, calculate, menu_book, auto_awesome
+   (TabIcons.jsx); add (FAB.jsx). */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,auto_awesome,calculate,home,medication,menu_book,vaccines');
 
 .material-symbols-rounded {
   font-family: 'Material Symbols Rounded';
