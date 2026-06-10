@@ -7,13 +7,17 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
   const [open, setOpen] = useState(false);
   const [rect, setRect] = useState(null);
   const wrapperRef = useRef(null);
+  const blurTimerRef = useRef(null);
 
   useEffect(() => {
     const h = e => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) setOpen(false);
     };
     document.addEventListener('mousedown', h);
-    return () => document.removeEventListener('mousedown', h);
+    return () => {
+      document.removeEventListener('mousedown', h);
+      clearTimeout(blurTimerRef.current);
+    };
   }, []);
 
   const handleOpen = () => {
@@ -30,7 +34,7 @@ export function SearchDropdown({ value, onChange, onSelect, options, renderOptio
         value={value}
         onChangeText={text => { onChange(text); handleOpen(); }}
         onFocus={handleOpen}
-        onBlur={() => setTimeout(() => setOpen(false), 150)}
+        onBlur={() => { blurTimerRef.current = setTimeout(() => setOpen(false), 150); }}
         onSubmitEditing={() => onSubmit && onSubmit(value)}
       />
       {open && options.length > 0 && rect && createPortal(

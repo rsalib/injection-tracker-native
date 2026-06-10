@@ -15,15 +15,37 @@ export function PromptDialog({
   confirmText = 'Save',
 }) {
   const [value, setValue] = useState(String(initialValue || ''));
+  const [entered, setEntered] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => { inputRef.current?.focus(); }, []);
+
+  // Double-rAF guarantees the from-frame paints before the transition fires
+  // (single rAF can be batched into the mount paint — Modal.jsx v101 pattern).
+  useEffect(() => {
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => setEntered(true));
+    });
+    return () => {
+      cancelAnimationFrame(outer);
+      if (inner) cancelAnimationFrame(inner);
+    };
+  }, []);
 
   const handleSubmit = () => onConfirm(value);
 
   return (
     // Overlay: raw div for position:fixed (DOM-specific, like <select>/<svg>/<a>)
-    <div style={{ position: 'fixed', inset: 0, zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog, background: colors.overlayDark }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog, background: colors.overlayDark, opacity: entered ? 1 : 0, transition: 'opacity var(--motion-medium, 400ms) var(--motion-emphasized, cubic-bezier(0.2, 0.0, 0, 1.0))' }}>
+      {/* Animation host: raw div — CSS transitions don't apply via RN StyleSheet (Dev Rule 31) */}
+      <div style={{
+        width: '100%',
+        maxWidth: 360,
+        opacity: entered ? 1 : 0,
+        transform: entered ? 'scale(1) translateY(0)' : 'scale(0.9) translateY(10px)',
+        transition: 'opacity var(--motion-medium, 400ms) var(--motion-emphasizedDecelerate, cubic-bezier(0.05, 0.7, 0.1, 1.0)), transform var(--motion-medium, 400ms) var(--motion-emphasizedDecelerate, cubic-bezier(0.05, 0.7, 0.1, 1.0))',
+      }}>
       <View style={styles.card}>
         <Text style={styles.title}>{title}</Text>
         {message ? <Text style={styles.message}>{message}</Text> : null}
@@ -48,7 +70,7 @@ export function PromptDialog({
           </Pressable>
         </View>
       </View>
-      <style>{`@keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }`}</style>
+      </div>
     </div>
   );
 }
@@ -59,9 +81,7 @@ const styles = StyleSheet.create({
   card: {
     ...glass.modal,
     padding: 28,
-    maxWidth: 360,
     width: '100%',
-    animationKeyframes: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   },
   title: {
     color: colors.white,

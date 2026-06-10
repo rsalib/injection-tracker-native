@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
 import { colors, glass, button, blur } from '../../theme.js';
@@ -13,23 +13,46 @@ export function ConfirmDialog({
   confirmBg = colors.errorStrongBg,
   confirmColor = colors.error,
 }) {
+  const [entered, setEntered] = useState(false);
+
+  // Double-rAF guarantees the from-frame paints before the transition fires
+  // (single rAF can be batched into the mount paint — Modal.jsx v101 pattern).
+  useEffect(() => {
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => setEntered(true));
+    });
+    return () => {
+      cancelAnimationFrame(outer);
+      if (inner) cancelAnimationFrame(inner);
+    };
+  }, []);
+
   return (
     // Overlay: raw div for position:fixed (DOM-specific, like <select>/<svg>/<a>)
-    <div style={{ position: 'fixed', inset: 0, zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog, background: colors.overlayDark }}>
-      <View style={styles.card}>
-        <Text style={styles.icon}>{titleIcon}</Text>
-        <Text style={styles.title}>{titleText}</Text>
-        <Text style={styles.message}>{message}</Text>
-        <View style={styles.btnRow}>
-          <Pressable onPress={onCancel} style={styles.cancelBtn}>
-            <Text style={styles.cancelText}>CANCEL</Text>
-          </Pressable>
-          <Pressable onPress={onConfirm} style={[styles.confirmBtn, { backgroundColor: confirmBg }]}>
-            <Text style={[styles.confirmText, { color: confirmColor }]}>{confirmText.toUpperCase()}</Text>
-          </Pressable>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, backdropFilter: blur.dialog, WebkitBackdropFilter: blur.dialog, background: colors.overlayDark, opacity: entered ? 1 : 0, transition: 'opacity var(--motion-medium, 400ms) var(--motion-emphasized, cubic-bezier(0.2, 0.0, 0, 1.0))' }}>
+      {/* Animation host: raw div — CSS transitions don't apply via RN StyleSheet (Dev Rule 31) */}
+      <div style={{
+        width: '100%',
+        maxWidth: 340,
+        opacity: entered ? 1 : 0,
+        transform: entered ? 'scale(1) translateY(0)' : 'scale(0.9) translateY(10px)',
+        transition: 'opacity var(--motion-medium, 400ms) var(--motion-emphasizedDecelerate, cubic-bezier(0.05, 0.7, 0.1, 1.0)), transform var(--motion-medium, 400ms) var(--motion-emphasizedDecelerate, cubic-bezier(0.05, 0.7, 0.1, 1.0))',
+      }}>
+        <View style={styles.card}>
+          <Text style={styles.icon}>{titleIcon}</Text>
+          <Text style={styles.title}>{titleText}</Text>
+          <Text style={styles.message}>{message}</Text>
+          <View style={styles.btnRow}>
+            <Pressable onPress={onCancel} style={styles.cancelBtn}>
+              <Text style={styles.cancelText}>CANCEL</Text>
+            </Pressable>
+            <Pressable onPress={onConfirm} style={[styles.confirmBtn, { backgroundColor: confirmBg }]}>
+              <Text style={[styles.confirmText, { color: confirmColor }]}>{confirmText.toUpperCase()}</Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
-      <style>{`@keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }`}</style>
+      </div>
     </div>
   );
 }
@@ -40,10 +63,8 @@ const styles = StyleSheet.create({
   card: {
     ...glass.modal,
     padding: 32,
-    maxWidth: 340,
     width: '100%',
     alignItems: 'center',
-    animationKeyframes: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   },
   icon: {
     fontSize: 48,

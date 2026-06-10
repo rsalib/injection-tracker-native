@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from '../ui/Pressable.jsx';
 import { InputField } from '../ui/InputField.jsx';
 import { Modal } from '../ui/Modal.jsx';
-import { SITES, DAYS } from '../../constants.js';
+import { SITES, DAYS, LOG_UNIT_OPTIONS } from '../../constants.js';
 import { colors, button, input, type } from '../../theme.js';
 
 export function AddScheduleModal({ meds, onClose, onSave }) {
@@ -110,7 +110,7 @@ export function AddScheduleModal({ meds, onClose, onSave }) {
               value={unit}
               onChange={e => setUnit(e.target.value)}
             >
-              {['mcg', 'mg', 'IU', 'ml'].map(u => <option key={u}>{u}</option>)}
+              {LOG_UNIT_OPTIONS.map(u => <option key={u}>{u}</option>)}
             </select>
           </View>
         </View>

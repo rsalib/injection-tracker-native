@@ -318,7 +318,17 @@ export default function App() {
     setPendingCount(pendingKeys.length);
     for (let key of pendingKeys) {
       const path = key.replace('pending_', '');
-      const data = JSON.parse(localStorage.getItem(`cache_${path}`));
+      let data = null;
+      try {
+        const raw = localStorage.getItem(`cache_${path}`);
+        data = raw ? JSON.parse(raw) : null;
+      } catch (e) { console.warn(`Corrupt cache for ${path}, skipping sync:`, e); }
+      if (data == null) {
+        // Never push null to RTDB — set(null) deletes the node. An orphaned
+        // pending key has no payload to sync; drop it so it doesn't re-trigger.
+        localStorage.removeItem(key);
+        continue;
+      }
       try { await fbSet(path, data); } catch (e) { console.warn(`Sync failed for ${path}:`, e); }
     }
   };
