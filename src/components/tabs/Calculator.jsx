@@ -4,6 +4,7 @@ import { InputField } from '../ui/InputField.jsx';
 import { Pressable } from '../ui/Pressable.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
+import { ResponsiveColumns } from '../ui/Responsive.jsx';
 import { ALL_STACKS, POPULAR_MEDS, VIAL_UNIT_OPTIONS, DOSE_UNIT_OPTIONS, getIuPerMg } from '../../constants.js';
 import { colors, glass, button, input } from '../../theme.js';
 import { toMg, calculateProportionateStack } from '../../mathEngine.js';
@@ -82,6 +83,13 @@ export function Calculator() {
 
   return (
     <View style={styles.root}>
+
+      {/* gap 16 matches root's gap — mobile is pixel-identical; desktop puts
+          the input sections left and the live results right. The results child
+          is conditional, so with no valid math the inputs take the full row. */}
+      <ResponsiveColumns gap={16}>
+
+      <View style={styles.inputsCol}>
 
       {/* 1. Mode Toggle */}
       <View style={styles.modeToggle}>
@@ -394,6 +402,8 @@ export function Calculator() {
         </View>
       )}
 
+      </View>
+
       {/* 5. Results */}
       {calcUnits > 0 && (
         <View style={styles.results}>
@@ -422,6 +432,8 @@ export function Calculator() {
           <SyringeVisualizer units={calcUnits} maxUnits={sU} ml={calcMl} />
         </View>
       )}
+
+      </ResponsiveColumns>
     </View>
   );
 }
@@ -445,6 +457,11 @@ const selectStyle = {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
+    gap: 16,
+  },
+  // Left column inside the ResponsiveColumns split — keeps the input sections
+  // spaced at the same 16px the root gap gave them pre-split.
+  inputsCol: {
     gap: 16,
   },
 

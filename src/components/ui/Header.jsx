@@ -3,15 +3,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
 import { colors, type } from '../../theme.js';
 
-export function Header({
-  firstName,
-  syncStatus,
-  pendingCount,
-  onSync,
-  onExport,
-  onImport,
-  onLogout,
-}) {
+// Sync status dot + label — shared between the mobile Header card and the
+// desktop Sidebar (v123). Single source for the status-text and dot-color
+// mapping so the two chrome variants can never drift.
+export function SyncStatusRow({ syncStatus }) {
   const scText =
     syncStatus === 'synced' ? 'Synced' :
     syncStatus === 'saving' ? 'Saving...' :
@@ -25,6 +20,23 @@ export function Header({
     styles.dotIdle;
 
   return (
+    <View style={styles.syncRow}>
+      <View style={[styles.syncDot, syncDotStyle]} />
+      <Text style={styles.syncLabel}>{scText}</Text>
+    </View>
+  );
+}
+
+export function Header({
+  firstName,
+  syncStatus,
+  pendingCount,
+  onSync,
+  onExport,
+  onImport,
+  onLogout,
+}) {
+  return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100 }}>
       <View className="header-wrap" style={[styles.headerWrap, { paddingTop: 'max(16px, env(safe-area-inset-top))' }]} onStartShouldSetResponder={() => true}>
         <View style={styles.headerCard}>
@@ -33,10 +45,7 @@ export function Header({
           <View style={styles.headerTop}>
             <View>
               <Text style={styles.headerTitle}>{firstName} TRACKER</Text>
-              <View style={styles.syncRow}>
-                <View style={[styles.syncDot, syncDotStyle]} />
-                <Text style={styles.syncLabel}>{scText}</Text>
-              </View>
+              <SyncStatusRow syncStatus={syncStatus} />
             </View>
             <Pressable onPress={onLogout} style={[styles.logoutBtn, { alignItems: 'center' }]}>
               <Text style={styles.logoutText}>LOGOUT</Text>

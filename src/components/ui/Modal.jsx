@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Pressable } from './Pressable.jsx';
 import { colors, glass, shape, motion } from '../../theme.js';
+import { useMediaQuery } from '../../hooks/useMediaQuery.js';
 
 const DESKTOP_QUERY = '(min-width: 768px)';
 const DRAG_THRESHOLD_PCT = 0.30;
@@ -34,9 +35,9 @@ export function Modal({ title, onClose, children, originElement }) {
   const previouslyFocusedRef = React.useRef(null);
   const useFlip = !!originElement;
 
-  const [isDesktop, setIsDesktop] = React.useState(() =>
-    typeof window !== 'undefined' && window.matchMedia(DESKTOP_QUERY).matches
-  );
+  // Sheet split breakpoint (768px) — independent from the 1024px desktop shell
+  // breakpoint. Tracks live viewport changes (iPad rotation, window resize).
+  const isDesktop = useMediaQuery(DESKTOP_QUERY);
   const [entered, setEntered] = React.useState(false);
   const [closing, setClosing] = React.useState(false);
   const [dragOffset, setDragOffset] = React.useState(0);
@@ -47,14 +48,6 @@ export function Modal({ title, onClose, children, originElement }) {
   // scroll / resize during modal lifetime).
   const [closeToTransform, setCloseToTransform] = React.useState(null);
   const dragStateRef = React.useRef(null); // { axis: 'y'|'x', start, pointerId } | null
-
-  // Track viewport changes (e.g. iPad rotation, browser resize across 768px).
-  React.useEffect(() => {
-    const mq = window.matchMedia(DESKTOP_QUERY);
-    const onChange = (e) => setIsDesktop(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
 
   // FLIP measurement — sub-project 27.
   // Runs synchronously after the first commit, BEFORE paint, in the very

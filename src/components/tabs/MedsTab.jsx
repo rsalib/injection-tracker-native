@@ -9,6 +9,7 @@ import { ConfirmDialog } from '../ui/ConfirmDialog.jsx';
 import { PromptDialog } from '../ui/PromptDialog.jsx';
 import { Modal } from '../ui/Modal.jsx';
 import { SyringeVisualizer } from '../ui/SyringeVisualizer.jsx';
+import { ResponsiveGrid } from '../ui/Responsive.jsx';
 import { sortMeds, formatDisplayDate, getLocalTime, getActiveDose } from '../../constants.js';
 import { toMg, fromMg } from '../../mathEngine.js';
 import { InteractionEngine } from '../../services/gemini.js';
@@ -142,14 +143,16 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
         </View>
       )}
 
-      {/* Active Protocols List */}
-      <View style={styles.listContainer}>
-        {sorted.length === 0 ? (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyStateText}>No active protocols tracked.</Text>
-          </View>
-        ) : (
-          sorted.map(m => {
+      {/* Active Protocols List — gap 16 matches the old listContainer (and the
+          root container's gap), so mobile is pixel-identical; desktop lays the
+          med cards out as a 2-column grid with independent card heights. */}
+      {sorted.length === 0 ? (
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyStateText}>No active protocols tracked.</Text>
+        </View>
+      ) : (
+        <ResponsiveGrid gap={16}>
+          {sorted.map(m => {
             const isExp = !!expandedMeds[m.id];
             const rem = parseFloat(m.vialRemaining) || 0;
             const vt = parseFloat(m.vialTotal) || 0;
@@ -330,9 +333,9 @@ export function MedsTab({ meds, logs, interactions, highInteractions, interactio
                 )}
               </Pressable>
             );
-          })
-        )}
-      </View>
+          })}
+        </ResponsiveGrid>
+      )}
 
       {/* Archived Cycles */}
       {archivedMeds.length > 0 && (() => {
@@ -448,10 +451,6 @@ const styles = StyleSheet.create({
   },
   recheckBtnTextError: {
     color: colors.error,
-  },
-  listContainer: {
-    flexDirection: 'column',
-    gap: 16,
   },
   emptyState: {
     padding: 40,

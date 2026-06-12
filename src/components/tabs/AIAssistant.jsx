@@ -93,7 +93,10 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
   const SUGGESTIONS = ["Benefits of BPC-157?", "Reconstitution storage?", "Best time for GH peptides?", "Explain interactions"];
 
   return (
-    <View style={styles.container}>
+    // rsp-measure (index.css): no-op on mobile; caps the chat column at a
+    // readable 860px measure, centered, on desktop. chat-window below grows
+    // the conversation area to ~60vh on desktop via the same media query.
+    <View style={styles.container} className="rsp-measure">
 
       {messages.length > 1 && (
         <View style={styles.clearRow}>
@@ -104,7 +107,7 @@ export function AIAssistant({ meds, interactions, onRecheck }) {
       )}
 
       {/* Chat window */}
-      <View style={styles.chatWindow}>
+      <View style={styles.chatWindow} className="chat-window">
         {messages.map((m, i) => (
           <View key={i} style={[styles.msgRow, m.role === "user" && styles.msgRowUser]}>
             <View style={[

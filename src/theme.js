@@ -895,7 +895,9 @@ export const shape = {
 // =============================================================================
 
 export const layout = {
-  contentMaxWidth: 672,       // v2 border-box content width (matches paddingHorizontal: 16 → 640px content)
+  // v123: contentMaxWidth removed — content max width now lives in index.css as
+  // `.app-container { max-width: var(--content-max-width) }` so the desktop
+  // media query can widen it (672px mobile → 1140px desktop) without JS.
   // v100: tabBarMaxWidth restored — floating capsule caps width on wider viewports
   tabBarMaxWidth: 500,
   headerClearance: 160,       // ScrollView paddingTop to clear fixed header (legacy static — prefer headerClearanceSafe)
@@ -911,6 +913,19 @@ export const layout = {
   tabBarClearance: 'calc(var(--tab-bar-clearance-base, 100px) + env(safe-area-inset-bottom))',
   tabBarSafeBottom: 'max(12px, env(safe-area-inset-bottom))',
   noiseOpacity: 0.06,
+
+  // ── Desktop shell (v123) ────────────────────────────────────────────
+  // Breakpoint for the desktop sidebar shell. KEEP IN SYNC with the
+  // `@media (min-width: 1024px)` block in index.css — CSS custom properties
+  // cannot appear in media-query conditions, so the value is duplicated by
+  // necessity. JS consumes it via useIsDesktop() (hooks/useMediaQuery.js);
+  // index.css consumes the literal in its media query.
+  breakpointDesktop: 1024,
+  desktopMediaQuery: '(min-width: 1024px)',
+  // Sidebar component width. CSS twin is --sidebar-width in index.css
+  // (feeds --content-left-inset); this JS token sizes the fixed wrapper
+  // in Sidebar.jsx itself.
+  sidebarWidth: 240,
 };
 
 // =============================================================================
@@ -1008,6 +1023,50 @@ export const navBar = {
     letterSpacing: 0.4,
     color: colors.onSurface,
     textAlign: 'center',
+  },
+  iconActive: colors.onSecondaryContainer,
+  iconInactive: colors.onSurfaceVariant,
+};
+
+// =============================================================================
+// SIDEBAR — desktop navigation drawer styling (v123)
+// =============================================================================
+
+export const sidebar = {
+  // Desktop shell (v123): M3 Navigation Drawer rendered as a floating
+  // full-height card. Same surface recipe as Header.headerCard / navBar.bar
+  // (surfaceContainerHigh + 24px corners + rim-light borders + elevation2)
+  // so the desktop chrome reads as the same family as the mobile chrome.
+  bar: {
+    backgroundColor: colors.surfaceContainerHigh,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.borderSubtle,
+    borderTopColor: colors.borderHighTop,
+    borderLeftColor: colors.borderHighLeft,
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15)', // elevation2
+  },
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 9999,
+    cursor: 'pointer',
+  },
+  itemActive: {
+    // M3 drawer spec: active indicator is a full-width secondaryContainer pill.
+    backgroundColor: colors.secondaryContainer,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '700',
+    letterSpacing: 0.1,
+    color: colors.onSurfaceVariant,
+  },
+  labelActive: {
+    color: colors.onSecondaryContainer,
   },
   iconActive: colors.onSecondaryContainer,
   iconInactive: colors.onSurfaceVariant,

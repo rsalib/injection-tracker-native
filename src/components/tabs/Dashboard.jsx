@@ -5,6 +5,7 @@ import { Badge } from '../ui/Badge.jsx';
 import { SortBar } from '../ui/SortBar.jsx';
 import { ConfirmDialog } from '../ui/ConfirmDialog.jsx';
 import { SiteRotation } from '../../SiteRotation.jsx';
+import { ResponsiveColumns, ResponsiveGrid } from '../ui/Responsive.jsx';
 import { sortMeds, parseLocalDate, formatDisplayDate, getLocalDate } from '../../constants.js';
 import { toMg } from '../../mathEngine.js';
 import { InteractionEngine } from '../../services/gemini.js';
@@ -151,6 +152,9 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
       ) : (
         <View style={styles.protocolList}>
           <Text style={styles.protocolListTitle}>Active Protocols</Text>
+          {/* gap 12 matches protocolList's own gap — mobile is pixel-identical;
+              desktop lays the protocol rows out as a 2-column grid. */}
+          <ResponsiveGrid gap={12}>
           {sorted.map((m) => {
             const rem = parseFloat(m.vialRemaining) || 0;
             const vt = parseFloat(m.vialTotal) || 0;
@@ -226,8 +230,13 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
               </View>
             );
           })}
+          </ResponsiveGrid>
         </View>
       )}
+
+      {/* gap 16 matches root's gap — mobile is pixel-identical; desktop puts
+          Site Rotation and Recent Injections side by side. */}
+      <ResponsiveColumns gap={16}>
 
       <SiteRotation logs={logs} />
 
@@ -250,6 +259,8 @@ export function Dashboard({ meds, logs, schedule, todayLogs, highInteractions, a
           </View>
         )}
       </View>
+
+      </ResponsiveColumns>
 
     </View>
   );

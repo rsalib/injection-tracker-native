@@ -25,7 +25,10 @@ export function FAB({ icon = 'add', label, onPress, disabled = false }) {
       style={{
         position: 'fixed',
         right: 'max(20px, env(safe-area-inset-right))',
-        bottom: 'max(96px, calc(env(safe-area-inset-bottom) + 80px))',
+        // --fab-bottom is set only by index.css's desktop media query (32px —
+        // no tab bar to clear at ≥1024px); the fallback is the mobile offset
+        // that clears the floating tab capsule. v123.
+        bottom: 'var(--fab-bottom, max(96px, calc(env(safe-area-inset-bottom) + 80px)))',
         zIndex: 50,
       }}
     >

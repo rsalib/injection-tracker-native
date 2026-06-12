@@ -56,11 +56,85 @@ html, body {
 :root {
   --header-clearance-base: 160px;
   --tab-bar-clearance-base: 100px;
+  /* Desktop shell bases (v123) — overridden by the min-width media query below.
+     Deliberately NOT written by themeBridge.js: the bridge sets inline styles on
+     documentElement, which would beat any stylesheet media-query override. */
+  --content-max-width: 672px;
+  --content-left-inset: 0px;
+  --sidebar-width: 240px;
 }
 @media (display-mode: standalone) {
   :root {
     --header-clearance-base: 150px;
     --tab-bar-clearance-base: 80px;
+  }
+}
+
+/* Content width cap — consumed by the appContainer View in App.jsx via
+   className. Its maxWidth was removed from the RN StyleSheet entry so this
+   class is the single owner (no inline-vs-class specificity fight). */
+.app-container {
+  max-width: var(--content-max-width, 672px);
+}
+
+/* Responsive layout primitives — consumed by Responsive.jsx (ResponsiveColumns /
+   ResponsiveGrid). The mobile base replicates a plain "flex column + gap" stack
+   so wrapping adjacent siblings is pixel-identical below the desktop breakpoint;
+   the min-width media query below switches columns side-by-side / grid 2-col. */
+.rsp-cols,
+.rsp-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rsp-gap, 16px);
+}
+.rsp-cols > *,
+.rsp-grid > * {
+  min-width: 0;
+}
+
+/* ── Desktop shell (v123) ─────────────────────────────────────────────
+   ≥1024px: left sidebar navigation replaces the header card + bottom capsule
+   (App.jsx swaps the chrome via useIsDesktop()). Everything dimensional lives
+   here — zero JS. KEEP IN SYNC with layout.breakpointDesktop /
+   layout.desktopMediaQuery in theme.js. This block is declared AFTER the
+   display-mode block above so a desktop standalone PWA window ≥1024px
+   resolves to the desktop values (width wins — consistent with the
+   width-only JS hook). */
+@media (min-width: 1024px) {
+  :root {
+    --header-clearance-base: 32px;   /* no fixed header card on desktop */
+    --tab-bar-clearance-base: 40px;  /* no bottom capsule on desktop */
+    --content-max-width: 1140px;
+    --content-left-inset: calc(var(--sidebar-width) + 40px);
+    --fab-bottom: 32px;              /* no tab bar to clear (FAB.jsx fallback covers mobile) */
+  }
+  .rsp-cols {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  /* !important: children are RN-for-Web Views whose base reset applies
+     flex-shrink: 0 / flex-basis: auto with precedence over plain class CSS
+     (same battle .screen-wrap fights — established pattern). */
+  .rsp-cols > * {
+    flex: 1 1 0% !important;
+  }
+  .rsp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+  /* !important: overrides the RN-for-Web View margin: 0 reset for centering. */
+  .rsp-measure {
+    max-width: 860px !important;
+    width: 100%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  /* Overrides AIAssistant's StyleSheet minHeight/maxHeight inline values —
+     same !important-vs-inline pattern as .screen-wrap above. */
+  .chat-window {
+    min-height: 60vh !important;
+    max-height: 68vh !important;
   }
 }
 

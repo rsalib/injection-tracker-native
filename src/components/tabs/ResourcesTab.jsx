@@ -4,6 +4,7 @@ import { Pressable } from '../ui/Pressable.jsx';
 import { Badge } from '../ui/Badge.jsx';
 import { Chip } from '../ui/Chip.jsx';
 import { SearchDropdown } from '../ui/SearchDropdown.jsx';
+import { ResponsiveGrid } from '../ui/Responsive.jsx';
 import { CAT_META, POPULAR_MEDS } from '../../constants.js';
 import { fetchAllResources } from '../../services/gemini.js';
 import { colors, glass, type } from '../../theme.js';
@@ -145,7 +146,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                     borderColor={mStyle.border}
                   />
                 </View>
-                <View style={styles.catItems}>
+                <ResponsiveGrid gap={12}>
                   {items.map((r, i) => {
                     const saved = isInLibrary(searchedMed, r.url);
                     return (
@@ -168,7 +169,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                       </View>
                     );
                   })}
-                </View>
+                </ResponsiveGrid>
               </View>
             );
           })}
@@ -246,7 +247,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                             borderColor={mStyle.border}
                           />
                         </View>
-                        <View style={styles.catItems}>
+                        <ResponsiveGrid gap={12}>
                           {catItems.map((r, i) => (
                             <View key={i} style={styles.libResultItem}>
                               <a href={r.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: colors.white, textDecoration: "none", fontWeight: 700, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -257,7 +258,7 @@ export function ResourcesTab({ library, meds, onSaveToLibrary, onRemoveFromLibra
                               </Pressable>
                             </View>
                           ))}
-                        </View>
+                        </ResponsiveGrid>
                       </View>
                     );
                   })}
@@ -400,10 +401,6 @@ const styles = StyleSheet.create({
   },
   catBadgeWrap: {
     marginBottom: 12,
-  },
-  catItems: {
-    flexDirection: 'column',
-    gap: 12,
   },
   resultItem: {
     backgroundColor: colors.surfaceMid,

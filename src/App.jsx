@@ -25,7 +25,9 @@ const AddScheduleModal = lazy(() => import('./components/modals/AddScheduleModal
 import { Pressable } from './components/ui/Pressable.jsx';
 import { CircuitBreaker } from './components/ui/CircuitBreaker.jsx';
 import { Header } from './components/ui/Header.jsx';
+import { Sidebar } from './components/ui/Sidebar.jsx';
 import { TabContainer } from './components/ui/TabContainer.jsx';
+import { useIsDesktop } from './hooks/useMediaQuery.js';
 
 // Simple fbSet wrapper passed to LogTab (matches v2 signature)
 const save = async (path, data) => { await fbSet(path, data); };
@@ -37,6 +39,11 @@ export default function App() {
 
   // ── Navigation ─────────────────────────────────────────────────────
   const [activeTab, setActiveTab] = useState('Dashboard');
+
+  // Desktop shell swap (v123): ≥1024px renders the Sidebar instead of the
+  // Header card + bottom capsule. Structural swap only — all dimensional
+  // changes (clearances, content width/inset) ride index.css media queries.
+  const isDesktop = useIsDesktop();
 
   // ── Data ───────────────────────────────────────────────────────────
   const [meds, setMeds] = useState([]);
@@ -819,6 +826,22 @@ export default function App() {
 
   const firstName = user.displayName ? user.displayName.split(' ')[0].toUpperCase() : 'MY';
 
+  // Shared chrome props — consumed by the mobile Header card and the desktop
+  // Sidebar identically, so the two shells can never drift on behavior.
+  const chromeProps = {
+    firstName,
+    syncStatus,
+    pendingCount,
+    onSync: async () => {
+      setSyncStatus('saving');
+      await syncAllPending();
+      await load();
+    },
+    onExport: exportBackup,
+    onImport: importBackup,
+    onLogout: () => signOut(auth),
+  };
+
   return (
     <ErrorBoundary>
     <ToastHost />
@@ -838,25 +861,22 @@ export default function App() {
         <rect width="100%" height="100%" filter="url(#noise)" />
       </svg>
 
-      {/* ── Header ─────────────────────────────────────────────────── */}
-      <Header
-        firstName={firstName}
-        syncStatus={syncStatus}
-        pendingCount={pendingCount}
-        onSync={async () => {
-          setSyncStatus('saving');
-          await syncAllPending();
-          await load();
-        }}
-        onExport={exportBackup}
-        onImport={importBackup}
-        onLogout={() => signOut(auth)}
-      />
+      {/* ── Chrome: desktop Sidebar OR mobile Header card (v123) ───── */}
+      {isDesktop ? (
+        <Sidebar
+          {...chromeProps}
+          displayedActiveTab={displayedActiveTab}
+          onSelectTab={setActiveTab}
+          medsPulse={actionableInteractions.length > 0 && interactionSig !== ackInteractionSig}
+        />
+      ) : (
+        <Header {...chromeProps} />
+      )}
 
       {/* ── Scrollable content ─────────────────────────────────────── */}
       <ScrollView ref={scrollRef} style={styles.scrollArea} contentContainerStyle={styles.content} accessibilityRole="main" onScroll={handleScroll} scrollEventThrottle={16}>
         <Suspense fallback={<View style={{ minHeight: '60vh', backgroundColor: colors.bgFallback }} />}>
-        <View style={styles.appContainer}>
+        <View style={styles.appContainer} className="app-container">
         <TabContainer activeTab={activeTab} onTabChange={handleTabSwap}>
           {activeTab === 'Dashboard' && (
             <Dashboard
@@ -933,7 +953,8 @@ export default function App() {
         </Suspense>
       </ScrollView>
 
-      {/* ── M3 NavigationBar (compact floating capsule) ───────────── */}
+      {/* ── M3 NavigationBar (compact floating capsule) — mobile only ── */}
+      {!isDesktop && (
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100 }}>
       <View style={[styles.navBarOuter, { paddingBottom: layout.tabBarSafeBottom }]} onStartShouldSetResponder={() => true}>
         <View style={styles.navBar}>
@@ -964,6 +985,7 @@ export default function App() {
         </View>
       </View>
       </div>
+      )}
 
     </View>
 
@@ -1066,10 +1088,17 @@ const styles = StyleSheet.create({
   content: {
     paddingTop: layout.headerClearanceSafe,
     paddingBottom: layout.tabBarClearance,
+    // Desktop shell (v123): shifts the scrollable content right of the fixed
+    // sidebar. 0px on mobile; index.css's min-width media query sets it to
+    // calc(var(--sidebar-width) + 40px) at ≥1024px. Same CSS-var pass-through
+    // precedent as the calc() clearances above.
+    paddingLeft: 'var(--content-left-inset, 0px)',
   },
   appContainer: {
     width: '100%',
-    maxWidth: layout.contentMaxWidth,
+    // maxWidth intentionally absent (v123) — owned by the `.app-container`
+    // class in index.css (672px mobile / 1140px desktop via media query).
+    // An inline maxWidth here would beat the class and break the swap.
     paddingHorizontal: spacing.screenPad,
     alignSelf: 'center',
     flex: 1,

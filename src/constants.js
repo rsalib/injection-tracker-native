@@ -10,13 +10,15 @@ export const CAT_META = {
   Guide: { icon: "📖", color: "green", bg: colors.successDarkest, border: colors.successDarkBg, text: colors.textGreen }
 };
 
+// `label` = compact bottom-capsule label (mobile); `labelLong` = full
+// destination name for the desktop sidebar (v123).
 export const NAV_TABS = [
-  { id: "Dashboard",    label: "Home",      iconKey: "Dashboard"    },
-  { id: "Log Injection",label: "Log",       iconKey: "LogInjection" },
-  { id: "Medications",  label: "Meds",      iconKey: "Medications"  },
-  { id: "Calculator",   label: "Calc",      iconKey: "Calculator"   },
-  { id: "Resources",    label: "Resources", iconKey: "Resources"    },
-  { id: "AI Assistant", label: "AI",        iconKey: "AIAssistant"  },
+  { id: "Dashboard",    label: "Home",      labelLong: "Home",          iconKey: "Dashboard"    },
+  { id: "Log Injection",label: "Log",       labelLong: "Log Injection", iconKey: "LogInjection" },
+  { id: "Medications",  label: "Meds",      labelLong: "Medications",   iconKey: "Medications"  },
+  { id: "Calculator",   label: "Calc",      labelLong: "Calculator",    iconKey: "Calculator"   },
+  { id: "Resources",    label: "Resources", labelLong: "Resources",     iconKey: "Resources"    },
+  { id: "AI Assistant", label: "AI",        labelLong: "AI Assistant",  iconKey: "AIAssistant"  },
 ];
 
 export const EMPTY_MED = {
